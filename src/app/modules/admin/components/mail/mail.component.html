@@ -1,1 +1,102 @@
-<p>mail works!</p>
+<div class="container-lg page-content top">
+    <div class="row">
+        <div class="col-12">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Mail</button>
+                </div>
+              </nav>
+              <div class="tab-content mb-5" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <label class="text3 txt-blue2 mt-3">Correos programados</label>
+                    <hr class="w-100">
+                    <!--Tabla--->
+                    <table id="mails" class="table data striped display responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Asunto</th>
+                                <th>Fechas</th>
+                                <th>Correos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">asdasdas</th>
+                                <td>09/07/2021, 09/23/2021</td>
+                                <td>felix.velasco@creativesoft.mx</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">asdasdas</th>
+                                <td>09/07/2021, 09/23/2021</td>
+                                <td>felix.velasco@creativesoft.mx</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">asdasdas</th>
+                                <td>09/07/2021, 09/23/2021</td>
+                                <td>felix.velasco@creativesoft.mx</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">asdasdas</th>
+                                <td>09/07/2021, 09/23/2021</td>
+                                <td>felix.velasco@creativesoft.mx</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!--Conferencias--->
+                    <label class="text3 txt-blue2 mt-3">Enviar Correo</label>
+                    <hr class="w-100">
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
+                            <textarea class="input3" id="floatingTextarea2" style="height: 100px"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
+                            <input class="input3" type="file" id="formFile">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona las fechas</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2">
+                                <label class="text13 txt-blue">Buscar por:</label>
+                            </div>
+                            <div class="col-md-6 col-lg-5 col-xl-4">
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-2">
+                                <button class="botondrop bg-grey2 p-1">Mostrar todos</button> 
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
+                          <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

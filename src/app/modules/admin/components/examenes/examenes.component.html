@@ -1,1 +1,377 @@
-<p>examenes works!</p>
+<div class="container-lg page-content top">
+    <div class="row">
+        <div class="col-12">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Asignaciones</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Diagnóstico</button>
+                  <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Examenes</button>
+                </div>
+              </nav>
+              <div class="tab-content mb-5" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <label class="text3 txt-blue2 mt-3">Asignar curso</label>
+                    <hr class="w-100">
+                    <label class="text14 txt-blue mb-3">Buscar y seleccionar usuarios</label>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2">
+                                <label class="text13 txt-blue">Buscar por:</label>
+                            </div>
+                            <div class="col-md-6 col-lg-5 col-xl-4">
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <button class="botondrop bg-grey2 p-1">Mostrar todos</button> 
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-2 offset-xl-2 offset-lg-0 offset-md-9 mt-lg-0">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                            </div>
+                        </div>
+                        <div class="mt-3 mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <label class="text13 txt-blue mb-2">Curso</label>
+                        <div class="dropdown">
+                              <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Seleccionar certificación
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                              </ul>
+                        </div>
+                        <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>
+                        <label class="text7 txt-gris d-block">Alumno 2</label>
+                    </form>
+                    <label class="text3 txt-blue2 mt-3">Ver asignaciones</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Curso por usuario</label>
+                    <hr class="w-100">
+                    <!--Tabla--->
+                    <table id="asignacion" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Trabajo</th>
+                                <th>Área</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">13</th>
+                                <th scope="row">Empleado</th>
+                                <td>Web</td>
+                                <td>Sistemas</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">13</th>
+                                <th scope="row">Empleado</th>
+                                <td>Web</td>
+                                <td>Sistemas</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">13</th>
+                                <th scope="row">Empleado</th>
+                                <td>Web</td>
+                                <td>Sistemas</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">13</th>
+                                <th scope="row">Empleado</th>
+                                <td>Web</td>
+                                <td>Sistemas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <label class="text3 txt-blue2 mt-3">Quitar/cambiar asignaciones</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Selecciona un usuario</label>
+                    <hr class="w-100">
+                    <!--Tabla--->
+                    <table id="quitarasignacion" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Alejandro Sandoval</th>
+                                <td>dirección@madereriaelcerezo.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alejandro Sandoval</th>
+                                <td>dirección@madereriaelcerezo.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alejandro Sandoval</th>
+                                <td>dirección@madereriaelcerezo.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alejandro Sandoval</th>
+                                <td>dirección@madereriaelcerezo.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <label class="text3 txt-blue2 mt-3">Cursos de Usuario</label>
+                    <hr class="w-100">
+                    <!--Tabla--->
+                    <table id="cursos" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Fecha asignada</th>
+                                <th>Puntuación</th>
+                                <th>Medallas</th>
+                                <th>Fechas terminado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <th scope="row">Corporativo</th>
+                                <td>2022-02-08</td>
+                                <td>0.00</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <th scope="row">Corporativo</th>
+                                <td>2022-02-08</td>
+                                <td>0.00</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <th scope="row">Corporativo</th>
+                                <td>2022-02-08</td>
+                                <td>0.00</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <th scope="row">Corporativo</th>
+                                <td>2022-02-08</td>
+                                <td>0.00</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <label class="text3 txt-blue2 mt-3">Cursos activos</label>
+                    <hr class="w-100">
+                    <div class="row">
+                        <div class="col-12 col-md-8 order-3 order-md-1">
+                            <label class="text6 txt-blue mt-3 d-block">Alsain Soluciones Audiovisuales</label>
+                            <label class="text9 txt-gris d-block mt-3">Elige una nueva fecha de expiro (opcional)</label>
+                            <input class="input4 mt-3" type="date" value="2017-06-01" />
+                        </div>
+                        <div class="col-4 col-md-2 offset-4 offset-md-0 order-1 order-md-2">
+                            <button class="botondrop bg-grey2 p-1 w-100">Modificar</button> 
+                        </div>
+                        <div class="col-4 col-md-2 order-2 order-md-3">
+                            <button class="botondrop bg-grey2 p-1 w-100">Quitar</button> 
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <label class="text3 txt-blue2 mt-3">Diagnóstico</label>
+                    <hr class="w-100">
+                    <!--Tabla--->
+                    <table id="diagnostico" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Fecha</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados
+                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados
+                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados
+                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados
+                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+
+                    <!------Agregar materia--->
+                    <label class="text3 txt-blue2 mt-3">Editor</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Agrega preguntas cerradas o abiertas con opciones.</label>
+                    <hr class="w-100">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-8 col-md-4 col-lg-3">
+                                <button class="boton bg-blue w-100 p-1 p-md-2">
+                                    <img src="../img/new/agregar.svg" alt="">
+                                    Agregar pregunta
+                                </button>
+                            </div>
+                            <div class="col-4 col-md-4 col-lg-2 offset-lg-7 offset-md-4">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-12 col-md-10">
+                                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
+                                <button class="boton2 float-end"><img src="../img/new/close.svg" alt=""></button>
+                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="form-check form-check-inline ps-0">
+                                <label class="text13 txt-blue float-start" for="inlineRadio1">Opción</label>
+                                <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            </div>
+                            <button class="boton2"><img src="../img/new/imgpreg.svg" alt=""></button>
+                            <button class="boton2"><img src="../img/new/agregapreg.svg" alt=""></button>
+                            <button class="boton2"><img src="../img/new/quitarpreg.svg" alt=""></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <label class="text3 txt-blue2 mt-3">Examenes</label>
+                    <hr class="w-100">
+                    <table id="examenes" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Fecha</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados
+                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados
+                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados
+                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados
+                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+                    <label class="text3 txt-blue2 mt-3">Selecciona el módulo</label>
+                    <hr class="w-100">
+                    <div class="table-responsive">
+                        <table class="table striped w-100">
+                            <thead>
+                              <tr>
+                                <th scope="col">Título</th>
+                                <th>Editar examen</th>
+                                <th>Ver cursantes</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Corporativo</td>
+                                <td><button class="boton2 text-decoration-none">Editar</button></td>
+                                <td><button class="boton2 text-decoration-none">Ver</button></td>
+                              </tr>
+                              <tr>
+                                <td>Promocional</td>
+                                <td><button class="boton2 text-decoration-none">Editar</button></td>
+                                <td><button class="boton2 text-decoration-none">Ver</button></td>
+                              </tr>
+                              <tr>
+                                <td>Documental</td>
+                                <td><button class="boton2 text-decoration-none">Editar</button></td>
+                                <td><button class="boton2 text-decoration-none">Ver</button></td>
+                              </tr>
+                              <tr>
+                                <td>Animación</td>
+                                <td><button class="boton2 text-decoration-none">Editar</button></td>
+                                <td><button class="boton2 text-decoration-none">Ver</button></td>
+                              </tr>
+                              <tr>
+                                <td>Tutoriales</td>
+                                <td><button class="boton2 text-decoration-none">Editar</button></td>
+                                <td><button class="boton2 text-decoration-none">Ver</button></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,190 @@
-<p>estadisticas works!</p>
+<div class="container-lg page-content top">
+    <div class="row">
+        <div class="col-12">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Estadisticas</button>
+                </div>
+              </nav>
+              <div class="tab-content mb-5" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <label class="text3 txt-blue2 mt-3">Globales</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Usuarios/Análisis</label>
+                    <hr class="w-100">
+                    <!--Tabla--->
+                    <table id="globales" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Genero</th>
+                                <th>Edad</th>
+                                <th>Área</th>
+                                <th>Puesto</th>
+                                <th>País</th>
+                                <th>Estado</th>
+                                <th>Ciudad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <th scope="row">Empleado</th>
+                                <td>Hombre</td>
+                                <td>12/31/1969</td>
+                                <td>Sistemas</td>
+                                <td>Web</td>
+                                <td>México</td>
+                                <td>Jalisco</td>
+                                <td>Guadalajara</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <th scope="row">Empleado</th>
+                                <td>Hombre</td>
+                                <td>12/31/1969</td>
+                                <td>Sistemas</td>
+                                <td>Web</td>
+                                <td>México</td>
+                                <td>Jalisco</td>
+                                <td>Guadalajara</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <th scope="row">Empleado</th>
+                                <td>Hombre</td>
+                                <td>12/31/1969</td>
+                                <td>Sistemas</td>
+                                <td>Web</td>
+                                <td>México</td>
+                                <td>Jalisco</td>
+                                <td>Guadalajara</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <th scope="row">Empleado</th>
+                                <td>Hombre</td>
+                                <td>12/31/1969</td>
+                                <td>Sistemas</td>
+                                <td>Web</td>
+                                <td>México</td>
+                                <td>Jalisco</td>
+                                <td>Guadalajara</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--Grafica--->
+                    <div class="row mt-5">
+                        <div class="col-12 col-lg-6">
+                            <div class="chart-container">
+                                <canvas id="grafpromedio"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="chart-container">
+                                <canvas id="graftiempo"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="text3 txt-blue2 mt-3">Estadísticas de cursos</label>
+                    <hr class="w-100">
+                    <!--Tabla--->
+                    <table id="estdcurso" class="table data est striped dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Curso Nombre</th>
+                                <th>Promedio examen</th>
+                                <th>Promedio Intentos</th>
+                                <th>Promedio tiempo en examenes</th>
+                                <th>Promedio tiempo en temas</th>
+                                <th>Promedio tiempo en módulos</th>
+                                <th>Promedio diagnóstico inicial</th>
+                                <th>Promedio diagnóstico final</th>
+                                <th>Porcentaje incremento de aprendizaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"></td>
+                                <th scope="row">1</th>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>27.27</td>
+                                <td>1</td>
+                                <td>0.06</td>
+                                <td>6.68</td>
+                                <td>83.52</td>
+                                <td>%</td>
+                                <td>%</td>
+                                <td>%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row mt-5 mb-5">
+                        <div class="col-12">
+                            <div class="chart-container">
+                                <canvas id="grafprogreso"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5 mb-5">
+                        <div class="col-12 col-lg-6 mb-5">
+                            <div class="chart-container">
+                                <canvas id="grafintentos"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="chart-container">
+                                <canvas id="grafporcentaje"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                            <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Descargar excel</button>
+                        </div>
+                    </div>
+                    <label class="text3 txt-blue2 mt-3">Diagnostico Cursos</label>
+                    <hr class="w-100">
+                    <table id="diagnostico" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Curso Nombre</th>
+                                <th>Promedio diagnóstico inicial</th>
+                                <th>Promedio diagnóstico final</th>
+                                <th>Incremento de aprendizaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>0%</td>
+                                <td>0%</td>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>0%</td>
+                                <td>0%</td>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>0%</td>
+                                <td>0%</td>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>0%</td>
+                                <td>0%</td>
+                                <td>0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,371 @@
-<p>cursos works!</p>
+<div class="container-lg page-content top">
+    <div class="row">
+        <div class="col-12">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Cursos</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Materias</button>
+                  <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Grupos</button>
+                </div>
+              </nav>
+              <div class="tab-content mb-5" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <label class="text3 txt-blue2 mt-3">Ver Cursos</label>
+                    <hr class="w-100">
+                    <div class="table-responsive">
+                        <table class="table w-100" >
+                            <thead>
+                              <tr>
+                                <th scope="col">Título</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody id="cursos">
+                              <tr>
+                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <td>En esta certificación encontraras materiales audiovisuales realizados por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
+                                <td>2018-11-26</td>
+                                <td>Activa</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">METRIHEALTH</th>
+                                <td>Plataforma para aplicación de la NOM035 Y NOM036</td>
+                                <td>2019-11-22</td>
+                                <td>Activa</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">SMART Learning Suite</th>
+                                <td>En este curso conocerás las herramientas poderosas de la suite de SMART que ofrece para la educación</td>
+                                <td>2020-04-16</td>
+                                <td>Activa</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">TestCurso</th>
+                                <td>Este es un curso de prueba</td>
+                                <td>2020-04-16</td>
+                                <td>Activa</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Curso Isaac</th>
+                                <td>Curso para aprender a ser ITO</td>
+                                <td>2020-04-16</td>
+                                <td>Activa</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                            <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
+                        </div>
+                    </div>
+                    
+                    <!------Crear curso--->
+                    <label class="text3 txt-blue2 mt-3">Crear Curso</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Datos generales</label>
+                    <!---->
+                    <!------Editar curso---
+                    <label class="text3 txt-blue2 mt-3">Editar curso</label>
+                    <---->
+                    <hr class="w-100">
+                    <!---->
+                    <form>
+                        <!------Editar curso---
+                        <label class="text14 txt-blue mb-3">Datos generales</label>
+                        <---->
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
+                          <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
+                            <textarea class="input3" id="floatingTextarea2" style="height: 100px"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-2">Fondo (opcional)</label>
+                            <input class="input3" type="file" id="formFile">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default (opcional)</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-check form-check-inline ps-0">
+                            <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
+                            <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        </div>
+                        <div class="form-check form-check-inline ps-0">
+                            <label class="text13 txt-blue float-start" for="inlineRadio2">Sin examen</label>
+                            <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                            </div>
+                        </div>
+                        <!------Editar curso---
+                        <div class="row">
+                            <div class="col-lg-2 offset-lg-4 mt-3">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-2">Guardar orden</button>
+                            </div>
+                            <div class="col-lg-2 mt-3">
+                                <button class="boton bg-grey2 mx-auto d-block w-100 p-2">Desactivar certificación</button>
+                            </div>
+                        </div>
+                        <!---------->
+                    </form>
+                    <!------Módulos--->
+                    <label class="text3 txt-blue2 mt-3">Módulos</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label>
+                    <hr class="w-100">
+                    <div class="table-responsive">
+                        <table class="table striped w-100">
+                            <thead>
+                              <tr>
+                                <th scope="col">Título</th>
+                                <th scope="col">Editar</th>
+                              </tr>
+                            </thead>
+                            <tbody id="modulos">
+                              <tr>
+                                <th scope="row">Corporativo</th>
+                                <td><button class="boton2">Editar</button></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Promocional</th>
+                                <td><button class="boton2">Editar</button></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Documental</th>
+                                <td><button class="boton2">Editar</button></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Animación</th>
+                                <td><button class="boton2">Editar</button></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Tutoriales</th>
+                                <td><button class="boton2">Editar</button></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                            <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
+                        </div>
+                    </div>
+                    <!---->
+                    <!------Diploma--->
+                    <label class="text3 txt-blue2 mt-3">Diploma</label>
+                    <label class="text6 txt-gris mt-3 ms-2">(opcional) <span class="text11">Otorga un diploma a tus usuarios al terminar este curso.</span></label>
+                    <hr class="w-100">
+                    <form>
+                        <div class="form-check form-check-inline ps-0 mb-2">
+                            <label class="text13 txt-blue float-start" for="inlineRadio1">Otorgar diploma</label>
+                            <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen, máximo 1200x100)</label>
+                            <input class="input3" type="file" id="formFile">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de quien firma</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cargo de quien firma</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
+                            <input class="input3" type="file" id="formFile">
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <label class="text3 txt-blue2 mt-3">Materias</label>
+                    <hr class="w-100">
+                    <div class="table-responsive">
+                        <table class="table w-100">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nombre de materia</th>
+                                <th scope="col">Nombre Instructor</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">Atención al cliente</th>
+                                <td>Instructor_1</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Finanzas</th>
+                                <td>Mtro Demo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Recursos Humanos</th>
+                                <td>Profesor 2</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Valores</th>
+                                <td>Profesor 2</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Ventas</th>
+                                <td>Profesor 2</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                            <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Agregar materia</button>
+                        </div>
+                    </div>
+
+                    <!------Agregar materia--->
+                    <label class="text3 txt-blue2 mt-3">Agregar materia</label>
+                    <hr class="w-100">
+                    <form>
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de la materia</label>
+                          <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="dropdown">
+                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Profesor
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <label class="text3 txt-blue2 mt-3">Modificar grupo</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Selecciona un usuario</label>
+                    <hr class="w-100">
+                    <div class="table-responsive">
+                        <table class="table w-100">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Grupo</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">Alejandro Sandoval</th>
+                                <td>A2</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Alsain Admin</th>
+                                <td>A3</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Alsain Admin 2</th>
+                                <td>A5</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Alsain Admin 3</th>
+                                <td>A4</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Alsain Admin 4</th>
+                                <td>A1</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <label class="text3 txt-blue2 mt-3">Añadir Grupos</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Buscar y seleccionar usuarios</label>
+                    <hr class="w-100">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2">
+                                <label class="text13 txt-blue">Buscar por:</label>
+                            </div>
+                            <div class="col-md-6 col-lg-5 col-xl-4">
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                                <div class="form-check form-check-inline ps-0 mb-2">
+                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
+                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <button class="botondrop bg-grey2 p-1">Mostrar todos</button> 
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-2 offset-xl-2 offset-lg-0 offset-md-9 mt-lg-0">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                            </div>
+                        </div>
+                        <div class="mt-3 mb-3">
+                          <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
+                          <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <label class="text13 txt-blue">Grupo</label>
+                        <div class="dropdown">
+                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Seleccionar grupo
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                        <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>
+                        <label class="text7 txt-gris d-block">Alumno 2</label>
+                    </form>
+                    <!------Modificar grupo--->
+                    <label class="text3 txt-blue2 mt-3">Modificar grupo</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Alejandro Sandoval</label>
+                    <hr class="w-100">
+                    <form>
+                        <label class="text3 txt-blue">Grupo</label>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="dropdown">
+                                    <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Seleccionar grupo
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                      <li><a class="dropdown-item" href="#">Action</a></li>
+                                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Modificar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

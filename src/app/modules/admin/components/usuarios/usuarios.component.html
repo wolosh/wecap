@@ -1,1 +1,159 @@
-<p>usuarios works!</p>
+<div class="container-lg page-content top">
+    <div class="row">
+        <div class="col-12">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Configuración</button>
+                </div>
+              </nav>
+              <div class="tab-content mb-5" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <label class="text3 txt-blue2 mt-3">Usuarios</label>
+                    <hr class="w-100">
+                    <!--tabla-->
+                    <table id="usuarios" class="table data striped display responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>E-mail</th>
+                                <th>Puesto</th>
+                                <th>Área</th>
+                                <th>Tipo de usuario</th>
+                                <th>Activo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <th scope="row">Alsain Admin</th>
+                                <td>alsain@gmail.com</td>
+                                <td>Admin</td>
+                                <td>Sistemas</td>
+                                <td>Empleado</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <th scope="row">Alsain Admin</th>
+                                <td>alsain@gmail.com</td>
+                                <td>Admin</td>
+                                <td>Sistemas</td>
+                                <td>Empleado</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <th scope="row">Alsain Admin</th>
+                                <td>alsain@gmail.com</td>
+                                <td>Admin</td>
+                                <td>Sistemas</td>
+                                <td>Empleado</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <th scope="row">Alsain Admin</th>
+                                <td>alsain@gmail.com</td>
+                                <td>Admin</td>
+                                <td>Sistemas</td>
+                                <td>Empleado</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <label class="text3 txt-blue2 mt-3">Editar Usuario</label>
+                    <hr class="w-100">
+                    <form>
+                        <div class="row mt-4 mb-3">
+                            <div class="col-6 col-md-3 col-xl-2 offset-xl-8 offset-md-6">
+                                <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
+                            </div>
+                            <div class="col-6 col-md-3 col-xl-2">
+                                <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar usuario</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">Nombre Completo</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">Email</label>
+                            <input type="email" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <label for="formFile" class="text13 txt-blue mb-2">Genero (opcional):</label>
+                        <div class="dropdown mb-3">
+                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Hombre
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-2">Fecha de nacimiento</label>
+                            <input class="input4" type="date" value="2017-06-01" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">Puesto</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">Área</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">No. Nómina (opcional)</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">Contraseña (opcional)</label>
+                            <input type="password" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">País (opcional)</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">Estado (opcional)</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">Ciudad (opcional)</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <label for="formFile" class="text13 txt-blue mb-2">Tipo de usuario:</label>
+                        <div class="dropdown mb-3">
+                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Administrador
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                        <div class="form-check mb-3">
+                            <label class="text10 txt-gris2" for="inlineRadio1">Activado</label>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="text13 txt-blue mb-3">Grupo (opcional)</label>
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
