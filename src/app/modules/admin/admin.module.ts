@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ArchivosComponent } from './components/archivos/archivos.component';
@@ -8,15 +8,19 @@ import { ConferenciasComponent } from './components/conferencias/conferencias.co
 import { MailComponent } from './components/mail/mail.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
+import { CursosComponent } from './components/cursos/cursos.component';
+import { SortableModule } from 'ngx-bootstrap/sortable';
 
 const routes: Routes = [
   {path: "archivos", component: ArchivosComponent},
-  {path: "examenes", component: ExamenesComponent}, 
-  {path: "estadisticas", component: EstadisticasComponent},
   {path: "conferencias", component: ConferenciasComponent},
+  {path: "configuracion", component: ConfiguracionComponent},
+  {path: "cursos", component:CursosComponent},
+  {path: "estadisticas", component: EstadisticasComponent},
+  {path: "examenes", component: ExamenesComponent}, 
   {path: "mail", component: MailComponent},
   {path: "usuarios", component: UsuariosComponent},
-  {path: "configuracion", component: ConfiguracionComponent}
+  
 ];
 
 @NgModule({
@@ -30,6 +34,7 @@ const routes: Routes = [
     ConfiguracionComponent
   ],
   imports: [
+    SortableModule.forRoot(),
     CommonModule, RouterModule.forChild(routes)
   ], 
   exports: [RouterModule, ArchivosComponent, ExamenesComponent, EstadisticasComponent, ConferenciasComponent, MailComponent, UsuariosComponent, ConfiguracionComponent]

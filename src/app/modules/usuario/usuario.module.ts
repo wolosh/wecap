@@ -5,6 +5,7 @@ import { CursosModulosComponent } from './components/cursos-modulos/cursos-modul
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { TemasComponent } from './components/temas/temas.component';
 import { TestComponent } from './components/test/test.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 const routes: Routes = [
   {path: "cmtemplate", component: CursosModulosComponent}, 
@@ -21,6 +22,7 @@ const routes: Routes = [
     TestComponent
   ],
   imports: [
+    CarouselModule,
     CommonModule, RouterModule.forChild(routes)
   ], exports: [RouterModule, CursosModulosComponent, PerfilUsuarioComponent, TemasComponent, TestComponent]
 })

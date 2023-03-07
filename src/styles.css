@@ -2,13 +2,13 @@
     font-family: 'Helvetica-Regular';
     font-style: normal;
     font-weight: normal;
-    src: url('../fonts/Helvetica-Regular.ttf') format('truetype');
+    src: url('../src/assets/font/Helvetica-Regular.ttf') format('truetype');
 }
 @font-face{
     font-family: 'Helvetica-Bold';
     font-style: normal;
     font-weight: normal;
-    src: url('../fonts/Helvetica-Bold.ttf') format('truetype');
+    src: url('../src/assets/font/Helvetica-Bold.ttf') format('truetype');
 }
 @media (max-width: 1199.98px) { 
     .text{font-size: 3rem !important;}
@@ -74,7 +74,7 @@ input:focus-visible{
     color: #707070 !important;
 }
 .navbar-toggler-icon{
-    background-image:url('../img/new/icon.svg') !important;
+    background-image:url('../src/assets/img/icon.svg') !important;
 }
 ul{
     list-style: none;
@@ -151,7 +151,7 @@ input[type=file]::-webkit-file-upload-button{
     color: #fff !important;
 }
 .top{
-    padding-top: 8%;
+    padding-top: 5%;
 }
 hr{
     border-top: 5px solid !important;
@@ -220,6 +220,16 @@ hr{
     font-size: 0.875rem !important;
     color: #fff !important;
     text-align: center;
+}
+.carousel-caption{
+    bottom: 30% !important;
+}
+.carousel-control-next, .carousel-control-prev{
+    width: auto;
+}
+.carousel-control-next-icon, .carousel-control-prev-icon{
+    width: 5rem;
+    height: 5rem;
 }
 /*Botones*/
 .boton{
@@ -375,7 +385,7 @@ hr{
 }
 .btn-close{
     opacity: 1 !important;
-    background-image: url("../img/new/close.svg") !important;
+    background-image: url("../src/assets/img/close.svg") !important;
 }
 .btn-close:focus{
     box-shadow: none !important;
@@ -411,15 +421,15 @@ hr{
 }
 .slick-prev:before{
     opacity: 1 !important;
-    content: url('../img/new/left.svg') !important;
+    content: url('../src/assets/img/left.svg') !important;
 }
 .slick-next:before{
     opacity: 1 !important;
-    content: url('../img/new/right.svg') !important;
+    content: url('../src/assets/img/right.svg') !important;
 }
 /*Seccion*/
 .seccion{
-    background-image: url('../img/new/carousel1.svg');
+    background-image: url('../src/assets/img/carousel1.svg');
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -458,7 +468,7 @@ hr{
 .azul .color{
     background-color: #F2FAFF;
 }
-.azul footer, .vr{
+.azul footer, .azul .vr{
     background-color: #A6DAFC !important;
 }
 .azul hr{
@@ -471,7 +481,7 @@ hr{
 .amarillo .color{
     background-color: #FFF8DC;
 }
-.amarillo footer, .vr{
+.amarillo footer, .amarillo .vr{
     background-color: #EFCB3D !important;
 }
 .amarillo hr{
@@ -484,7 +494,7 @@ hr{
 .verde .color{
     background-color: #EFFFE6;
 }
-.verde footer, .vr{
+.verde footer, .verde .vr{
     background-color: #8DCE68 !important;
 }
 .verde hr{
@@ -497,7 +507,7 @@ hr{
 .rojo .color{
     background-color: #FFDFDF;
 }
-.rojo footer, .vr{
+.rojo footer, .rojo .vr{
     background-color: #EB5F5F !important;
 }
 .rojo hr{
