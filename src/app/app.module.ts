@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminModule } from './modules/admin/admin.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SharedModule } from './shared/shared.module';
     AdminModule, 
     UsuarioModule,
     SharedModule, 
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
   ],
   exports: [RouterModule],
   providers: [],

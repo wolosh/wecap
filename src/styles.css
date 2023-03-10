@@ -623,7 +623,7 @@ td{
 .striped tbody{
     background-color: #EFEFEF;
 }
-/*---------------------------*/
+/*---------------------------
 .dataTables_length select{
     background-color: #015287 !important;
     border-radius: 12px !important;
@@ -670,7 +670,7 @@ td{
 .dataTables_paginate span{
     margin-left: 2%;
     margin-right: 2%;
-}
+}*/
 .table.data thead{
     font-size: 1.1rem;
 }

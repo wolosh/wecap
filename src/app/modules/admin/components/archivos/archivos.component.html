@@ -129,7 +129,39 @@
                     <label class="text3 txt-blue2 mt-3">Listado Multimedia</label>
                     <hr class="w-100">
                     <!--Tabla--->
-                    <table id="example" class="table data striped dt-responsive nowrap" style="width:100%">
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSource">
+                          <!-- Position Column -->
+                          <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef> No. </th>
+                            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                          </ng-container>
+                          <!-- Name Column -->
+                          <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                          </ng-container>
+                          <!-- Weight Column -->
+                          <ng-container matColumnDef="weight">
+                            <th mat-header-cell *matHeaderCellDef> Weight </th>
+                            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                          </ng-container>
+                          <!-- Symbol Column -->
+                          <ng-container matColumnDef="symbol">
+                            <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator 
+                                       showFirstLastButtons
+                                       aria-label="Select page of periodic elements">
+                        </mat-paginator>
+                      </div>
+                      
+                      
+                    <!--table id="example" class="table data striped dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -159,7 +191,7 @@
                                 <td><img class="me-2" src="assets/img/iconimg.svg" alt="iconimg">jpg</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table-->
 
 
                     <label class="text3 txt-blue2 mt-3">Media</label>

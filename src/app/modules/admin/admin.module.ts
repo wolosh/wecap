@@ -10,6 +10,10 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { CursosComponent } from './components/cursos/cursos.component';
 import { SortableModule } from 'ngx-bootstrap/sortable';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 
 const routes: Routes = [
   {path: "archivos", component: ArchivosComponent},
@@ -34,6 +38,9 @@ const routes: Routes = [
     ConfiguracionComponent
   ],
   imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    NgApexchartsModule,
     SortableModule.forRoot(),
     CommonModule, RouterModule.forChild(routes)
   ], 
