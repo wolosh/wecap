@@ -76,20 +76,12 @@
                     <!--Grafica--->
                     <div class="row mt-5">
                         <div class="col-12 col-lg-6">
-                            <div id="chart">
-                                <apx-chart
-                                  [series]="chartOptions.series"
-                                  [chart]="chartOptions.chart"
-                                  [dataLabels]="chartOptions.dataLabels"
-                                  [plotOptions]="chartOptions.plotOptions"
-                                  [yaxis]="chartOptions.yaxis"
-                                  [legend]="chartOptions.legend"
-                                  [fill]="chartOptions.fill"
-                                  [stroke]="chartOptions.stroke"
-                                  [tooltip]="chartOptions.tooltip"
-                                  [xaxis]="chartOptions.xaxis"
-                                ></apx-chart>
-                            </div>
+                            <apx-chart
+                                [series]="chartOptions.series"
+                                [chart]="chartOptions.chart"
+                                [xaxis]="chartOptions.xaxis"
+                                [title]="chartOptions.title"
+                            ></apx-chart>
                               
                             <!--div class="chart-container">
                                 <canvas id="grafpromedio"></canvas>

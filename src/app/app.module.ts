@@ -8,10 +8,10 @@ import { AdminModule } from './modules/admin/admin.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
-  declarations: [
-    AppComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SharedModule, 
     RouterModule,
     BrowserAnimationsModule,
+    NgApexchartsModule
   ],
   exports: [RouterModule],
   providers: [],
