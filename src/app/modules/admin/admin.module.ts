@@ -14,6 +14,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
+
 const routes: Routes = [
   {path: "archivos", component: ArchivosComponent},
   {path: "conferencias", component: ConferenciasComponent},
@@ -42,7 +43,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatTableModule,
     MatPaginatorModule,
-    NgApexchartsModule,
+    NgApexchartsModule
   ], 
   exports: [RouterModule, ArchivosComponent, ExamenesComponent, EstadisticasComponent, ConferenciasComponent, MailComponent, UsuariosComponent, ConfiguracionComponent]
 })

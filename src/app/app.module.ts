@@ -9,6 +9,8 @@ import { UsuarioModule } from './modules/usuario/usuario.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { FormsModule } from '@angular/forms';
+import { NgxEditorModule} from 'ngx-editor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +23,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     SharedModule, 
     RouterModule,
     BrowserAnimationsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    FormsModule,
+    NgxEditorModule,
   ],
   exports: [RouterModule],
   providers: [],
