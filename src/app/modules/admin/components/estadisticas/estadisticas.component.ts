@@ -21,8 +21,8 @@ export type ChartOptions = {
   styleUrls: ['./estadisticas.component.css']
 })
 export class EstadisticasComponent implements OnInit {
-  /*@ViewChild('chart') chart: ChartComponent;*/
-  public chartOptions: Partial<ChartOptions>;
+  @ViewChild('chart') chart = ChartComponent;
+  public chartOptions: Partial<ChartOptions> | any;
 
   constructor() {
     this.chartOptions = {

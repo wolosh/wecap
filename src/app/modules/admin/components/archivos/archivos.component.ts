@@ -8,10 +8,11 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./archivos.component.css']
 })
 export class ArchivosComponent implements AfterViewInit  {
+  
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
-  @ViewChild(MatPaginator) paginator:any = MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

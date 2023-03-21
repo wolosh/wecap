@@ -10,9 +10,11 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { CursosComponent } from './components/cursos/cursos.component';
 import { SortableModule } from 'ngx-bootstrap/sortable';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 
 
 const routes: Routes = [
@@ -35,7 +37,7 @@ const routes: Routes = [
     ConferenciasComponent,
     MailComponent,
     UsuariosComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
   ],
   imports: [
     SortableModule.forRoot(),
@@ -43,7 +45,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatTableModule,
     MatPaginatorModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    CKEditorModule
   ], 
   exports: [RouterModule, ArchivosComponent, ExamenesComponent, EstadisticasComponent, ConferenciasComponent, MailComponent, UsuariosComponent, ConfiguracionComponent]
 })

@@ -130,7 +130,7 @@
                     <hr class="w-100">
                     <!--Tabla--->
                     <div class="mat-elevation-z8">
-                        <table mat-table [dataSource]="dataSource">
+                        <table mat-table [dataSource]="dataSource" class="w-100">
                           <!-- Position Column -->
                           <ng-container matColumnDef="position">
                             <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -155,8 +155,8 @@
                           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
                         <mat-paginator 
-                                       showFirstLastButtons
-                                       aria-label="Select page of periodic elements">
+                            [pageSizeOptions]="[5, 10, 25, 100]"
+                            aria-label="Select page of periodic elements">
                         </mat-paginator>
                       </div>
                       

@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 @Component({
@@ -9,7 +10,8 @@ import { Component, OnInit} from '@angular/core';
 })
 export class MailComponent implements OnInit {
 
-  
+  public Editor:any = ClassicEditor;
+
   constructor() { }
 
   ngOnInit(): void {
