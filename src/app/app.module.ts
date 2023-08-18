@@ -8,6 +8,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UsuarioModule,
     SharedModule, 
     RouterModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [RouterModule],
   providers: [],

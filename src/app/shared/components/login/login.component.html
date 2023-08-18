@@ -1,15 +1,16 @@
 <div class="container-lg page-content d-flex align-items-center justify-content-center">
   <div class="row">
     <div class="col-12">
-      <form class="">
+      <form class="" [formGroup]="formLogin">
         <h1 class="text txt-blue">Inicia sesión</h1>
         <hr class="w-100">
         <div class="form-group mt-5 mb-4">
-          <input type="email" class="input2" id="inputEmail4" name="email" placeholder="Email" required />
+          <input type="email" class="input2" id="inputEmail4" name="email" placeholder="Email" required formControlName="email"/>
         </div>
         <div class="form-group mb-2">
           <input type="password" class="input2" id="inputPassword4"
-            name="password" placeholder="Contraseña" required />
+            name="password" placeholder="Contraseña" required formControlName="password"
+            (keyup.enter)="normalLogin()"/>
         </div>
         <div class="form-group">
           <div class="form-check">
@@ -19,7 +20,7 @@
             </label>
           </div>
         </div>
-        <button type="submit" class="boton mx-auto d-block mt-4">
+        <button type="submit" class="boton mx-auto d-block mt-4" (click)="normalLogin()">
           Ingresar
         </button>
       </form>
