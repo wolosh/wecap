@@ -1,7 +1,7 @@
 
 <header>
-    <!----Header admin-----
-    <nav class="navbar navbar-expand-lg fixed-top bg-white">
+    <!----Header admin----->
+    <nav class="navbar navbar-expand-lg fixed-top bg-white" *ngIf="this.type == '1'">
         <div class="container-lg">
             <button class="navbar-toggler border-0 order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon me-1"></span>
@@ -73,7 +73,7 @@
             <ul class="ps-0 mb-0 ms-md-5 order-2 order-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        MARIANA CARVAJAL
+                        {{this.name}}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end text-lg-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item bg-blue rounded-top" href="#">Perfil</a></li>
@@ -82,10 +82,10 @@
                 </li>
             </ul>
         </div>
-    </nav>-->
+    </nav>
     <!----Header usuario----->
-    <div class="transbox">
-        <div class="transboximg"></div>
+    <div class="transbox" *ngIf="this.type == '0'">
+        <div class="transboximg" *ngif="this.session.curso == true"></div>
         <nav class="navbar navbar-expand-lg fixed-top" (scroll)="onWindowScroll();">
             <div class="container-lg">
                 <button class="navbar-toggler border-0 order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,7 +140,7 @@
                 <ul class="ps-0 mb-0 ms-md-5 order-2 order-lg-4">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            MARIANA CARVAJAL
+                            {{this.name}}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end text-lg-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item bg-blue rounded-top" href="#">Perfil</a></li>
@@ -150,6 +150,6 @@
                 </ul>
             </div>
         </nav>
-        <h1 class="text1 text-white d-block mb-0">Tema: Valley</h1>
+        <h1 class="text1 text-white d-block mb-0" *ngIf="this.session.curso == true">Tema: Valley</h1>
     </div>
 </header>

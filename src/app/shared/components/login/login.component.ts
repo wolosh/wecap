@@ -13,29 +13,7 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup;
 
-  array = [
-    2,
-    3,
-    4,
-    4,
-    5,
-    9,
-    7,
-    8,
-    6,
-    10,
-    4,
-    5,
-    10,
-    10,
-    8,
-    4,
-    6,
-    4,
-    10,
-    1]
-
-  constructor(private formBuilder: FormBuilder, private session: SessionService) { }
+  constructor(private formBuilder: FormBuilder, private session: SessionService, private router: Router) { }
 
   ngOnInit(): void {
     this.startForm();
@@ -54,7 +32,17 @@ export class LoginComponent implements OnInit {
     console.log(this.formLogin.value)
   this.session.login(this.formLogin.value.email, this.formLogin.value.password).subscribe(
     (data: Data) => {
-      console.log(data);
+      //console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
+      localStorage.setItem('token', data['token']);
+      localStorage.setItem('userName', data['full_name']);
+      localStorage.setItem('type', data['is_admin']);
+      localStorage.setItem('id', data['id']);
+      //console.log(localStorage.getItem('token'), localStorage.getItem('userName'), localStorage.getItem('idUser') );
+      if(data['is_admin'] == 0){
+      this.router.navigate(['/cursos']); //cambiar
+      } else if(data['is_admin'] == 1){
+        this.router.navigate(['/cmtemplate']); //cambiar
+      }
     },
   );
   }

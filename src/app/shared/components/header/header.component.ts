@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { SessionService } from 'src/app/data/services/session.service';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +7,13 @@ import { Component, OnInit, HostListener } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor() { }
+  constructor(public session: SessionService) { }
+  name: string;
+  type: string;
 
   ngOnInit(): void {
+    this.name = localStorage.getItem('userName');
+    this.type = localStorage.getItem('type');
   }
 
   /*Cambiar color de nav al hacer scroll*/
