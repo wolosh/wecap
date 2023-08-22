@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { throws } from 'assert';
 import { GetService } from 'src/app/data/services/get.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class CursosModulosComponent implements OnInit {
   itemsPerSlide = 3;
   singleSlideOffset = true;
   noWrap = true;
+  email: any;
   constructor(private get: GetService) { }
 
   ngOnInit(): void {
@@ -25,6 +27,7 @@ export class CursosModulosComponent implements OnInit {
     } else if(localStorage.getItem('type') == '0'){
       console.log('Usuario');
     }*/
+    console.log(localStorage.getItem('token'));
     this.profile();
   }
 
@@ -32,8 +35,19 @@ export class CursosModulosComponent implements OnInit {
   this.get.getProfile(localStorage.getItem('id'), localStorage.getItem('token')).subscribe(
     (data: any) => {
       console.log(data);
+      this.email = data;
+      console.log(this.email);
+      this.certifications(data.email);
     }
   );
+  }
+
+  certifications(email:any){
+    this.get.getCertifications(email, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    );
   }
 
 }

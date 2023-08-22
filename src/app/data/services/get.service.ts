@@ -20,4 +20,14 @@ export class GetService {
       headers
   });
 }
+
+getCertifications(email:any, token:any) {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`, 
+  });
+console.log(headers)
+  return this.http.get(this.session.API + 'certifications/', {
+    headers, 
+});
+}
 }
