@@ -23,13 +23,13 @@
                               </tr>
                             </thead>
                             <tbody id="cursos">
-                              <tr>
-                                <th scope="row">Alsain Soluciones Audiovisuales</th>
-                                <td>En esta certificación encontraras materiales audiovisuales realizados por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
-                                <td>2018-11-26</td>
-                                <td>Activa</td>
+                              <tr *ngFor="let certificacion of this.certificaciones">
+                                <th scope="row">{{certificacion.title}}</th>
+                                <td>{{certificacion.description}}</td>
+                                <td>{{certificacion.creation_date}}</td>
+                                <td>{{certificacion.is_active}}</td>
                               </tr>
-                              <tr>
+                              <!--tr>
                                 <th scope="row">METRIHEALTH</th>
                                 <td>Plataforma para aplicación de la NOM035 Y NOM036</td>
                                 <td>2019-11-22</td>
@@ -52,7 +52,7 @@
                                 <td>Curso para aprender a ser ITO</td>
                                 <td>2020-04-16</td>
                                 <td>Activa</td>
-                              </tr>
+                              </tr-->
                             </tbody>
                         </table>
                     </div>
