@@ -26,7 +26,7 @@ getCertifications(email:any, token:any) {
     'Authorization': `Bearer ${token}`, 
   });
 console.log(headers)
-  return this.http.get(this.session.API + 'certifications/', {
+  return this.http.get(this.session.API + 'certifications', {
     headers, 
 });
 }

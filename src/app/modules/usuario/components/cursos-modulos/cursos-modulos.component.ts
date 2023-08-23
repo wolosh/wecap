@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { throws } from 'assert';
 import { GetService } from 'src/app/data/services/get.service';
+import { HelpersService } from 'src/app/data/services/helpers.service';
 
 @Component({
   selector: 'app-cursos-modulos',
@@ -19,7 +20,9 @@ export class CursosModulosComponent implements OnInit {
   singleSlideOffset = true;
   noWrap = true;
   email: any;
-  constructor(private get: GetService) { }
+  certificaciones: any;
+  cursos: number;
+  constructor(private get: GetService, public helpers: HelpersService) { }
 
   ngOnInit(): void {
     /*if(localStorage.getItem('token') == null){
@@ -29,6 +32,7 @@ export class CursosModulosComponent implements OnInit {
     }*/
     console.log(localStorage.getItem('token'));
     this.profile();
+    this.helpers.cursos = 1;
   }
 
  profile(){
@@ -46,8 +50,18 @@ export class CursosModulosComponent implements OnInit {
     this.get.getCertifications(email, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
+        this.certificaciones = data;
+        console.log(this.certificaciones);
       }
     );
+  }
+
+  change(id:any){
+    if(id == 1){
+      this.helpers.cursos = 1;
+    } else {
+      this.helpers.cursos = 2;
+    }
   }
 
 }

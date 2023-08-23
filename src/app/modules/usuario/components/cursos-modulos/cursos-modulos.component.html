@@ -6,23 +6,23 @@
         </div>
     </div>
     <!--Parte cursos-->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mt-5 mb-5 home">
-        <div class="col">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mt-5 mb-5 home" *ngIf="this.helpers.cursos == 1">
+        <div class="col" *ngFor="let certificacion of this.certificaciones">
             <div class="card h-100">
-                <img src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">
+                <img *ngIf="certificacion.img == ''" src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">
+                <img *ngIf="certificacion.img != ''" src="{{helpers.domain}}/imagenes/{{ certificacion.img }}" class="card-img mx-auto d-block" alt="...">
                 <div class="card-img-overlay d-flex justify-content-center align-items-center">
                     <div class="row">
                         <div class="col-12">
-                            <h5 class="card-title mx-auto d-block d-flex align-items-center">Alsain Soluciones Audiovisuales</h5>
+                            <h5 class="card-title mx-auto d-block d-flex align-items-center">{{certificacion.title}}</h5>
                             <div class="blue d-flex align-items-center">
                                 <div class="row">
                                     <div class="col-12">
-                                        <p class="card-text">En esta certificación encontraras materiales audiovisuales
-                                            realizados por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.
+                                        <p class="card-text">{{certificacion.description}}
                                         </p>
                                     </div>
                                     <div class="col-12 mt-3">
-                                        <button type="button" class="boton mx-auto d-block">Comenzar</button>
+                                        <button type="button" class="boton mx-auto d-block" (click)="change(2)">Comenzar</button>
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <!--<div class="col">
             <div class="card h-100">
                 <img src="assets/img/metrihealth.svg" class="card-img mx-auto d-block" alt="...">
                 <div class="card-img-overlay d-flex justify-content-center align-items-center">
@@ -54,10 +54,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
     <!--Parte modulos-->
-    <carousel [itemsPerSlide]="itemsPerSlide"
+    <carousel *ngIf="this.helpers.cursos == 2" [itemsPerSlide]="itemsPerSlide"
           [singleSlideOffset]="singleSlideOffset"
           [showIndicators]="showIndicator"
           [interval]="0"

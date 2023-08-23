@@ -1,9 +1,10 @@
-
 <header>
     <!----Header admin----->
     <nav class="navbar navbar-expand-lg fixed-top bg-white" *ngIf="this.type == '1'">
         <div class="container-lg">
-            <button class="navbar-toggler border-0 order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0 order-1" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon me-1"></span>
                 MENU
             </button>
@@ -31,13 +32,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/estadisticas']" data-bs-toggle="tooltip" title="ESTADISTICAS">
+                        <a class="nav-link" [routerLink]="['/estadisticas']" data-bs-toggle="tooltip"
+                            title="ESTADISTICAS">
                             <img src="assets/img/nav9.svg" alt="" width="25" height="25" class="d-lg-block d-none">
                             <label class="d-block d-lg-none text10 text-white">ESTADISTICAS</label>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/conferencias']" data-bs-toggle="tooltip" title="VIDEO CONFERENCIAS">
+                        <a class="nav-link" [routerLink]="['/conferencias']" data-bs-toggle="tooltip"
+                            title="VIDEO CONFERENCIAS">
                             <img src="assets/img/nav10.svg" alt="" width="25" height="25" class="d-lg-block d-none">
                             <label class="d-block d-lg-none text10 text-white">VIDEO CONFERENCIAS</label>
                         </a>
@@ -55,7 +58,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/configuracion']" data-bs-toggle="tooltip" title="CONFIGURACION">
+                        <a class="nav-link" [routerLink]="['/configuracion']" data-bs-toggle="tooltip"
+                            title="CONFIGURACION">
                             <img src="assets/img/nav13.svg" alt="" width="25" height="25" class="d-lg-block d-none">
                             <label class="d-block d-lg-none text10 text-white">CONFIGURACION</label>
                         </a>
@@ -72,7 +76,8 @@
             </form>
             <ul class="ps-0 mb-0 ms-md-5 order-2 order-lg-4">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         {{this.name}}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end text-lg-end" aria-labelledby="navbarDropdown">
@@ -85,70 +90,74 @@
     </nav>
     <!----Header usuario----->
     <div class="transbox" *ngIf="this.type == '0'">
-        <div class="transboximg" *ngif="this.session.curso == true"></div>
-        <nav class="navbar navbar-expand-lg fixed-top" (scroll)="onWindowScroll();">
-            <div class="container-lg">
-                <button class="navbar-toggler border-0 order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon me-1"></span>
-                    MENU
-                </button>
-                <a class="navbar-brand ms-lg-3 me-0 order-3 order-lg-1" href="#">
-                    <img src="assets/img/logo.svg" alt="" width="100">
-                </a>
-                <div class="collapse navbar-collapse order-5 order-lg-2" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['/cmtemplate']">
-                                <img src="assets/img/nav1.svg" alt="" width="25" height="25" class="d-lg-block d-none">
-                                <label class="d-block d-lg-none text10 text-white">HOME</label>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" type="button" data-bs-toggle="modal" data-bs-target="#archivos">
-                                <img src="assets/img/nav2.svg" alt="" width="25" height="25" class="d-lg-block d-none">
-                                <label class="d-block d-lg-none text10 text-white">ARCHIVOS</label>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" type="button" data-bs-toggle="modal" data-bs-target="#conferencias">
-                                <img src="assets/img/nav3.svg" alt="" width="25" height="25" class="d-lg-block d-none">
-                                <label class="d-block d-lg-none text10 text-white">CONFERENCIAS</label>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <img src="assets/img/nav4.svg" alt="" width="25" height="25" class="d-lg-block d-none">
-                                <label class="d-block d-lg-none text10 text-white">NOTAS</label>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" type="button" data-bs-toggle="modal" data-bs-target="#ayuda">
-                                <img src="assets/img/nav5.svg" alt="" width="25" height="25" class="d-lg-block d-none">
-                                <label class="d-block d-lg-none text10 text-white">AYUDA</label>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <form class="ms-lg-5 order-4 order-lg-3 buscar" role="search">
-                    <div class="input-group">
-                        <span class="input-group-text botonbuscar">
-                            <img src="assets/img/search.svg" alt="" width="20" height="20">
-                        </span>
-                        <input class="input" type="search" placeholder="Buscar" aria-label="Search">
-                    </div>
-                </form>
-                <ul class="ps-0 mb-0 ms-md-5 order-2 order-lg-4">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{this.name}}
+        <div class="transboximg" *ngIf="this.session.curso == true"></div>
+        <nav id="nav" class="navbar navbar-expand-lg fixed-top" (scroll)="onWindowScroll()">
+        <div class="container-lg">
+            <button class="navbar-toggler border-0 order-1" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon me-1"></span>
+                MENU
+            </button>
+            <a class="navbar-brand ms-lg-3 me-0 order-3 order-lg-1" href="#">
+                <img src="assets/img/logo.svg" alt="" width="100">
+            </a>
+            <div class="collapse navbar-collapse order-5 order-lg-2" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/cmtemplate']">
+                            <img src="assets/img/nav1.svg" alt="" width="25" height="25" class="d-lg-block d-none">
+                            <label class="d-block d-lg-none text10 text-white">HOME</label>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end text-lg-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item bg-blue rounded-top" href="#">Perfil</a></li>
-                            <li><a class="dropdown-item bg-grey rounded-bottom" href="#">Salir</a></li>
-                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" type="button" data-bs-toggle="modal" data-bs-target="#archivos">
+                            <img src="assets/img/nav2.svg" alt="" width="25" height="25" class="d-lg-block d-none">
+                            <label class="d-block d-lg-none text10 text-white">ARCHIVOS</label>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" type="button" data-bs-toggle="modal"
+                            data-bs-target="#conferencias">
+                            <img src="assets/img/nav3.svg" alt="" width="25" height="25" class="d-lg-block d-none">
+                            <label class="d-block d-lg-none text10 text-white">CONFERENCIAS</label>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="assets/img/nav4.svg" alt="" width="25" height="25" class="d-lg-block d-none">
+                            <label class="d-block d-lg-none text10 text-white">NOTAS</label>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" type="button" data-bs-toggle="modal" data-bs-target="#ayuda">
+                            <img src="assets/img/nav5.svg" alt="" width="25" height="25" class="d-lg-block d-none">
+                            <label class="d-block d-lg-none text10 text-white">AYUDA</label>
+                        </a>
                     </li>
                 </ul>
             </div>
+            <form class="ms-lg-5 order-4 order-lg-3 buscar" role="search">
+                <div class="input-group">
+                    <span class="input-group-text botonbuscar">
+                        <img src="assets/img/search.svg" alt="" width="20" height="20">
+                    </span>
+                    <input class="input" type="search" placeholder="Buscar" aria-label="Search">
+                </div>
+            </form>
+            <ul class="ps-0 mb-0 ms-md-5 order-2 order-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{this.name}}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end text-lg-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item bg-blue rounded-top" href="/perfil">Perfil</a></li>
+                        <li><a class="dropdown-item bg-grey rounded-bottom" href="#">Salir</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         </nav>
         <h1 class="text1 text-white d-block mb-0" *ngIf="this.session.curso == true">Tema: Valley</h1>
     </div>

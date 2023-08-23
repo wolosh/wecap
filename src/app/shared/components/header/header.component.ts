@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener} from '@angular/core';
+import { HelpersService } from 'src/app/data/services/helpers.service';
 import { SessionService } from 'src/app/data/services/session.service';
 
 @Component({
@@ -7,11 +8,12 @@ import { SessionService } from 'src/app/data/services/session.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(public session: SessionService) { }
+  constructor(public session: SessionService, public helpers: HelpersService) { }
   name: string;
   type: string;
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.name = localStorage.getItem('userName');
     this.type = localStorage.getItem('type');
   }
@@ -26,4 +28,6 @@ export class HeaderComponent implements OnInit {
       element.classList.remove('bg-white');
     }
   }
+
+
 }

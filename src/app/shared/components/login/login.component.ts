@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Data, Router } from '@angular/router';
 import { last } from 'rxjs';
 import { SessionService } from 'src/app/data/services/session.service';
+import { HelpersService } from 'src/app/data/services/helpers.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private session: SessionService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private session: SessionService, private router: Router, private helpers: HelpersService) { }
 
   ngOnInit(): void {
     this.startForm();
@@ -39,9 +40,12 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('id', data['id']);
       //console.log(localStorage.getItem('token'), localStorage.getItem('userName'), localStorage.getItem('idUser') );
       if(data['is_admin'] == 0){
-      this.router.navigate(['/cursos']); //cambiar
+        this.router.navigate(['/cmtemplate']); 
+      
       } else if(data['is_admin'] == 1){
-        this.router.navigate(['/cmtemplate']); //cambiar
+        this.router.navigate(['/cursos']); 
+      
+        console.log(this.helpers.cursos)
       }
     },
   );
