@@ -11,59 +11,35 @@
                     <label class="text3 txt-blue2 mt-3">Usuarios</label>
                     <hr class="w-100">
                     <!--tabla-->
-                    <table id="usuarios" class="table data striped display responsive nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>E-mail</th>
-                                <th>Puesto</th>
-                                <th>Área</th>
-                                <th>Tipo de usuario</th>
-                                <th>Activo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--tr *ngFor="let users of this.usuarios">
-                                <th scope="row">{{usuarios.idUser}}</th>
-                                <th scope="row">{{usuarios.full_name}}</th>
-                                <td>{{usuarios.email}}</td>
-                                <td>{{usuarios.job}}</td>
-                                <td>{{usuarios.area}}</td>
-                                <td *ngIf="this.usuarios.is_admin == 1">Administrador</td>
-                                <td *ngIf="this.usuarios.is_admin == 0">Empleado</td>
-                                <td *ngIf="this.usuarios.is_active == 1">Activa</td>
-                                <td *ngIf="this.usuarios.is_active == 0">Inactivo</td>
-                            </tr-->
-                            <!--tr>
-                                <th scope="row">1</th>
-                                <th scope="row">Alsain Admin</th>
-                                <td>alsain@gmail.com</td>
-                                <td>Admin</td>
-                                <td>Sistemas</td>
-                                <td>Empleado</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <th scope="row">Alsain Admin</th>
-                                <td>alsain@gmail.com</td>
-                                <td>Admin</td>
-                                <td>Sistemas</td>
-                                <td>Empleado</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <th scope="row">Alsain Admin</th>
-                                <td>alsain@gmail.com</td>
-                                <td>Admin</td>
-                                <td>Sistemas</td>
-                                <td>Empleado</td>
-                                <td>1</td>
-                            </tr-->
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="usuarios" class="table data striped display responsive nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>E-mail</th>
+                                    <th>Puesto</th>
+                                    <th>Área</th>
+                                    <th>Tipo de usuario</th>
+                                    <th>Activo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let users of this.usuarios">
+                                    <th scope="row">{{users.idUser}}</th>
+                                    <th scope="row">{{users.full_name}}</th>
+                                    <td>{{users.email}}</td>
+                                    <td>{{users.job}}</td>
+                                    <td>{{users.area}}</td>
+                                    <td *ngIf="this.users.is_admin == 1">Administrador</td>
+                                    <td *ngIf="this.users.is_admin == 0">Empleado</td>
+                                    <td *ngIf="this.users.is_active == 1">Activa</td>
+                                    <td *ngIf="this.users.is_active == 0">Inactivo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
 
                     <label class="text3 txt-blue2 mt-3">Editar Usuario</label>
                     <hr class="w-100">

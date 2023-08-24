@@ -34,11 +34,11 @@ export class UsuariosComponent implements OnInit {
     this.usuarios = [];
     this.get.getUsers(email, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        Object.entries(data).forEach(([key, value]) => {
+        /*Object.entries(data).forEach(([key, value]) => {
           this.usuarios[key] = value;
-        });
+        });*/
         //console.log(data);
-        //this.usuarios = data;
+        this.usuarios = data.users;
         console.log(this.usuarios)
         
       }
