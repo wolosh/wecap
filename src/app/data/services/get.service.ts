@@ -12,22 +12,31 @@ export class GetService {
   constructor(private session: SessionService, private http: HttpClient) { }
 
   getProfile(id:any, token:any) {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      return this.http.get(this.session.API + 'perfil/' + id, {
+        headers
     });
+  }
 
-    return this.http.get(this.session.API + 'perfil/' + id, {
-      headers
-  });
-}
-
-getCertifications(email:any, token:any) {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`, 
-  });
-console.log(headers)
-  return this.http.get(this.session.API + 'certifications', {
-    headers, 
-});
-}
+  getCertifications(email:any, token:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`, 
+    });
+    console.log(headers)
+    return this.http.get(this.session.API + 'certifications', {
+      headers, 
+    });
+  }
+  getUsers(email:any,token:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`, 
+    });
+    //console.log(headers)
+    return this.http.get(this.session.API + 'users', {
+      headers, 
+    });
+  }
 }

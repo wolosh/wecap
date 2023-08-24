@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/cmtemplate']); 
       
       } else if(data['is_admin'] == 1){
-        this.router.navigate(['/cursos']); 
+        this.router.navigate(['/usuarios']); 
       
         console.log(this.helpers.cursos)
       }

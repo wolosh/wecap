@@ -23,11 +23,12 @@
                               </tr>
                             </thead>
                             <tbody id="cursos">
-                              <tr *ngFor="let certificacion of this.certificaciones">
+                              <tr *ngFor="let certificacion of certificaciones">
                                 <th scope="row">{{certificacion.title}}</th>
                                 <td>{{certificacion.description}}</td>
                                 <td>{{certificacion.creation_date}}</td>
-                                <td>{{certificacion.is_active}}</td>
+                                <td *ngIf="this.certificacion.is_active == 1">Activa</td>
+                                <td *ngIf="this.certificacion.is_active == 0">Inactivo</td>
                               </tr>
                               <!--tr>
                                 <th scope="row">METRIHEALTH</th>

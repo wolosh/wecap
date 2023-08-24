@@ -24,7 +24,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <!--tr *ngFor="let users of this.usuarios">
+                                <th scope="row">{{usuarios.idUser}}</th>
+                                <th scope="row">{{usuarios.full_name}}</th>
+                                <td>{{usuarios.email}}</td>
+                                <td>{{usuarios.job}}</td>
+                                <td>{{usuarios.area}}</td>
+                                <td *ngIf="this.usuarios.is_admin == 1">Administrador</td>
+                                <td *ngIf="this.usuarios.is_admin == 0">Empleado</td>
+                                <td *ngIf="this.usuarios.is_active == 1">Activa</td>
+                                <td *ngIf="this.usuarios.is_active == 0">Inactivo</td>
+                            </tr-->
+                            <!--tr>
                                 <th scope="row">1</th>
                                 <th scope="row">Alsain Admin</th>
                                 <td>alsain@gmail.com</td>
@@ -50,16 +61,7 @@
                                 <td>Sistemas</td>
                                 <td>Empleado</td>
                                 <td>1</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <th scope="row">Alsain Admin</th>
-                                <td>alsain@gmail.com</td>
-                                <td>Admin</td>
-                                <td>Sistemas</td>
-                                <td>Empleado</td>
-                                <td>1</td>
-                            </tr>
+                            </tr-->
                         </tbody>
                     </table>
 
@@ -80,14 +82,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">Email</label>
-                            <input type="email" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="email" class="input3" id="exampleInputEmail2" aria-describedby="emailHelp">
                         </div>
                         <label for="formFile" class="text13 txt-blue mb-2">Genero (opcional):</label>
                         <div class="dropdown mb-3">
-                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                 Hombre
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                               <li><a class="dropdown-item" href="#">Action</a></li>
                               <li><a class="dropdown-item" href="#">Another action</a></li>
                               <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -99,31 +101,31 @@
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">Puesto</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail3" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">Área</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail4" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">No. Nómina (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail5" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">Contraseña (opcional)</label>
-                            <input type="password" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="password" class="input3" id="exampleInputEmail6" autocomplete >
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">País (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail7" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">Estado (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail8" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">Ciudad (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail9" aria-describedby="emailHelp">
                         </div>
                         <label for="formFile" class="text13 txt-blue mb-2">Tipo de usuario:</label>
                         <div class="dropdown mb-3">
@@ -142,7 +144,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-3">Grupo (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail10" aria-describedby="emailHelp">
                         </div>
                         <div class="row">
                             <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">

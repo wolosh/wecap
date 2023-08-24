@@ -38,6 +38,7 @@ const routes: Routes = [
     MailComponent,
     UsuariosComponent,
     ConfiguracionComponent,
+    CursosComponent
   ],
   imports: [
     SortableModule.forRoot(),

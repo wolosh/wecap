@@ -35,7 +35,7 @@ export class CursosComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.certificaciones = data;
-        console.log(this.certificaciones);
+        //console.log(this.certificaciones);
       }
     );
   }
