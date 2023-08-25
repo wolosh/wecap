@@ -32,6 +32,7 @@ export class CursosModulosComponent implements OnInit {
     }*/
     console.log(localStorage.getItem('token'));
     this.profile();
+    this.certifications();
     this.helpers.cursos = 1;
   }
 
@@ -41,13 +42,13 @@ export class CursosModulosComponent implements OnInit {
       console.log(data);
       this.email = data;
       console.log(this.email);
-      this.certifications(data.email);
+      this.certifications();
     }
   );
   }
 
-  certifications(email:any){
-    this.get.getCertifications(email, localStorage.getItem('token')).subscribe(
+  certifications(){
+    this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
         this.certificaciones = data;

@@ -16,23 +16,12 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(localStorage.getItem('token'));
-    this.profile();
+    this.users();
   }
 
-  profile(){
-    this.get.getProfile(localStorage.getItem('id'), localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        //console.log(data);
-        this.email = data;
-        //console.log(this.email);
-        this.users(data.email);
-      }
-    );
-  }
-
-  users(email:any){
+  users(){
     this.usuarios = [];
-    this.get.getUsers(email, localStorage.getItem('token')).subscribe(
+    this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
         /*Object.entries(data).forEach(([key, value]) => {
           this.usuarios[key] = value;
@@ -40,7 +29,7 @@ export class UsuariosComponent implements OnInit {
         //console.log(data);
         this.usuarios = data.users;
         console.log(this.usuarios)
-        
+
       }
     );
   }

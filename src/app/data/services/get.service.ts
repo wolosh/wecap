@@ -21,22 +21,22 @@ export class GetService {
     });
   }
 
-  getCertifications(email:any, token:any) {
+  getCertifications(token:any) {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`, 
+      'Authorization': `Bearer ${token}`,
     });
     console.log(headers)
     return this.http.get(this.session.API + 'certifications', {
-      headers, 
+      headers,
     });
   }
-  getUsers(email:any,token:any) {
+  getUsers(token:any) {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`, 
+      'Authorization': `Bearer ${token}`,
     });
     //console.log(headers)
     return this.http.get(this.session.API + 'users', {
-      headers, 
+      headers,
     });
   }
 }

@@ -14,24 +14,14 @@ export class CursosComponent implements OnInit {
   constructor(private get: GetService, public helpers: HelpersService) { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('token'));
-    this.profile();
+    /*console.log(localStorage.getItem('token'));*/
+    this.certifications();
   }
 
-  profile(){
-    this.get.getProfile(localStorage.getItem('id'), localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        //console.log(data);
-        this.email = data;
-        //console.log(this.email);
-        this.certifications(data.email);
-      }
-    );
-  }
-    
-  certifications(email:any){
+
+  certifications(){
     this.certificaciones = [];
-    this.get.getCertifications(email, localStorage.getItem('token')).subscribe(
+    this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
         this.certificaciones = data;
