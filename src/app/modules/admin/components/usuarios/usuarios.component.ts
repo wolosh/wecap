@@ -15,7 +15,7 @@ export class UsuariosComponent implements OnInit {
   constructor(private get: GetService, public helpers: HelpersService) { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('token'));
+    //console.log(localStorage.getItem('token'));
     this.users();
   }
 

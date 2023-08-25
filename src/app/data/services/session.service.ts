@@ -42,4 +42,19 @@ export class SessionService {
       password: password
     });
   }
+
+  public newCurso(title: string, description: string,img: File, default_active_days: string,hasExam: string) {
+    //console.log(email, password);
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('img', img);
+    formData.append('default_active_days', default_active_days);
+    formData.append('hasExam', hasExam);
+    return this.http.post(`${this.API}addCertification`, formData
+      //email: email,
+      //password: password
+    );
+  }
 }
+

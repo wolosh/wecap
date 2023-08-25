@@ -14,6 +14,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -23,10 +24,10 @@ const routes: Routes = [
   {path: "configuracion", component: ConfiguracionComponent},
   {path: "cursos", component:CursosComponent},
   {path: "estadisticas", component: EstadisticasComponent},
-  {path: "examenes", component: ExamenesComponent}, 
+  {path: "examenes", component: ExamenesComponent},
   {path: "mail", component: MailComponent},
   {path: "usuarios", component: UsuariosComponent},
-  
+
 ];
 
 @NgModule({
@@ -42,13 +43,15 @@ const routes: Routes = [
   ],
   imports: [
     SortableModule.forRoot(),
-    CommonModule, 
+    CommonModule,
     RouterModule.forChild(routes),
     MatTableModule,
     MatPaginatorModule,
     NgApexchartsModule,
-    CKEditorModule
-  ], 
+    CKEditorModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   exports: [RouterModule, ArchivosComponent, ExamenesComponent, EstadisticasComponent, ConferenciasComponent, MailComponent, UsuariosComponent, ConfiguracionComponent]
 })
 export class AdminModule { }

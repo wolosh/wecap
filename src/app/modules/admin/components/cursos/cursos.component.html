@@ -62,7 +62,7 @@
                             <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
                         </div>
                     </div>
-                    
+
                     <!------Crear curso--->
                     <label class="text3 txt-blue2 mt-3">Crear Curso</label>
                     <label class="text6 txt-gris mt-3 ms-2">Datos generales</label>
@@ -72,25 +72,25 @@
                     <---->
                     <hr class="w-100">
                     <!---->
-                    <form>
+                    <form [formGroup]="formNewCurso">
                         <!------Editar curso---
                         <label class="text14 txt-blue mb-3">Datos generales</label>
                         <---->
                         <div class="mb-3">
                           <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
-                          <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          <input type="text" class="input3" id="exampleInputEmail1" formControlName="title">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
-                            <textarea class="input3" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <textarea class="input3" id="floatingTextarea2" style="height: 100px" formControlName="description"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-2">Fondo (opcional)</label>
-                            <input class="input3" type="file" id="formFile">
+                            <input class="input3" type="file" id="formFile" formControlName="img">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">
                         </div>
                         <div class="form-check form-check-inline ps-0">
                             <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
@@ -102,7 +102,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="nuevoCurso()">Guardar</button>
                             </div>
                         </div>
                         <!------Editar curso---
@@ -152,7 +152,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                             <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
@@ -293,7 +293,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <label class="text3 txt-blue2 mt-3">Añadir Grupos</label>
                     <label class="text6 txt-gris mt-3 ms-2">Buscar y seleccionar usuarios</label>
                     <hr class="w-100">
@@ -317,7 +317,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-md-3 col-lg-2">
-                                <button class="botondrop bg-grey2 p-1">Mostrar todos</button> 
+                                <button class="botondrop bg-grey2 p-1">Mostrar todos</button>
                             </div>
                             <div class="col-4 col-md-3 col-lg-2 offset-xl-2 offset-lg-0 offset-md-9 mt-lg-0">
                                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
