@@ -72,7 +72,7 @@
                     <---->
                     <hr class="w-100">
                     <!---->
-                    <form [formGroup]="formNewCurso">
+                    <form [formGroup]="formNewCurso" >
                         <!------Editar curso---
                         <label class="text14 txt-blue mb-3">Datos generales</label>
                         <---->
@@ -86,7 +86,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text13 txt-blue mb-2">Fondo (opcional)</label>
-                            <input class="input3" type="file" id="formFile" formControlName="img">
+                            <input class="input3" type="file" id="formFile" (change)="selectFile($event, 'img')" accept="image/png,image/jpeg,image/jpg">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default (opcional)</label>
@@ -94,11 +94,11 @@
                         </div>
                         <div class="form-check form-check-inline ps-0">
                             <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
-                            <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"name="inlineRadioOptions" id="inlineRadio1" value="1">
                         </div>
                         <div class="form-check form-check-inline ps-0">
                             <label class="text13 txt-blue float-start" for="inlineRadio2">Sin examen</label>
-                            <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')" name="inlineRadioOptions" id="inlineRadio2" value="0">
                         </div>
                         <div class="row">
                             <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">

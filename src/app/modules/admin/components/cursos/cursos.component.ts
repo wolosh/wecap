@@ -13,6 +13,9 @@ import { HelpersService } from 'src/app/data/services/helpers.service';
 export class CursosComponent implements OnInit {
   certificaciones: any;
   formNewCurso: FormGroup;
+  image: any;
+  formData = new FormData();
+  exam: any;
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder,private session: SessionService) { }
 
@@ -27,9 +30,9 @@ export class CursosComponent implements OnInit {
     this.formNewCurso = this.formBuilder.group({
       title: [''],
       description: [''],
-      img: [''],
+      //img: [''],
       default_active_days: [''],
-      hasExam: [''],
+      //hasExam: [''],
     });
   }
 
@@ -43,31 +46,43 @@ export class CursosComponent implements OnInit {
       }
     );
   }
+  
+  selectFile(event, type) {
+    console.log(event.target.value)
+    if(type == 'img'){
+    console.log(event.target.files, event.target.files[0]);
+    this.image = event.target.files[0];
+    console.log(this.image, this.image.name);
+    } else {
+      switch (event.target.value) {
+        case '0':
+          this.exam = '0';
+          //this.formData.append('hasExam', '0');
+          break;
+        case '1':
+          this.exam = '1';
+          //this.formData.append('hasExam', '1');
+          break;
+      }
+    }
+  }
 
   //Crear nuevo curso
   nuevoCurso() {
-    console.log(this.formNewCurso.value)
-    this.session.newCurso(this.formNewCurso.value.title,
-      this.formNewCurso.value.description,
-      this.formNewCurso.value.img,
-      this.formNewCurso.value.default_active_days,
-      this.formNewCurso.value.hasExam).subscribe(
-    (data: Data) => {
-      //console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
-      localStorage.setItem('token', data['token']);
-      localStorage.setItem('userName', data['full_name']);
-      localStorage.setItem('type', data['is_admin']);
-      localStorage.setItem('id', data['id']);
-      //console.log(localStorage.getItem('token'), localStorage.getItem('userName'), localStorage.getItem('idUser') );
-      //if(data['is_admin'] == 0){
-        //this.router.navigate(['/cmtemplate']);
-
-      //} else if(data['is_admin'] == 1){
-        //this.router.navigate(['/usuarios']);
-
-        //console.log(this.helpers.cursos)
-      //}
-    },
-  );
+    //console.log(this.formNewCurso.value)
+    this.formData.append('title', this.formNewCurso.value.title);
+    this.formData.append('description', this.formNewCurso.value.description);
+    this.formData.append('img', this.image, this.image.name);
+    //console.log(this.formData.getAll('image'), this.formData.getAll('title'), this.formData.getAll('description'));
+    this.formData.append('default_active_days', this.formNewCurso.value.default_active_days);
+    this.formData.append('hasExam', this.exam);
+    //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
+    this.session.newCurso(this.formData, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data);
+        this.certifications();
+      }
+    );
+    
   }
 }
