@@ -16,6 +16,8 @@ export class CursosComponent implements OnInit {
   image: any;
   formData = new FormData();
   exam: any;
+  materias: any;
+  grupos: any[];
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder,private session: SessionService) { }
 
@@ -23,6 +25,9 @@ export class CursosComponent implements OnInit {
     //console.log(localStorage.getItem('token'));
     this.certifications();
     this.startForm();
+    this.allMaterias();
+    this.allGrupos();
+    this.helpers.cursos = 1;
   }
 
   startForm(): void {
@@ -46,7 +51,7 @@ export class CursosComponent implements OnInit {
       }
     );
   }
-  
+
   selectFile(event, type) {
     console.log(event.target.value)
     if(type == 'img'){
@@ -83,6 +88,35 @@ export class CursosComponent implements OnInit {
         this.certifications();
       }
     );
-    
+  }
+
+  allMaterias(){
+    this.materias = [];
+    this.get.getMaterias(localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data);
+        this.materias = data;
+        //console.log(this.materias);
+      }
+    );
+  }
+
+  allGrupos(){
+    this.grupos = [];
+    this.get.getGrupos(localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data);
+        this.grupos = data.grupos;
+        //console.log(this.materias);
+      }
+    );
+  }
+
+  change(id:any){
+    if(id == 1){
+      this.helpers.cursos = 1;
+    } else {
+      this.helpers.cursos = 2;
+    }
   }
 }

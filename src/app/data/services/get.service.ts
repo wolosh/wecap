@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Data, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { SessionService } from './session.service';
 
 @Injectable({
@@ -40,5 +40,33 @@ export class GetService {
     });
   }
 
+  getMaterias(token:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    //console.log(headers)
+    return this.http.get(this.session.API + 'getAllMaterias', {
+      headers,
+    });
+  }
 
+  getGrupos(token:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    //console.log(headers)
+    return this.http.get(this.session.API + 'grupos', {
+      headers,
+    });
+  }
+
+  getMedia(token:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    //console.log(headers)
+    return this.http.get(this.session.API + 'media', {
+      headers,
+    })
+  }
 }

@@ -1,51 +1,75 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import {Component, OnInit} from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl,} from '@angular/forms';
+import { GetService } from 'src/app/data/services/get.service';
+import { SessionService } from 'src/app/data/services/session.service';
+import { HelpersService } from 'src/app/data/services/helpers.service';
 
 @Component({
   selector: 'app-archivos',
   templateUrl: './archivos.component.html',
   styleUrls: ['./archivos.component.css']
 })
-export class ArchivosComponent implements AfterViewInit  {
-  
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+export class ArchivosComponent implements OnInit  {
+  medias: any;
+  formuploadMedia: FormGroup;
+  formData = new FormData();
+  image: any;
 
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  constructor(private get: GetService,public helpers: HelpersService,private session: SessionService,private formBuilder: FormBuilder) { }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  ngOnInit(): void {
+    console.log(localStorage.getItem('token'));
+    this.allMedia();
+    this.helpers.cursos = 1;
+    this.startForm();
   }
 
-  constructor() { }
-}
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  allMedia(){
+    this.medias = [];
+    this.get.getMedia(localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data);
+        this.medias = data.media;
+        //console.log(this.medias);
+      }
+    );
+  }
+
+  change(id:any){
+    if(id == 1){
+      this.helpers.cursos = 1;
+    } else {
+      this.helpers.cursos = 2;
+    }
+  }
+
+  startForm(): void {
+    //Metodo para inicializar el formulario
+    this.formuploadMedia = this.formBuilder.group({
+      img: ['']
+    });
+  }
+
+  /*selectFile(event) {
+    //console.log(event.target.value)
+    console.log(event.target.files, event.target.files[0]);
+    this.image = event.target.files[0];
+    console.log(this.image, this.image.name);
+  }*/
+
+  //Crear nuevo curso
+  subirMedia() {
+    //console.log(this.formuploadMedia.value)
+    this.formData.append('img', this.image);
+    //console.log(this.formData.getAll('image'));
+    //console.log(this.formData.append('img', this.image));
+    //console.log(this.formData);
+    this.session.uploadMedia(this.formData, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.allMedia();
+      }
+    );
+  }
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];

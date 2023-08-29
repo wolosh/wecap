@@ -13,7 +13,7 @@
                     <label class="text3 txt-blue2 mt-3">Ver Cursos</label>
                     <hr class="w-100">
                     <div class="table-responsive">
-                        <table class="table w-100" >
+                        <table class="table w-100">
                             <thead>
                               <tr>
                                 <th scope="col">Título</th>
@@ -192,6 +192,7 @@
                     </form>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                  <div *ngIf="this.helpers.cursos == 1">
                     <label class="text3 txt-blue2 mt-3">Materias</label>
                     <hr class="w-100">
                     <div class="table-responsive">
@@ -202,12 +203,12 @@
                                 <th scope="col">Nombre Instructor</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody *ngFor="let materia of materias">
                               <tr>
-                                <th scope="row">Atención al cliente</th>
-                                <td>Instructor_1</td>
+                                <th scope="row">{{materia.Nombre}}</th>
+                                <td>{{materia.nombreProfesor}}</td>
                               </tr>
-                              <tr>
+                              <!--tr>
                                 <th scope="row">Finanzas</th>
                                 <td>Mtro Demo</td>
                               </tr>
@@ -222,16 +223,17 @@
                               <tr>
                                 <th scope="row">Ventas</th>
                                 <td>Profesor 2</td>
-                              </tr>
+                              </tr-->
                             </tbody>
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                            <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Agregar materia</button>
-                        </div>
+                      <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                          <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="change(2)">Agregar materia</button>
+                      </div>
                     </div>
-
+                  </div>
+                  <div *ngIf="this.helpers.cursos == 2">
                     <!------Agregar materia--->
                     <label class="text3 txt-blue2 mt-3">Agregar materia</label>
                     <hr class="w-100">
@@ -256,8 +258,10 @@
                             </div>
                         </div>
                     </form>
+                  </div>
                 </div>
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                  <div *ngIf="this.helpers.cursos == 1">
                     <label class="text3 txt-blue2 mt-3">Modificar grupo</label>
                     <label class="text6 txt-gris mt-3 ms-2">Selecciona un usuario</label>
                     <hr class="w-100">
@@ -269,12 +273,12 @@
                                 <th scope="col">Grupo</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody *ngFor="let grupo of grupos">
                               <tr>
-                                <th scope="row">Alejandro Sandoval</th>
-                                <td>A2</td>
+                                <th scope="row"><button type="button" class="boton4" (click)="change(2)">{{grupo.nombre_grupo}}</button></th>
+                                <td>{{grupo.id}}</td>
                               </tr>
-                              <tr>
+                              <!--tr>
                                 <th scope="row">Alsain Admin</th>
                                 <td>A3</td>
                               </tr>
@@ -289,7 +293,7 @@
                               <tr>
                                 <th scope="row">Alsain Admin 4</th>
                                 <td>A1</td>
-                              </tr>
+                              </tr-->
                             </tbody>
                         </table>
                     </div>
@@ -329,42 +333,42 @@
                         </div>
                         <label class="text13 txt-blue">Grupo</label>
                         <div class="dropdown">
-                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="botondrop dropdown-toggle" type="button" id="grupo" data-bs-toggle="dropdown" aria-expanded="false">
                                 Seleccionar grupo
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="grupo" >
+                              <li *ngFor="let grupo of grupos"><a class="dropdown-item" href="#">{{grupo.id}}</a></li>
                             </ul>
                         </div>
                         <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>
                         <label class="text7 txt-gris d-block">Alumno 2</label>
                     </form>
-                    <!------Modificar grupo--->
-                    <label class="text3 txt-blue2 mt-3">Modificar grupo</label>
-                    <label class="text6 txt-gris mt-3 ms-2">Alejandro Sandoval</label>
-                    <hr class="w-100">
-                    <form>
-                        <label class="text3 txt-blue">Grupo</label>
-                        <div class="row">
-                            <div class="col-lg-6">
+                  </div>
+                  <!------Modificar grupo-->
+                    <div *ngIf="this.helpers.cursos == 2">
+                      <label class="text3 txt-blue2 mt-3">Modificar grupo</label>
+                      <label class="text6 txt-gris mt-3 ms-2">Alejandro Sandoval</label>
+                      <hr class="w-100">
+                      <form>
+                          <label class="text3 txt-blue">Grupo</label>
+                          <div class="row">
+                              <div class="col-lg-6">
                                 <div class="dropdown">
-                                    <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Seleccionar grupo
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="#">Action</a></li>
-                                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
+                                  <button class="botondrop dropdown-toggle" type="button" id="grupo" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Seleccionar grupo
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="grupo" >
+                                    <li *ngFor="let grupo of grupos"><a class="dropdown-item" href="#">{{grupo.id}}</a></li>
+                                  </ul>
                                 </div>
-                            </div>
-                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Modificar</button>
-                            </div>
-                        </div>
-                    </form>
+                              </div>
+                              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Modificar</button>
+                              </div>
+                          </div>
+                      </form>
+                    </div>
+                    <!------Modificar grupo--->
                 </div>
               </div>
         </div>

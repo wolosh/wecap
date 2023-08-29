@@ -145,13 +145,13 @@ input[type=file]::-webkit-file-upload-button{
     color: #015287 !important;
 }
 .dropdown-menu{
-    background-color: transparent !important;
-    border: none !important;
+    /*background-color: transparent !important;
+    border: none !important;*/
     padding: 0 !important;
     min-width: 100px !important;
 }
 .dropdown-item{
-    color: #fff !important;
+    color: #015287 !important;
 }
 .top{
     padding-top: 5%;
@@ -263,6 +263,14 @@ hr{
     padding-left: 4%;
     padding-right: 4%;
     border: none;
+}
+.boton4{
+  font-family: 'Helvetica-Bold';
+  font-size: 1.1rem !important;
+  color: #015287;
+  border: none;
+  background: transparent;
+  padding-right: 0;
 }
 .botondrop {
     font-family: 'Helvetica-Regular';

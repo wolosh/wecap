@@ -75,7 +75,21 @@ export class SessionService {
         console.log(err);
         return err;
       })
-    );    
+    );
+  }
+  public uploadMedia(form, token) {
+    //console.log(form)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}uploadMedia`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
   }
 }
 
