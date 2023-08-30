@@ -15,7 +15,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.name = localStorage.getItem('userName');
-    this.type = localStorage.getItem('type');
+    //this.type = localStorage.getItem('type');
+    //console.log(this.type)
   }
 
   /*Cambiar color de nav al hacer scroll*/

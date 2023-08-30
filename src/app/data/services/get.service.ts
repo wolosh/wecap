@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ActivatedRoute, Data, Router } from '@angular/router';
-import { Observable, catchError } from 'rxjs';
 import { SessionService } from './session.service';
 
 @Injectable({
@@ -30,6 +28,7 @@ export class GetService {
       headers,
     });
   }
+
   getUsers(token:any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -50,7 +49,7 @@ export class GetService {
     });
   }
 
-  getGrupos(token:any) {
+  getGroups(token:any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -69,4 +68,5 @@ export class GetService {
       headers,
     })
   }
+  
 }

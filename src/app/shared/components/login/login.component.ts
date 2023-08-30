@@ -38,6 +38,9 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('userName', data['full_name']);
       localStorage.setItem('type', data['is_admin']);
       localStorage.setItem('id', data['id']);
+      console.log(localStorage.getItem('type'))
+      this.helpers.type = localStorage.getItem('type');
+      console.log(localStorage.getItem('type'), this.helpers.type)
       //console.log(localStorage.getItem('token'), localStorage.getItem('userName'), localStorage.getItem('idUser') );
       if(data['is_admin'] == 0){
         this.router.navigate(['/cmtemplate']); 
