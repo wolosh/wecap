@@ -32,8 +32,8 @@
                 <tbody id="cursos">
                   <tr *ngFor="let certificacion of certificaciones">
                     <th scope="row">
-                      <button type="button" (click)="changeViewCourses('editc', certificacion.title)">
-                        <a class="text10 text-blue">{{certificacion.title}}</a>
+                      <button type="button" class="boton4" (click)="changeViewCourses('editc', certificacion.title)">
+                        {{certificacion.title}}
                       </button>
                     </th>
                     <!--<th scope="row">{{certificacion.title}}</th>-->
@@ -356,8 +356,8 @@
                 <tbody>
                   <tr *ngFor="let user of user">
                     <th scope="row">
-                      <button (click)="changeView(1, user.idUser, user.full_name)" type="button">
-                        <a class="text10 text-blue">{{user.full_name}}</a>
+                      <button class="boton4" (click)="changeView(1, user.idUser, user.full_name)" type="button">
+                        {{user.full_name}}
                       </button>
                     </th>
                     <td *ngIf="user.grupo != null && user.grupo != ''">{{user.grupo}}</td>

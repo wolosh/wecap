@@ -271,6 +271,7 @@ hr{
   border: none;
   background: transparent;
   padding-right: 0;
+  text-align: left;
 }
 .botondrop {
     font-family: 'Helvetica-Regular';

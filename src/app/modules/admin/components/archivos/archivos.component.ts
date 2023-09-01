@@ -13,7 +13,7 @@ export class ArchivosComponent implements OnInit  {
   medias: any;
   formuploadMedia: FormGroup;
   formData = new FormData();
-  image: any;
+  image:any[]=[];
 
   constructor(private get: GetService,public helpers: HelpersService,private session: SessionService,private formBuilder: FormBuilder) { }
 
@@ -50,24 +50,34 @@ export class ArchivosComponent implements OnInit  {
     });
   }
 
-  /*selectFile(event) {
+  selectFile(event) {
     //console.log(event.target.value)
-    console.log(event.target.files, event.target.files[0]);
-    this.image = event.target.files[0];
-    console.log(this.image, this.image.name);
-  }*/
+    //console.log(event.target.files, event.target.files[0]);
+    //this.image = event.target.files[0];
+    //console.log(this.image, this.image.name);
+    //this.image = [];
+    for (var i = 0; i < event.target.files.length; i++) { 
+      this.image.push(event.target.files[i]);
+    }
+  }
 
   //Crear nuevo curso
   subirMedia() {
-    //console.log(this.formuploadMedia.value)
-    this.formData.append('img', this.image);
-    //console.log(this.formData.getAll('image'));
-    //console.log(this.formData.append('img', this.image));
+    this.image.forEach((value) => {
+      //this.formData.append("img[]", value);
+      this.formData.append("img[]", value, value.name);
+      //formData.append("fieldName", JSON.stringify(testObject));
+    });
+    //console.log(this.formData.getAll('img'));
+    //console.log(this.formData.getAll('img[]'));
+    /*this.formData.append('img',this.image);
+    console.log(this.formData.getAll('image'));
+    //console.log(this.formData.append('img', this.image));*/
     //console.log(this.formData);
     this.session.uploadMedia(this.formData, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
-        this.allMedia();
+        //this.allMedia();
       }
     );
   }
