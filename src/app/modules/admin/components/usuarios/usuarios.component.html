@@ -8,6 +8,7 @@
               </nav>
               <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <div *ngIf="this.helpers.cursos == 1">
                     <label class="text3 txt-blue2 mt-3">Usuarios</label>
                     <hr class="w-100">
                     <!--tabla-->
@@ -27,7 +28,7 @@
                             <tbody>
                                 <tr *ngFor="let users of this.usuarios">
                                     <th scope="row">{{users.idUser}}</th>
-                                    <th scope="row">{{users.full_name}}</th>
+                                    <th scope="row"><button type="button" class="boton4" (click)="change(2)">{{users.full_name}}</button></th>
                                     <td>{{users.email}}</td>
                                     <td>{{users.job}}</td>
                                     <td>{{users.area}}</td>
@@ -39,8 +40,8 @@
                             </tbody>
                         </table>
                     </div>
-                    
-
+                  </div>
+                  <div *ngIf="this.helpers.cursos == 2">
                     <label class="text3 txt-blue2 mt-3">Editar Usuario</label>
                     <hr class="w-100">
                     <form>
@@ -128,8 +129,7 @@
                             </div>
                         </div>
                     </form>
-
-                    
+                  </div>
                 </div>
             </div>
         </div>

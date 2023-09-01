@@ -17,6 +17,16 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
     //console.log(localStorage.getItem('token'));
     this.users();
+    this.helpers.goTop();
+    this.helpers.cursos = 1;
+  }
+
+  change(id:any){
+    if(id == 1){
+      this.helpers.cursos = 1;
+    } else {
+      this.helpers.cursos = 2;
+    }
   }
 
   users(){
@@ -28,7 +38,7 @@ export class UsuariosComponent implements OnInit {
         });*/
         //console.log(data);
         this.usuarios = data.users;
-        console.log(this.usuarios)
+        //console.log(this.usuarios)
 
       }
     );

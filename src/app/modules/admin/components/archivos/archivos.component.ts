@@ -18,7 +18,8 @@ export class ArchivosComponent implements OnInit  {
   constructor(private get: GetService,public helpers: HelpersService,private session: SessionService,private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('token'));
+    this.helpers.goTop();
+    //console.log(localStorage.getItem('token'));
     this.allMedia();
     this.helpers.cursos = 1;
     this.startForm();
@@ -56,7 +57,7 @@ export class ArchivosComponent implements OnInit  {
     //this.image = event.target.files[0];
     //console.log(this.image, this.image.name);
     //this.image = [];
-    for (var i = 0; i < event.target.files.length; i++) { 
+    for (var i = 0; i < event.target.files.length; i++) {
       this.image.push(event.target.files[i]);
     }
   }
@@ -83,3 +84,12 @@ export class ArchivosComponent implements OnInit  {
   }
 }
 
+/*const buttons = Array.from(document.getElementsByClassName('btn'));
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', function handleClick(event) {
+    console.log('button clicked');
+    console.log(event);
+    console.log(event.target);
+  });
+});*/

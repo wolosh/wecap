@@ -8,6 +8,7 @@
               </nav>
               <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <div *ngIf="this.helpers.cursos == 1">
                     <label class="text3 txt-blue2 mt-3">Video Conferencias</label>
                     <hr class="w-100">
                     <!--Tabla--->
@@ -24,13 +25,13 @@
                         <tbody>
                             <tr>
                                 <th scope="row">1</th>
-                                <th scope="row">Alsain Soluciones Audiovisuales</th>
+                                <th scope="row"><button type="button" class="boton4" (click)="change(2)">Alsain Soluciones Audiovisuales</button></th>
                                 <td>En esta certificación encontraras materiales audiovisuales realizados
                                     por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
                                 <td>2018-11-26</td>
                                 <td>Activa</td>
                             </tr>
-                            <tr>
+                            <!--tr>
                                 <th scope="row">2</th>
                                 <th scope="row">Alsain Soluciones Audiovisuales</th>
                                 <td>En esta certificación encontraras materiales audiovisuales realizados
@@ -53,10 +54,11 @@
                                     por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
                                 <td>2018-11-26</td>
                                 <td>Activa</td>
-                            </tr>
+                            </tr-->
                         </tbody>
                     </table>
-
+                  </div>
+                  <div *ngIf="this.helpers.cursos == 2">
                     <!--Conferencias--->
                     <label class="text3 txt-blue2 mt-3">Conferencias</label>
                     <hr class="w-100">
@@ -124,6 +126,7 @@
                             </div>
                         </div>
                     </form>
+                  </div>
                 </div>
             </div>
         </div>

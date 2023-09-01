@@ -68,5 +68,24 @@ export class GetService {
       headers,
     })
   }
-  
+
+  getMails(token:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    //console.log(headers)
+    return this.http.get(this.session.API + 'correos', {
+      headers,
+    })
+  }
+
+  getConferencias(token:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    //console.log(headers)
+    return this.http.get(this.session.API + 'correos', {
+      headers,
+    })
+  }
 }

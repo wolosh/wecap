@@ -8,6 +8,7 @@
               </nav>
               <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <div *ngIf="this.helpers.cursos == 1">
                     <label class="text3 txt-blue2 mt-3">Correos programados</label>
                     <hr class="w-100">
                     <!--Tabla--->
@@ -19,8 +20,13 @@
                                 <th>Correos</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngFor="let mails of this.mail">
                             <tr>
+                                <th scope="row"><button type="button" class="boton4" (click)="change(2)">{{mails.asunto}}</button></th>
+                                <td>{{fecha}}</td>
+                                <td>{{correo}}</td>
+                            </tr>
+                            <!--tr>
                                 <th scope="row">asdasdas</th>
                                 <td>09/07/2021, 09/23/2021</td>
                                 <td>felix.velasco@creativesoft.mx</td>
@@ -34,67 +40,66 @@
                                 <th scope="row">asdasdas</th>
                                 <td>09/07/2021, 09/23/2021</td>
                                 <td>felix.velasco@creativesoft.mx</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">asdasdas</th>
-                                <td>09/07/2021, 09/23/2021</td>
-                                <td>felix.velasco@creativesoft.mx</td>
-                            </tr>
+                            </tr-->
                         </tbody>
                     </table>
+                  </div>
+
 
                     <!--Conferencias--->
-                    <label class="text3 txt-blue2 mt-3">Enviar Correo</label>
-                    <hr class="w-100">
-                    <form>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
+                    <div *ngIf="this.helpers.cursos == 2">
+                      <label class="text3 txt-blue2 mt-3">Enviar Correo</label>
+                      <hr class="w-100">
+                      <form>
+                          <div class="mb-3">
+                              <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
+                              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          </div>
+                          <div class="mb-3">
+                              <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
+                              <ckeditor [editor]="Editor" data=""></ckeditor>
+                          </div>
+                          <div class="mb-3">
+                              <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
+                              <input class="input3" type="file" id="formFile">
+                          </div>
+                          <div class="mb-3">
+                              <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona las fechas</label>
+                              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          </div>
+                          <div class="row">
+                              <div class="col-md-2 col-lg-2">
+                                  <label class="text13 txt-blue">Buscar por:</label>
+                              </div>
+                              <div class="col-md-6 col-lg-5 col-xl-4">
+                                  <div class="form-check form-check-inline ps-0 mb-2">
+                                      <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
+                                      <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                  </div>
+                                  <div class="form-check form-check-inline ps-0 mb-2">
+                                      <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
+                                      <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                  </div>
+                                  <div class="form-check form-check-inline ps-0 mb-2">
+                                      <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
+                                      <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                  </div>
+                              </div>
+                              <div class="col-md-3 col-lg-2">
+                                  <button class="botondrop bg-grey2 p-1">Mostrar todos</button>
+                              </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
                             <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
-                            <ckeditor [editor]="Editor" data=""></ckeditor>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
-                            <input class="input3" type="file" id="formFile">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona las fechas</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 col-lg-2">
-                                <label class="text13 txt-blue">Buscar por:</label>
-                            </div>
-                            <div class="col-md-6 col-lg-5 col-xl-4">
-                                <div class="form-check form-check-inline ps-0 mb-2">
-                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
-                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                </div>
-                                <div class="form-check form-check-inline ps-0 mb-2">
-                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
-                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                </div>
-                                <div class="form-check form-check-inline ps-0 mb-2">
-                                    <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
-                                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-lg-2">
-                                <button class="botondrop bg-grey2 p-1">Mostrar todos</button> 
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                          <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
-                          <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="row">
-                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Enviar</button>
-                            </div>
-                        </div>
-                    </form>
+                          </div>
+                          <div class="row">
+                              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Enviar</button>
+                              </div>
+                          </div>
+                      </form>
+                    </div>
                 </div>
             </div>
         </div>

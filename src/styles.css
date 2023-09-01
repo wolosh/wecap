@@ -123,6 +123,14 @@ ul{
     padding: .375rem .75rem;
     border-radius: 7px;
 }
+.input5{
+  width: 100%;
+  background-color: #F2FAFF;
+  border: none;
+  color: #707070;
+  padding: .375rem .75rem;
+  border-radius: 5px;
+}
 input[type=date]::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
@@ -270,7 +278,7 @@ hr{
   color: #015287;
   border: none;
   background: transparent;
-  padding-right: 0;
+  padding-left: 0;
   text-align: left;
 }
 .botondrop {
