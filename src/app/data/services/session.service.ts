@@ -16,14 +16,7 @@ export class SessionService {
 
   constructor(private http: HttpClient) { }
 
-  /*public login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.API}login`, {
-      params: {
-        email: email,
-        password: password
-      }
-    });
-  }*/
+  //login
   public login(email: string, password: string) {
     console.log(email, password);
     const formData = new FormData();
@@ -35,6 +28,7 @@ export class SessionService {
     );
   }
 
+  //registro
   public register(name: string, email: string, password: string): Observable<any> {
     return this.http.post(`${this.API}register`, {
       name: name,
@@ -57,16 +51,12 @@ export class SessionService {
     );
   }*/
 
+  //crear nuevo curso
   public newCurso(form, token) {
     //console.log(form)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-
-    /*return this.http.post(`${this.API}addCertification`, formData
-      //email: email,
-      //password: password
-    );*/
 
     return this.http.post(`${this.API}addCertification`, form, {
       headers,
@@ -83,6 +73,40 @@ export class SessionService {
       'Authorization': `Bearer ${token}`,
     });
     return this.http.post(`${this.API}uploadMedia`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  //editar curso
+  public editCourse(id, form, token) {
+    //console.log(form)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}editCertification/${id}`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  //cambiar estado de curso
+  public statusCourse(id, form, token) {
+    //console.log(form)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}changeStatusCertification/${id}`, form, {
       headers,
     }).pipe(
       catchError((err) => {

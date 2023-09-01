@@ -30,7 +30,7 @@
                   </tr>
                 </thead>
                 <tbody id="cursos">
-                  <tr *ngFor="let certificacion of certificaciones">
+                  <tr *ngFor="let certificacion of certificaciones | paginate: { itemsPerPage: 6, currentPage: p }">
                     <th scope="row">
                       <button type="button" class="boton4" (click)="changeViewCourses('editc', certificacion.title)">
                         {{certificacion.title}}
@@ -67,6 +67,9 @@
                                 <td>Activa</td>
                               </tr-->
                 </tbody>
+                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+                
               </table>
             </div>
             <div class="row">
@@ -119,7 +122,7 @@
               </div>
               <div class="row">
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="nuevoCurso()">Guardar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveCourse('create')">Guardar</button>
                 </div>
               </div>
               <!------Editar curso---
@@ -139,10 +142,12 @@
           <div *ngIf="cview1 == 1">
             <!------Editar curso--->
             <label class="text3 txt-blue2 mt-3">Editar curso</label>
+            <div class="col-lg-2 offset-lg-4 mt-3">
+              <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewCourses('back')">Regresar a Listado</button>
+            </div>
             <hr class="w-100">
             <!---->
             <form [formGroup]="formEdit">
-              <!------Editar curso--->
               <label class="text14 txt-blue mb-3">Datos generales</label>
 
               <div class="mb-3">
@@ -157,7 +162,7 @@
               <div class="mb-3">
                 <label for="formFile" class="text13 txt-blue mb-2">Fondo (opcional)</label>
                 <input class="input3" type="file" id="formFile" (change)="selectFile($event, 'img')"
-                  accept="image/png,image/jpeg,image/jpg">
+                  accept="image/png,image/jpeg,image/jpg" >
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default
@@ -166,13 +171,13 @@
               </div>
               <div class="form-check form-check-inline ps-0">
                 <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
-                <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
-                  name="inlineRadioOptions" id="inlineRadio1" value="1">
+                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam" [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
+                  name="inlineRadioOptions" id="inlineRadio1" [value]="1">
               </div>
               <div class="form-check form-check-inline ps-0">
                 <label class="text13 txt-blue float-start" for="inlineRadio2">Sin examen</label>
-                <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
-                  name="inlineRadioOptions" id="inlineRadio2" value="0">
+                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam" [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
+                  name="inlineRadioOptions" id="inlineRadio2" [value]="0">
               </div>
               <!--<div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -181,10 +186,11 @@
             </div>-->
               <div class="row">
                 <div class="col-lg-2 offset-lg-4 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-2">Editar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="saveCourse('edit', this.idCertification)">Editar</button>
                 </div>
                 <div class="col-lg-2 mt-3">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="desactivateCourses()">Desactivar certificación</button>
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(0)" *ngIf="this.active == '1'">Desactivar certificación</button>
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(1)" *ngIf="this.active == '0'">Activar certificación</button>
                 </div>
               </div>
             </form>
@@ -202,11 +208,11 @@
                   </tr>
                 </thead>
                 <tbody id="modulos">
-                  <tr>
-                    <th scope="row">Corporativo</th>
+                  <tr *ngFor="let module of allModules">
+                    <th scope="row">{{module.title}}</th>
                     <td><button class="boton2">Editar</button></td>
                   </tr>
-                  <tr>
+                  <!--<tr>
                     <th scope="row">Promocional</th>
                     <td><button class="boton2">Editar</button></td>
                   </tr>
@@ -221,7 +227,7 @@
                   <tr>
                     <th scope="row">Tutoriales</th>
                     <td><button class="boton2">Editar</button></td>
-                  </tr>
+                  </tr>-->
                 </tbody>
               </table>
             </div>
@@ -238,27 +244,29 @@
             <label class="text6 txt-gris mt-3 ms-2">(opcional) <span class="text11">Otorga un diploma a tus usuarios al
                 terminar este curso.</span></label>
             <hr class="w-100">
-            <form>
+            <form [formGroup]="formDiploma">
               <div class="form-check form-check-inline ps-0 mb-2">
                 <label class="text13 txt-blue float-start" for="inlineRadio1">Otorgar diploma</label>
-                <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                  value="option1">
+                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="hasDiploma"
+                   [checked]="hasDiploma == true"  [ngModelOptions]="{standalone: true}" (change)="init($event.target)">
               </div>
               <div class="mb-3">
                 <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen, máximo 1200x100)</label>
-                <input class="input3" type="file" id="formFile">
+                <input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'logo')"
+                accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de quien firma</label>
-                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="encargado">
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cargo de quien firma</label>
-                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="puesto">
               </div>
               <div class="mb-3">
                 <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
-                <input class="input3" type="file" id="formFile">
+                <input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
+                accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="row">
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">

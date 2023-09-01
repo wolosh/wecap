@@ -88,4 +88,26 @@ export class GetService {
       headers,
     })
   }
+  //llamada para traer modulos de un curso
+  getModules(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(this.session.API + 'modulos/' + id, {
+      headers
+  });
+  }
+
+  //trae el diploma de la base de datos
+  getDiploma(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(this.session.API + 'diploma/' + id, {
+      headers
+  });
+  }
+  
 }

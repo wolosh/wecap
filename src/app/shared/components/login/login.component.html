@@ -8,13 +8,13 @@
           <input type="email" class="input2" id="inputEmail4" name="email" placeholder="Email" required formControlName="email"/>
         </div>
         <div class="form-group mb-2">
-          <input type="password" class="input2" id="inputPassword4"
+          <input type="password" class="input2" id="inputPassword4" [type]="togglePassword ? 'text' : 'password'"
             name="password" placeholder="Contraseña" required formControlName="password"
             (keyup.enter)="normalLogin()"/>
         </div>
         <div class="form-group">
           <div class="form-check">
-            <input class="form-check-input ml-0" type="checkbox" id="gridCheck"/>
+            <input class="form-check-input ml-0" type="checkbox" id="gridCheck" (change)="showPassword($event)" />
             <label class="form-check-label text9 txt-gris2" for="gridCheck">
               Mostrar Contraseña
             </label>
