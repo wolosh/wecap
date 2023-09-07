@@ -289,6 +289,27 @@ hr{
     border: none;
     padding: .5% 2%;
 }
+/*Estilo input file*/
+.file {
+    color: transparent;
+}
+.file::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.file{
+    display: inline-block;
+    background-image: url(../src/assets/img/imgpreg.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10%;
+}
+ 
+/*input[type="file"]::file-selector-button{
+    background-color: transparent;
+    background-image: url(../src/assets/img/imgpreg.svg);
+    background-repeat: no-repeat;
+    content: "";
+}*/
 /*Textos*/
 .text{
     font-size: 3.5rem;

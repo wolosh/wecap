@@ -27,19 +27,19 @@ export class ExamenesComponent implements OnInit {
   }
   //duplicar pregunta
   public clone(): void {
-    /*const txtquestion = document.querySelector('.txtquestion');//pregunta
-    const question = document.querySelector('.question');//input pregunta
-    const opcion = document.querySelector('.opcion');//input radio opcion
-    /*const inputopcion = document.querySelector('.inputopcion');//input opcion
-    const inputopcion = document.querySelector('.inputopcion');//boton imagen
-    const inputopcion = document.querySelector('.inputopcion');//boton agregar opcion
-    const inputopcion = document.querySelector('.inputopcion');//boton quitar opcion*/
-
-    const node = document.querySelector("pregunta");
+    const node = document.getElementById("pregunta");
     const clone = node.cloneNode(true);
-    document.body.appendChild(clone);
-
-    /*const clone = txtquestion.cloneNode(true);
-    document.querySelector('.pregunta').appendChild(clone);*/
+    document.getElementById("editor").appendChild(clone);
+  }
+  //duplicar opcion
+  public cloneOpcion(): void {
+    const node = document.getElementById("opcion");
+    const clone = node.cloneNode(true);
+    document.getElementById("editor").appendChild(clone);
+  }
+   //remove opcion
+   public remove(): void {
+    const node = document.getElementById("opcion");
+    node.remove();
   }
 }
