@@ -27,19 +27,26 @@ export class ExamenesComponent implements OnInit {
   }
   //duplicar pregunta
   public clone(): void {
-    const node = document.getElementById("pregunta");
-    const clone = node.cloneNode(true);
-    document.getElementById("editor").appendChild(clone);
+    /*const node = document.querySelector('.pregunta');*/
+    /*const clone = node.cloneNode(true);
+    document.querySelector(".editor").appendChild(clone);*/
+    const newDiv = document.createElement("input");
+    document.body.appendChild(newDiv);
+       /*newDiv.appendChild(node);*/
+
   }
   //duplicar opcion
   public cloneOpcion(): void {
-    const node = document.getElementById("opcion");
-    const clone = node.cloneNode(true);
-    document.getElementById("editor").appendChild(clone);
+    const agregar = document.querySelector(".agregar");
+    //console.log(agregar)
+    agregar.addEventListener("click", this.cloneOpcion);
+    const opcion = document.querySelector(".opcion");
+    const clone = opcion.cloneNode(true);
+    document.querySelector(".opcion").appendChild(clone);
   }
    //remove opcion
    public remove(): void {
     const node = document.getElementById("opcion");
-    node.remove();
+    node.removeChild(node);
   }
 }
