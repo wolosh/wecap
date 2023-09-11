@@ -109,5 +109,25 @@ export class GetService {
       headers
   });
   }
+
+  searchUsers(filter, cad, token, ){
+    console.log(filter, cad, token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.session.API}search/${filter}/${cad}`, {
+      headers,
+    })
+  }
+
+  getTeachers(token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(this.session.API + 'getAllMaestros',{
+      headers
+  });
+  }
   
 }

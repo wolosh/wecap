@@ -4,14 +4,14 @@
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Cursos</button>
+            type="button" role="tab" aria-controls="nav-home" aria-selected="true" (click)="onClickTab('courses')">Cursos</button>
           <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
-            role="tab" aria-controls="nav-profile" aria-selected="false">Materias</button>
+            role="tab" aria-controls="nav-profile" aria-selected="false" (click)="onClickTab('mat')">Materias</button>
           <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
-            role="tab" aria-controls="nav-contact" aria-selected="false">Grupos</button>
+            role="tab" aria-controls="nav-contact" aria-selected="false" (click)="onClickTab('groups')">Grupos</button>
         </div>
       </nav>
-      
+
       <div class="tab-content mb-5" id="nav-tabContent">
         <!--TABLA CURSOS-->
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -30,7 +30,7 @@
                   </tr>
                 </thead>
                 <tbody id="cursos">
-                  <tr *ngFor="let certificacion of certificaciones | paginate: { itemsPerPage: 6, currentPage: p }">
+                  <tr *ngFor="let certificacion of certificaciones | paginate: { itemsPerPage: 6, currentPage: p}">
                     <th scope="row">
                       <button type="button" class="boton4" (click)="changeViewCourses('editc', certificacion.title)">
                         {{certificacion.title}}
@@ -42,34 +42,10 @@
                     <td *ngIf="this.certificacion.is_active == 1">Activa</td>
                     <td *ngIf="this.certificacion.is_active == 0">Inactivo</td>
                   </tr>
-                  <!--tr>
-                                <th scope="row">METRIHEALTH</th>
-                                <td>Plataforma para aplicación de la NOM035 Y NOM036</td>
-                                <td>2019-11-22</td>
-                                <td>Activa</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">SMART Learning Suite</th>
-                                <td>En este curso conocerás las herramientas poderosas de la suite de SMART que ofrece para la educación</td>
-                                <td>2020-04-16</td>
-                                <td>Activa</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">TestCurso</th>
-                                <td>Este es un curso de prueba</td>
-                                <td>2020-04-16</td>
-                                <td>Activa</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Curso Isaac</th>
-                                <td>Curso para aprender a ser ITO</td>
-                                <td>2020-04-16</td>
-                                <td>Activa</td>
-                              </tr-->
                 </tbody>
                 <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
-                nextLabel="Siguiente"></pagination-controls>
-                
+                  nextLabel="Siguiente"></pagination-controls>
+
               </table>
             </div>
             <div class="row">
@@ -122,7 +98,8 @@
               </div>
               <div class="row">
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveCourse('create')">Guardar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    (click)="saveCourse('create')">Guardar</button>
                 </div>
               </div>
               <!------Editar curso---
@@ -143,7 +120,8 @@
             <!------Editar curso--->
             <label class="text3 txt-blue2 mt-3">Editar curso</label>
             <div class="col-lg-2 offset-lg-4 mt-3">
-              <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewCourses('back')">Regresar a Listado</button>
+              <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewCourses('back')">Regresar a
+                Listado</button>
             </div>
             <hr class="w-100">
             <!---->
@@ -162,7 +140,7 @@
               <div class="mb-3">
                 <label for="formFile" class="text13 txt-blue mb-2">Fondo (opcional)</label>
                 <input class="input3" type="file" id="formFile" (change)="selectFile($event, 'img')"
-                  accept="image/png,image/jpeg,image/jpg" >
+                  accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default
@@ -171,13 +149,15 @@
               </div>
               <div class="form-check form-check-inline ps-0">
                 <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
-                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam" [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
-                  name="inlineRadioOptions" id="inlineRadio1" [value]="1">
+                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
+                  id="inlineRadio1" [value]="1">
               </div>
               <div class="form-check form-check-inline ps-0">
                 <label class="text13 txt-blue float-start" for="inlineRadio2">Sin examen</label>
-                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam" [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
-                  name="inlineRadioOptions" id="inlineRadio2" [value]="0">
+                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
+                  id="inlineRadio2" [value]="0">
               </div>
               <!--<div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -186,11 +166,14 @@
             </div>-->
               <div class="row">
                 <div class="col-lg-2 offset-lg-4 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="saveCourse('edit', this.idCertification)">Editar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-2"
+                    (click)="saveCourse('edit', this.idCertification)">Editar</button>
                 </div>
                 <div class="col-lg-2 mt-3">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(0)" *ngIf="this.active == '1'">Desactivar certificación</button>
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(1)" *ngIf="this.active == '0'">Activar certificación</button>
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(0)"
+                    *ngIf="this.active == '1'">Desactivar certificación</button>
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(1)"
+                    *ngIf="this.active == '0'">Activar certificación</button>
                 </div>
               </div>
             </form>
@@ -212,22 +195,6 @@
                     <th scope="row">{{module.title}}</th>
                     <td><button class="boton2">Editar</button></td>
                   </tr>
-                  <!--<tr>
-                    <th scope="row">Promocional</th>
-                    <td><button class="boton2">Editar</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Documental</th>
-                    <td><button class="boton2">Editar</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Animación</th>
-                    <td><button class="boton2">Editar</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Tutoriales</th>
-                    <td><button class="boton2">Editar</button></td>
-                  </tr>-->
                 </tbody>
               </table>
             </div>
@@ -247,30 +214,39 @@
             <form [formGroup]="formDiploma">
               <div class="form-check form-check-inline ps-0 mb-2">
                 <label class="text13 txt-blue float-start" for="inlineRadio1">Otorgar diploma</label>
-                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="hasDiploma"
-                   [checked]="hasDiploma == true"  [ngModelOptions]="{standalone: true}" (change)="init($event.target)">
+                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio1"
+                  [(ngModel)]="hasDiploma" [checked]="hasDiploma == true" [ngModelOptions]="{standalone: true}"
+                  (change)="init($event.target)">
               </div>
               <div class="mb-3">
                 <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen, máximo 1200x100)</label>
                 <input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'logo')"
-                accept="image/png,image/jpeg,image/jpg">
+                  accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de quien firma</label>
-                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="encargado">
+                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  formControlName="encargado">
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cargo de quien firma</label>
-                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="puesto">
+                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  formControlName="puesto">
               </div>
+              <!--<div class="mb-3">
+                <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
+                <input class="input4" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
+                accept="image/png,image/jpeg,image/jpg">
+              </div>-->
               <div class="mb-3">
                 <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
                 <input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
-                accept="image/png,image/jpeg,image/jpg">
+                  accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="row">
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    (click)="saveDiploma()">Guardar</button>
                 </div>
               </div>
             </form>
@@ -281,22 +257,23 @@
         </div>
         <!--TABLA MATERIAS-->
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-          <label class="text3 txt-blue2 mt-3">Materias</label>
-          <hr class="w-100">
-          <div class="table-responsive">
-            <table class="table w-100">
-              <thead>
-                <tr>
-                  <th scope="col">Nombre de materia</th>
-                  <th scope="col">Nombre Instructor</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Atención al cliente</th>
-                  <td>Instructor_1</td>
-                </tr>
-                <tr>
+          <div *ngIf="agMat == 0">
+            <label class="text3 txt-blue2 mt-3">Materias</label>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table w-100">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre de materia</th>
+                    <th scope="col">Nombre Instructor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let materia of materias | paginate: { itemsPerPage: 6, currentPage: pm }">
+                    <th scope="row">{{materia.Nombre}}</th>
+                    <td>{{materia.nombreProfesor}}</td>
+                  </tr>
+                  <!--<tr>
                   <th scope="row">Finanzas</th>
                   <td>Mtro Demo</td>
                 </tr>
@@ -311,26 +288,33 @@
                 <tr>
                   <th scope="row">Ventas</th>
                   <td>Profesor 2</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="row">
-            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-              <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Agregar materia</button>
+                </tr>-->
+                </tbody>
+                <pagination-controls (pageChange)="pm = $event" previousLabel="Anterior"
+                  nextLabel="Siguiente"></pagination-controls>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeViewMat(1)">Agregar materia</button>
+              </div>
             </div>
           </div>
 
           <!------Agregar materia--->
+          <div *ngIf="agMat == 1">
           <label class="text3 txt-blue2 mt-3">Agregar materia</label>
+          <div class="col-lg-2 offset-lg-4 mt-3">
+            <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewMat(0)">Cancelar</button>
+          </div>
           <hr class="w-100">
-          <form>
+          <form [formGroup]="formNewMat">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de la materia</label>
-              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input formControlName="name" type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="dropdown">
-              <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+              <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 Profesor
               </button>
@@ -338,15 +322,21 @@
                 <li><a class="dropdown-item" href="#">Action</a></li>
                 <li><a class="dropdown-item" href="#">Another action</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
+              </ul>-->
+              <select class="botondrop dropdown-toggle" [(ngModel)]="teacherSelected" (change)="changeOption('teacher')"
+                      [ngModelOptions]="{standalone: true}">
+                      <option value="0" hidden>Profesor</option>
+                      <option *ngFor="let teacher of teachers" [value]="teacher.idUser">{{teacher.full_name}}</option>
+                    </select>
             </div>
             <div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addMat()">Guardar</button>
               </div>
             </div>
           </form>
         </div>
+      </div>
         <!--TABLA GRUPOS-->
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
           <div *ngIf="this.view == 0">
@@ -362,9 +352,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let user of user">
+                  <tr *ngFor="let user of user | paginate: { itemsPerPage: 6, currentPage: pg }">
                     <th scope="row">
-                      <button class="boton4" (click)="changeView(1, user.idUser, user.full_name)" type="button">
+                      <button class="boton4" (click)="changeViewGroups(1, 'modiGroup', user.idUser, user.full_name)" type="button">
                         {{user.full_name}}
                       </button>
                     </th>
@@ -372,24 +362,11 @@
                     <td *ngIf="user.grupo == null">No asignado</td>
                     <td *ngIf="user.grupo == ''">No asignado</td>
                   </tr>
-                  <!--<tr>
-                                <th scope="row">Alsain Admin</th>
-                                <td>A3</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Alsain Admin 2</th>
-                                <td>A5</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Alsain Admin 3</th>
-                                <td>A4</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Alsain Admin 4</th>
-                                <td>A1</td>
-                              </tr>-->
                 </tbody>
+                
               </table>
+              <pagination-controls (pageChange)="pg = $event" previousLabel="Anterior"
+                  nextLabel="Siguiente"></pagination-controls>
             </div>
 
 
@@ -404,18 +381,21 @@
                 <div class="col-md-6 col-lg-5 col-xl-4">
                   <div class="form-check form-check-inline ps-0 mb-2">
                     <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
-                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                      value="option1">
+                    <input class="form-check-input ms-3" [(ngModel)]="searchSelect" (change)="changeOption('search')"
+                    [ngModelOptions]="{standalone: true}" [value]="1" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                      >
                   </div>
                   <div class="form-check form-check-inline ps-0 mb-2">
                     <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
-                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                      value="option1">
+                    <input class="form-check-input ms-3" [(ngModel)]="searchSelect" (change)="changeOption('search')"
+                    [ngModelOptions]="{standalone: true}" [value]="2" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                     >
                   </div>
                   <div class="form-check form-check-inline ps-0 mb-2">
                     <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
                     <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                      value="option1">
+                    [(ngModel)]="searchSelect" (change)="changeOption('search')"
+                    [ngModelOptions]="{standalone: true}" [value]="3">
                   </div>
                 </div>
                 <div class="col-6 col-md-3 col-lg-2">
@@ -427,11 +407,11 @@
               </div>
               <div class="mt-3 mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
-                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" class="input3" id="busqueda" aria-describedby="emailHelp" [ngModelOptions]="{standalone: true}" (ngModelChange)="didModify()" [(ngModel)]="text1">
               </div>
               <label class="text13 txt-blue">Grupo</label>
               <div class="dropdown">
-                <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1"
+                <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Seleccionar grupo
                 </button>
@@ -439,7 +419,12 @@
                   <li><a class="dropdown-item" href="#">Action</a></li>
                   <li><a class="dropdown-item" href="#">Another action</a></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+                </ul>-->
+                <select class="botondrop dropdown-toggle" [(ngModel)]="groupSelected" (change)="changeOption('group')"
+                      [ngModelOptions]="{standalone: true}">
+                      <option value="0" hidden>Grupo</option>
+                      <option *ngFor="let g of group" [value]="g.id">{{g.nombre_grupo}}</option>
+                    </select>
               </div>
               <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>
               <label class="text7 txt-gris d-block">Alumno 2</label>
@@ -449,6 +434,9 @@
           <div *ngIf="this.view == 1">
             <label class="text3 txt-blue2 mt-3">Modificar grupo</label>
             <label class="text6 txt-gris mt-3 ms-2">{{this.name}}</label>
+            <div class="col-lg-2 offset-lg-4 mt-3">
+              <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewGroups(0, 'inicio')">Cancelar</button>
+            </div>
             <hr class="w-100">
             <form>
               <label class="text3 txt-blue">Grupo</label>
@@ -464,7 +452,7 @@
                       <li><a class="dropdown-item" href="#">Another action</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>-->
-                    <select class="botondrop dropdown-toggle" [(ngModel)]="groupSelected" (change)="changeGroup()"
+                    <select class="botondrop dropdown-toggle" [(ngModel)]="groupSelected" (change)="changeOption('group')"
                       [ngModelOptions]="{standalone: true}">
                       <option value="0" hidden>Seleccionar grupo</option>
                       <option *ngFor="let group of group" [value]="group.id">{{group.nombre_grupo}}</option>
@@ -475,7 +463,7 @@
                   </div>
                 </div>
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Modificar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="asignarGrupo()">Modificar</button>
                 </div>
               </div>
             </form>
