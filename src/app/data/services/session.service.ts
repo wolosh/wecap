@@ -115,5 +115,54 @@ export class SessionService {
       })
     );
   }
+
+  public updateDiploma(form, token) {
+    //console.log(form)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}editDiploma`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public addMateria(form, token) {
+    //console.log(form)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}addMateria`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public asignarGrupo(idGroup, form, token) {
+    //console.log(form)
+    console.log(idGroup, form, token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}asignaGrupo/${idGroup}`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+  
+
 }
 
