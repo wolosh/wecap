@@ -303,7 +303,7 @@ hr{
     background-position: center;
     width: 10%;
 }
- 
+
 /*input[type="file"]::file-selector-button{
     background-color: transparent;
     background-image: url(../src/assets/img/imgpreg.svg);
@@ -741,4 +741,13 @@ td{
     position: relative;
     margin: auto;
     height: 300px;
+}
+.list-group-item{
+  border: none !important;
+}
+.list-group li:nth-child( odd ) {
+  background-color: #F2FAFF !important;
+}
+.list-group li:nth-child( even ) {
+  background-color: #EFEFEF !important;
 }
