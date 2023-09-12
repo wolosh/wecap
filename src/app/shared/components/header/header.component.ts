@@ -23,14 +23,14 @@ export class HeaderComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     let element = document.querySelector('.navbar') as HTMLElement;
-    if (window.scrollY > element.clientHeight) {
+    /*if (window.scrollY > element.clientHeight) {
       element.classList.add('bg-white');
     } else {
       element.classList.remove('bg-white');
-    }
+    }*/
   }
 
-  
+
 
 
 }
