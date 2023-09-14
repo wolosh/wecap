@@ -12,6 +12,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cursos.component.css']
 })
 export class CursosComponent implements OnInit {
+
+  
+  objUsers = [] as any;
+  showArr = [] as any;
+  showLength = 0;
   searchActive = false;
   certificaciones: any;
   formNewCurso: FormGroup;
@@ -41,6 +46,7 @@ export class CursosComponent implements OnInit {
   countCert: number = 0;
   pm: number = 1;
   pg: number = 1;
+  pgm: number = 1;
   idCertification: any;
   bf: any;
   active: any;
@@ -50,21 +56,23 @@ export class CursosComponent implements OnInit {
   firma: any;
   agMat = 0;
   teachers: any;
-  
+  searchArray: any[];
+  length = 0;
+
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
   ngOnInit(): void {
     Swal.close();
-    if(localStorage.getItem('type') == '1'){
-      this.searchUsers('nombre', 'saul');
-    //console.log(localStorage.getItem('token'));
-    this.helpers.type = localStorage.getItem('type');
-    this.helpers.goTop();
-    this.certifications();
-    this.helpers.cursos = 1;
-    this.startForm(1);
-    console.log(this.view)
+    if (localStorage.getItem('type') == '1') {
+     //console.log(this.searchArray)
+      //console.log(localStorage.getItem('token'));
+      this.helpers.type = localStorage.getItem('type');
+      this.helpers.goTop();
+      this.certifications();
+      this.helpers.cursos = 1;
+      this.startForm(1);
+      //console.log(this.view)
     } else {
       Swal.fire({
         title: '¡Error!',
@@ -72,17 +80,21 @@ export class CursosComponent implements OnInit {
         icon: 'error',
         confirmButtonColor: '#015287',
       }).then((result) => {
-        if(result.isConfirmed){
+        if (result.isConfirmed) {
+          if(this.helpers.type == '4'){
+            this.route.navigate(['/cmtemplate']);
+          } else if(localStorage.getItem('token') == null){
           this.route.navigate(['']);
+          }
         }
       });
     }
   }
 
-  
 
-  onClickTab(tab: string){
-    console.log(this.p, this.pm, this.pg);
+
+  onClickTab(tab: string) {
+    //console.log(this.p, this.pm, this.pg);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -90,7 +102,7 @@ export class CursosComponent implements OnInit {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-        switch(tab){
+        switch (tab) {
           case 'courses':
             this.p = 1;
             this.cview1 = 0;
@@ -102,21 +114,40 @@ export class CursosComponent implements OnInit {
             this.allMaterias();
             break;
           case 'groups':
-            this.pg = 1;
-            this.view = 0;
-            this.users();
+            /*this.pg = 1;
+            this.pgm = 1;
+            this.view = 0;*/
+            this.erase();
+            this.users('modify');
             this.startForm(4);
             this.groups();
             break;
         }
       }
     });
-    
-    
+
+
   }
 
-  getPage(page:any){
-    console.log(page);
+  erase(){
+    this.searchSelect = '0';
+    this.objUsers = [];
+    this.text1 = '';
+    this.view = 0;
+    this.chief = 0;
+    this.name = '';
+    this.pgm = 1;
+    this.pg = 1;
+    this.groupSelected = '0';
+    this.showLength = 0;
+    this.showArr = [];
+    this.length = 0;
+    this.searchArray = [];
+            //console.log(this.chief, this.view);
+  }
+
+  getPage(page: any) {
+    //console.log(page);
     this.p = page;
   }
 
@@ -145,12 +176,12 @@ export class CursosComponent implements OnInit {
         puesto: [''],
         activado: [''],
       });
-    } else if(id == 3){
+    } else if (id == 3) {
       this.formNewMat = this.formBuilder.group({
         name: [''],
         teacher: [''],
       });
-    } else if(id == 4){
+    } else if (id == 4) {
       this.formSearch = this.formBuilder.group({
         filter: [''],
         search: [''],
@@ -161,7 +192,7 @@ export class CursosComponent implements OnInit {
   }
 
   init(event: any) {
-    console.log(event, this.hasDiploma)
+    //console.log(event, this.hasDiploma)
     if (this.hasDiploma == true) {
       this.startForm(3);
 
@@ -172,7 +203,7 @@ export class CursosComponent implements OnInit {
     this.certificaciones = [];
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
         this.countCert = this.certificaciones.length;
         //console.log(this.certificaciones);
@@ -180,38 +211,37 @@ export class CursosComponent implements OnInit {
       }
     );
   }
-  
-  //juntamos changeGroup y changeTeacher
-  changeOption(type: any, search?:any) {
-    console.log(type, this.teacherSelected, this.groupSelected);
-    switch (type) {
-      case 'group':
 
-        break;
+  //juntamos changeGroup y changeTeacher
+  changeOption(type: any, search?: any) {
+    //console.log(type, this.teacherSelected, this.groupSelected);
+    switch (type) {
       case 'teacher':
         this.formNewMat.controls['teacher'].setValue(this.teacherSelected);
         break;
       case 'search':
-        console.log(this.searchSelect)
-        if(this.searchSelect == '1'){
+        //console.log(this.searchSelect)
+        if (this.searchSelect == '1') {
           this.formSearch.controls['filter'].setValue('nombre');
-        } else if(this.searchSelect == '2'){
+        } else if (this.searchSelect == '2') {
           this.formSearch.controls['filter'].setValue('area');
-        } else if(this.searchSelect == '3'){
+        } else if (this.searchSelect == '3') {
           this.formSearch.controls['filter'].setValue('puesto');
         }
-        console.log(this.formSearch.value, this.formSearch.value.filter);
+        //console.log(this.formSearch.value, this.formSearch.value.filter);
         break;
+        case 'show':
+          
     }
 
   }
 
   selectFile(event, type) {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     if (type == 'img') {
-      console.log(event.target.files, event.target.files[0]);
+      //console.log(event.target.files, event.target.files[0]);
       this.image = event.target.files[0];
-      console.log(this.image, this.image.name);
+      //console.log(this.image, this.image.name);
     } else {
       switch (event.target.value) {
         case '0':
@@ -253,7 +283,7 @@ export class CursosComponent implements OnInit {
         );
         break;
       case 'edit':
-        console.log(this.image)
+        //console.log(this.image)
         this.formData.append('title', this.formEdit.value.title);
         this.formData.append('description', this.formEdit.value.description);
         this.formData.append('hasExam', this.exam);
@@ -286,7 +316,7 @@ export class CursosComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.materias = data;
-        console.log(this.materias);
+        //console.log(this.materias);
         Swal.close();
       }
     );
@@ -295,43 +325,49 @@ export class CursosComponent implements OnInit {
   groups() {
     this.get.getGroups(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.group = data.grupos;
-        console.log(this.group);
+        //console.log(this.group);
         Swal.close();
       }
     );
   }
 
   //trae los usuarios
-  users() {
+  users(type:any) {
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
+        if(type == 'modify'){
         this.user = data.users;
+        } else if(type == 'show'){
+          this.searchArray = data.users;
+          this.length = data.users.length;
+          //console.log(this.searchArray, this.length)
+        }
         Swal.close();
       }
     );
   }
 
   changeViewMat(id: any) {
-    console.log(id);
+    //console.log(id);
     this.agMat = id;
-    if(id == 1){
+    if (id == 1) {
       this.startForm(3);
-    this.get.getTeachers(localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.teachers = data;
-        console.log(this.teachers)
-      }
-    );
+      this.get.getTeachers(localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          //console.log(data);
+          this.teachers = data;
+          //console.log(this.teachers)
+        }
+      );
     }
   }
 
   //cambia la vista de cursos 
   changeViewCourses(view: any, name?: any, id?: any) {
-    console.log(view, name, id);
+    //console.log(view, name, id);
     switch (view) {
       case 'back':
         this.cview1 = 0;
@@ -351,7 +387,7 @@ export class CursosComponent implements OnInit {
             this.formEdit.controls['default_active_days'].setValue(item.default_active_days);
             this.bf = item.img;
             this.exam = parseInt(item.hasExam);
-            console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
+            //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
     }
@@ -395,7 +431,7 @@ export class CursosComponent implements OnInit {
             Swal.showLoading();
             this.session.statusCourse(this.idCertification, formData, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data);
+                //console.log(data);
                 this.cview1 = 0;
                 Swal.fire({
                   title: '¡Actualizado!',
@@ -413,42 +449,44 @@ export class CursosComponent implements OnInit {
   }
 
   //cambia la vista de grupos
-  changeViewGroups(id: any, type:any, user?: any, name?: any) {
-    if(type == 'modiGroup'){
-    console.log(id, user);
-    this.chief = user;
-    this.view = id;
-    this.name = name;
-    console.log(this.chief, this.view);
-    this.groups(); 
-  } else if(type == 'inicio'){
-    this.view = id;
-    this.chief = 0;
-    this.name = '';
-    console.log(this.chief, this.view);
-    this.groups();
-    this.startForm(4);
-  }
+  changeViewGroups(id: any, type: any, user?: any, name?: any) {
+    if (type == 'modiGroup') {
+      this.objUsers = [];
+      //console.log(id, user);
+      this.chief = user;
+      this.view = id;
+      this.name = name;
+      //console.log(this.chief, this.view);
+      this.groups();
+    } else if (type == 'inicio') {
+      this.objUsers = []
+      this.view = id;
+      this.chief = 0;
+      this.name = '';
+      //console.log(this.chief, this.view);
+      this.groups();
+      this.startForm(4);
+    }
   }
 
   //trae los modulos de una certificación
   modules(id: any) {
-    console.log(id);
+    //console.log(id);
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.allModules = data;
-        console.log(this.allModules)
+        //console.log(this.allModules)
       }
     );
   }
 
   //trae el diploma de una certificación
   diploma(id: any) {
-    console.log(id);
+    //console.log(id);
     this.get.getDiploma(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         if (data != null) {
           this.formDiploma.controls['cursoID'].setValue(data.idCertification);
           this.formDiploma.controls['encargado'].setValue(data.encargado);
@@ -466,22 +504,22 @@ export class CursosComponent implements OnInit {
 
   //agrega los files a diploma
   diplomaFile(event, type) {
-    console.log(event.target.value, type);
+    //(event.target.value, type);
     let w, h, logo, firma;
     if (event.target.files !== 0) {
-      console.log(event.target.files, event.target.files[0]);
+      //console.log(event.target.files, event.target.files[0]);
       var _URL = window.URL || window.webkitURL;
       var img = new Image();
       img.src = _URL.createObjectURL(event.target.files[0]);
       img.onload = () => {
         w = img.width;
         h = img.height;
-        console.log(w + ' ' + h);
+        //console.log(w + ' ' + h);
         if (type == 'logo') {
-          console.log(w, h);
+          //console.log(w, h);
           if (w <= 1200 && h <= 100) {
             this.logo = event.target.files[0];
-            console.log(this.logo);
+            //console.log(this.logo);
           } else {
             Swal.fire({
               title: '¡Error!',
@@ -491,10 +529,10 @@ export class CursosComponent implements OnInit {
             });
           }
         } else if (type == 'firma') {
-          console.log(w, h);
+          //cosole.log(w, h);
           if (w <= 400 && h <= 100) {
             this.firma = event.target.files[0];
-            console.log(this.firma);
+            //console.log(this.firma);
           } else {
             Swal.fire({
               title: '¡Error!',
@@ -503,7 +541,7 @@ export class CursosComponent implements OnInit {
               confirmButtonColor: '#015287',
             });
           }
-        } 
+        }
 
       }
 
@@ -537,16 +575,16 @@ export class CursosComponent implements OnInit {
     }
 
 
-      console.log(this.logo, this.firma);
+    //console.log(this.logo, this.firma);
   }
 
   //salva la configuración de los diplomas
   saveDiploma() {
-    console.log(this.formDiploma.value, this.hasDiploma);
-    console.log(this.logo);
-    console.log(this.firma, this.idCertification);
+    //console.log(this.formDiploma.value, this.hasDiploma);
+    //console.log(this.logo);
+    //console.log(this.firma, this.idCertification);
     let diploma = new FormData();
-   
+
     diploma.append('cursoId', this.idCertification);
     diploma.append('encargado', this.formDiploma.value.encargado);
     diploma.append('puesto', this.formDiploma.value.puesto);
@@ -557,19 +595,19 @@ export class CursosComponent implements OnInit {
       diploma.append('img', this.firma);
     }
 
-    if(this.hasDiploma == true){
+    if (this.hasDiploma == true) {
       diploma.append('activado', '1');
     } else {
       diploma.append('activado', '0');
     }
 
-    if(this.logo != undefined){
+    if (this.logo != undefined) {
       diploma.append('logo', this.logo, this.logo.name);
     } else {
       diploma.append('logo', this.logo);
     }
 
-    console.log(diploma.getAll('cursoId'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('img'), diploma.getAll('activado'), diploma.getAll('logo'), diploma.get);
+    //console.log(diploma.getAll('cursoId'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('img'), diploma.getAll('activado'), diploma.getAll('logo'), diploma.get);
     //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
     this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -586,12 +624,12 @@ export class CursosComponent implements OnInit {
   }
 
   //agrega las materias
-  addMat(){
-    console.log(this.formNewMat.value);
-    let materia= new FormData();
+  addMat() {
+    //console.log(this.formNewMat.value);
+    let materia = new FormData();
     materia.append('Nombre', this.formNewMat.value.name);
     materia.append('ProfesorID', this.formNewMat.value.teacher);
-    console.log(materia.getAll('Name'), materia.getAll('ProfesorID'), materia.get);
+    //console.log(materia.getAll('Name'), materia.getAll('ProfesorID'), materia.get);
     this.session.addMateria(materia, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);}
@@ -600,8 +638,8 @@ export class CursosComponent implements OnInit {
           text: 'La materia ha sido agregada.',
           icon: 'success',
           confirmButtonColor: '#015287',
-        }).then ((result) => {
-          if(result.isConfirmed){
+        }).then((result) => {
+          if (result.isConfirmed) {
             this.allMaterias();
             this.agMat = 0;
           }
@@ -610,36 +648,81 @@ export class CursosComponent implements OnInit {
     );
   }
 
-  didModify(){
-    console.log(this.text1);
-    
-    if(this.text1 != ''){
-    this.formSearch.controls['search'].setValue(this.text1);
-    console.log(this.formSearch.value);
-    this.searchUsers(this.formSearch.value.filter, this.formSearch.value.search);
+  didModify() {
+    //console.log(this.text1);
+
+    if (this.text1 != '') {
+      if (this.text1.length > 1) {
+        this.formSearch.controls['search'].setValue(this.text1);
+        //console.log(this.formSearch.value);
+        this.searchUsers('search', this.formSearch.value.filter, this.formSearch.value.search);
+      } else {
+        this.searchArray = [];
+        this.length = 0;
+      }
     }
-    
+
+
   }
 
-  searchUsers(filter:any, param:any){
-    console.log(filter, param);
+  searchUsers(kind:any, filter?: any, param?: any) {
+    //console.log(filter, param);
+    this.pgm = 1;
+    if(kind == 'search'){
     let f = filter;
     let cad = param;
     let token = localStorage.getItem('token');
-    console.log(f, cad);
-    
-      this.get.searchUsers(f, cad, token).subscribe(
-        (data: any) => {
-          console.log(data);
-        }
-      );
+    //console.log(f, cad);
+
+    this.get.searchUsers(f, cad, token).subscribe(
+      (data: any) => {
+        //console.log(data);
+        this.length = data.usuarios.length;
+        this.searchArray = data.usuarios;
+      }
+    );
+    } else if(kind == 'show'){
+      Swal.fire({
+        title: 'Cargando...',
+        html: 'Espera un momento por favor',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+          this.pg = 1;
+      this.pgm = 1;
+      this.text1 = '';
+      this.searchSelect = '0'
+      this.users(kind);
+        }});
+    }
   }
 
-  asignarGrupo(){
+  asignarGrupo() {
+    if(this.groupSelected == '0'){
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Selecciona un grupo.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    }
+    //console.log(this.groupSelected, this.chief);
     let group = new FormData();
-    group.append('usuario[]', this.groupSelected);
-    //console.log(group.getAll('usuario[]'), group.get, this.chief);
-    this.session.asignarGrupo(this.chief, group, localStorage.getItem('token')).subscribe(
+    if(this.objUsers.length == 0){
+      group.append('usuario[]', this.chief);
+    } else {
+      this.objUsers.forEach(element => {
+        group.append('usuario[]', element);
+      });
+    }
+    //console.log(this.objUsers);
+    //let group = new FormData();
+    //group.append('usuario[]', this.objUsers);
+
+  //group.append('usuario[]', this.groupSelected);
+    //console.log(group.getAll('usuario[]'), group.get, this.groupSelected);
+    this.session.asignarGrupo(this.groupSelected, group, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
         Swal.fire({
@@ -647,17 +730,61 @@ export class CursosComponent implements OnInit {
           text: 'El usuario ha sido agregado al grupo.',
           icon: 'success',
           confirmButtonColor: '#015287',
-        }).then ((result) => {
-          if(result.isConfirmed){
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.onClickTab('groups')
+            /*this.objUsers = [];
             this.view = 0;
-    this.chief = 0;
-    this.name = '';
-    //console.log(this.chief, this.view);
-    this.groups();
-    this.startForm(4);
-          }
+            this.chief = 0;
+            this.name = '';
+            //console.log(this.chief, this.view);
+            this.users('modify');
+            this.groups();
+            this.startForm(4);*/
+         }
         });
       }
     );
+  }
+
+  changeValue(event: any){
+    //console.log(event.target.value);
+    if (event.target.checked) {
+      //console.log(event.target.checked);
+      this.objUsers.push(event.target.value);
+      
+      //console.log(this.objUsers)
+    } else {
+      //console.log(event.target.checked);
+      this.objUsers.splice(this.objUsers.indexOf(event.target.value), 1);
+      //console.log(this.objUsers)
+    }
+    this.showUsers(event.target.value);
+  }
+
+  showUsers(array:any){
+    //console.log(array);
+    this.searchArray.forEach(element => {
+      if(element.idUser == array){
+        if(this.showArr.includes(element)){
+          //console.log(this.showArr.indexOf(element));
+          this.showArr.splice(this.showArr.indexOf(element), 1);
+        } else {
+          this.showArr.push(element);
+        }
+      }
+    })
+    this.showLength = this.showArr.length;
+    /*if(this.showArr.includes(array)){
+      console.log(this.showArr.indexOf(array));
+      this.showArr.splice(this.showArr.indexOf(array), 1);
+    } else {
+      this.searchArray.forEach(element => {
+        if(element.idUser == array){
+          this.showArr.push(element);
+        }
+      });
+    }*/
+    //console.log(this.showArr);
   }
 }
