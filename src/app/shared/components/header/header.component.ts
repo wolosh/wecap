@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener} from '@angular/core';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import { SessionService } from 'src/app/data/services/session.service';
+import { Data, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { SessionService } from 'src/app/data/services/session.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(public session: SessionService, public helpers: HelpersService) { }
+  constructor(public session: SessionService, public helpers: HelpersService, private route: Router) { }
   name: string;
   type: string;
 
@@ -30,7 +31,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-
-
+ 
 
 }

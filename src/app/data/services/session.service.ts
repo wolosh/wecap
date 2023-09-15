@@ -37,19 +37,6 @@ export class SessionService {
     });
   }
 
-  /*public newCurso(title: string, description: string,img: File, default_active_days: string,hasExam: string) {
-    //console.log(email, password);
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('img', img);
-    formData.append('default_active_days', default_active_days);
-    formData.append('hasExam', hasExam);
-    return this.http.post(`${this.API}addCertification`, formData
-      //email: email,
-      //password: password
-    );
-  }*/
 
   //crear nuevo curso
   public newCurso(form, token) {
@@ -162,7 +149,58 @@ export class SessionService {
       })
     );
   }
+
   
+  public editarPerfil(idUser, form, token) {
+    //console.log(form)
+    console.log(idUser, form, token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.put(`${this.API}editPerfil/${idUser}`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public deleteUser(idUser, token) {
+    //console.log(form)
+    console.log(idUser,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.delete(`${this.API}deleteUser/${idUser}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public changeStatusUser(idUser, form, token) {
+    //console.log(form)
+    console.log(idUser,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}changeStatusUser/${idUser}`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
 
 }
 

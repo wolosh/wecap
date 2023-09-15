@@ -10,6 +10,7 @@ export class HelpersService {
   cursos = 0;
   public domain = 'http://35.92.150.230/';
   type:any;
+  section = '';
 
   constructor(private route: Router) { }
 

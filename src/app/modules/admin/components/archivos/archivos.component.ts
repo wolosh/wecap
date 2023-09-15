@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import { Data, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl,} from '@angular/forms';
 import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-archivos',
@@ -15,14 +17,32 @@ export class ArchivosComponent implements OnInit  {
   formData = new FormData();
   image:any[]=[];
 
-  constructor(private get: GetService,public helpers: HelpersService,private session: SessionService,private formBuilder: FormBuilder) { }
+  constructor(private route: Router, private get: GetService,public helpers: HelpersService,private session: SessionService,private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
+    if (localStorage.getItem('type') == '1') {
+      this.helpers.type = localStorage.getItem('type');
     //console.log(localStorage.getItem('token'));
     this.allMedia();
     this.helpers.cursos = 1;
     this.startForm();
+  } else {
+    Swal.fire({
+      title: '¡Error!',
+      text: 'No tienes permiso para acceder a esta página.',
+      icon: 'error',
+      confirmButtonColor: '#015287',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if(this.helpers.type == '4'){
+          this.route.navigate(['/cmtemplate']);
+        } else if(localStorage.getItem('token') == null){
+        this.route.navigate(['']);
+        }
+      }
+    });
+  }
   }
 
   allMedia(){
@@ -31,7 +51,7 @@ export class ArchivosComponent implements OnInit  {
       (data: any) => {
         //console.log(data);
         this.medias = data.media;
-        //console.log(this.medias);
+        console.log(this.medias);
       }
     );
   }

@@ -3,133 +3,160 @@
         <div class="col-12">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Usuarios</button>
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true" (click)="onClickTab()">Usuarios</button>
                 </div>
-              </nav>
-              <div class="tab-content mb-5" id="nav-tabContent">
+            </nav>
+            <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <div *ngIf="this.helpers.cursos == 1">
-                    <label class="text3 txt-blue2 mt-3">Usuarios</label>
-                    <hr class="w-100">
-                    <!--tabla-->
-                    <div class="table-responsive">
-                        <table id="usuarios" class="table data striped display responsive nowrap" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>E-mail</th>
-                                    <th>Puesto</th>
-                                    <th>Área</th>
-                                    <th>Tipo de usuario</th>
-                                    <th>Activo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let users of this.usuarios">
-                                    <th scope="row">{{users.idUser}}</th>
-                                    <th scope="row"><button type="button" class="boton4" (click)="change(2)">{{users.full_name}}</button></th>
-                                    <td>{{users.email}}</td>
-                                    <td>{{users.job}}</td>
-                                    <td>{{users.area}}</td>
-                                    <td *ngIf="this.users.is_admin == 1">Administrador</td>
-                                    <td *ngIf="this.users.is_admin == 0">Empleado</td>
-                                    <td *ngIf="this.users.is_active == 1">Activa</td>
-                                    <td *ngIf="this.users.is_active == 0">Inactivo</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div *ngIf="usersView == 0">
+                        <label class="text3 txt-blue2 mt-3">Usuarios</label>
+                        <hr class="w-100">
+                        <!--tabla-->
+                        <div class="table-responsive">
+                            <table id="usuarios" class="table data striped display responsive nowrap"
+                                style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>E-mail</th>
+                                        <th>Puesto</th>
+                                        <th>Área</th>
+                                        <th>Tipo de usuario</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let users of this.usuarios | paginate: { itemsPerPage: 8, currentPage: pu }">
+                                        <th scope="row">{{users.idUser}}</th>
+                                        <th scope="row"><button type="button" class="boton4"
+                                                (click)="changeViewUsers('edit', users.idUser)">{{users.full_name}}</button></th>
+                                        <td>{{users.email}}</td>
+                                        <td>{{users.job}}</td>
+                                        <td>{{users.area}}</td>
+                                        <td *ngIf="this.users.is_admin == 1">Administrador</td>
+                                        <td *ngIf="this.users.is_admin == 0">Empleado</td>
+                                        <td *ngIf="this.users.is_active == 1">Activo</td>
+                                        <td *ngIf="this.users.is_active == 0">Inactivo</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="pu = $event" previousLabel="Anterior"
+                  nextLabel="Siguiente"></pagination-controls>
+                        </div>
                     </div>
-                  </div>
-                  <div *ngIf="this.helpers.cursos == 2">
-                    <label class="text3 txt-blue2 mt-3">Editar Usuario</label>
-                    <hr class="w-100">
-                    <form>
-                        <div class="row mt-4 mb-3">
-                            <div class="col-6 col-md-3 col-xl-2 offset-xl-8 offset-md-6">
-                                <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
+                    <div *ngIf="usersView == 1">
+                        <label class="text3 txt-blue2 mt-3">Editar Usuario</label>
+                        <div class="col-lg-2 offset-lg-4 mt-3">
+                            <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewUsers('users')">Cancelar</button>
+                          </div>
+                        <hr class="w-100">
+                        <form [formGroup]="formUser">
+                            <div class="row mt-4 mb-3">
+                                <div class="col-6 col-md-3 col-xl-2 offset-xl-8 offset-md-6">
+                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" (click)="deleteUser()">Eliminar</button>
+                                </div>
+                                <div class="col-6 col-md-3 col-xl-2">
+                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1" (click)="status(0)">Desactivar
+                                        usuario</button>
+                                        <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar usuario</button>
+                                </div>
                             </div>
-                            <div class="col-6 col-md-3 col-xl-2">
-                                <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar usuario</button>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Nombre Completo</label>
+                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"  formControlName="name">
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">Nombre Completo</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">Email</label>
-                            <input type="email" class="input3" id="exampleInputEmail2" aria-describedby="emailHelp">
-                        </div>
-                        <label for="formFile" class="text13 txt-blue mb-2">Genero (opcional):</label>
-                        <div class="dropdown mb-3">
-                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                Hombre
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-2">Fecha de nacimiento</label>
-                            <input class="input4" type="date" value="2017-06-01" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">Puesto</label>
-                            <input type="text" class="input3" id="exampleInputEmail3" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">Área</label>
-                            <input type="text" class="input3" id="exampleInputEmail4" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">No. Nómina (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail5" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">Contraseña (opcional)</label>
-                            <input type="password" class="input3" id="exampleInputEmail6" autocomplete >
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">País (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail7" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">Estado (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail8" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">Ciudad (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail9" aria-describedby="emailHelp">
-                        </div>
-                        <label for="formFile" class="text13 txt-blue mb-2">Tipo de usuario:</label>
-                        <div class="dropdown mb-3">
-                            <button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Administrador
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                        <div class="form-check mb-3">
-                            <label class="text10 txt-gris2" for="inlineRadio1">Activado</label>
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text13 txt-blue mb-3">Grupo (opcional)</label>
-                            <input type="text" class="input3" id="exampleInputEmail10" aria-describedby="emailHelp">
-                        </div>
-                        <div class="row">
-                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Email</label>
+                                <input type="email" class="input3" id="exampleInputEmail2" aria-describedby="emailHelp" formControlName="email">
                             </div>
-                        </div>
-                    </form>
-                  </div>
+                            <label for="formFile" class="text13 txt-blue mb-2">Genero (opcional):</label>
+                            <div class="dropdown mb-3">
+                               <!---<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hombre
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>-->
+                                <select class="botondrop dropdown-toggle" [(ngModel)]="genderSelected" (change)="changeOption('gender')"
+                      [ngModelOptions]="{standalone: true}">
+                      <option value="0" hidden>Seleccionar</option>
+                      <option value="1">Masculino</option>
+                      <option value="2">Femenino</option>
+                    </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-2">Fecha de nacimiento</label>
+                                <input class="input4" type="date" value="2017-06-01" formControlName="fecha_nacimiento"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Puesto</label>
+                                <input type="text" class="input3" id="exampleInputEmail3" aria-describedby="emailHelp" formControlName="puesto">
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Área</label>
+                                <input type="text" class="input3" id="exampleInputEmail4" aria-describedby="emailHelp"  formControlName="area">
+                            </div>
+                            <!--<div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">No. Nómina (opcional)</label>
+                                <input type="text" class="input3" id="exampleInputEmail5" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Contraseña (opcional)</label>
+                                <input type="password" class="input3" id="exampleInputEmail6" autocomplete>
+                            </div>-->
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">País (opcional)</label>
+                                <input type="text" class="input3" id="exampleInputEmail7" aria-describedby="emailHelp"  formControlName="pais">
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Estado (opcional)</label>
+                                <input type="text" class="input3" id="exampleInputEmail8" aria-describedby="emailHelp" formControlName="estado">
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Ciudad (opcional)</label>
+                                <input type="text" class="input3" id="exampleInputEmail9" aria-describedby="emailHelp" formControlName="ciudad">
+                            </div>
+                            <label for="formFile" class="text13 txt-blue mb-2">Tipo de usuario:</label>
+                            <div class="dropdown mb-3">
+                                <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administrador
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>-->
+                                <select class="botondrop dropdown-toggle" [(ngModel)]="typeSelected" (change)="changeOption('type')"
+                      [ngModelOptions]="{standalone: true}">
+                      <option value="5" hidden>Seleccionar</option>
+                      <option value="0">Usuario</option>
+                      <option value="1">Administrador</option>
+                      <option value="2">Diseñador</option>
+                      <option value="3">Instructor</option>
+                    </select>
+                            </div>
+                            <!--<div class="form-check mb-3">
+                                <label class="text10 txt-gris2" for="inlineRadio1">Activo</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                    value="option1">
+                            </div>-->
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Grupo (opcional)</label>
+                                <input type="text" class="input3" id="exampleInputEmail10" aria-describedby="emailHelp" formControlName="grupo">
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="editUser()">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
