@@ -82,6 +82,32 @@ export class ArchivosComponent implements OnInit  {
       }
     );
   }
+  i = 0;
+  public clone(): void {
+    
+    const opcion = document.querySelectorAll('.clone');
+    var first = opcion[0];
+    first.id;
+    console.log(first)
+    /*const cloneopcion = first.cloneNode(true);
+    const buttonclone = document.createElement("button");//Button clone
+    buttonclone.classList.add('boton2','d-inline-flex','remove');
+    const imgclone = document.createElement("img");//img clone
+    imgclone.src='assets/img/close.svg';
+    buttonclone.addEventListener('click', this.remove);
+    document.querySelector(".multimedia").appendChild(cloneopcion);
+    document.querySelector(".clone").appendChild(buttonclone);
+    document.querySelector(".remove").appendChild(imgclone);*/
+  }
+  public remove(): void {
+    //const node = document.querySelector(".multimedia");
+    const archivo = document.querySelector(".remove");
+    console.log(archivo);
+    //console.log(archivo);
+    var first = archivo[0];
+    console.log(first);
+    //node.removeChild(archivo);
+  }
 }
 
 /*const buttons = Array.from(document.getElementsByClassName('btn'));
