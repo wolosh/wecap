@@ -368,26 +368,6 @@
                                 <td><button class="boton2 text-decoration-none" (click)="change(3)">Editar</button></td>
                                 <td><button class="boton2 text-decoration-none">Ver</button></td>
                               </tr>
-                              <!--tr>
-                                <td>Promocional</td>
-                                <td><button class="boton2 text-decoration-none">Editar</button></td>
-                                <td><button class="boton2 text-decoration-none">Ver</button></td>
-                              </tr>
-                              <tr>
-                                <td>Documental</td>
-                                <td><button class="boton2 text-decoration-none">Editar</button></td>
-                                <td><button class="boton2 text-decoration-none">Ver</button></td>
-                              </tr>
-                              <tr>
-                                <td>Animación</td>
-                                <td><button class="boton2 text-decoration-none">Editar</button></td>
-                                <td><button class="boton2 text-decoration-none">Ver</button></td>
-                              </tr>
-                              <tr>
-                                <td>Tutoriales</td>
-                                <td><button class="boton2 text-decoration-none">Editar</button></td>
-                                <td><button class="boton2 text-decoration-none">Ver</button></td>
-                              </tr-->
                             </tbody>
                         </table>
                     </div>
@@ -410,7 +390,7 @@
                             </div>
                         </div>
                       <!--Duplicar-->
-                      <div class="pregunta mt-3">
+                      <div class="pregunta mt-3" id="pregunta{{this.n}}">
                         <div class="row mb-3">
                           <div class="col-12 col-md-10">
                               <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
@@ -418,13 +398,7 @@
                               <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-4 d-flex align-items-center">
-                            <button class="boton2" (click)="cloneOpcion()"><img src="assets/img/agregapreg.svg" alt=""></button>
-                            <button class="boton2" (click)="remove()"><img src="assets/img/quitarpreg.svg" alt=""></button>
-                          </div>
-                        </div>
-                        <div class="row mt-3 opcion">
+                        <div class="row mt-3 opcion" id="opcion{{this.n}}">
                           <div class="col-12">
                             <div class="form-check mb-3">
                               <label class="text13 txt-blue" for="inlineRadio1">Opción</label>
@@ -436,6 +410,8 @@
                           </div>
                           <div class="col-4 d-flex align-items-center">
                             <input type="file" class="file" name="avatar" accept="image/png, image/jpeg" />
+                            <button class="boton2 clone" (click)="cloneOpcion()"><img src="assets/img/agregapreg.svg" alt=""></button>
+                            <button class="boton2 remove" (click)="remove()"><img src="assets/img/quitarpreg.svg" alt=""></button>
                           </div>
                         </div>
                       </div>

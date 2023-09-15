@@ -83,30 +83,54 @@ export class ArchivosComponent implements OnInit  {
     );
   }
   i = 0;
+  //Clone archivos
+  public cloneArchivos(): void {
+    const opcion = document.querySelectorAll('.cloneArchivos');
+    var first = opcion[0];
+    const cloneopcion = first.cloneNode(true) as HTMLDivElement;
+    this.i++;
+    cloneopcion.setAttribute("id", "archivo"+this.i);
+    document.querySelector(".archivos").appendChild(cloneopcion);
+    const buttonclone = document.querySelectorAll('.removeArchivos');
+    buttonclone.forEach(btn => {
+      btn.addEventListener('click', this.removeArchivos)
+    });
+  }
+  public removeArchivos(): void {
+    var test =document.querySelectorAll('.cloneArchivos')
+    console.log(test)
+    for(var i=0;i<test.length;i++)
+    {
+      test[i].addEventListener("click", function()
+      {
+        var removeid= document.getElementById(this.id);
+        removeid.remove();
+      });
+    }
+  }
+  //Clone multimedia
   public clone(): void {
-    
     const opcion = document.querySelectorAll('.clone');
     var first = opcion[0];
-    first.id;
-    console.log(first)
-    /*const cloneopcion = first.cloneNode(true);
-    const buttonclone = document.createElement("button");//Button clone
-    buttonclone.classList.add('boton2','d-inline-flex','remove');
-    const imgclone = document.createElement("img");//img clone
-    imgclone.src='assets/img/close.svg';
-    buttonclone.addEventListener('click', this.remove);
+    const cloneopcion = first.cloneNode(true) as HTMLDivElement;
+    this.i++;
+    cloneopcion.setAttribute("id", "multimedia"+this.i);
     document.querySelector(".multimedia").appendChild(cloneopcion);
-    document.querySelector(".clone").appendChild(buttonclone);
-    document.querySelector(".remove").appendChild(imgclone);*/
+    const buttonclone = document.querySelectorAll('.remove');
+    buttonclone.forEach(btn => {
+      btn.addEventListener('click', this.remove)
+    });
   }
   public remove(): void {
-    //const node = document.querySelector(".multimedia");
-    const archivo = document.querySelector(".remove");
-    console.log(archivo);
-    //console.log(archivo);
-    var first = archivo[0];
-    console.log(first);
-    //node.removeChild(archivo);
+    var test =document.querySelectorAll('.clone')
+    for(var i=0;i<test.length;i++)
+    {
+      test[i].addEventListener("click", function()
+      {
+        var removeid= document.getElementById(this.id);
+        removeid.remove();
+      });
+    }
   }
 }
 

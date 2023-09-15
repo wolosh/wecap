@@ -37,144 +37,71 @@ export class ExamenesComponent implements OnInit {
       this.helpers.cursos = 3;
     }
   }
-
-  //duplicar pregunta
+  n: number = 0;
+  //duplicar pregunta Examenes
   public clone(): void {
-    /*const node = document.querySelector('.pregunta');
-    const clone = node.cloneNode(true);
-    document.querySelector(".editor").appendChild(clone);
-    //newDiv.appendChild(node);*/
-    this.n++
-    const divrow = document.createElement("div");//Row Pregunta
-    divrow.classList.add('row', 'mb-3', 'row-question-'+this.n);
-    const divcol = document.createElement("div");//Columna Pregunta
-    divcol.classList.add('col-12','col-md-10', 'col-question-'+this.n);
-    const question = document.createElement("label");//Label Pregunta
-    question.textContent = 'Pregunta';
-    question.classList.add('text13', 'txt-blue', 'mb-2', 'mt-3');
-    const questioninput = document.createElement("input");//Input Pregunta
-    questioninput.classList.add('input3');
-    questioninput.type='text';
-
-    const rowbutton = document.createElement("div");//Row button
-    rowbutton.classList.add('row', 'mb-3', 'row-button-'+this.n);
-    const colbutton = document.createElement("div");//col button
-    colbutton.classList.add('col-4', 'col-button-'+this.n);
-
-    const rowoption = document.createElement("div");//Row Opcion
-    rowoption.classList.add('row', 'mt-3', 'row-option-'+this.n);
-    const coloption = document.createElement("div");//Col Opcion
-    coloption.classList.add('col-12', 'col-option-'+this.n);
-    const formoption = document.createElement("div");//Formcheck Opcion
-    formoption.classList.add('form-check', 'mb-3', 'formcheck-'+this.n);
-    const labeloption = document.createElement("label");//Label Opcion
-    labeloption.classList.add('text13', 'txt-blue');
-    labeloption.textContent = 'Opción';
-    const inputoption = document.createElement("input");//Input Opcion
-    inputoption.classList.add('form-check-input');
-    inputoption.type='radio';
-    const colinput = document.createElement("div");//Col Input
-    colinput.classList.add('col-3', 'col-input-'+this.n);
-    const inputname = document.createElement("input");//Input Nombre
-    inputname.classList.add('input5');
-    inputname.type='text';
-    const colfile = document.createElement("div");//Col Input file
-    colfile.classList.add('col-4', 'col-file-'+this.n);
-    const inputfile = document.createElement("input");//Input File
-    inputfile.classList.add('file');
-    inputfile.type='file';
-    const buttonclone = document.createElement("button");//Button clone
-    buttonclone.classList.add('boton2', 'btnclone-'+this.n);
-    const imgclone = document.createElement("img");//img clone
-    imgclone.src='assets/img/agregapreg.svg';
-    buttonclone.addEventListener('click', this.cloneOpcion);
-    const buttonremove = document.createElement("button");//Button remove
-    buttonremove.classList.add('boton2', 'btnremove-'+this.n);
-    const imgremove = document.createElement("img");//img remove
-    imgremove.src='assets/img/quitarpreg.svg';
-    buttonremove.addEventListener('click', this.remove);
-    document.querySelector(".pregunta").appendChild(divrow);
-    document.querySelector(".row-question-"+this.n).appendChild(divcol);
-    document.querySelector(".col-question-"+this.n).appendChild(question);
-    document.querySelector(".col-question-"+this.n).appendChild(questioninput);
-    document.querySelector(".pregunta").appendChild(rowbutton);
-    document.querySelector(".row-button-"+this.n).appendChild(colbutton);
-    document.querySelector(".col-button-"+this.n).appendChild(buttonclone);
-    document.querySelector(".col-button-"+this.n).appendChild(buttonremove);
-    document.querySelector(".pregunta").appendChild(rowoption);
-    document.querySelector(".row-option-"+this.n).appendChild(coloption);
-    document.querySelector(".col-option-"+this.n).appendChild(formoption);
-    document.querySelector(".formcheck-"+this.n).appendChild(labeloption);
-    document.querySelector(".formcheck-"+this.n).appendChild(inputoption);
-    document.querySelector(".row-option-"+this.n).appendChild(colinput);
-    document.querySelector(".col-input-"+this.n).appendChild(inputname);
-    document.querySelector(".row-option-"+this.n).appendChild(colfile);
-    document.querySelector(".col-file-"+this.n).appendChild(inputfile);
-    document.querySelector(".btnclone-"+this.n).appendChild(imgclone);
-    document.querySelector(".btnremove-"+this.n).appendChild(imgremove);
-  }
-  //duplicar opcion
-   n: number = 0;
-  public cloneOpcion(): void {
-    /*const opcion = document.querySelector('.row-option-'+this.n);
-    console.log(opcion);
-    /*const cloneopcion = opcion.cloneNode(true);
-    document.querySelector(".opcion").appendChild(cloneopcion);*/
+    const question = document.querySelectorAll('.pregunta');
+    const opcion = document.querySelector('.opcion') as HTMLDivElement;
+    var first = question[0];
+    const clonequestion = first.cloneNode(true) as HTMLDivElement;
     this.n++;
-    const rowoption = document.createElement("div");//Row Opcion
-    rowoption.classList.add('row', 'mt-3', 'row-option-'+this.n, 'opcion');
-    const coloption = document.createElement("div");//Col Opcion
-    coloption.classList.add('col-12', 'col-option-'+this.n);
-    const formoption = document.createElement("div");//Formcheck Opcion
-    formoption.classList.add('form-check', 'mb-3', 'formcheck-'+this.n);
-    const labeloption = document.createElement("label");//Label Opcion
-    labeloption.classList.add('text13', 'txt-blue');
-    labeloption.textContent = 'Opción';
-    const inputoption = document.createElement("input");//Input Opcion
-    inputoption.classList.add('form-check-input');
-    inputoption.type='radio';
-    const colinput = document.createElement("div");//Col Input
-    colinput.classList.add('col-3', 'col-input-'+this.n);
-    const inputname = document.createElement("input");//Input Nombre
-    inputname.classList.add('input5');
-    inputname.type='text';
-    const colfile = document.createElement("div");//Col Input file
-    colfile.classList.add('col-4', 'col-file-'+this.n);
-    const inputfile = document.createElement("input");//Input File
-    inputfile.classList.add('file');
-    inputfile.type='file';
-    const buttonclone = document.createElement("button");//Button clone
-    buttonclone.classList.add('boton2', 'btnclone-'+this.n, 'agregar');
-    const imgclone = document.createElement("img");//img clone
-    imgclone.src='assets/img/agregapreg.svg';
-    buttonclone.addEventListener('click', this.cloneOpcion);
-    const buttonremove = document.createElement("button");//Button remove
-    buttonremove.classList.add('boton2', 'btnremove-'+this.n);
-    const imgremove = document.createElement("img");//img remove
-    imgremove.src='assets/img/quitarpreg.svg';
-    buttonremove.addEventListener('click', this.remove);
-    document.querySelector(".pregunta").appendChild(rowoption);
-    document.querySelector(".row-option-"+this.n).appendChild(coloption);
-    document.querySelector(".col-option-"+this.n).appendChild(formoption);
-    document.querySelector(".formcheck-"+this.n).appendChild(labeloption);
-    document.querySelector(".formcheck-"+this.n).appendChild(inputoption);
-    document.querySelector(".row-option-"+this.n).appendChild(colinput);
-    document.querySelector(".col-input-"+this.n).appendChild(inputname);
-    document.querySelector(".row-option-"+this.n).appendChild(colfile);
-    document.querySelector(".col-file-"+this.n).appendChild(inputfile);
-    document.querySelector(".col-file-"+this.n).appendChild(buttonclone);
-    document.querySelector(".col-file-"+this.n).appendChild(buttonremove);
-    /*document.querySelector(".btnclone-"+this.n).appendChild(imgclone);
-    document.querySelector(".btnremove-"+this.n).appendChild(imgremove);*/
-    //console.log(this.n);
-    /*console.log(coloption)
-    console.log(colinput)*/
+    clonequestion.setAttribute("id", "question"+this.n);
+    opcion.setAttribute("id", "opcion"+this.n);
+    document.querySelector(".editor").appendChild(clonequestion);
+    const buttonclone = document.querySelectorAll('.clone');
+    const buttonremove = document.querySelectorAll('.remove');
+    buttonclone.forEach(btnC => {
+      btnC.addEventListener('click', this.cloneOpcion)
+    });
+    buttonremove.forEach(btnR => {
+      btnR.addEventListener('click', this.remove)
+    });
+  }
+  //duplicar opcion Examenes
+
+  public cloneOpcion(): void {
+    var question =document.querySelectorAll('.opcion')
+    //this.j++;
+    //console.log(this.j)
+    for(var i=0;i<question.length;i++)
+    {
+      question[i].addEventListener("click", function()
+      {
+        var idquestion= document.getElementById(this.id);
+        //console.log(idquestion);
+        const cloneopcion = idquestion.cloneNode(true) as HTMLDivElement;
+        cloneopcion.setAttribute("id", "opcion"+i++);
+        console.log(cloneopcion)
+        /*document.getElementById(this.id).appendChild(cloneopcion);
+        const buttonclone = document.querySelectorAll('.clone');
+        const buttonremove = document.querySelectorAll('.remove');
+        buttonclone.forEach(btnC => {
+          btnC.addEventListener('click', this.cloneOpcion)
+        });
+        buttonremove.forEach(btnR => {
+          btnR.addEventListener('click', this.remove)
+        });*/
+        //const opcion = document.querySelector(".pregunta");
+        //opcion.id = idquestion;
+        //const opcion = document.querySelector("#idquestion");
+        //console.log(opcion)
+        //console.log(idquestion.nativeElement);
+      });
+    }
+
   }
 
-   //remove opcion
+  //remove opcion Examenes
   public remove(): void {
-    const node = document.querySelector(".pregunta");
-    const opcion = document.querySelector(".opcion");
-    node.removeChild(opcion);
+    var test =document.querySelectorAll('.opcion')
+    for(var i=0;i<test.length;i++)
+    {
+      test[i].addEventListener("click", function()
+      {
+        var removeid= document.getElementById(this.id);
+        //removeid.remove();
+        console.log(removeid)
+      });
+    }
   }
 }
