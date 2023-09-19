@@ -45,12 +45,13 @@ export class ExamenesComponent implements OnInit {
     var first = question[0];
     const clonequestion = first.cloneNode(true) as HTMLDivElement;
     this.n++;
-    clonequestion.setAttribute("id", "question"+this.n);
-    opcion.setAttribute("id", "opcion"+this.n);
+    clonequestion.setAttribute("id", "pregunta"+this.n);
+    //opcion.setAttribute("id", "opcion"+this.n);
     document.querySelector(".editor").appendChild(clonequestion);
     const buttonclone = document.querySelectorAll('.clone');
     const buttonremove = document.querySelectorAll('.remove');
     buttonclone.forEach(btnC => {
+      //console.log(btnC);
       btnC.addEventListener('click', this.cloneOpcion)
     });
     buttonremove.forEach(btnR => {
@@ -58,39 +59,97 @@ export class ExamenesComponent implements OnInit {
     });
   }
   //duplicar opcion Examenes
+  //var n: number = 0
+  public cloneOpcion() {
+    //this.n++;
+    var pregunta =document.querySelectorAll('.pregunta');
+    //console.log(this.n);
+    for(var i=0;i<pregunta.length;i++)
+    {
+      pregunta[i].addEventListener("click", function($event)
+      {
+        //console.log(this.id);
+        //console.log(pregunta.length)
+        var preguntaid= document.getElementById(this.id);
+        //console.log(preguntaid.nodeValue);
+        var opcion =preguntaid.querySelectorAll('.opcion');
+        for(var i=0;i<opcion.length;i++){
+          console.log(opcion[i])
+          /*const opcionclon = opcion[i].cloneNode(true) as HTMLDivElement;
+          document.getElementById(this.id).appendChild(opcionclon);*/
+        }
 
-  public cloneOpcion(): void {
-    var question =document.querySelectorAll('.opcion')
-    //this.j++;
-    //console.log(this.j)
+        /*var primerTitulo = opcion[0] as HTMLDivElement;
+        console.log(primerTitulo)
+        //var first = opcion[0];
+        //console.log(first)
+        /*const cloneopcion = primerTitulo.cloneNode(true) as HTMLDivElement;
+        document.getElementById(this.id).appendChild(cloneopcion);
+        //console.log(opcion)
+        /*for(var i=0;i<opcion.length;i++)
+        {
+          opcion[i].addEventListener("click", function($event)
+          {
+            //n++;
+            var removeid= document.getElementById(this.id);
+            console.log(removeid)
+            /*const cloneopcion = removeid.cloneNode(true) as HTMLDivElement;
+            cloneopcion.setAttribute("id", "opcion");
+            document.getElementById(this.id).appendChild(cloneopcion);
+          });
+        }*/
+        $event.preventDefault();
+      });
+    }
+    //console.log("Clonado");
+    /*const opcion = document.querySelectorAll('.opcion');
+    console.log(opcion)
+    opcion.addEventListener("click", function() {
+        //console.log(opcion);
+        //event.preventDefault();
+    });
+    /*const opcion = document.querySelector('.opcion') as HTMLDivElement;
+    //let j = 0;
+    //console.log(opcion);
+    opcion.click = function() {
+      console.log(opcion);
+      //this.j++;
+      /*const cloneopcion = opcion.cloneNode(true) as HTMLDivElement;
+      //cloneopcion.setAttribute("id", "opcion"+this.j);
+      document.querySelector(".pregunta").appendChild(cloneopcion);
+      const buttonclone = document.querySelectorAll('.clone');
+      const buttonremove = document.querySelectorAll('.remove');
+      //console.log(buttonclone)
+      //console.log(buttonremove)
+      buttonclone.forEach(btnC => {
+        console.log(btnC);
+        btnC.addEventListener('click', function cloneOpcion(){
+
+        })
+      });
+      buttonremove.forEach(btnR => {
+        btnR.addEventListener('click',function remove(){})
+      });
+      //event.preventDefault();
+    }*/
+    /*var question =document.querySelectorAll('.opcion')
+    //console.log(question)
     for(var i=0;i<question.length;i++)
     {
       question[i].addEventListener("click", function()
       {
         var idquestion= document.getElementById(this.id);
-        //console.log(idquestion);
-        const cloneopcion = idquestion.cloneNode(true) as HTMLDivElement;
+        console.log(idquestion);
+        //var first = idquestion[0];
+        //console.log(first);
+        /*const cloneopcion = first.cloneNode(true) as HTMLDivElement;
         cloneopcion.setAttribute("id", "opcion"+i++);
-        console.log(cloneopcion)
-        /*document.getElementById(this.id).appendChild(cloneopcion);
-        const buttonclone = document.querySelectorAll('.clone');
-        const buttonremove = document.querySelectorAll('.remove');
-        buttonclone.forEach(btnC => {
-          btnC.addEventListener('click', this.cloneOpcion)
-        });
-        buttonremove.forEach(btnR => {
-          btnR.addEventListener('click', this.remove)
-        });*/
-        //const opcion = document.querySelector(".pregunta");
-        //opcion.id = idquestion;
-        //const opcion = document.querySelector("#idquestion");
-        //console.log(opcion)
-        //console.log(idquestion.nativeElement);
+        document.querySelector(".pregunta").appendChild(cloneopcion);
+        //console.log(cloneopcion)
       });
-    }
+    }*/
 
   }
-
   //remove opcion Examenes
   public remove(): void {
     var test =document.querySelectorAll('.opcion')
