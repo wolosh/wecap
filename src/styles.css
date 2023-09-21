@@ -161,6 +161,9 @@ input[type=file]::-webkit-file-upload-button{
 .dropdown-item{
     color: #015287 !important;
 }
+select:focus-visible{
+    outline: none !important;
+}
 .top{
     padding-top: 5%;
     padding-bottom: 5%;
@@ -750,4 +753,34 @@ td{
 }
 .list-group li:nth-child( even ) {
   background-color: #EFEFEF !important;
+}
+.aspect1-1{
+    aspect-ratio: 1/1;
+}
+.ngx-pagination{
+    font-family: 'Helvetica-Regular' !important;
+    color: #015287 !important;
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+}
+.ngx-pagination .disabled{
+    color: #A6DAFC !important;
+}
+.ngx-pagination .current{
+    background: #fff !important;
+    color: #A6DAFC !important;
+}
+.ngx-pagination .pagination-previous, .ngx-pagination .pagination-next{
+    color: #015287 !important;
+}
+.ngx-pagination .pagination-previous a::before, .ngx-pagination .pagination-previous.disabled::before{
+    content: url("../src/assets/img/left.png") !important;
+}
+.ngx-pagination .pagination-next a::after, .ngx-pagination .pagination-next.disabled::after{
+    content: url("../src/assets/img/right.png") !important;
+}
+.imgPreview{
+    display: block;
+    width: 50%;
+    aspect-ratio: 2/1;
 }

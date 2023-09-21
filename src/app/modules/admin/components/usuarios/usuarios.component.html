@@ -42,15 +42,26 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <pagination-controls (pageChange)="pu = $event" previousLabel="Anterior"
-                  nextLabel="Siguiente"></pagination-controls>
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pu = $event" previousLabel="Anterior"
+                              nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                          </div>
+
                     </div>
                     <div *ngIf="usersView == 1">
-                        <label class="text3 txt-blue2 mt-3">Editar Usuario</label>
-                        <div class="col-lg-2 offset-lg-4 mt-3">
-                            <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewUsers('users')">Cancelar</button>
-                          </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-6 ">
+                              <label class="text3 txt-blue2">Editar Usuario</label>
+                            </div>
+                            <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewUsers('users')">
+                                <i class="fas fa-reply"></i>
+                              </button>
+                            </div>
+                        </div>
                         <hr class="w-100">
                         <form [formGroup]="formUser">
                             <div class="row mt-4 mb-3">

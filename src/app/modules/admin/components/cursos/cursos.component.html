@@ -43,10 +43,14 @@
                     <td *ngIf="this.certificacion.is_active == 0">Inactivo</td>
                   </tr>
                 </tbody>
-                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
-                  nextLabel="Siguiente"></pagination-controls>
-
+                
               </table>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+              </div>
             </div>
             <div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -118,10 +122,15 @@
           <!----EDITAR CURSO, MODULOS Y DIPLOMA-->
           <div *ngIf="cview1 == 1">
             <!------Editar curso--->
-            <label class="text3 txt-blue2 mt-3">Editar curso</label>
-            <div class="col-lg-2 offset-lg-4 mt-3">
-              <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewCourses('back')">Regresar a
-                Listado</button>
+            <div class="row mt-3 mb-3">
+              <div class="col-lg-6 ">
+                <label class="text3 txt-blue2">Editar curso</label>
+              </div>
+              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewCourses('back')">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
             </div>
             <hr class="w-100">
             <!---->
@@ -165,11 +174,11 @@
               </div>
             </div>-->
               <div class="row">
-                <div class="col-lg-2 offset-lg-4 mt-3">
+                <div class="col-4 col-lg-2 offset-lg-4 mt-3">
                   <button class="boton bg-blue mx-auto d-block w-100 p-2"
                     (click)="saveCourse('edit', this.idCertification)">Editar</button>
                 </div>
-                <div class="col-lg-2 mt-3">
+                <div class="col-8 col-lg-3 mt-3">
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(0)"
                     *ngIf="this.active == '1'">Desactivar certificación</button>
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(1)"
@@ -198,10 +207,156 @@
                 </tbody>
               </table>
             </div>
-
             <div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
+              </div>
+            </div>
+            <!--Editar modulo--->
+            <div>
+              <label class="text3 txt-blue2 mt-3">Editar módulo</label>
+              <hr class="w-100">
+              <div class="row mt-3 mb-3 d-flex align-items-center">
+                <div class="col-12 col-md-3">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
+                </div>
+                <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
+                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
+                <textarea class="input3" id="floatingTextarea2" style="height: 100px"
+                  formControlName="description"></textarea>
+              </div>
+              <div class="row mt-3 mb-3 d-flex align-items-center">
+                <div class="col-12 col-lg-5">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Duración máxima para medalla por tiempo (opcional)</label>
+                  <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="col-12 col-lg-5">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Score mínimo para medalla por score (opcional)</label>
+                  <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+              </div>
+              <div class="row mt-3 mb-3">
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
+                  <img class="imgPreview" [src]="imgIcono || 'assets/img/imgpreview.png'" alt="imgIcono">
+                  <input type="file" class="input3" id="icono" 
+                  (change)="fileIcono($event)">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
+                  <img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'"  alt="imgTermina">
+                  <input type="file" class="input3" id="medallat" 
+                  (change)="fileTermina($event)">
+                </div>
+                <div class="col-6 col-lg-2">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
+                  <input type="color" class="input3 w-50" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+              </div>
+              <div class="row mt-3 mb-3">
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto (opcional)</label>
+                  <img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'"  alt="imgScore">
+                  <input type="file" class="input3" id="medallap" 
+                  (change)="fileScore($event)">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo (opcional)</label>
+                  <img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'"  alt="imgTiempo">
+                  <input type="file" class="input3" id="medallapt" 
+                  (change)="fileTiempo($event)">
+                </div>
+              </div>
+              <!---Temas--->
+              <label class="text3 txt-blue2 mt-3">Temas</label>
+              <label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label>
+              <hr class="w-100">
+              <div class="table-responsive">
+                <table class="table striped w-100">
+                  <thead>
+                    <tr>
+                      <th scope="col">Título</th>
+                      <th scope="col">Editar</th>
+                    </tr>
+                  </thead>
+                  <tbody id="temas">
+                    <tr>
+                      <th scope="row">Valley</th>
+                      <td><button class="boton2">Editar</button></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Valley</th>
+                      <td><button class="boton2">Editar</button></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Valley</th>
+                      <td><button class="boton2">Editar</button></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Valley</th>
+                      <td><button class="boton2">Editar</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
+                </div>
+              </div>
+            </div>
+            <!---Editar tema-->
+            <div>
+              <label class="text3 txt-blue2 mt-3">Editar tema</label>
+              <hr class="w-100">
+              <div class="row mt-3 mb-3 d-flex align-items-center">
+                <div class="col-12 col-lg-3">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
+                </div>
+                <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
+                </div>
+                <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0">
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
+                </div>
+              </div>
+              <div class="row mt-3 mb-3">
+                <div class="col-12 col-lg-4 mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
+                  <img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'"  alt="imgTema">
+                  <input type="file" class="input3" id="medallapt" 
+                  (change)="fileTema($event)">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
+                  <img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'"  alt="imgTemaV">
+                  <input type="file" class="input3" id="medallapt" 
+                  (change)="fileTemaV($event)">
+                </div>
+              </div>
+              <div class="row mt-3 mb-3">
+                <div class="col-12 col-lg-4 mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
+                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".srt">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube, vimeo o PDF (previamente subido a medios))</label>
+                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
+                </div>
               </div>
             </div>
 
@@ -273,26 +428,14 @@
                     <th scope="row">{{materia.Nombre}}</th>
                     <td>{{materia.nombreProfesor}}</td>
                   </tr>
-                  <!--<tr>
-                  <th scope="row">Finanzas</th>
-                  <td>Mtro Demo</td>
-                </tr>
-                <tr>
-                  <th scope="row">Recursos Humanos</th>
-                  <td>Profesor 2</td>
-                </tr>
-                <tr>
-                  <th scope="row">Valores</th>
-                  <td>Profesor 2</td>
-                </tr>
-                <tr>
-                  <th scope="row">Ventas</th>
-                  <td>Profesor 2</td>
-                </tr>-->
                 </tbody>
-                <pagination-controls (pageChange)="pm = $event" previousLabel="Anterior"
-                  nextLabel="Siguiente"></pagination-controls>
               </table>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pm = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+              </div>
             </div>
             <div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -303,10 +446,16 @@
 
           <!------Agregar materia--->
           <div *ngIf="agMat == 1">
-          <label class="text3 txt-blue2 mt-3">Agregar materia</label>
-          <div class="col-lg-2 offset-lg-4 mt-3">
-            <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewMat(0)">Cancelar</button>
-          </div>
+            <div class="row mt-3 mb-3">
+              <div class="col-lg-6 ">
+                <label class="text3 txt-blue2">Agregar materia</label>
+              </div>
+              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewMat(0)">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
           <hr class="w-100">
           <form [formGroup]="formNewMat">
             <div class="mb-3">
@@ -365,8 +514,12 @@
                 </tbody>
 
               </table>
-              <pagination-controls (pageChange)="pg = $event" previousLabel="Anterior"
-                  nextLabel="Siguiente"></pagination-controls>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pg = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+              </div>
             </div>
 
 

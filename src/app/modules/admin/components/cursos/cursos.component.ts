@@ -58,6 +58,12 @@ export class CursosComponent implements OnInit {
   teachers: any;
   searchArray: any[];
   length = 0;
+  imgIcono: any;
+  imgTermina: any;
+  imgScore: any;
+  imgTiempo: any;
+  imgTema: any;
+  imgTemaV: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -786,5 +792,61 @@ export class CursosComponent implements OnInit {
       });
     }*/
     //console.log(this.showArr);
+  }
+
+  //Guardar imagen
+  fileIcono(event){
+    if(event.target.files.length > 0){
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgIcono = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
+  }
+  fileTermina(event){
+    if(event.target.files.length > 0){
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgTermina = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
+  }
+  fileScore(event){
+    if(event.target.files.length > 0){
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgScore = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
+  }
+  fileTiempo(event){
+    if(event.target.files.length > 0){
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgTiempo = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
+  }
+  fileTema(event){
+    if(event.target.files.length > 0){
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgTema = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
+  }
+  fileTemaV(event){
+    if(event.target.files.length > 0){
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgTemaV = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
   }
 }
