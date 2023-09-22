@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class CursosComponent implements OnInit {
 
-  
+
   objUsers = [] as any;
   showArr = [] as any;
   showLength = 0;
@@ -64,6 +64,13 @@ export class CursosComponent implements OnInit {
   imgTiempo: any;
   imgTema: any;
   imgTemaV: any;
+  modulos: any;
+  viewB: number;
+  viewE: number;
+  alltemas: any;
+  idModulo: any;
+  formModulo: FormGroup;
+  infoModule: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -76,6 +83,7 @@ export class CursosComponent implements OnInit {
       this.helpers.type = localStorage.getItem('type');
       this.helpers.goTop();
       this.certifications();
+      //this.temas(5);
       this.helpers.cursos = 1;
       this.startForm(1);
       //console.log(this.view)
@@ -194,6 +202,13 @@ export class CursosComponent implements OnInit {
         group: [''],
         users: [''],
       });
+    } else if (id == 5) {
+      this.formModulo = this.formBuilder.group({
+        title: [''],
+        descripcion: [''],
+        duracion: [''],
+        score: [''],
+      });
     }
   }
 
@@ -237,7 +252,7 @@ export class CursosComponent implements OnInit {
         //console.log(this.formSearch.value, this.formSearch.value.filter);
         break;
         case 'show':
-          
+
     }
 
   }
@@ -371,7 +386,7 @@ export class CursosComponent implements OnInit {
     }
   }
 
-  //cambia la vista de cursos 
+  //cambia la vista de cursos
   changeViewCourses(view: any, name?: any, id?: any) {
     //console.log(view, name, id);
     switch (view) {
@@ -482,7 +497,42 @@ export class CursosComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.allModules = data;
-        //console.log(this.allModules)
+        console.log(this.allModules)
+      }
+    );
+  }
+  //cambia la vista de cursos
+  changeViewModulo(view: any, name?: any, id?: any) {
+    //console.log(view, name, id);
+    switch (view) {
+      case 'back':
+        this.viewB = 0;
+        break;
+      case 'editm':
+        this.viewE = 1;
+        this.cview1 = 2;
+        this.startForm(5);
+        this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            this.idModulo = data.idModule;
+            this.temas(this.idModulo);
+            this.formModulo.controls['title'].setValue(data.title);
+            this.formModulo.controls['descripcion'].setValue(data.description);
+            this.formModulo.controls['duracion'].setValue(data.max_time);
+            this.formModulo.controls['score'].setValue(data.min_score);
+          }
+        );
+    }
+  }
+
+  //trae los temas de un modulo
+  temas(id: any) {
+    //console.log(id);
+    this.get.getTemas(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data);
+        this.alltemas = data;
+        //console.log(this.alltemas)
       }
     );
   }
@@ -758,7 +808,7 @@ export class CursosComponent implements OnInit {
     if (event.target.checked) {
       //console.log(event.target.checked);
       this.objUsers.push(event.target.value);
-      
+
       //console.log(this.objUsers)
     } else {
       //console.log(event.target.checked);

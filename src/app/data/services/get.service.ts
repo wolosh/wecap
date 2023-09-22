@@ -93,10 +93,27 @@ export class GetService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-
     return this.http.get(this.session.API + 'modulos/' + id, {
       headers
-  });
+    });
+  }
+  //llamada para traer modulos de un curso
+  getinfoModulo(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'getModulo/' + id, {
+      headers
+    });
+  }
+  //llamada para traer modulos de un curso
+  getTemas(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'getTemasFromModulo/' + id, {
+      headers
+    });
   }
 
   //trae el diploma de la base de datos
@@ -104,7 +121,6 @@ export class GetService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-
     return this.http.get(this.session.API + 'diploma/' + id, {
       headers
   });
@@ -129,5 +145,5 @@ export class GetService {
       headers
   });
   }
-  
+
 }
