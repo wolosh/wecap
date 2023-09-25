@@ -71,6 +71,7 @@ export class CursosComponent implements OnInit {
   idModulo: any;
   formModulo: FormGroup;
   infoModule: any;
+  imgicon: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -520,6 +521,7 @@ export class CursosComponent implements OnInit {
             this.formModulo.controls['descripcion'].setValue(data.description);
             this.formModulo.controls['duracion'].setValue(data.max_time);
             this.formModulo.controls['score'].setValue(data.min_score);
+            this.imgIcono = data.icon;
           }
         );
     }

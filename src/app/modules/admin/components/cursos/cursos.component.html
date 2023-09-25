@@ -298,7 +298,9 @@
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
-                  <img class="imgPreview" [src]="imgIcono || 'assets/img/imgpreview.png'" alt="imgIcono">
+                  <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono"/>
+                  <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{helpers.domain}}/profile_pic/{{ this.imgIcono }}" alt="imgIcono"/>
+                  <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
                   <input type="file" class="input3" id="icono"
                   (change)="fileIcono($event)">
                 </div>
