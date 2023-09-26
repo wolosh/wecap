@@ -204,16 +204,81 @@
                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
               </div>
             </div>
+<<<<<<< Updated upstream
             <!--Editar modulo--->
             <div>
               <label class="text3 txt-blue2 mt-3">Editar módulo</label>
               <hr class="w-100">
+=======
+
+
+            <!---->
+            <!------Diploma--->
+            <label class="text3 txt-blue2 mt-3">Diploma</label>
+            <label class="text6 txt-gris mt-3 ms-2">(opcional) <span class="text11">Otorga un diploma a tus usuarios al
+                terminar este curso.</span></label>
+            <hr class="w-100">
+            <form [formGroup]="formDiploma">
+              <div class="form-check form-check-inline ps-0 mb-2">
+                <label class="text13 txt-blue float-start" for="inlineRadio1">Otorgar diploma</label>
+                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio1"
+                  [(ngModel)]="hasDiploma" [checked]="hasDiploma == true" [ngModelOptions]="{standalone: true}"
+                  (change)="init($event.target)">
+              </div>
+              <div class="mb-3">
+                <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen, máximo 1200x100)</label>
+                <input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'logo')"
+                  accept="image/png,image/jpeg,image/jpg">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de quien firma</label>
+                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  formControlName="encargado">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cargo de quien firma</label>
+                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  formControlName="puesto">
+              </div>
+              <!--<div class="mb-3">
+                <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
+                <input class="input4" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
+                accept="image/png,image/jpeg,image/jpg">
+              </div>-->
+              <div class="mb-3">
+                <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
+                <input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
+                  accept="image/png,image/jpeg,image/jpg">
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    (click)="saveDiploma()">Guardar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!--Editar modulo--->
+          <div *ngIf="viewE == 1">
+            <div class="row mt-3 mb-3">
+              <div class="col-lg-6 ">
+                <label class="text3 txt-blue2">Editar módulo</label>
+              </div>
+              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewModulo('back')">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <form [formGroup]="formModulo">
+>>>>>>> Stashed changes
               <div class="row mt-3 mb-3 d-flex align-items-center">
                 <div class="col-12 col-md-3">
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
                 </div>
                 <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveModulo()">Guardar</button>
                 </div>
                 <div class="col-6 col-md-3 col-lg-2">
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
@@ -241,30 +306,52 @@
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
+<<<<<<< Updated upstream
                   <img class="imgPreview" [src]="imgIcono || 'assets/img/imgpreview.png'" alt="imgIcono">
                   <input type="file" class="input3" id="icono" 
+=======
+                  <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono"/>
+                  <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{this.imgIcono}}" alt="imgIcono"/>
+                  <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
+                  <input type="file" class="input3" id="icono"
+>>>>>>> Stashed changes
                   (change)="fileIcono($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
+<<<<<<< Updated upstream
                   <img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'"  alt="imgTermina">
                   <input type="file" class="input3" id="medallat" 
+=======
+                  <img *ngIf="this.imgTermina == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTermina"/>
+                  <img *ngIf="this.imgTermina != ''" class="imgPreview" src="{{this.imgTermina}}" alt="imgTermina"/>
+                  <!--img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'"  alt="imgTermina"-->
+                  <input type="file" class="input3" id="medallat"
+>>>>>>> Stashed changes
                   (change)="fileTermina($event)">
                 </div>
                 <div class="col-6 col-lg-2">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
-                  <input type="color" class="input3 w-50" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <input type="color" class="input3 w-50" id="exampleInputEmail1" formControlName="color">
                 </div>
               </div>
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto (opcional)</label>
+<<<<<<< Updated upstream
                   <img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'"  alt="imgScore">
                   <input type="file" class="input3" id="medallap" 
+=======
+                  <img *ngIf="this.imgScore == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgScore"/>
+                  <img *ngIf="this.imgScore != ''" class="imgPreview" src="{{this.imgScore}}" alt="imgScore"/>
+                  <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'"  alt="imgScore"-->
+                  <input type="file" class="input3" id="medallap"
+>>>>>>> Stashed changes
                   (change)="fileScore($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo (opcional)</label>
+<<<<<<< Updated upstream
                   <img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'"  alt="imgTiempo">
                   <input type="file" class="input3" id="medallapt" 
                   (change)="fileTiempo($event)">
@@ -312,6 +399,57 @@
             <div>
               <label class="text3 txt-blue2 mt-3">Editar tema</label>
               <hr class="w-100">
+=======
+                  <img *ngIf="this.imgTiempo == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTiempo"/>
+                  <img *ngIf="this.imgTiempo != ''" class="imgPreview" src="{{this.imgTiempo}}" alt="imgTiempo"/>
+                  <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'"  alt="imgTiempo"-->
+                  <input type="file" class="input3" id="medallapt"
+                  (change)="fileTiempo($event)">
+                </div>
+              </div>
+            </form>
+
+            <!---Temas--->
+            <label class="text3 txt-blue2 mt-3">Temas</label>
+            <label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table striped w-100">
+                <thead>
+                  <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Editar</th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr *ngFor="let tema of alltemas">
+                    <th scope="row">{{tema.title}}</th>
+                    <td><button class="boton2" (click)="changeViewTemas('editT', tema.title)">Editar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
+              </div>
+            </div>
+          </div>
+          <!---Editar tema-->
+          <div *ngIf="viewTemasE == 1">
+            <div class="row mt-3 mb-3">
+              <div class="col-lg-6 ">
+                <label class="text3 txt-blue2">Editar tema</label>
+              </div>
+              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('back')">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <form [formGroup]="formTemas">
+>>>>>>> Stashed changes
               <div class="row mt-3 mb-3 d-flex align-items-center">
                 <div class="col-12 col-lg-3">
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
@@ -326,6 +464,7 @@
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
                 </div>
               </div>
+<<<<<<< Updated upstream
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4 mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
@@ -351,6 +490,47 @@
                 </div>
               </div>
             </div>
+=======
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
+                <input type="text" class="input3" formControlName="title">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
+                <textarea class="input3" id="floatingTextarea2" style="height: 100px"
+                  formControlName="descripcion"></textarea>
+              </div>
+              <div class="row mt-3 mb-3">
+                <div class="col-12 col-lg-4 mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
+                  <img *ngIf="this.imgTema == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTema"/>
+                  <img *ngIf="this.imgTema != ''" class="imgPreview" src="{{this.imgTema}}" alt="imgTema"/>
+                  <!--img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'"  alt="imgTema"-->
+                  <input type="file" class="input3" id="medallapt"
+                  (change)="fileTema($event)">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
+                  <img *ngIf="this.imgTemaV == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTemaV"/>
+                  <img *ngIf="this.imgTemaV != ''" class="imgPreview" src="{{this.imgTemaV}}" alt="imgTemaV"/>
+                  <!--img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'"  alt="imgTemaV"-->
+                  <input type="file" class="input3" id="medallapt"
+                  (change)="fileTemaV($event)">
+                </div>
+              </div>
+              <div class="row mt-3 mb-3">
+                <div class="col-12 col-lg-4 mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
+                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".srt">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube, vimeo o PDF (previamente subido a medios))</label>
+                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
+                </div>
+              </div>
+            </form>
+          </div>
+>>>>>>> Stashed changes
 
 
 

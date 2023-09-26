@@ -79,14 +79,13 @@ export class GetService {
     })
   }
 
-  getConferencias(token:any) {
+  getConferencias(id:any, token){
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`
     });
-    //console.log(headers)
-    return this.http.get(this.session.API + 'correos', {
-      headers,
-    })
+    return this.http.get(this.session.API + 'getConferenciasCurso/' + id, {
+      headers
+    });
   }
   //llamada para traer modulos de un curso
   getModules(id:any, token){
@@ -146,6 +145,7 @@ export class GetService {
   });
   }
 
+<<<<<<< Updated upstream
   getUserCourses(id:any, token){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -216,4 +216,7 @@ getFiles(id:any, token){
       headers,
     })
   }
+=======
+
+>>>>>>> Stashed changes
 }

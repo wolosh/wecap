@@ -8,7 +8,7 @@
               </nav>
               <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <div *ngIf="this.helpers.cursos == 1">
+                  <div *ngIf="viewConf == 0">
                     <label class="text3 txt-blue2 mt-3">Video Conferencias</label>
                     <hr class="w-100">
                     <!--Tabla--->
@@ -23,46 +23,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <th scope="row"><button type="button" class="boton4" (click)="change(2)">Alsain Soluciones Audiovisuales</button></th>
-                                <td>En esta certificación encontraras materiales audiovisuales realizados
-                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
-                                <td>2018-11-26</td>
-                                <td>Activa</td>
+                            <tr *ngFor="let curso of allcursos | paginate: { itemsPerPage: 6, currentPage: p}">
+                                <th scope="row">{{curso.idCertification}}</th>
+                                <th scope="row"><button type="button" class="boton4" (click)="changeViewConferencias('editConf', curso.title)">{{curso.title}}</button></th>
+                                <td>{{curso.description}}</td>
+                                <td>{{curso.creation_date}}</td>
+                                <td *ngIf="this.curso.is_active == 1">Activa</td>
+                                <td *ngIf="this.curso.is_active == 0">Inactivo</td>
                             </tr>
-                            <!--tr>
-                                <th scope="row">2</th>
-                                <th scope="row">Alsain Soluciones Audiovisuales</th>
-                                <td>En esta certificación encontraras materiales audiovisuales realizados
-                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
-                                <td>2018-11-26</td>
-                                <td>Activa</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <th scope="row">Alsain Soluciones Audiovisuales</th>
-                                <td>En esta certificación encontraras materiales audiovisuales realizados
-                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
-                                <td>2018-11-26</td>
-                                <td>Activa</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <th scope="row">Alsain Soluciones Audiovisuales</th>
-                                <td>En esta certificación encontraras materiales audiovisuales realizados
-                                    por ALSAIN a lo largo de sus 16 años de trayectoria en el ramo.</td>
-                                <td>2018-11-26</td>
-                                <td>Activa</td>
-                            </tr-->
                         </tbody>
                     </table>
+                    <div class="row">
+                      <div class="col-12">
+                        <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                        nextLabel="Siguiente"></pagination-controls>
+                      </div>
+                    </div>
                   </div>
-                  <div *ngIf="this.helpers.cursos == 2">
+                  <div *ngIf="viewConf == 1">
                     <!--Conferencias--->
                     <label class="text3 txt-blue2 mt-3">Conferencias</label>
                     <hr class="w-100">
-                    <form>
+                    <form [formGroup]="formConf">
                         <div class="row mb-4">
                             <div class="col-8 col-md-4 col-lg-3">
                                 <button class="botondrop bg-blue w-100 p-1 p-md-2">
@@ -76,6 +58,23 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 mb-3">
+                                <input type="text" class="input3" placeholder="Título conferencia"  formControlName="title">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="text" class="input3" placeholder="Descripción"  formControlName="description">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="text" class="input3" placeholder="Fecha"  formControlName="fecha">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="text" class="input3" placeholder="Link"  formControlName="link">
+                            </div>
+                            <div class="col-12">
+                                <hr class="hr-gris">
+                            </div>
+                        </div>
+                        <!--div class="row mb-3">
+                            <div class="col-12 mb-3">
                                 <input type="text" class="input3" placeholder="Título conferencia">
                             </div>
                             <div class="col-12 mb-3">
@@ -107,24 +106,7 @@
                             <div class="col-12">
                                 <hr class="hr-gris">
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Título conferencia">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Descripción">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Fecha">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Link">
-                            </div>
-                            <div class="col-12">
-                                <hr class="hr-gris">
-                            </div>
-                        </div>
+                        </div-->
                     </form>
                   </div>
                 </div>

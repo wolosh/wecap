@@ -150,7 +150,7 @@ export class SessionService {
     );
   }
 
-  
+
   public editarPerfil(idUser, form, token) {
     //console.log(form)
     console.log(idUser, form, token)
@@ -202,6 +202,7 @@ export class SessionService {
     );
   }
 
+<<<<<<< Updated upstream
   public asignarCurso(form, token) {
     //console.log(form)
     console.log(form,  token)
@@ -227,6 +228,14 @@ export class SessionService {
     });
 
     return this.http.post(`${this.API}updateExpiracion`, form, {
+=======
+  public updateModulo(idUser, form, token) {
+    //console.log(form, idUser,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}editModulo/${idUser}`, form, {
+>>>>>>> Stashed changes
       headers,
     }).pipe(
       catchError((err) => {
@@ -236,6 +245,7 @@ export class SessionService {
     );
   }
 
+<<<<<<< Updated upstream
   public quitarCurso(form, token) {
     //console.log(form)
     console.log(form,  token)
@@ -252,5 +262,7 @@ export class SessionService {
       })
     );
   }
+=======
+>>>>>>> Stashed changes
 }
 
