@@ -10,7 +10,7 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <label class="text3 txt-blue2 mt-3">Configuración</label>
                     <hr class="w-100">
-                    <form>
+                    <form [formGroup]="formConfiguracion">
                         <label class="text13 txt-blue mb-3">Personalización</label>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Logo (380*65)</label>
@@ -26,23 +26,23 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color del texto menú principal</label>
-                            <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#EBC81C" title="Choose your color">
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" formControlName="colorText">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Texto sesión usuario</label>
-                            <textarea class="input3 w-75" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <textarea class="input3 w-75" id="floatingTextarea2" style="height: 100px" formControlName="txt_sesionUsuario"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color 1 de botón</label>
-                            <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#EBC81C" title="Choose your color">
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" formControlName="boton1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color 2 de botón</label>
-                            <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#EBC81C" title="Choose your color">
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" formControlName="boton2">
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Vista previa botón</label>
-                            <button class="botondrop bg-yellow w-85 d-block">Botón ejemplo</button>
+                            <button  id="background-change" class="botondrop bg-yellow w-85 d-block">Botón ejemplo</button>
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Correo electrónico de notificaciones</label>
@@ -52,7 +52,7 @@
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color cabecera y pie de página</label>
                             <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#EBC81C" title="Choose your color">
                         </div>
-                        <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Color cabecera y pie de página</label>
+                        <!--<label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Color cabecera y pie de página</label>
                         <div class="form-check form-check-inline">
                             <label class="text10 txt-gris2" for="inlineRadio1">Blanco</label>
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
@@ -60,7 +60,7 @@
                         <div class="form-check form-check-inline">
                             <label class="text10 txt-gris2" for="inlineRadio1">Negro</label>
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        </div>
+                        </div>-->
                         <label class="text13 txt-blue mt-5 mb-3 d-block">Módulos</label>
                         <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Me gusta y no me gusta en videos</label>
                         <div class="form-check form-check-inline mb-3">

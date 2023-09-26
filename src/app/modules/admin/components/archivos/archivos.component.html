@@ -3,19 +3,24 @@
         <div class="col-12">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Archivos</button>
-                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Multimedia</button>
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                        (click)="onClickTab('files')">Archivos</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
+                        (click)="onClickTab('media')">Multimedia</button>
                 </div>
-              </nav>
-              <div class="tab-content mb-5" id="nav-tabContent">
+            </nav>
+            <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <label class="text3 txt-blue2 mt-3">Archivos</label>
                     <hr class="w-100">
-                    <form>
+                    <form [formGroup]="formArchivos">
                         <label class="text14 txt-blue mb-3">Datos generales</label>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
-                            <textarea class="input3" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <textarea class="input3" id="floatingTextarea2" style="height: 100px" placeholder="Añade un a descripción para el usuario"
+                                formControlName="descripcion"></textarea>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-5 col-lg-4 col-xl-3">
@@ -29,26 +34,56 @@
                             </div>
                         </div>
                         <div class="archivos">
-                          <div class="row mb-3 cloneArchivos">
-                            <div class="col-12 col-lg-4 order-2 order-md-1">
-                                <div>
-                                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre:</label>
-                                    <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div class="row mb-3" *ngFor="let archivo of filesArr">
+                                <div class="col-12 col-lg-4 order-2 order-md-1">
+                                    <div>
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre:</label>
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value="{{archivo.name}}">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-4 order-3 order-md-2">
+                                    <div>
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Url:</label>
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value="{{archivo.url}}">
+                                    </div>
+                                </div>
+                                <div class="col-10 col-lg-3 d-flex align-items-end mt-3 order-4 order-md-3">
+                                    <input class="input3" type="file" id="formFile" accept=".pdf, .docx, .pptx, .rar, .txt, .zip, .xls" (change)="selectFiles($event, 'archivo', archivo.name, archivo.url)">
+                                </div>
+                                <div
+                                    class="col-1 offset-10 offset-md-0 d-flex align-items-center order-1 mt-4 order-md-4">
+                                    <button class="boton2 removeArchivos" (click)="removeArchivos()"><img
+                                            src="assets/img/close.svg" alt="close"></button>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4 order-3 order-md-2">
-                                <div>
-                                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Url:</label>
-                                    <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="archivos" *ngIf="this.cloneIn != 0">
+                            <div class="row mb-3 cloneArchivos">
+                                <div class="col-12 col-lg-4 order-2 order-md-1">
+                                    <div>
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre:</label>
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-4 order-3 order-md-2">
+                                    <div>
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Url:</label>
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                </div>
+                                <div class="col-10 col-lg-3 d-flex align-items-end mt-3 order-4 order-md-3">
+                                    <input class="input3" type="file" id="formFile" accept=".pdf, .docx, .pptx, .rar, .txt, .zip, .xls" (change)="selectFiles($event, 'archivo', this.cloneIn)">
+                                </div>
+                                <div
+                                    class="col-1 offset-10 offset-md-0 d-flex align-items-center order-1 mt-4 order-md-4">
+                                    <button class="boton2 removeArchivos" (click)="removeArchivos()"><img
+                                            src="assets/img/close.svg" alt="close"></button>
                                 </div>
                             </div>
-                            <div class="col-10 col-lg-3 d-flex align-items-end mt-3 order-4 order-md-3">
-                                <input class="input3" type="file" id="formFile">
-                            </div>
-                            <div class="col-1 offset-10 offset-md-0 d-flex align-items-center order-1 mt-4 order-md-4">
-                                <button class="boton2 removeArchivos" (click)="removeArchivos()"><img src="assets/img/close.svg" alt="close"></button>
-                            </div>
-                          </div>
                         </div>
                         <div class="row">
                             <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -58,100 +93,110 @@
                     </form>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                  <div *ngIf="this.helpers.cursos == 1">
-                    <label class="text3 txt-blue2 mt-3">Subir Multimedia</label>
-                    <hr class="w-100">
-                    <div class="row">
-                      <div class="col-12 col-md-5 col-lg-4 col-xl-3">
-                          <label class="text14 txt-blue mb-3">Datos generales</label>
-                      </div>
-                      <div class="col-5 col-md-3 col-lg-2 offset-7 offset-md-0">
-                          <button class="boton bg-blue w-100 p-1 p-md-2" (click)="clone()">
-                              <img src="assets/img/agregar.svg" alt="">
-                              Agregar
-                          </button>
-                      </div>
-                  </div>
-                    <form [formGroup]="formuploadMedia">
-                        <!--label class="text14 txt-blue mb-3">Datos generales</label-->
-                        <div class="multimedia">
-                            <div class="mb-3 clone">
-                                <label for="formFile" class="text13 txt-blue mb-2 d-block">Selecciona un archivo</label>
-                                <input class="input3 d-inline-flex w-auto" type="file" formControlName="img"
-                                (change)="selectFile($event)" accept="image/png,image/jpeg,image/jpg,.pdf,video/MP4">
-                                <button class="boton2 d-inline-flex remove" (click)="remove()"><img src="assets/img/close.svg" alt=""></button>
-                            </div>
-                        </div>
-                        <label class="text5 txt-blue">Archivos soportados:</label>
-                        <label class="text9 d-block">Imagenes (jpg, png, gif)</label>
-                        <label class="text9 d-block">Documentos (pdf)</label>
-                        <label class="text9 d-block">Video (MP4 H.264)</label>
+                    <div *ngIf="this.viewFiles == 1">
+                        <label class="text3 txt-blue2 mt-3">Subir Multimedia</label>
+                        <hr class="w-100">
                         <div class="row">
-                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="subirMedia()">Guardar</button>
-                            </div>
-                        </div>
-                    </form>
-                    <label class="text3 txt-blue2 mt-3">Listado Multimedia</label>
-                    <hr class="w-100">
-                    <!--Tabla--->
-                    <table id="example" class="table data striped dt-responsive nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Fecha de creación</th>
-                                <th>Tipo</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngFor="let media of medias">
-                            <tr>
-                                <th scope="row"><button type="button" class="boton4" (click)="change(2)">{{media.name}}</button></th>
-                                <td>{{media.date}}</td>
-                                <td [innerHTML]="media.type_html"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                  <div *ngIf="this.helpers.cursos == 2">
-                    <label class="text3 txt-blue2 mt-3">Media</label>
-                    <hr class="w-100">
-                    <form>
-                        <div class="row">
-                            <div class="col-12 col-md-10">
+                            <div class="col-12 col-md-5 col-lg-4 col-xl-3">
                                 <label class="text14 txt-blue mb-3">Datos generales</label>
                             </div>
-                            <div class="col-5 col-md-2 offset-7 offset-md-0">
-                                <button class="botondrop bg-grey2 p-1 w-100">Borrar</button>
+                            <div class="col-5 col-md-3 col-lg-2 offset-7 offset-md-0">
+                                <button class="boton bg-blue w-100 p-1 p-md-2" (click)="clone()">
+                                    <img src="assets/img/agregar.svg" alt="">
+                                    Agregar
+                                </button>
                             </div>
                         </div>
-                        <div>
-                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <button class="botondrop bg-grey2 p-1 mt-3 mb-3">Copiar al portapapeles</button>
+                        <form [formGroup]="formuploadMedia">
+                            <!--label class="text14 txt-blue mb-3">Datos generales</label-->
+                            <div class="multimedia">
+                                <div class="mb-3 clone">
+                                    <label for="formFile" class="text13 txt-blue mb-2 d-block">Selecciona un
+                                        archivo</label>
+                                    <input class="input3 d-inline-flex w-auto" type="file" formControlName="img"
+                                        (change)="selectFile($event)"
+                                        accept="image/png,image/jpeg,image/jpg">
+                                        <!--accept="image/png,image/jpeg,image/jpg,.pdf,video/MP4">-->
+                                    <button class="boton2 d-inline-flex remove" (click)="remove()"><img
+                                            src="assets/img/close.svg" alt=""></button>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">URL completa (para pestañas de temas)</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <button class="botondrop bg-grey2 p-1 mt-3 mb-3">Copiar al portapapeles</button>
+                            <label class="text5 txt-blue">Archivos soportados:</label>
+                            <label class="text9 d-block">Imagenes (jpg, png, gif)</label>
+                            <label class="text9 d-block">Documentos (pdf)</label>
+                            <label class="text9 d-block">Video (MP4 H.264)</label>
+                            <div class="row">
+                                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                                        (click)="subirMedia()">Guardar</button>
+                                </div>
                             </div>
+                        </form>
+                        <div *ngIf="this.mediaLength != 0">
+                            <label class="text3 txt-blue2 mt-3">Listado Multimedia</label>
+                            <hr class="w-100">
+                            <!--Tabla--->
+                            <table id="example" class="table data striped dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Fecha de creación</th>
+                                        <th>Tipo</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let media of medias">
+                                    <tr>
+                                        <th scope="row"><button type="button" class="boton4"
+                                                (click)="change(2)">{{media.name}}</button></th>
+                                        <td>{{media.date}}</td>
+                                        <td [innerHTML]="media.type_html"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <!--CUADRO--->
-                        <div class="row">
-                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="change(1)">Regresar</button>
+                    </div>
+                    <div *ngIf="this.viewFiles == 2">
+                        <label class="text3 txt-blue2 mt-3">Media</label>
+                        <hr class="w-100">
+                        <form>
+                            <div class="row">
+                                <div class="col-12 col-md-10">
+                                    <label class="text14 txt-blue mb-3">Datos generales</label>
+                                </div>
+                                <div class="col-5 col-md-2 offset-7 offset-md-0">
+                                    <button class="botondrop bg-grey2 p-1 w-100">Borrar</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                  </div>
+                            <div>
+                                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre:</label>
+                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <button class="botondrop bg-grey2 p-1 mt-3 mb-3">Copiar al portapapeles</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">URL completa (para pestañas
+                                    de temas)</label>
+                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <button class="botondrop bg-grey2 p-1 mt-3 mb-3">Copiar al portapapeles</button>
+                                </div>
+                            </div>
+                            <!--CUADRO--->
+                            <div class="row">
+                                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                                        (click)="change(1)">Regresar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 </div>

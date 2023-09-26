@@ -27,51 +27,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <th scope="row">Empleado</th>
-                                <td>Hombre</td>
+                            <tr *ngFor="let user of usersArr | paginate: { itemsPerPage: 6, currentPage: pusers}">
+                                <th scope="row">{{user.idUser}}</th>
+                                <th scope="row">{{user.full_name}}</th>
+                                <td *ngIf="user.genero == 1">Masculino</td>
+                                <td *ngIf="user.genero == 2">Femenino</td>
+                                <td *ngIf="user.genero == null">Sin información</td>
                                 <td>12/31/1969</td>
-                                <td>Sistemas</td>
-                                <td>Web</td>
-                                <td>México</td>
-                                <td>Jalisco</td>
-                                <td>Guadalajara</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <th scope="row">Empleado</th>
-                                <td>Hombre</td>
-                                <td>12/31/1969</td>
-                                <td>Sistemas</td>
-                                <td>Web</td>
-                                <td>México</td>
-                                <td>Jalisco</td>
-                                <td>Guadalajara</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <th scope="row">Empleado</th>
-                                <td>Hombre</td>
-                                <td>12/31/1969</td>
-                                <td>Sistemas</td>
-                                <td>Web</td>
-                                <td>México</td>
-                                <td>Jalisco</td>
-                                <td>Guadalajara</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <th scope="row">Empleado</th>
-                                <td>Hombre</td>
-                                <td>12/31/1969</td>
-                                <td>Sistemas</td>
-                                <td>Web</td>
-                                <td>México</td>
-                                <td>Jalisco</td>
-                                <td>Guadalajara</td>
+                                <td *ngIf="user.area != ''">{{user.area}}</td>
+                                <td *ngIf="user.area == ''">N/A</td>
+                                <td *ngIf="user.job != ''">{{user.job}}</td>
+                                <td *ngIf="user.job == ''">N/A</td>
+                                <td *ngIf="user.pais != null">{{user.pais}}</td>
+                                <td *ngIf="user.pais == null">N/A</td>
+                                <td *ngIf="user.estado != null">{{user.estado}}</td>
+                                <td *ngIf="user.estado == null">N/A</td>
+                                <td *ngIf="user.ciudad != null">{{user.ciudad}}</td>
+                                <td *ngIf="user.ciudad == null">N/A</td>
                             </tr>
                         </tbody>
+                        <pagination-controls (pageChange)="pusers = $event" previousLabel="Anterior"
+                        nextLabel="Siguiente"></pagination-controls>
                     </table>
                     <!--Grafica--->
                     <div class="row mt-5">
@@ -114,20 +90,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let curso of coursesArr | paginate: { itemsPerPage: 6, currentPage: pcursos}">
                                 <td><input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"></td>
-                                <th scope="row">1</th>
-                                <th scope="row">Alsain Soluciones Audiovisuales</th>
-                                <td>27.27</td>
-                                <td>1</td>
-                                <td>0.06</td>
-                                <td>6.68</td>
-                                <td>83.52</td>
-                                <td>%</td>
-                                <td>%</td>
+                                <th scope="row">{{curso.idCertification}}</th>
+                                <th scope="row">{{curso.title}}</th>
+                                <td>{{curso.promedio}}</td>
+                                <td>{{curso.intentos}}</td>
+                                <td>{{curso.examenTiempo}}</td>
+                                <td>{{curso.temasTiempo}}</td>
+                                <td>{{curso.moduloTiempo}}</td>
+                                <td *ngIf="curso.promediosDiagnostico.promedioInit != 'N/A'">{{curso.promediosDiagnostico.promedioInit}}%</td>
+                                <td *ngIf="curso.promediosDiagnostico.promedioInit == 'N/A'">{{curso.promediosDiagnostico.promedioInit}}</td>
+                                <td *ngIf="curso.promediosDiagnostico.promedioFinal != 'N/A'">{{curso.promediosDiagnostico.promedioFinal}}%</td>
+                                <td *ngIf="curso.promediosDiagnostico.promedioFinal == 'N/A'">{{curso.promediosDiagnostico.promedioFinal}}</td>
                                 <td>%</td>
                             </tr>
                         </tbody>
+                        <pagination-controls (pageChange)="pcursos = $event" previousLabel="Anterior"
+                        nextLabel="Siguiente"></pagination-controls>
                     </table>
                     <div class="row mt-5 mb-5">
                         <div class="col-12">
@@ -153,7 +133,7 @@
                             <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Descargar excel</button>
                         </div>
                     </div>
-                    <label class="text3 txt-blue2 mt-3">Diagnostico Cursos</label>
+                    <!---<label class="text3 txt-blue2 mt-3">Diagnostico Cursos</label>
                     <hr class="w-100">
                     <table id="diagnostico" class="table data striped dt-responsive nowrap" style="width:100%">
                         <thead>
@@ -190,7 +170,7 @@
                                 <td>0%</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>-->
                 </div>
             </div>
         </div>

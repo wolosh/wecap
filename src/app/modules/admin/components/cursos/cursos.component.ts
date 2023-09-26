@@ -79,13 +79,13 @@ export class CursosComponent implements OnInit {
   ngOnInit(): void {
     Swal.close();
     if (localStorage.getItem('type') == '1') {
-     //console.log(this.searchArray)
+
+      //console.log(this.searchArray)
       //console.log(localStorage.getItem('token'));
       this.helpers.type = localStorage.getItem('type');
       this.helpers.goTop();
       this.certifications();
-      //this.temas(5);
-      this.helpers.cursos = 1;
+      //this.helpers.cursos = 1;
       this.startForm(1);
       //console.log(this.view)
     } else {
@@ -96,10 +96,10 @@ export class CursosComponent implements OnInit {
         confirmButtonColor: '#015287',
       }).then((result) => {
         if (result.isConfirmed) {
-          if(this.helpers.type == '4'){
+          if (this.helpers.type == '4') {
             this.route.navigate(['/cmtemplate']);
-          } else if(localStorage.getItem('token') == null){
-          this.route.navigate(['']);
+          } else if (localStorage.getItem('token') == null) {
+            this.route.navigate(['']);
           }
         }
       });
@@ -144,7 +144,7 @@ export class CursosComponent implements OnInit {
 
   }
 
-  erase(){
+  erase() {
     this.searchSelect = '0';
     this.objUsers = [];
     this.text1 = '';
@@ -158,7 +158,7 @@ export class CursosComponent implements OnInit {
     this.showArr = [];
     this.length = 0;
     this.searchArray = [];
-            //console.log(this.chief, this.view);
+    //console.log(this.chief, this.view);
   }
 
   getPage(page: any) {
@@ -252,7 +252,6 @@ export class CursosComponent implements OnInit {
         }
         //console.log(this.formSearch.value, this.formSearch.value.filter);
         break;
-        case 'show':
 
     }
 
@@ -356,13 +355,13 @@ export class CursosComponent implements OnInit {
   }
 
   //trae los usuarios
-  users(type:any) {
+  users(type: any) {
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
-        if(type == 'modify'){
-        this.user = data.users;
-        } else if(type == 'show'){
+        if (type == 'modify') {
+          this.user = data.users;
+        } else if (type == 'show') {
           this.searchArray = data.users;
           this.length = data.users.length;
           //console.log(this.searchArray, this.length)
@@ -412,22 +411,9 @@ export class CursosComponent implements OnInit {
             //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
+        break;
     }
-    /*if (view == 'editc') {
-      this.cview1 = 1;
-      for (let item of this.certificaciones) {
-        if (item.title == name) {
-          this.idCertification = item.idCertification;
-          this, this.course = item.title;
-          this.startForm(2);
-          this.formEdit.controls['title'].setValue(item.title);
-          this.formEdit.controls['description'].setValue(item.description);
-          this.formEdit.controls['default_active_days'].setValue(item.default_active_days);
-          this.exam = parseInt(item.hasExam);
-          console.log(item, this.formEdit.value, this.exam);
-        }
-      }
-    }*/
+
   }
 
   //cambia el status de los cursos
@@ -603,33 +589,6 @@ export class CursosComponent implements OnInit {
 
       }
 
-      /*switch (type) {
-        case 'logo':
-          console.log(this.w, this.h);
-          if (w <= 1200 || h <= 100) {
-            this.logo = event.target.files[0];
-          } else {
-            Swal.fire({
-              title: '¡Error!',
-              text: 'La imagen debe ser de un tamaño máximo de 1200x100',
-              icon: 'error',
-              confirmButtonColor: '#015287',
-            });
-          }
-          break;
-        case 'firma':
-          if (w > 400 || h > 100) {
-            this.image = event.target.files[0];
-          } else {
-            Swal.fire({
-              title: '¡Error!',
-              text: 'La imagen debe ser de un tamaño máximo de 400x100',
-              icon: 'error',
-              confirmButtonColor: '#015287',
-            });
-          }
-      }*/
-
     }
 
 
@@ -723,23 +682,23 @@ export class CursosComponent implements OnInit {
 
   }
 
-  searchUsers(kind:any, filter?: any, param?: any) {
+  searchUsers(kind: any, filter?: any, param?: any) {
     //console.log(filter, param);
     this.pgm = 1;
-    if(kind == 'search'){
-    let f = filter;
-    let cad = param;
-    let token = localStorage.getItem('token');
-    //console.log(f, cad);
+    if (kind == 'search') {
+      let f = filter;
+      let cad = param;
+      let token = localStorage.getItem('token');
+      //console.log(f, cad);
 
-    this.get.searchUsers(f, cad, token).subscribe(
-      (data: any) => {
-        //console.log(data);
-        this.length = data.usuarios.length;
-        this.searchArray = data.usuarios;
-      }
-    );
-    } else if(kind == 'show'){
+      this.get.searchUsers(f, cad, token).subscribe(
+        (data: any) => {
+          //console.log(data);
+          this.length = data.usuarios.length;
+          this.searchArray = data.usuarios;
+        }
+      );
+    } else if (kind == 'show') {
       Swal.fire({
         title: 'Cargando...',
         html: 'Espera un momento por favor',
@@ -748,16 +707,17 @@ export class CursosComponent implements OnInit {
         didOpen: () => {
           Swal.showLoading();
           this.pg = 1;
-      this.pgm = 1;
-      this.text1 = '';
-      this.searchSelect = '0'
-      this.users(kind);
-        }});
+          this.pgm = 1;
+          this.text1 = '';
+          this.searchSelect = '0'
+          this.users(kind);
+        }
+      });
     }
   }
 
   asignarGrupo() {
-    if(this.groupSelected == '0'){
+    if (this.groupSelected == '0') {
       Swal.fire({
         title: '¡Error!',
         text: 'Selecciona un grupo.',
@@ -767,7 +727,7 @@ export class CursosComponent implements OnInit {
     }
     //console.log(this.groupSelected, this.chief);
     let group = new FormData();
-    if(this.objUsers.length == 0){
+    if (this.objUsers.length == 0) {
       group.append('usuario[]', this.chief);
     } else {
       this.objUsers.forEach(element => {
@@ -778,7 +738,7 @@ export class CursosComponent implements OnInit {
     //let group = new FormData();
     //group.append('usuario[]', this.objUsers);
 
-  //group.append('usuario[]', this.groupSelected);
+    //group.append('usuario[]', this.groupSelected);
     //console.log(group.getAll('usuario[]'), group.get, this.groupSelected);
     this.session.asignarGrupo(this.groupSelected, group, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -799,13 +759,13 @@ export class CursosComponent implements OnInit {
             this.users('modify');
             this.groups();
             this.startForm(4);*/
-         }
+          }
         });
       }
     );
   }
 
-  changeValue(event: any){
+  changeValue(event: any) {
     //console.log(event.target.value);
     if (event.target.checked) {
       //console.log(event.target.checked);
@@ -820,11 +780,11 @@ export class CursosComponent implements OnInit {
     this.showUsers(event.target.value);
   }
 
-  showUsers(array:any){
+  showUsers(array: any) {
     //console.log(array);
     this.searchArray.forEach(element => {
-      if(element.idUser == array){
-        if(this.showArr.includes(element)){
+      if (element.idUser == array) {
+        if (this.showArr.includes(element)) {
           //console.log(this.showArr.indexOf(element));
           this.showArr.splice(this.showArr.indexOf(element), 1);
         } else {
@@ -847,8 +807,8 @@ export class CursosComponent implements OnInit {
   }
 
   //Guardar imagen
-  fileIcono(event){
-    if(event.target.files.length > 0){
+  fileIcono(event) {
+    if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgIcono = event.target.result;
@@ -856,8 +816,8 @@ export class CursosComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0])
     }
   }
-  fileTermina(event){
-    if(event.target.files.length > 0){
+  fileTermina(event) {
+    if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTermina = event.target.result;
@@ -865,8 +825,8 @@ export class CursosComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0])
     }
   }
-  fileScore(event){
-    if(event.target.files.length > 0){
+  fileScore(event) {
+    if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgScore = event.target.result;
@@ -874,8 +834,8 @@ export class CursosComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0])
     }
   }
-  fileTiempo(event){
-    if(event.target.files.length > 0){
+  fileTiempo(event) {
+    if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTiempo = event.target.result;
@@ -883,8 +843,8 @@ export class CursosComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0])
     }
   }
-  fileTema(event){
-    if(event.target.files.length > 0){
+  fileTema(event) {
+    if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTema = event.target.result;
@@ -892,8 +852,8 @@ export class CursosComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0])
     }
   }
-  fileTemaV(event){
-    if(event.target.files.length > 0){
+  fileTemaV(event) {
+    if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTemaV = event.target.result;

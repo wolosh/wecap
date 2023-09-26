@@ -202,5 +202,55 @@ export class SessionService {
     );
   }
 
+  public asignarCurso(form, token) {
+    //console.log(form)
+    console.log(form,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}asignaCurso`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+  
+  public editarExpiracion(form, token) {
+    //console.log(form)
+    console.log(form,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}updateExpiracion`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public quitarCurso(form, token) {
+    //console.log(form)
+    console.log(form,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}quitaAsignacionCurso`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
 }
 

@@ -146,4 +146,74 @@ export class GetService {
   });
   }
 
+  getUserCourses(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}getCursosFromUser/${id}`, {
+      headers,
+    })
+  }
+
+  getDiagnostico(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}diagnostico/${id}`, {
+      headers,
+    })
+  }
+
+  getExamModule(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}preguntas/${id}`, {
+      headers,
+    })
+  }
+
+  getCursantesModulo(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}getCursantesModulo/${id}`, {
+      headers,
+    })
+  }
+
+  getEstadisticas(token:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}estadisticas`, {
+      headers,
+    })
+  }
+
+
+getFiles(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}files/${id}`, {
+      headers,
+    })
+  }
+
+  getConfiguration(token:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}config`, {
+      headers,
+    })
+  }
 }
