@@ -46,9 +46,13 @@
                                 <td *ngIf="user.ciudad == null">N/A</td>
                             </tr>
                         </tbody>
-                        <pagination-controls (pageChange)="pusers = $event" previousLabel="Anterior"
-                        nextLabel="Siguiente"></pagination-controls>
                     </table>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                          <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pusers = $event" previousLabel="Anterior"
+                          nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                    </div>
                     <!--Grafica--->
                     <div class="row mt-5">
                         <div class="col-12 col-lg-6">
@@ -106,9 +110,13 @@
                                 <td>%</td>
                             </tr>
                         </tbody>
-                        <pagination-controls (pageChange)="pcursos = $event" previousLabel="Anterior"
-                        nextLabel="Siguiente"></pagination-controls>
                     </table>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                          <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pcursos = $event" previousLabel="Anterior"
+                          nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                    </div>
                     <div class="row mt-5 mb-5">
                         <div class="col-12">
                             <div class="chart-container">

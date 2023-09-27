@@ -145,7 +145,6 @@ export class GetService {
   });
   }
 
-<<<<<<< Updated upstream
   getUserCourses(id:any, token){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -216,7 +215,4 @@ getFiles(id:any, token){
       headers,
     })
   }
-=======
-
->>>>>>> Stashed changes
 }

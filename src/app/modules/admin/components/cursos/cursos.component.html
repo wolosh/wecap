@@ -43,10 +43,13 @@
                     <td *ngIf="this.certificacion.is_active == 0">Inactivo</td>
                   </tr>
                 </tbody>
-                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
-                  nextLabel="Siguiente"></pagination-controls>
-
               </table>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+              </div>
             </div>
             <div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -204,12 +207,6 @@
                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
               </div>
             </div>
-<<<<<<< Updated upstream
-            <!--Editar modulo--->
-            <div>
-              <label class="text3 txt-blue2 mt-3">Editar módulo</label>
-              <hr class="w-100">
-=======
 
 
             <!---->
@@ -272,7 +269,6 @@
             </div>
             <hr class="w-100">
             <form [formGroup]="formModulo">
->>>>>>> Stashed changes
               <div class="row mt-3 mb-3 d-flex align-items-center">
                 <div class="col-12 col-md-3">
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
@@ -306,28 +302,18 @@
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
-<<<<<<< Updated upstream
-                  <img class="imgPreview" [src]="imgIcono || 'assets/img/imgpreview.png'" alt="imgIcono">
-                  <input type="file" class="input3" id="icono" 
-=======
                   <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono"/>
                   <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{this.imgIcono}}" alt="imgIcono"/>
                   <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
                   <input type="file" class="input3" id="icono"
->>>>>>> Stashed changes
                   (change)="fileIcono($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
-<<<<<<< Updated upstream
-                  <img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'"  alt="imgTermina">
-                  <input type="file" class="input3" id="medallat" 
-=======
                   <img *ngIf="this.imgTermina == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTermina"/>
                   <img *ngIf="this.imgTermina != ''" class="imgPreview" src="{{this.imgTermina}}" alt="imgTermina"/>
                   <!--img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'"  alt="imgTermina"-->
                   <input type="file" class="input3" id="medallat"
->>>>>>> Stashed changes
                   (change)="fileTermina($event)">
                 </div>
                 <div class="col-6 col-lg-2">
@@ -338,68 +324,14 @@
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto (opcional)</label>
-<<<<<<< Updated upstream
-                  <img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'"  alt="imgScore">
-                  <input type="file" class="input3" id="medallap" 
-=======
                   <img *ngIf="this.imgScore == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgScore"/>
                   <img *ngIf="this.imgScore != ''" class="imgPreview" src="{{this.imgScore}}" alt="imgScore"/>
                   <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'"  alt="imgScore"-->
                   <input type="file" class="input3" id="medallap"
->>>>>>> Stashed changes
                   (change)="fileScore($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo (opcional)</label>
-<<<<<<< Updated upstream
-                  <img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'"  alt="imgTiempo">
-                  <input type="file" class="input3" id="medallapt" 
-                  (change)="fileTiempo($event)">
-                </div>
-              </div>
-              <!---Temas--->
-              <label class="text3 txt-blue2 mt-3">Temas</label>
-              <label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label>
-              <hr class="w-100">
-              <div class="table-responsive">
-                <table class="table striped w-100">
-                  <thead>
-                    <tr>
-                      <th scope="col">Título</th>
-                      <th scope="col">Editar</th>
-                    </tr>
-                  </thead>
-                  <tbody id="temas">
-                    <tr>
-                      <th scope="row">Valley</th>
-                      <td><button class="boton2">Editar</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Valley</th>
-                      <td><button class="boton2">Editar</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Valley</th>
-                      <td><button class="boton2">Editar</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Valley</th>
-                      <td><button class="boton2">Editar</button></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="row">
-                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
-                </div>
-              </div>
-            </div>
-            <!---Editar tema-->
-            <div>
-              <label class="text3 txt-blue2 mt-3">Editar tema</label>
-              <hr class="w-100">
-=======
                   <img *ngIf="this.imgTiempo == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTiempo"/>
                   <img *ngIf="this.imgTiempo != ''" class="imgPreview" src="{{this.imgTiempo}}" alt="imgTiempo"/>
                   <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'"  alt="imgTiempo"-->
@@ -449,7 +381,6 @@
             </div>
             <hr class="w-100">
             <form [formGroup]="formTemas">
->>>>>>> Stashed changes
               <div class="row mt-3 mb-3 d-flex align-items-center">
                 <div class="col-12 col-lg-3">
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
@@ -464,33 +395,6 @@
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
                 </div>
               </div>
-<<<<<<< Updated upstream
-              <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-4 mb-3">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
-                  <img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'"  alt="imgTema">
-                  <input type="file" class="input3" id="medallapt" 
-                  (change)="fileTema($event)">
-                </div>
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
-                  <img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'"  alt="imgTemaV">
-                  <input type="file" class="input3" id="medallapt" 
-                  (change)="fileTemaV($event)">
-                </div>
-              </div>
-              <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-4 mb-3">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
-                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".srt">
-                </div>
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube, vimeo o PDF (previamente subido a medios))</label>
-                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
-                </div>
-              </div>
-            </div>
-=======
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
                 <input type="text" class="input3" formControlName="title">
@@ -530,7 +434,6 @@
               </div>
             </form>
           </div>
->>>>>>> Stashed changes
 
 
 
@@ -570,9 +473,13 @@
                   <td>Profesor 2</td>
                 </tr>-->
                 </tbody>
-                <pagination-controls (pageChange)="pm = $event" previousLabel="Anterior"
-                  nextLabel="Siguiente"></pagination-controls>
               </table>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pm = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+              </div>
             </div>
             <div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -645,10 +552,13 @@
                 </tbody>
 
               </table>
-              <pagination-controls (pageChange)="pg = $event" previousLabel="Anterior"
-                  nextLabel="Siguiente"></pagination-controls>
             </div>
-
+            <div class="row">
+              <div class="col-12">
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pg = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+              </div>
+            </div>
 
             <label class="text3 txt-blue2 mt-3">Añadir Grupos</label>
             <label class="text6 txt-gris mt-3 ms-2">Buscar y seleccionar usuarios</label>
@@ -706,8 +616,12 @@
                     </li>-->
                   </ul>
                 </div>
-                <pagination-controls (pageChange)="pgm = $event" previousLabel="Anterior"
-                  nextLabel="Siguiente"></pagination-controls>
+                <div class="row mt-2">
+                  <div class="col-12 col-lg-6">
+                    <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pgm = $event" previousLabel="Anterior"
+                    nextLabel="Siguiente"></pagination-controls>
+                  </div>
+                </div>
               </div>
               <label class="text13 txt-blue">Grupo</label>
               <div class="dropdown">

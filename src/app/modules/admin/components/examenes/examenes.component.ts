@@ -708,4 +708,12 @@ export class ExamenesComponent implements OnInit {
       });
     }
   }
+  //Clone pregunta abierta
+  public cloneAbierta(): void {
+   const question = document.querySelectorAll('.abierta');
+   var first = question[0];
+   console.log(first);
+   const clonequestion = first.cloneNode(true) as HTMLDivElement;
+   document.querySelector(".editor").appendChild(clonequestion);
+ }
 }

@@ -73,12 +73,12 @@
                                             </label>
                                         </li>
                                     </ul>
-                                </div>
-                                <pagination-controls (pageChange)="psc = $event" previousLabel="Anterior"
+                                    <pagination-controls class="w-100 d-flex justify-content-center mt-2" (pageChange)="psc = $event" previousLabel="Anterior"
                                     nextLabel="Siguiente"></pagination-controls>
+                                </div>
                             </div>
                             <label class="text13 txt-blue mb-2">Curso</label>
-                            <div class="dropdown">
+                            <div class="dropdown w-auto">
                                 <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Seleccionar certificación
                               </button>
@@ -105,28 +105,34 @@
                         <label class="text6 txt-gris mt-3 ms-2">Curso por usuario</label>
                         <hr class="w-100">
                         <!--Tabla--->
-                        <table id="asignacion" class="table data striped dt-responsive nowrap" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Usuario</th>
-                                    <th>Trabajo</th>
-                                    <th>Área</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let user of usersArr | paginate: { itemsPerPage: 6, currentPage: pas}">
-                                    <th scope="row">{{user.idUser}}</th>
-                                    <th scope="row"><button type="button" class="boton4"
-                                            (click)="changeAsignature(1, user.idUser)">{{user.full_name}}</button></th>
-                                    <td>{{user.job}}</td>
-                                    <td *ngIf="user.area != ''">{{user.area}}</td>
-                                    <td *ngIf="user.area == ''">N/A</td>
-                                </tr>
-                            </tbody>
-                            <pagination-controls (pageChange)="pas = $event" previousLabel="Anterior"
-                                nextLabel="Siguiente"></pagination-controls>
-                        </table>
+                        <div class="table-responsive">
+                            <table id="asignacion" class="table data striped dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Usuario</th>
+                                        <th>Trabajo</th>
+                                        <th>Área</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of usersArr | paginate: { itemsPerPage: 6, currentPage: pas}">
+                                        <th scope="row">{{user.idUser}}</th>
+                                        <th scope="row"><button type="button" class="boton4"
+                                                (click)="changeAsignature(1, user.idUser)">{{user.full_name}}</button></th>
+                                        <td>{{user.job}}</td>
+                                        <td *ngIf="user.area != ''">{{user.area}}</td>
+                                        <td *ngIf="user.area == ''">N/A</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pas = $event" previousLabel="Anterior"
+                              nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </div>
                         <label class="text3 txt-blue2 mt-3">Quitar/cambiar asignaciones</label>
                         <label class="text6 txt-gris mt-3 ms-2">Selecciona un usuario</label>
                         <hr class="w-100">
@@ -145,14 +151,28 @@
                                     <td>{{user.email}}</td>
                                 </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="pquit = $event" previousLabel="Anterior"
-                                nextLabel="Siguiente"></pagination-controls>
                         </table>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pquit = $event" previousLabel="Anterior"
+                              nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </div>
                     </div>
                     <div *ngIf="this.asignature == 1">
-                        <label class="text3 txt-blue2 mt-3">Cursos de Usuario</label>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-6 ">
+                              <label class="text3 txt-blue2">Cursos de Usuario</label>
+                            </div>
+                            <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeAsignature(0)">
+                                <i class="fas fa-reply"></i>
+                              </button>
+                            </div>
+                        </div>
+                        <!--label class="text3 txt-blue2 mt-3">Cursos de Usuario</label>
                         <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeAsignature(0)">Regresar a
-                            Listado</button>
+                            Listado</button-->
                         <hr class="w-100">
                         <!--Tabla--->
                         <table id="cursos" class="table data striped dt-responsive nowrap" style="width:100%"
@@ -209,9 +229,19 @@
                         </div>
                     </div>
                     <div *ngIf="this.asignature == 2">
-                        <label class="text3 txt-blue2 mt-3">Cursos activos</label>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-6 ">
+                              <label class="text3 txt-blue2">Cursos activos</label>
+                            </div>
+                            <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeAsignature(0)">
+                                <i class="fas fa-reply"></i>
+                              </button>
+                            </div>
+                        </div>
+                        <!--label class="text3 txt-blue2 mt-3">Cursos activos</label>
                         <button class="boton bg-blue mx-auto d-block w-100 p-2"
-                            (click)="changeAsignature(0)">Cancelar</button>
+                            (click)="changeAsignature(0)">Cancelar</button-->
                         <hr class="w-100">
                         <div *ngIf="this.userAL != 0">
                             <div class="row" *ngFor="let curso of userCourses">
@@ -267,10 +297,15 @@
                                     <td *ngIf="c.is_active == 0">Inactiva</td>
                                 </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="pdiag = $event" previousLabel="Anterior"
-                                nextLabel="Siguiente"></pagination-controls>
                         </table>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pdiag = $event" previousLabel="Anterior"
+                              nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div *ngIf="this.diagnostic == 1">
                         <!------Editor--->
                         <label class="text3 txt-blue2 mt-3">Editor</label>
@@ -280,18 +315,24 @@
                         <form class="editor">
                             <div class="row">
                                 <div class="col-8 col-md-4 col-lg-3">
-                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="clone()">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="cloneAbierta()">
                                         <img src="assets/img/agregar.svg" alt="">
-                                        Agregar pregunta
+                                        Agregar pregunta abierta
                                     </button>
                                 </div>
-                                <div class="col-4 col-md-4 col-lg-2 offset-lg-7 offset-md-4">
+                                <div class="col-8 col-md-4 col-lg-4">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="clone()">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Agregar pregunta opciones multiples
+                                    </button>
+                                </div>
+                                <div class="col-4 col-md-4 col-lg-2 offset-lg-3">
                                     <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
                                 </div>
                             </div>
                             <!--Duplicar-->
                             <div class="pregunta1 mt-3" *ngFor="let question of this.questions; let i = index">
-                                <div class="row mb-3">
+                                <div class="row mb-3" class="abierta mt-3">
                                     <div class="col-12 col-md-10">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
                                         <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
@@ -381,14 +422,28 @@
                                     <td *ngIf="c.is_active == 0">Inactiva</td>
                                 </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="pexam = $event" previousLabel="Anterior"
-                            nextLabel="Siguiente"></pagination-controls>
                         </table>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pexam = $event" previousLabel="Anterior"
+                              nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </div>
                     </div>
                     <div *ngIf="this.exam == 1">
-                        <label class="text3 txt-blue2 mt-3">Selecciona el módulo</label>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-6 ">
+                              <label class="text3 txt-blue2">Selecciona el módulo</label>
+                            </div>
+                            <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeExam(0)">
+                                <i class="fas fa-reply"></i>
+                              </button>
+                            </div>
+                        </div>
+                        <!--label class="text3 txt-blue2 mt-3">Selecciona el módulo</label>
                         <button class="boton bg-blue mx-auto d-block w-100 p-2"
-                            (click)="changeExam(0)">Cancelar</button>
+                            (click)="changeExam(0)">Cancelar</button-->
                         <hr class="w-100">
                         <div class="table-responsive">
                             <table class="table striped w-100">
@@ -412,27 +467,44 @@
                     </div>
                     <div *ngIf="this.exam == 2">
                         <!------Editor--->
-                        <label class="text3 txt-blue2 mt-3">Editor</label>
-                        <label class="text6 txt-gris mt-3 ms-2">Agrega preguntas cerradas o abiertas con
-                            opciones.</label>
+                        <div class="row mt-3 mb-3 d-flex align-items-center">
+                            <div class="col-lg-8">
+                              <label class="text3 txt-blue2">Editor</label>
+                              <label class="text6 txt-gris ms-2">Agrega preguntas cerradas o abiertas con
+                                opciones.</label>
+                            </div>
+                            <div class="col-6 offset-6 col-lg-2 offset-lg-2">
+                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeExam(1, this.respaldo)">
+                                <i class="fas fa-reply"></i>
+                              </button>
+                            </div>
+                        </div>
+                        <!--label class="text3 txt-blue2 mt-3">Editor</label>
+                        
                             <button class="boton bg-blue mx-auto d-block w-100 p-2"
-                            (click)="changeExam(1, this.respaldo)">Regresar a modulos</button>
+                            (click)="changeExam(1, this.respaldo)">Regresar a modulos</button-->
                         <hr class="w-100">
                         <form class="editor">
                             <div class="row">
                                 <div class="col-8 col-md-4 col-lg-3">
-                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="clone()">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="cloneAbierta()">
                                         <img src="assets/img/agregar.svg" alt="">
-                                        Agregar pregunta
+                                        Agregar pregunta abierta
                                     </button>
                                 </div>
-                                <div class="col-4 col-md-4 col-lg-2 offset-lg-7 offset-md-4">
+                                <div class="col-8 col-md-4 col-lg-4">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="clone()">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Agregar pregunta opciones multiples
+                                    </button>
+                                </div>
+                                <div class="col-4 col-md-4 col-lg-2 offset-lg-3">
                                     <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
                                 </div>
                             </div>
                             <!--Duplicar-->
                             <div class="pregunta1 mt-3" *ngFor="let pregunta of examModule; let j = index">
-                                <div class="row mb-3">
+                                <div class="row mb-3" class="abierta mt-2">
                                     <div class="col-12 col-md-10">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
                                         <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
