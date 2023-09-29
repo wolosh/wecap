@@ -18,16 +18,17 @@ export class ConferenciasComponent implements OnInit {
   formConf: FormGroup;
   idConf: any;
 
+
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder,private session: SessionService) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
     this.helpers.cursos = 1;
     this.cursos();
+    //this.conferencias();
   }
 
   getPage(page: any) {
-    //console.log(page);
     this.p = page;
   }
 
@@ -52,35 +53,46 @@ export class ConferenciasComponent implements OnInit {
     );
   }
   //trae los temas de un modulo
-  conferencias(id: any) {
+  conferencias(id=2) {
     this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data)
         this.allConferencias = data;
+        //console.log(this.conferencias)
       }
     );
   }
+
   //cambia la vista a Temas
-  changeViewConferencias(view: any, name?: any, id?: any) {
+  changeViewConferencias(view: any, name?: any, id=2 ) {
+    //console.log(view, name, id);
     switch (view) {
       case 'back':
         this.viewConf = 0;
         break;
       case 'editConf':
         this.viewConf = 1;
-        //this.startForm(6);
-        //console.log(this.allConferencias);
-        for (let item of this.allConferencias) {
-          if (item.titulo == name) {
-            this.idConf = item.idVideoCon;
-            console.log(this.idConf)
-            /*this.startForm();
-            this.formConf.controls['title'].setValue(item.title);
-            this.formConf.controls['description'].setValue(item.descripcion);
-            this.formConf.controls['fehca'].setValue(item.fecha);
-            this.formConf.controls['link'].setValue(item.link);*/
+        this.startForm();
+        this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            for (let item of data) {
+              this.formConf.controls['title'].setValue(item.titulo);
+              this.formConf.controls['description'].setValue(item.descripcion);
+              this.formConf.controls['fecha'].setValue(item.fecha);
+              this.formConf.controls['link'].setValue(item.link);
+            }
           }
-        }
+        );
     }
+  }
+  i = 0;
+  public clone(): void {
+    const opcion = document.querySelectorAll('.clone');
+    //console.log(opcion)
+    var first = opcion[0];
+    const cloneopcion = first.cloneNode(true) as HTMLDivElement;
+    /*this.i++;
+    cloneopcion.setAttribute("id", "conferencia" + this.i);*/
+    document.querySelector(".conferencias").appendChild(cloneopcion);
   }
 }

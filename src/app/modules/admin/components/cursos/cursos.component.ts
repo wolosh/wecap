@@ -501,6 +501,7 @@ export class CursosComponent implements OnInit {
   }
   //cambia la vista a Modulo
   changeViewModulo(view: any, name?: any, id?: any) {
+    //console.log(id)
     switch (view) {
       case 'back':
         this.viewE = 0;
