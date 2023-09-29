@@ -10,21 +10,27 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule, 
-    AdminModule, 
+    HttpClientModule,
+    AdminModule,
     UsuarioModule,
-    SharedModule, 
+    SharedModule,
     RouterModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule, 
-    NgxPaginationModule
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatInputModule
   ],
   exports: [RouterModule],
   providers: [],

@@ -44,7 +44,65 @@
                     <!--Conferencias--->
                     <label class="text3 txt-blue2 mt-3">Conferencias</label>
                     <hr class="w-100">
-                    <form [formGroup]="formConf" class="conferencias">
+                    <!--form class="formulario" [formGroup]="fg" (ngSubmit)="onSubmit()">
+                      <div class="button">
+                        <button type="button" (click)="addLesson()">Agregar fila</button>
+                      </div>
+                      <mat-table [dataSource]="dataSourcePacks">
+                        <ng-container formArrayName="promos">
+
+                          <ng-container matColumnDef="titulo">
+                            <mat-header-cell *matHeaderCellDef> <h2>Titulo</h2></mat-header-cell>
+                            <mat-cell *matCellDef="let element;" [formGroup]="element">
+                              <mat-form-field >
+                                <input matInput placeholder="Titulo conferencia" formControlName="titulo" required>
+                              </mat-form-field>
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="descripcion">
+                            <mat-header-cell *matHeaderCellDef> <h2>Descripcion</h2></mat-header-cell>
+                            <mat-cell *matCellDef="let element;" [formGroup]="element">
+                              <mat-form-field >
+                                <input matInput placeholder="Descripcion" formControlName="descripcion" required>
+                              </mat-form-field>
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="fecha">
+                            <mat-header-cell *matHeaderCellDef> <h2>Fecha</h2></mat-header-cell>
+                            <mat-cell *matCellDef="let element;" [formGroup]="element">
+                              <mat-form-field >
+                                <input matInput placeholder="Fecha" formControlName="fecha" required>
+                              </mat-form-field>
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="link">
+                            <mat-header-cell *matHeaderCellDef> <h2>Link</h2></mat-header-cell>
+                            <mat-cell *matCellDef="let element;" [formGroup]="element">
+                              <mat-form-field >
+                                <input matInput placeholder="Link" formControlName="link" required>
+                              </mat-form-field>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Delete Column -->
+                          <!--ng-container matColumnDef="eliminar">
+                            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                            <mat-cell *matCellDef="let element; index as i" [formGroup]="element">
+                              <button type="button" (click)="deleteLesson(i)">
+                                <mat-icon matSuffix>delete</mat-icon>
+                              </button>
+                            </mat-cell>
+                          </ng-container>
+
+                          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </ng-container>
+                      </mat-table>
+                      <button class="btn-save" type="submit">Guardar</button>
+                    </form-->
+                    <!--form [formGroup]="formConf" id="conferencias">
                         <div class="row mb-4">
                             <div class="col-8 col-md-4 col-lg-3">
                                 <button class="botondrop bg-blue w-100 p-1 p-md-2" (click)="clone()">
@@ -56,58 +114,16 @@
                                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
                             </div>
                         </div>
-                        <div class="row mb-3 clone">
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Título conferencia"  formControlName="title">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Descripción"  formControlName="description">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Fecha"  formControlName="fecha">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Link"  formControlName="link">
-                            </div>
-                            <div class="col-12">
-                                <hr class="hr-gris">
-                            </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="text" class="input3 mb-3" placeholder="Título conferencia"  formControlName="title" ngModel="title">
+                            <input type="text" class="input3 mb-3" placeholder="Descripción"  formControlName="description">
+                            <input type="text" class="input3 mb-3" placeholder="Fecha"  formControlName="fecha">
+                            <input type="text" class="input3 mb-3" placeholder="Link"  formControlName="link">
+                            <hr class="hr-gris mt-4 mb-4">
+                          </div>
                         </div>
-                        <!--div class="row mb-3">
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Título conferencia">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Descripción">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Fecha">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Link">
-                            </div>
-                            <div class="col-12">
-                                <hr class="hr-gris">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Título conferencia">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Descripción">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Fecha">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="input3" placeholder="Link">
-                            </div>
-                            <div class="col-12">
-                                <hr class="hr-gris">
-                            </div>
-                        </div-->
-                    </form>
+                    </form-->
                   </div>
                 </div>
             </div>
