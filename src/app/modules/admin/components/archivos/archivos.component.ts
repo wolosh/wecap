@@ -23,6 +23,10 @@ export class ArchivosComponent implements OnInit {
   cloneIn = 0;
   file: any[] = [];
   f: object = {};
+  p: any;
+  viewEdit= 1;
+  idArch: any;
+  formEdit: FormGroup;
 
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private session: SessionService, private formBuilder: FormBuilder) { }
 
@@ -32,7 +36,7 @@ export class ArchivosComponent implements OnInit {
       this.helpers.type = localStorage.getItem('type');
       //console.log(localStorage.getItem('token'));
       this.files();
-      this.startForm(1);
+      //this.startForm(1);
       //this.allMedia();
       this.helpers.cursos = 1;
       //this.startForm(1);
@@ -54,6 +58,10 @@ export class ArchivosComponent implements OnInit {
     }
   }
 
+
+  getPage(page: any) {
+    this.p = page;
+  } 
 
 
   files() {
@@ -176,11 +184,11 @@ export class ArchivosComponent implements OnInit {
   i = 0;
   //Clone archivos
   public cloneArchivos(): void {
-    console.log(this.cloneIn)
+    /*console.log(this.cloneIn)
     let c = this.cloneIn + 1;
     console.log(c)
     this.cloneIn = c;
-    console.log(this.cloneIn)
+    console.log(this.cloneIn)*/
     const opcion = document.querySelectorAll('.cloneArchivos');
     var first = opcion[0];
     const cloneopcion = first.cloneNode(true) as HTMLDivElement;
@@ -225,7 +233,29 @@ export class ArchivosComponent implements OnInit {
       });
     }
   }
+  changeViewArchivos(view: any, name?: any, id?:any ) {
+    //console.log(view, name, id);
+    switch (view) {
+      case 'back':
+        this.viewEdit = 0;
+        break;
+      case 'editArch':
+        this.viewEdit = 2;
+        //this.promos;
+        for (let item of this.filesArr) {
+          console.log(item)
+          if (item.name == name) {
+            this.idArch = item.idTopic;
+            this.startForm(1);
+            //console.log(this.alltemas)
+            this.formArchivos.controls['name'].setValue(item.name);
+            this.formArchivos.controls['url'].setValue(item.url);
+          }
+        }
+    }
+  }
 }
+//cambia la vista a Temas
 
 /*const buttons = Array.from(document.getElementsByClassName('btn'));
 

@@ -22,18 +22,77 @@
                             <textarea class="input3" id="floatingTextarea2" style="height: 100px" placeholder="Añade un a descripción para el usuario"
                                 formControlName="descripcion"></textarea>
                         </div>
-                        <div class="row">
-                            <div class="col-12 col-md-5 col-lg-4 col-xl-3">
-                                <label class="text14 txt-blue mb-3">Lista de archivos</label>
+                        <div *ngIf="viewEdit == 1">
+                            <div class="row">
+                                <div class="col-12 col-md-5 col-lg-4 col-xl-3">
+                                    <label class="text14 txt-blue mb-3">Lista de archivos</label>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2 offset-7 offset-md-0">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeViewArchivos('editArch')">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Agregar
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-5 col-md-3 col-lg-2 offset-7 offset-md-0">
-                                <button class="boton bg-blue w-100 p-1 p-md-2" (click)="cloneArchivos()">
-                                    <img src="assets/img/agregar.svg" alt="">
-                                    Agregar
-                                </button>
+                            <div class="table-responsive">
+                                <table id="conferencia" class="table data striped dt-responsive nowrap" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Url</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let archivo of filesArr | paginate: { itemsPerPage: 6, currentPage: p}">
+                                            <th scope="row"><button type="button" class="boton4" (click)="changeViewArchivos('editArch', archivo.name)">{{archivo.name}}</button></th>
+                                            <td>{{archivo.url}}</td>
+                                            <td><button class="boton2 removeArchivos" (click)="removeArchivos()"><img
+                                                src="assets/img/close.svg" alt="close"></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                  <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                                  nextLabel="Siguiente"></pagination-controls>
+                                </div>
                             </div>
                         </div>
-                        <div class="archivos">
+                        <form [formGroup]="formArchivos" *ngIf="viewEdit == 2">
+                            <div class="row mb-3 mt-3">
+                                <div class="col-12 col-lg-4 order-2 order-md-1">
+                                    <div>
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre:</label>
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value="" formControlName="name">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-4 order-3 order-md-2">
+                                    <div>
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Url:</label>
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" formControlName="url">
+                                    </div>
+                                </div>
+                                <div class="col-10 col-lg-3 d-flex align-items-end mt-3 order-4 order-md-3">
+                                    <input class="input3" type="file" id="formFile" accept=".pdf, .docx, .pptx, .rar, .txt, .zip, .xls" (change)="selectFiles($event, 'archivo')">
+                                </div>
+                                <div
+                                    class="col-1 offset-10 offset-md-0 d-flex align-items-center order-1 mt-4 order-md-4">
+                                    <button class="boton2 removeArchivos" (click)="removeArchivos()"><img
+                                            src="assets/img/close.svg" alt="close"></button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!--div class="archivos">
                             <div class="row mb-3" *ngFor="let archivo of filesArr">
                                 <div class="col-12 col-lg-4 order-2 order-md-1">
                                     <div>
@@ -58,7 +117,7 @@
                                             src="assets/img/close.svg" alt="close"></button>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
                         <div class="archivos" *ngIf="this.cloneIn != 0">
                             <div class="row mb-3 cloneArchivos">
                                 <div class="col-12 col-lg-4 order-2 order-md-1">
@@ -85,11 +144,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
-                            </div>
-                        </div>
+                        
                     </form>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">

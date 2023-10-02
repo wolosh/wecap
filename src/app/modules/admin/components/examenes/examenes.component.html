@@ -308,11 +308,42 @@
                     
                     <div *ngIf="this.diagnostic == 1">
                         <!------Editor--->
-                        <label class="text3 txt-blue2 mt-3">Editor</label>
-                        <label class="text6 txt-gris mt-3 ms-2">Agrega preguntas cerradas o abiertas con
-                            opciones.</label>
+                        <label class="text3 txt-blue2 mt-3">Lista Diagnóstico</label>
+                        <!--label class="text6 txt-gris mt-3 ms-2">Agrega preguntas cerradas o abiertas con
+                            opciones.</label-->
                         <hr class="w-100">
-                        <form class="editor">
+                        <!--Tabla de examenes--->
+                        <div class="table-responsive">
+                            <table id="conferencia" class="table data striped dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Pregunta</th>
+                                        <th>Respuesta</th>
+                                        <th>Abierta</th>
+                                        <th>Opciones multiples</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let question of this.questions | paginate: { itemsPerPage: 6, currentPage: pe}">
+                                        <th scope="row"><button type="button" class="boton4">{{question.pregunta}}</button></th>
+                                        <td>{{question.respuesta}}</td>
+                                        <td>{{question.abierta}}</td>
+                                        <td>{{question.cerrada}}</td>
+                                        <td><button class="boton2 removeArchivos"><img
+                                            src="assets/img/close.svg" alt="close"></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pe = $event" previousLabel="Anterior"
+                              nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </div>
+                        <!--Tabla de examenes--->
+                        <!--form class="editor">
                             <div class="row">
                                 <div class="col-8 col-md-4 col-lg-3">
                                     <button class="boton bg-blue w-100 p-1 p-md-2" (click)="cloneAbierta()">
@@ -330,12 +361,12 @@
                                     <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
                                 </div>
                             </div>
-                            <!--Duplicar-->
+                            <!--Duplicar>
                             <div class="pregunta1 mt-3" *ngFor="let question of this.questions; let i = index">
                                 <div class="row mb-3" class="abierta mt-3">
                                     <div class="col-12 col-md-10">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
+                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button>
                                         <input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" value="{{question.pregunta}}">
                                     </div>
@@ -353,7 +384,7 @@
                                     </div>
                                     <div class="col-4 d-flex align-items-center">
                                         <input type="file" class="file" name="avatar" accept="image/png, image/jpeg" />
-                                        <!--button class="boton2"><img src="assets/img/imgpreg.svg" alt=""></button-->
+                                        <!--button class="boton2"><img src="assets/img/imgpreg.svg" alt=""></button>
                                         <button class="boton2" (click)="cloneOpcion()"><img
                                                 src="assets/img/agregapreg.svg" alt=""></button>
                                         <button class="boton2" (click)="remove()"><img src="assets/img/quitarpreg.svg"
@@ -365,7 +396,7 @@
                                 <div class="row mb-3">
                                     <div class="col-12 col-md-10">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
+                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button>
                                         <input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" placeholder="Escribe tu pregunta aquí">
                                     </div>
@@ -383,7 +414,7 @@
                                     </div>
                                     <div class="col-4 d-flex align-items-center">
                                         <input type="file" class="file" name="avatar" accept="image/png, image/jpeg" />
-                                        <!--button class="boton2"><img src="assets/img/imgpreg.svg" alt=""></button-->
+                                        <!--button class="boton2"><img src="assets/img/imgpreg.svg" alt=""></button>
                                         <button class="boton2" (click)="cloneOpcion()"><img
                                                 src="assets/img/agregapreg.svg" alt=""></button>
                                         <button class="boton2" (click)="remove()"><img src="assets/img/quitarpreg.svg"
@@ -391,8 +422,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--Duplicar-->
-                        </form>
+                            <!--Duplicar>
+                        </form-->
                     </div>
 
                 </div>

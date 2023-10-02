@@ -42,8 +42,44 @@
                   </div>
                   <div *ngIf="viewConf == 1">
                     <!--Conferencias--->
-                    <label class="text3 txt-blue2 mt-3">Conferencias</label>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <label class="text3 txt-blue2">Conferencias</label>
+                        </div>
+                        <div class="col-6 col-md-5 col-lg-3 offset-lg-6 offset-md-3">
+                            <button class="botondrop bg-blue w-100 p-1 p-md-2" (click)="changeViewConferencias('newConf')">
+                                Añadir conferencia
+                                <img src="assets/img/agregar.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
                     <hr class="w-100">
+                    <div class="table-responsive">
+                        <table class="table w-100">
+                          <thead>
+                            <tr>
+                              <th scope="col">Titulo</th>
+                              <th scope="col">Descripcion</th>
+                              <th scope="col">Fecha</th>
+                              <th scope="col">Link</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let conferencia of allConferencias | paginate: { itemsPerPage: 6, currentPage: p }">
+                              <td>{{conferencia.titulo}}</td>
+                              <td>{{conferencia.descripcion}}</td>
+                              <td>{{conferencia.fecha}}</td>
+                              <td>{{conferencia.link}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                          nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                      </div>
                     <!--form class="formulario" [formGroup]="fg" (ngSubmit)="onSubmit()">
                       <div class="button">
                         <button type="button" (click)="addLesson()">Agregar fila</button>
@@ -102,18 +138,18 @@
                       </mat-table>
                       <button class="btn-save" type="submit">Guardar</button>
                     </form-->
-                    <!--form [formGroup]="formConf" id="conferencias">
-                        <div class="row mb-4">
-                            <div class="col-8 col-md-4 col-lg-3">
-                                <button class="botondrop bg-blue w-100 p-1 p-md-2" (click)="clone()">
-                                    Añadir conferencia
-                                    <img src="assets/img/agregar.svg" alt="">
-                                </button>
+                  </div>
+                  <div *ngIf="viewConf == 2">
+                    <form [formGroup]="formConf" id="conferencias">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-8 col-md-5 col-lg-4">
+                                <label class="text3 txt-blue2">Añadir Conferencias</label>
                             </div>
-                            <div class="col-4 col-md-4 col-lg-2 offset-lg-7 offset-md-4">
+                            <div class="col-4 col-md-4 col-lg-2 offset-lg-6 offset-md-3">
                                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
                             </div>
                         </div>
+                        <hr class="w-100">
                         <div class="row">
                           <div class="col-12">
                             <input type="text" class="input3 mb-3" placeholder="Título conferencia"  formControlName="title" ngModel="title">
@@ -123,8 +159,8 @@
                             <hr class="hr-gris mt-4 mb-4">
                           </div>
                         </div>
-                    </form-->
-                  </div>
+                    </form>
+                </div>
                 </div>
             </div>
         </div>

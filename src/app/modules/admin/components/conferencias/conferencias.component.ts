@@ -20,7 +20,6 @@ export class ConferenciasComponent implements OnInit {
   idConf: any;
   //title= '';
   prueba: any[];
-
   title = 'form-array';
 
   fg!: FormGroup
@@ -32,6 +31,7 @@ export class ConferenciasComponent implements OnInit {
   fecha = new FormControl('')
   link = new FormControl('')
   dataSource: any;
+  viewNew: number;
 
 
 
@@ -87,30 +87,39 @@ export class ConferenciasComponent implements OnInit {
     );
   }
 
+  /*change(id: any) {
+    if (id == 2) {
+      this.viewConf = 2;
+    }
+  }*/
+
   //cambia la vista a Temas
   changeViewConferencias(view: any, name?: any, id=2 ) {
-    //console.log(view, name, id);
+    console.log(view, name, id);
     switch (view) {
       case 'back':
         this.viewConf = 0;
         break;
+      case 'newConf':
+        this.viewConf = 2;
+        break;
       case 'editConf':
         this.viewConf = 1;
-        this.promos;
+        //this.promos;
         this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //this.addLesson('llamar',data);
             /*this.dataSourcePacks = new MatTableDataSource(data);
             console.log(this.dataSourcePacks)*/
-
-            for (let item of data) {
+            this.allConferencias=data
+            /*for (let item of data) {
               this.fg.controls['titulo'].setValue(item.titulo);
               this.fg.controls['descripcion'].setValue(item.descripcion);
               this.fg.controls['fecha'].setValue(item.fecha);
               this.fg.controls['link'].setValue(item.link);
               //this.title=item.titulo
             }
-            console.log(this.fg.value)
+            console.log(this.fg.value)*/
           }
         );
     }

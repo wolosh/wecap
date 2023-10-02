@@ -45,6 +45,7 @@ export class ExamenesComponent implements OnInit {
   userId: any;
   moduloTitle: any;
   respaldo: any;
+  pe: any;
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
 
@@ -75,6 +76,10 @@ export class ExamenesComponent implements OnInit {
     }
     this.helpers.cursos = 1;
   }
+
+  getPage(page: any) {
+    this.pe = page;
+  } 
 
   editCourse(curso: any, action: any) {
     console.log(this.userId, curso, action, this.dateSelected);
