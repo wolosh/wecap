@@ -46,6 +46,7 @@ export class ExamenesComponent implements OnInit {
   moduloTitle: any;
   respaldo: any;
   pe: any;
+  respaldo1: any;
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
 
@@ -200,6 +201,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   changeExam(id: any, certificacion?: any, name?:any) {
+    console.log(id, certificacion);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -209,14 +211,20 @@ export class ExamenesComponent implements OnInit {
         Swal.showLoading();
 
     this.exam = id;
+    console.log(this.exam);
+    if(id == 1){
+      this.respaldo1 = certificacion;
+    } else
     if(id == 2){
     this.respaldo = certificacion;
     }
     switch (id) {
+      case 0:
+        this.onClickTab('test');
+        break;
       case 1:
-        
             console.log(id, certificacion);
-            this.get.getModules(certificacion, localStorage.getItem('token')).subscribe(
+            this.get.getModules(this.respaldo1, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 console.log(data);
                 this.modules = data;
@@ -371,9 +379,10 @@ export class ExamenesComponent implements OnInit {
             Swal.showLoading();
             this.get.getDiagnostico(diagnostic, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data, JSON.parse(data.formulario));
+                console.log(data);
+                /*console.log(data, JSON.parse(data.formulario));
                 this.questions = JSON.parse(data.formulario);
-                console.log(this.questions);
+                console.log(this.questions);*/
                 Swal.close();
               }
             );
