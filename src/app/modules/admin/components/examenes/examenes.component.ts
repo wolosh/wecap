@@ -46,6 +46,7 @@ export class ExamenesComponent implements OnInit {
   moduloTitle: any;
   respaldo: any;
   pe: any;
+  allDiagnostico: any;
   respaldo1: any;
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
@@ -80,7 +81,7 @@ export class ExamenesComponent implements OnInit {
 
   getPage(page: any) {
     this.pe = page;
-  } 
+  }
 
   editCourse(curso: any, action: any) {
     console.log(this.userId, curso, action, this.dateSelected);
@@ -231,7 +232,7 @@ export class ExamenesComponent implements OnInit {
                 Swal.close();
               }
             );
-        
+
         break;
       case 2:
         this.cloneOption = 0;
@@ -255,6 +256,15 @@ export class ExamenesComponent implements OnInit {
             Swal.close();
           }
         );
+      break;
+      case 4:
+        this.exam = 4;
+        Swal.close();
+      break;
+      case 5:
+        this.exam = 5;
+        Swal.close();
+      break;
     }
   }});
   }
@@ -362,7 +372,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   changeDiagnostic(id: any, diagnostic?: any) {
-    console.log(id, diagnostic)
+    //console.log(id, diagnostic)
     switch (id) {
       case 0:
         this.diagnostic = 0;
@@ -390,7 +400,16 @@ export class ExamenesComponent implements OnInit {
           }
         });
         break;
+      case 2:
+        this.diagnostic = 2;
+        break;
+      case 3:
+        this.diagnostic = 3;
+        break;
     }
+  }
+  changeViewdDiagnostico(){
+
   }
 
   changeSearch() {
@@ -597,7 +616,7 @@ export class ExamenesComponent implements OnInit {
 
   //duplicar pregunta Examenes
   public clone(): void {
-     console.log(this.cloneOption)
+    console.log(this.cloneOption)
     let id = this.cloneOption + 1;
     this.cloneOption = id;
     console.log(this.cloneOption)
@@ -619,26 +638,46 @@ export class ExamenesComponent implements OnInit {
       btnR.addEventListener('click', this.remove)
     });
   }
+  i = 0;
   //duplicar opcion Examenes
-  //var n: number = 0
   public cloneOpcion() {
-    //this.n++;
-    var pregunta =document.querySelectorAll('.pregunta');
-    //console.log(this.n);
-    for(var i=0;i<pregunta.length;i++)
+    const opcion = document.querySelectorAll('.opcion');
+    var first = opcion[0];
+    const cloneopcion = first.cloneNode(true) as HTMLDivElement;
+    this.i++;
+    cloneopcion.setAttribute("id", "opcion" + this.i);
+    document.querySelector(".pregunta").appendChild(cloneopcion);
+    const buttonremove = document.querySelectorAll('.remove');
+    buttonremove.forEach(btn => {
+      btn.addEventListener('click', this.removeOpcion)
+    });
+    /*var pregunta =document.querySelector('.opcion');
+    const cloneopcion = pregunta.cloneNode(true) as HTMLDivElement;
+    document.querySelector('.pregunta').appendChild(cloneopcion);
+    //const buttonclone = document.querySelectorAll('.clone');
+    const buttonclone = Array.from(document.getElementsByClassName('clone'));
+    const buttonremove = document.querySelectorAll('.remove');
+    buttonclone.forEach(btnC => {
+      console.log(btnC)
+      btnC.addEventListener('click', this.cloneOpcion)
+    });
+    buttonremove.forEach(btnR => {
+      btnR.addEventListener('click',this.removeOpcion)
+    });
+    /*for(var i=0;i<pregunta.length;i++)
     {
       pregunta[i].addEventListener("click", function($event)
       {
-        //console.log(this.id);
+        console.log(this.id);
         //console.log(pregunta.length)
-        var preguntaid= document.getElementById(this.id);
+        //var preguntaid= document.getElementById(this.id);
         //console.log(preguntaid.nodeValue);
-        var opcion =preguntaid.querySelectorAll('.opcion');
-        for(var i=0;i<opcion.length;i++){
+        //var opcion =preguntaid.querySelectorAll('.opcion');
+        /*for(var i=0;i<opcion.length;i++){
           console.log(opcion[i])
           /*const opcionclon = opcion[i].cloneNode(true) as HTMLDivElement;
-          document.getElementById(this.id).appendChild(opcionclon);*/
-        }
+          document.getElementById(this.id).appendChild(opcionclon);
+        }*/
 
         /*var primerTitulo = opcion[0] as HTMLDivElement;
         console.log(primerTitulo)
@@ -658,10 +697,10 @@ export class ExamenesComponent implements OnInit {
             cloneopcion.setAttribute("id", "opcion");
             document.getElementById(this.id).appendChild(cloneopcion);
           });
-        }*/
+        }
         $event.preventDefault();
       });
-    }
+    }*/
     //console.log("Clonado");
     /*const opcion = document.querySelectorAll('.opcion');
     console.log(opcion)
@@ -711,23 +750,15 @@ export class ExamenesComponent implements OnInit {
     }*/
 
   }
+  public remove(): void {}
   //remove opcion Examenes
-  public remove(): void {
+  public removeOpcion(): void {
     var test = document.querySelectorAll('.opcion')
     for (var i = 0; i < test.length; i++) {
       test[i].addEventListener("click", function () {
         var removeid = document.getElementById(this.id);
-        //removeid.remove();
-        console.log(removeid)
+        removeid.remove();
       });
     }
   }
-  //Clone pregunta abierta
-  public cloneAbierta(): void {
-   const question = document.querySelectorAll('.abierta');
-   var first = question[0];
-   console.log(first);
-   const clonequestion = first.cloneNode(true) as HTMLDivElement;
-   document.querySelector(".editor").appendChild(clonequestion);
- }
 }

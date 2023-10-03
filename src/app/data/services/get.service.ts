@@ -159,7 +159,6 @@ export class GetService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-
     return this.http.get(`${this.session.API}diagnostico/${id}`, {
       headers,
     })
