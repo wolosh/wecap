@@ -282,21 +282,33 @@
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
-                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" class="input3" formControlName="title">
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
                 <textarea class="input3" id="floatingTextarea2" style="height: 100px"
-                  formControlName="description"></textarea>
+                  formControlName="descripcion"></textarea>
+              </div>
+              <div class="form-check form-check-inline ps-0">
+                <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
+                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
+                  id="inlineRadio1" [value]="1">
+              </div>
+              <div class="form-check form-check-inline ps-0">
+                <label class="text13 txt-blue float-start" for="inlineRadio2">Sin examen</label>
+                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
+                  id="inlineRadio2" [value]="0">
               </div>
               <div class="row mt-3 mb-3 d-flex align-items-center">
                 <div class="col-12 col-lg-5">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Duración máxima para medalla por tiempo (opcional)</label>
-                  <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <input type="text" class="input3" formControlName="duracion">
                 </div>
                 <div class="col-12 col-lg-5">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Score mínimo para medalla por score (opcional)</label>
-                  <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <input type="text" class="input3" formControlName="score">
                 </div>
               </div>
               <div class="row mt-3 mb-3">
@@ -305,8 +317,7 @@
                   <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono"/>
                   <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{this.imgIcono}}" alt="imgIcono"/>
                   <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
-                  <input type="file" class="input3" id="icono"
-                  (change)="fileIcono($event)">
+                  <input type="file" class="input3" id="icono" (change)="fileIcono($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
