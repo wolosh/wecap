@@ -325,6 +325,7 @@
                             <div *ngIf="this.none == 0">
                                 <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
                                     <button class="boton bg-blue w-100 p-1 p-md-2"
+                                        data-bs-toggle="crear" data-bs-target="#exampleModal"
                                         (click)="createDiagnostic(this.backupDiagnostic)">
                                         <img src="assets/img/agregar.svg" alt="">
                                         Crear
@@ -705,17 +706,16 @@
                                 <!--label class="text6 txt-gris ms-2">Agrega preguntas cerradas o abiertas con
                                 opciones.</label-->
                             </div>
-                            <div *ngIf="this.none == 0">
-                                <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
+                                <div *ngIf="this.none == 0" class="col-8 col-md-4 col-lg-3 offset-lg-4">
                                     <button class="boton bg-blue w-100 p-1 p-md-2"
+                                        data-bs-toggle="modal" data-bs-target="#crear"
                                         (click)="createExam(this.respaldo1, this.moduloTitle)">
                                         <img src="assets/img/agregar.svg" alt="">
                                         Crear
                                     </button>
                                 </div>
-                            </div>
                             <div *ngIf="this.none == 2">
-                                <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
+                                <div class="col-8 col-md-4 col-lg-3">
                                     <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
                                         <img src="assets/img/agregar.svg" alt="">
                                         Agregar pregunta abierta
@@ -1051,5 +1051,36 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="crear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h1 class="modal-title text13 txt-blue text-center mb-3" id="exampleModalLabel">Crear examen</h1>
+            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Titulo del examen</label>
+            <input type="text" class="input3 w-100" formControlName="question">
+            <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2">Duración</label>
+            <input type="text" class="input3  w-100" formControlName="question">
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Fecha de inicio</label>
+                    <input type="date" class="input3  w-100" formControlName="question">
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Fecha de final</label>
+                    <input type="date" class="input3  w-100" formControlName="question">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="boton bg-grey2 mx-auto ps-5 pe-5" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="boton bg-blue mx-auto ps-5 pe-5">Guardar</button>
+        </div>
+      </div>
     </div>
 </div>
