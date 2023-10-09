@@ -73,6 +73,9 @@ export class ConferenciasComponent implements OnInit {
         //console.log(data);
         this.allcursos = data;
         //console.log(this.allcursos);
+        console.log(data);
+        this.conferencia = data;
+        console.log(this.conferencia);
       }
     );
   }

@@ -18,6 +18,11 @@ export class ConfiguracionComponent implements OnInit {
   colorText: any;
   color = '#015287'
   boton1Color1: any;
+  like = false;
+  coment = false;
+  logo: any;
+  fondo: any;
+  certificado: any;
 
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private session: SessionService, private formBuilder: FormBuilder) { }
 
@@ -45,7 +50,7 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
 
-  startForm(){
+  startForm() {
     this.formConfiguracion = this.formBuilder.group({
       colorText: ['', [Validators.required]],
       txt_sesionUsuario: ['', [Validators.required]],
@@ -61,17 +66,15 @@ export class ConfiguracionComponent implements OnInit {
       youtube: ['', [Validators.required]],
       host: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      constraseña: ['', [Validators.required]],
+      contraseña: ['', [Validators.required]],
     });
   }
 
-  getConfiguration(){
+  getConfiguration() {
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data, data.colorText);
-        if(data.boton1Color1 != ''){
-          document.getElementById("button").style.backgroundColor = data.boton1Color1;
-        }
+
         this.formConfiguracion.patchValue({
           colorText: data.colorText,
           txt_sesionUsuario: data.txt_sesionUsuario,
@@ -87,11 +90,127 @@ export class ConfiguracionComponent implements OnInit {
           youtube: data.red_youtube,
           host: data.host,
           username: data.username,
-          constraseña: data.password,
+          contraseña: data.password,
         });
         console.log(this.formConfiguracion.value);
+
+        var a = document.getElementsByClassName("bg-change");
+        if (data.boton1Color1 != '' && data.boton1Color2 != '') {
+          a.item(0).setAttribute("style", "background-color: " + data.boton1Color2);
+          //a.item(1).setAttribute("style", "color: " + data.boton1Color1);
+        }
+
+        if (data.isLike == '1') this.like = true;
+        if (data.isComentario == '1') this.coment = true;
       }
     );
+  }
+
+  changeActive(event: any, button: any) {
+    console.log(event.target.value, event.target.checked, button);
+    switch (button) {
+      case 'like':
+        let l: boolean;
+        if (event.target.checked) {
+          this.formConfiguracion.patchValue({
+            isLike: '1',
+          });
+          this.like = true;
+        } else {
+          this.formConfiguracion.patchValue({
+            isLike: '0',
+          });
+          this.like = false;
+        }
+        break;
+      case 'comentario':
+        if (event.target.checked) {
+          this.formConfiguracion.patchValue({
+            isComentario: '1',
+          });
+          this.coment = true;
+        } else {
+          this.formConfiguracion.patchValue({
+            isComentario: '0',
+          });
+          this.coment = false;
+        }
+        break;
+    }
+
+    console.log(this.formConfiguracion.value);
+  }
+
+  prueba(){
+    console.log(this.formConfiguracion.value, this.formConfiguracion.controls['boton1'].value);
+  }
+
+  personalizarFile(event, type) {
+    //(event.target.value, type);
+    let w, h, logo, firma;
+    if (event.target.files !== 0) {
+      //console.log(event.target.files, event.target.files[0]);
+      var _URL = window.URL || window.webkitURL;
+      var img = new Image();
+      img.src = _URL.createObjectURL(event.target.files[0]);
+      img.onload = () => {
+        w = img.width;
+        h = img.height;
+        //console.log(w + ' ' + h);
+        if (type == 'logo') {
+          //console.log(w, h);
+          if (w <= 380 && h <= 65) {
+            this.logo = event.target.files[0];
+            //console.log(this.logo);
+          } else {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'La imagen debe ser de un tamaño máximo de 380x65, es necesario que cambies el archivo.',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          }
+        } else if (type == 'fondo' || type == 'certificado') {
+          //cosole.log(w, h);
+          if (w <= 1920 && h <= 1280) {
+            switch(type){
+              case 'fondo':
+                this.fondo = event.target.files[0];
+                break;
+              case 'certificado':
+                this.certificado = event.target.files[0];
+                break;
+            }
+            //console.log(this.firma);
+          } else {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'La imagen debe ser de un tamaño máximo de 1920x1280, es necesario que cambies el archivo.',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          }
+        } /*else if (type == 'certificado') {
+          //cosole.log(w, h);
+          if (w <= 1920 && h <= 1280) {
+            this.certificado = event.target.files[0];
+            //console.log(this.firma);
+          } else {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'La imagen debe ser de un tamaño máximo de 1920x1280, es necesario que cambies el archivo.',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          }
+        }*/
+
+      }
+
+    }
+
+
+    //console.log(this.logo, this.firma);
   }
 
 }

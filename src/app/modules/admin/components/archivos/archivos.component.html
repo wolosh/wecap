@@ -199,8 +199,8 @@
                                         <th>Tipo</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let media of medias">
-                                    <tr>
+                                <tbody>
+                                    <tr *ngFor="let media of medias">
                                         <th scope="row"><button type="button" class="boton4"
                                                 (click)="change(2)">{{media.name}}</button></th>
                                         <td>{{media.date}}</td>

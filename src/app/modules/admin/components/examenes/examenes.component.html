@@ -73,8 +73,9 @@
                                             </label>
                                         </li>
                                     </ul>
-                                    <pagination-controls class="w-100 d-flex justify-content-center mt-2" (pageChange)="psc = $event" previousLabel="Anterior"
-                                    nextLabel="Siguiente"></pagination-controls>
+                                    <pagination-controls class="w-100 d-flex justify-content-center mt-2"
+                                        (pageChange)="psc = $event" previousLabel="Anterior"
+                                        nextLabel="Siguiente"></pagination-controls>
                                 </div>
                             </div>
                             <label class="text13 txt-blue mb-2">Curso</label>
@@ -119,7 +120,8 @@
                                     <tr *ngFor="let user of usersArr | paginate: { itemsPerPage: 6, currentPage: pas}">
                                         <th scope="row">{{user.idUser}}</th>
                                         <th scope="row"><button type="button" class="boton4"
-                                                (click)="changeAsignature(1, user.idUser)">{{user.full_name}}</button></th>
+                                                (click)="changeAsignature(1, user.idUser)">{{user.full_name}}</button>
+                                        </th>
                                         <td>{{user.job}}</td>
                                         <td *ngIf="user.area != ''">{{user.area}}</td>
                                         <td *ngIf="user.area == ''">N/A</td>
@@ -129,8 +131,9 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12">
-                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pas = $event" previousLabel="Anterior"
-                              nextLabel="Siguiente"></pagination-controls>
+                                <pagination-controls class="w-100 d-flex justify-content-center"
+                                    (pageChange)="pas = $event" previousLabel="Anterior"
+                                    nextLabel="Siguiente"></pagination-controls>
                             </div>
                         </div>
                         <label class="text3 txt-blue2 mt-3">Quitar/cambiar asignaciones</label>
@@ -154,20 +157,22 @@
                         </table>
                         <div class="row mt-2">
                             <div class="col-12">
-                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pquit = $event" previousLabel="Anterior"
-                              nextLabel="Siguiente"></pagination-controls>
+                                <pagination-controls class="w-100 d-flex justify-content-center"
+                                    (pageChange)="pquit = $event" previousLabel="Anterior"
+                                    nextLabel="Siguiente"></pagination-controls>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="this.asignature == 1">
                         <div class="row mt-3 mb-3">
                             <div class="col-lg-6 ">
-                              <label class="text3 txt-blue2">Cursos de Usuario</label>
+                                <label class="text3 txt-blue2">Cursos de Usuario</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeAsignature(0)">
-                                <i class="fas fa-reply"></i>
-                              </button>
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end"
+                                    (click)="changeAsignature(0)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
                             </div>
                         </div>
                         <!--label class="text3 txt-blue2 mt-3">Cursos de Usuario</label>
@@ -231,12 +236,13 @@
                     <div *ngIf="this.asignature == 2">
                         <div class="row mt-3 mb-3">
                             <div class="col-lg-6 ">
-                              <label class="text3 txt-blue2">Cursos activos</label>
+                                <label class="text3 txt-blue2">Cursos activos</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeAsignature(0)">
-                                <i class="fas fa-reply"></i>
-                              </button>
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end"
+                                    (click)="changeAsignature(0)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
                             </div>
                         </div>
                         <!--label class="text3 txt-blue2 mt-3">Cursos activos</label>
@@ -247,17 +253,20 @@
                             <div class="row" *ngFor="let curso of userCourses">
                                 <div class="col-12 col-md-8 order-3 order-md-1">
                                     <label class="text6 txt-blue mt-3 d-block">{{curso.title}}</label>
-                                    <label class="text9 txt-gris d-block mt-3">Fecha de expiración: {{curso.finish_date}}</label>
+                                    <label class="text9 txt-gris d-block mt-3">Fecha de expiración:
+                                        {{curso.finish_date}}</label>
                                     <label class="text9 txt-gris d-block mt-3">Elige una nueva fecha de expiro
                                         (opcional)</label>
-                                    <input class="input4 mt-3" type="date" value="{{curso.finish_date != null ? curso.finish_date : 2017-06-01}}" [(ngModel)]="dateSelected"
+                                    <input class="input4 mt-3" type="date" value="{{curso.finish_date != null ? curso.finish_date : 2017-06-01}}" [(ngModel)]="dateSelected" 
                                     [ngModelOptions]="{standalone: true}"/>
                                 </div>
                                 <div class="col-4 col-md-2 offset-4 offset-md-0 order-1 order-md-2">
-                                    <button class="botondrop bg-grey2 p-1 w-100" (click)="editCourse(curso.idCertification, 'editar')">Modificar</button>
+                                    <button class="botondrop bg-grey2 p-1 w-100"
+                                        (click)="editCourse(curso.idCertification, 'editar')">Modificar</button>
                                 </div>
                                 <div class="col-4 col-md-2 order-2 order-md-3">
-                                    <button class="botondrop bg-grey2 p-1 w-100" (click)="editCourse(curso.idCertification, 'quitar')">Quitar</button>
+                                    <button class="botondrop bg-grey2 p-1 w-100"
+                                        (click)="editCourse(curso.idCertification, 'quitar')">Quitar</button>
                                 </div>
                             </div>
                         </div>
@@ -300,8 +309,9 @@
                         </table>
                         <div class="row mt-2">
                             <div class="col-12">
-                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pdiag = $event" previousLabel="Anterior"
-                              nextLabel="Siguiente"></pagination-controls>
+                                <pagination-controls class="w-100 d-flex justify-content-center"
+                                    (pageChange)="pdiag = $event" previousLabel="Anterior"
+                                    nextLabel="Siguiente"></pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -309,51 +319,77 @@
                     <div *ngIf="this.diagnostic == 1">
                         <!------Editor--->
                         <div class="row d-flex align-items-center">
-                          <div class="col-6 col-md-4 col-lg-3">
-                            <label class="text3 txt-blue2 mt-3">Lista Diagnóstico</label>
-                          </div>
-                          <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
-                            <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeDiagnostic(2)">
-                                <img src="assets/img/agregar.svg" alt="">
-                                Agregar pregunta abierta
-                            </button>
-                        </div>
-                        <div class="col-8 col-md-4 col-lg-4">
-                            <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeDiagnostic(3)">
-                                <img src="assets/img/agregar.svg" alt="">
-                                Agregar pregunta opciones multiples
-                            </button>
-                        </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <label class="text3 txt-blue2 mt-3">Lista Diagnóstico</label>
+                            </div>
+                            <div *ngIf="this.none == 0">
+                                <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2"
+                                        (click)="createDiagnostic(this.backupDiagnostic)">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Crear
+                                    </button>
+                                </div>
+                            </div>
+                            <div *ngIf="this.none == 2">
+                                <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeDiagnostic(2)">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Agregar pregunta abierta
+                                    </button>
+                                </div>
+                                <div class="col-8 col-md-4 col-lg-4">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeDiagnostic(3)">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Agregar pregunta opciones multiples
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <hr class="w-100">
                         <!--Tabla de examenes--->
-                        <div class="table-responsive">
-                            <table id="conferencia" class="table data striped dt-responsive nowrap" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Pregunta</th>
-                                        <th>Respuesta</th>
-                                        <th>Abierta</th>
-                                        <th>Opciones multiples</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let diagnostico of this.allDiagnostico | paginate: { itemsPerPage: 6, currentPage: pe}">
-                                        <th scope="row"><button type="button" class="boton4">{{diagnostico.pregunta}}</button></th>
-                                        <td>{{diagnostico.respuesta}}</td>
-                                        <td>{{diagnostico.abierta}}</td>
-                                        <td>{{diagnostico.cerrada}}</td>
-                                        <td><button class="boton2 removeArchivos"><img
-                                            src="assets/img/close.svg" alt="close"></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="table-responsive" *ngIf="this.none == 0">
+                            Aún no cuentas con un diagnostico, crea uno presionando el botón "Crear".
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pe = $event" previousLabel="Anterior"
-                              nextLabel="Siguiente"></pagination-controls>
+                        <div class="table-responsive" *ngIf="this.none == 1">
+                            Ya puedes agregar preguntas en los botones de la parte superior, pueden ser "Abiertas" o de
+                            "Opción Multiple".
+                        </div>
+                        <div *ngIf="this.none == 2">
+                            <div class="table-responsive">
+                                <table id="conferencia" class="table data striped dt-responsive nowrap"
+                                    style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Pregunta</th>
+                                            <!--<th>Respuesta</th>
+                                            <th>Abierta</th>-->
+                                            <th>Tipo</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            *ngFor="let question of this.questions | paginate: { itemsPerPage: 6, currentPage: pe}">
+                                            <th scope="row"><button type="button"
+                                                    class="boton4">{{question.pregunta}}</button></th>
+                                            <!--<td>{{question.respuesta}}</td>
+                                            <td>{{question.abierta}}</td>-->
+                                            <td *ngIf="question.opciones.length != 0">Opción multiple</td>
+                                            <td *ngIf="question.opciones == 0">Abierta</td>
+                                            <td><button class="boton2 removeArchivos"
+                                                    (click)="removeQuestion(question.idPregunta)"><img
+                                                        src="assets/img/close.svg" alt="close"></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <pagination-controls class="w-100 d-flex justify-content-center"
+                                        (pageChange)="pe = $event" previousLabel="Anterior"
+                                        nextLabel="Siguiente"></pagination-controls>
+                                </div>
                             </div>
                         </div>
                         <!--Tabla de examenes--->
@@ -375,12 +411,12 @@
                                     <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
                                 </div>
                             </div>
-                            <!--Duplicar>
+                            <Duplicar>
                             <div class="pregunta1 mt-3" *ngFor="let question of this.questions; let i = index">
                                 <div class="row mb-3" class="abierta mt-3">
                                     <div class="col-12 col-md-10">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button>
+                                        <utton class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button>
                                         <input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" value="{{question.pregunta}}">
                                     </div>
@@ -398,7 +434,7 @@
                                     </div>
                                     <div class="col-4 d-flex align-items-center">
                                         <input type="file" class="file" name="avatar" accept="image/png, image/jpeg" />
-                                        <!--button class="boton2"><img src="assets/img/imgpreg.svg" alt=""></button>
+                                        <!button class="boton2"><img src="assets/img/imgpreg.svg" alt=""></button>
                                         <button class="boton2" (click)="cloneOpcion()"><img
                                                 src="assets/img/agregapreg.svg" alt=""></button>
                                         <button class="boton2" (click)="remove()"><img src="assets/img/quitarpreg.svg"
@@ -410,7 +446,7 @@
                                 <div class="row mb-3">
                                     <div class="col-12 col-md-10">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button>
+                                        <button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button>
                                         <input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" placeholder="Escribe tu pregunta aquí">
                                     </div>
@@ -418,17 +454,19 @@
                                 <div class="row mt-3 opcion">
                                     <div class="col-12">
                                         <div class="form-check mb-3">
-                                            <label class="text13 txt-blue" for="inlineRadio1">titulo de la opción</label>
+                                            <label class="text13 txt-blue" for="inlineRadio1">titulo de la
+                                                opción</label>
                                             <input class="form-check-input" type="radio" name="inlineRadioOptions"
                                                 id="inlineRadio1" value="{{this.cloneOption}}">
                                         </div>
                                     </div>
                                     <div class="col-3">
-                                        <input class="input5" type="text" name="opcion" id="" placeholder="nombre de la opción">
+                                        <input class="input5" type="text" name="opcion" id=""
+                                            placeholder="nombre de la opción">
                                     </div>
                                     <div class="col-4 d-flex align-items-center">
                                         <input type="file" class="file" name="avatar" accept="image/png, image/jpeg" />
-                                        <!--button class="boton2"><img src="assets/img/imgpreg.svg" alt=""></button>
+                                        <button class="boton2"><img src="assets/img/imgpreg.svg" alt=""></button>
                                         <button class="boton2" (click)="cloneOpcion()"><img
                                                 src="assets/img/agregapreg.svg" alt=""></button>
                                         <button class="boton2" (click)="remove()"><img src="assets/img/quitarpreg.svg"
@@ -436,87 +474,154 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--Duplicar>
+                            <!Duplicar>
                         </form-->
                     </div>
                     <div *ngIf="this.diagnostic == 2">
-                      <div class="row d-flex align-items-center">
-                        <div class="col-6 col-md-4 col-lg-4">
-                            <label class="text3 txt-blue2">Añadir pregunta abierta</label>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-6 col-md-4 col-lg-4">
+                                <label class="text3 txt-blue2">Añadir pregunta abierta</label>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2 offset-lg-5">
+                                <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestions('open')">
+                                    Guardar
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-1">
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
+                                    (click)="changeDiagnostic(1, this.backupDiagnostic)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-6 col-md-4 col-lg-2 offset-lg-5">
-                            <button class="boton bg-blue w-100 p-1 p-md-2">
-                                Guardar
-                            </button>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-1">
-                          <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50" (click)="changeDiagnostic(1)">
-                            <i class="fas fa-reply"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <hr class="w-100">
-                      <form>
-                        <div class="mt-3">
-                          <div class="row mb-3" class="mt-3">
-                              <div class="col-12 col-md-10">
-                                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                  <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
-                              </div>
-                          </div>
-                        </div>
-                      </form>
+                        <hr class="w-100">
+                        <form [formGroup]="formAbiertas">
+                            <div class="mt-3">
+                                <div class="row mb-3" class="mt-3">
+                                    <div class="col-12 col-md-10">
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value="" formControlName="question">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div *ngIf="this.diagnostic == 3">
-                      <div class="row d-flex align-items-center">
-                        <div class="col-6 col-md-4 col-lg-5">
-                            <label class="text3 txt-blue2">Añadir pregunta opciones multiples</label>
-                        </div>
-                        <div class="col-6 col-md-5 col-lg-2 offset-lg-4">
-                            <button class="boton bg-blue w-100 p-1 p-md-2">
-                                Guardar
-                            </button>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-1">
-                          <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50" (click)="changeDiagnostic(1)">
-                            <i class="fas fa-reply"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <hr class="w-100">
-                      <form>
-                        <div class="pregunta mt-3">
-                          <div class="row mb-3" class="mt-3">
-                              <div class="col-12 col-md-10">
-                                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                  <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
-                                  <input type="text" class="input3" id="exampleInputEmail1"
-                                      aria-describedby="emailHelp" value="">
-                              </div>
-                          </div>
-                          <div class="row mt-3">
-                            <div class="col-2">
-                              <button class="boton bg-blue w-100 p-1 p-md-2 clone" (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt=""> Agregar opciones</button>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-6 col-md-4 col-lg-5">
+                                <label class="text3 txt-blue2">Añadir pregunta opcion multiple</label>
                             </div>
-                          </div>
-                          <div class="row mt-3 opcion">
-                              <div class="col-2">
-                                  <div class="form-check mb-3">
-                                      <label class="text13 txt-blue" for="inlineRadio1">Opcion</label>
-                                      <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                          id="inlineRadio1" value="">
-                                  </div>
-                              </div>
-                              <div class="col-3">
-                                  <input class="input5" type="text" name="opcion" id="" value="">
-                              </div>
-                              <div class="col-4 d-flex align-items-center">
-                                  <input type="file" class="file" name="avatar" accept="image/png, image/jpeg" />
-                                  <button class="boton2 remove" (click)="removeOpcion()"><img src="assets/img/quitarpreg.svg" alt=""></button>
-                              </div>
-                          </div>
+                            <div class="col-6 col-md-5 col-lg-2 offset-lg-4">
+                                <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestions('close')">
+                                    Guardar
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-1">
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
+                                    (click)="changeDiagnostic(1, this.backupDiagnostic)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </div>
                         </div>
-                      </form>
+                        <hr class="w-100">
+                        <form [formGroup]="formAbiertas">
+                            <div class="pregunta mt-3">
+                                <div class="row mb-3" class="mt-3">
+                                    <div class="col-12 col-md-10">
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
+                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value="" formControlName="question">
+                                    </div>
+                                </div>
+                                <!--<div class="row mt-3">
+                                    <div class="col-2">
+                                        <button class="boton bg-blue w-100 p-1 p-md-2 clone"
+                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt="">Guardar opción y agregar
+                                            nueva</button>
+                                    </div>
+                                </div>-->
+                                <!--ARREGLO QUE MUESTRA LAS OPCIONES QUE AGREGO EL USUARIO-->
+                                <div class="row mt-3 opcion" *ngIf="this.new != 0">
+                                    <div *ngFor="let option of this.optionsProv">
+                                        <div class="col-2">
+                                            <div class="form-check mb-3">
+                                                <label class="text13 txt-blue" for="inlineRadio1">Respuesta
+                                                    correcta:</label>
+                                                <!--<input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="inlineRadio1" value="">-->
+                                                <div class="form-check form-check-inline ps-0 mb-2"
+                                                    *ngIf="option.correcta == 1">
+                                                    <label class="text13 txt-blue float-start"
+                                                        for="inlineRadio1">Si</label>
+                                                    <!--<input class="form-check-input ms-3" [value]="1" type="radio"
+                                                        name="inlineRadioOptions" id="inlineSi" checked disabled>-->
+                                                </div>
+                                                <div class="form-check form-check-inline ps-0 mb-2"
+                                                    *ngIf="option.correcta == 0">
+                                                    <label class="text13 txt-blue float-start"
+                                                        for="inlineRadio1">No</label>
+                                                    <!--<input class="form-check-input ms-3" [value]="0" type="radio"
+                                                        name="inlineRadioOptions" id="inlineNo" checked disabled>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="input5" type="text" name="opcion" id=""
+                                                value="{{option.opcion}}" disabled>
+                                        </div>
+                                        <div class="col-4 d-flex align-items-center">
+                                            <!--<input type="file" class="file" name="avatar"
+                                                accept="image/png, image/jpeg" title="Añadir una imagen"/>-->
+                                            <button class="boton2 remove" title="Eliminar opción"
+                                                (click)="removeQuestion(option.idOpcion, 'new')"><img
+                                                    src="assets/img/quitarpreg.svg" alt=""></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 opcion">
+                                    <div class="col-2">
+                                        <div class="form-check mb-3">
+                                            <label class="text13 txt-blue" for="inlineRadio1">Respuesta
+                                                correcta:</label>
+                                            <!--<input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="inlineRadio1" value="">-->
+                                            <div class="form-check form-check-inline ps-0 mb-2">
+                                                <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
+                                                <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                                    (change)="changeOption('search')"
+                                                    [ngModelOptions]="{standalone: true}" [value]="1" type="radio"
+                                                    name="inlineRadioOptions" id="inlineRadio1">
+                                            </div>
+                                            <div class="form-check form-check-inline ps-0 mb-2">
+                                                <label class="text13 txt-blue float-start" for="inlineRadio1">No</label>
+                                                <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                                    (change)="changeOption('search')"
+                                                    [ngModelOptions]="{standalone: true}" [value]="0" type="radio">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <input class="input5" type="text" name="opcion" id="" value=""
+                                            placeholder="Escribe aquí la opción" [ngModelOptions]="{standalone: true}"
+                                            (change)="cambio()" [(ngModel)]="options">
+                                    </div>
+                                    <div class="col-4 d-flex align-items-center">
+                                        <input type="file" class="file" name="avatar" title="Añadir una imagen"
+                                            accept="image/png, image/jpeg" (change)="selectFile($event)" />
+                                        <label *ngIf="this.onImage == 1">Imagen agregada</label>
+                                        <!--<button class="boton2 remove" (click)="removeOpcion()" title="Eliminar opción"><img
+                                                src="assets/img/quitarpreg.svg" alt=""></button>-->
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="boton bg-blue w-100 p-1 p-md-2 clone"
+                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt="">Siguiente
+                                            opción</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!--TABLA EXAMENES-->
@@ -535,9 +640,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let c of this.certificaciones | paginate: { itemsPerPage: 6, currentPage: pexam}">
+                                <tr
+                                    *ngFor="let c of this.certificaciones | paginate: { itemsPerPage: 6, currentPage: pexam}">
                                     <th scope="row">{{c.idCertification}}</th>
-                                    <th scope="row"><button type="button" class="boton4" (click)="changeExam(1, c.idCertification)">{{c.title}}</button></th>
+                                    <th scope="row"><button type="button" class="boton4"
+                                            (click)="changeExam(1, c.idCertification)">{{c.title}}</button></th>
                                     <td>{{c.description}}</td>
                                     <td *ngIf="c.creation_date != null">{{c.creation_date}}</td>
                                     <td *ngIf="c.creation_date == null">Sin dato</td>
@@ -548,20 +655,21 @@
                         </table>
                         <div class="row mt-2">
                             <div class="col-12">
-                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pexam = $event" previousLabel="Anterior"
-                              nextLabel="Siguiente"></pagination-controls>
+                                <pagination-controls class="w-100 d-flex justify-content-center"
+                                    (pageChange)="pexam = $event" previousLabel="Anterior"
+                                    nextLabel="Siguiente"></pagination-controls>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="this.exam == 1">
                         <div class="row mt-3 mb-3">
                             <div class="col-lg-6 ">
-                              <label class="text3 txt-blue2">Selecciona el módulo</label>
+                                <label class="text3 txt-blue2">Selecciona el módulo</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeExam(0)">
-                                <i class="fas fa-reply"></i>
-                              </button>
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeExam(0)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
                             </div>
                         </div>
                         <!--label class="text3 txt-blue2 mt-3">Selecciona el módulo</label>
@@ -581,8 +689,9 @@
                                     <tr *ngFor="let module of modules">
                                         <td>{{module.title}}</td>
                                         <td><button class="boton2 text-decoration-none"
-                                            (click)="changeExam(2, module.idModule)">Editar</button></td>
-                                        <td><button class="boton2 text-decoration-none"  (click)="changeExam(3, module.idModule, module.title)">Ver</button></td>
+                                                (click)="changeExam(2, module.idModule, module.title)">Editar</button></td>
+                                        <td><button class="boton2 text-decoration-none"
+                                                (click)="changeExam(3, module.idModule, module.title)">Ver</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -592,26 +701,50 @@
                         <!------Editor--->
                         <div class="row mt-3 mb-3 d-flex align-items-center">
                             <div class="col-lg-4">
-                              <label class="text3 txt-blue2">Lista de preguntas</label>
-                              <!--label class="text6 txt-gris ms-2">Agrega preguntas cerradas o abiertas con
+                                <label class="text3 txt-blue2">Lista de preguntas</label>
+                                <!--label class="text6 txt-gris ms-2">Agrega preguntas cerradas o abiertas con
                                 opciones.</label-->
                             </div>
-                            <div class="col-8 col-md-4 col-lg-3">
-                              <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
-                                <img src="assets/img/agregar.svg" alt="">
-                                  Agregar pregunta abierta
-                              </button>
+                            <div *ngIf="this.none == 0">
+                                <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2"
+                                        (click)="createExam(this.respaldo1, this.moduloTitle)">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Crear
+                                    </button>
+                                </div>
+                            </div>
+                            <div *ngIf="this.none == 2">
+                                <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Agregar pregunta abierta
+                                    </button>
+                                </div>
+                                <div class="col-8 col-md-4 col-lg-4">
+                                    <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(5)">
+                                        <img src="assets/img/agregar.svg" alt="">
+                                        Agregar pregunta opciones multiples
+                                    </button>
+                                </div>
+                            </div>
+                            <!--<div class="col-8 col-md-4 col-lg-3">
+                                <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
+                                    <img src="assets/img/agregar.svg" alt="">
+                                    Agregar pregunta abierta
+                                </button>
                             </div>
                             <div class="col-8 col-md-4 col-lg-4">
-                              <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(5)">
-                                <img src="assets/img/agregar.svg" alt="">
-                                  Agregar pregunta opciones multiples
-                              </button>
-                            </div>
+                                <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(5)">
+                                    <img src="assets/img/agregar.svg" alt="">
+                                    Agregar pregunta opciones multiples
+                                </button>
+                            </div>-->
                             <div class="col-6 col-lg-1">
-                              <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50" (click)="changeExam(1, this.respaldo)">
-                                <i class="fas fa-reply"></i>
-                              </button>
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
+                                    (click)="changeExam(1, this.respaldo1)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
                             </div>
                         </div>
                         <!--label class="text3 txt-blue2 mt-3">Editor</label>
@@ -619,36 +752,47 @@
                             <button class="boton bg-blue mx-auto d-block w-100 p-2"
                             (click)="changeExam(1, this.respaldo)">Regresar a modulos</button-->
                         <hr class="w-100">
-                        <form class="editor">
-                          <div class="table-responsive">
-                            <table id="conferencia" class="table data striped dt-responsive nowrap" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Pregunta</th>
-                                        <th>Respuesta</th>
-                                        <th>Abierta</th>
-                                        <th>Opciones multiples</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let pregunta of examModule | paginate: { itemsPerPage: 6, currentPage: pe}">
-                                        <th scope="row">{{pregunta.pregunta}}</th>
-                                        <td>{{pregunta.respuesta}}</td>
-                                        <td>{{pregunta.abierta}}</td>
-                                        <td>{{pregunta.cerrada}}</td>
-                                        <td><button class="boton2 removeArchivos"><img
-                                            src="assets/img/close.svg" alt="close"></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                         <!--Tabla de examenes--->
+                         <div class="table-responsive" *ngIf="this.none == 0">
+                            Aún no cuentas con un examen para este modulo, puedes crear presionando el botón "Crear".
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pe = $event" previousLabel="Anterior"
-                              nextLabel="Siguiente"></pagination-controls>
+                        <div class="table-responsive" *ngIf="this.none == 1">
+                            Ya puedes agregar preguntas en los botones de la parte superior, pueden ser "Abiertas" o de
+                            "Opción Multiple".
+                        </div>
+                        <div class="editor" *ngIf="this.none == 2">
+                            <div class="table-responsive">
+                                <table id="conferencia" class="table data striped dt-responsive nowrap"
+                                    style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Pregunta</th>
+                                            <!--<th>Respuesta</th>
+                                            <th>Abierta</th>-->
+                                            <th>Tipo</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            *ngFor="let pregunta of examModule | paginate: { itemsPerPage: 6, currentPage: pe}">
+                                            <th scope="row">{{pregunta.question}}</th>
+                                            <!--<td >{{pregunta.respuestas.option}}</td>-->
+                                            <td *ngIf="pregunta.respuestas.length != 0">Opción multiple</td>
+                                            <td *ngIf="pregunta.respuestas == 0">Abierta</td>
+                                            <td><button class="boton2 removeArchivos"><img src="assets/img/close.svg"
+                                                        alt="close"></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <pagination-controls class="w-100 d-flex justify-content-center"
+                                        (pageChange)="pe = $event" previousLabel="Anterior"
+                                        nextLabel="Siguiente"></pagination-controls>
+                                </div>
+                            </div>
 
                             <!--Duplicar-->
                             <!--div class="pregunta1 mt-3" *ngFor="let pregunta of examModule; let j = index">
@@ -656,6 +800,16 @@
                                     <div class="col-12 col-md-10">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
                                         <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value="{{pregunta.question}}">
+                                    </div>
+                                </div>
+                                <!--Duplicar-->
+                            <!--<div class="pregunta1 mt-3" *ngFor="let pregunta of examModule; let j = index">
+                                <div class="row mb-3" class="abierta mt-2">
+                                    <div class="col-12 col-md-10">
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
+                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
+                            <!--<input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" value="{{pregunta.question}}">
                                     </div>
                                 </div>
@@ -683,7 +837,8 @@
                                 <div class="row mb-3">
                                     <div class="col-12 col-md-10">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
+                            <!--<input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp">
                                     </div>
                                 </div>
@@ -708,7 +863,8 @@
                                 </div>
                             </div-->
                             <!--Duplicar-->
-                        </form>
+
+                        </div>
                     </div>
                     <div *ngIf="this.exam == 3">
                         <label class="text3 txt-blue2 mt-3">Usuarios</label>
@@ -747,83 +903,150 @@
                         </table>
                     </div>
                     <div *ngIf="this.exam == 4">
-                      <div class="row d-flex align-items-center">
-                        <div class="col-6 col-md-4 col-lg-4">
-                            <label class="text3 txt-blue2">Añadir pregunta abierta</label>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-6 col-md-4 col-lg-4">
+                                <label class="text3 txt-blue2">Añadir pregunta abierta</label>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2 offset-lg-5">
+                                <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestionsExam('open')">
+                                    Guardar
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-1">
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
+                                    (click)="changeExam(2, this.certificacionID)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-6 col-md-4 col-lg-2 offset-lg-5">
-                            <button class="boton bg-blue w-100 p-1 p-md-2">
-                                Guardar
-                            </button>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-1">
-                          <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50" (click)="changeExam(2)">
-                            <i class="fas fa-reply"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <hr class="w-100">
-                      <form>
-                        <div class="mt-3">
-                          <div class="row mb-3" class="mt-3">
-                              <div class="col-12 col-md-10">
-                                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                  <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
-                              </div>
-                          </div>
-                        </div>
-                      </form>
+                        <hr class="w-100">
+                        <form [formGroup]="formAbiertas">
+                            <div class="mt-3">
+                                <div class="row mb-3" class="mt-3">
+                                    <div class="col-12 col-md-10">
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value="" formControlName="question">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div *ngIf="this.exam == 5">
-                      <div class="row d-flex align-items-center">
-                        <div class="col-6 col-md-4 col-lg-5">
-                            <label class="text3 txt-blue2">Añadir pregunta opciones multiples</label>
-                        </div>
-                        <div class="col-6 col-md-5 col-lg-2 offset-lg-4">
-                            <button class="boton bg-blue w-100 p-1 p-md-2">
-                                Guardar
-                            </button>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-1">
-                          <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50" (click)="changeExam(2)">
-                            <i class="fas fa-reply"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <hr class="w-100">
-                      <form>
-                        <div class="pregunta mt-3">
-                          <div class="row mb-3" class="mt-3">
-                              <div class="col-12 col-md-10">
-                                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
-                                  <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
-                                  <input type="text" class="input3" id="exampleInputEmail1"
-                                      aria-describedby="emailHelp" value="">
-                              </div>
-                          </div>
-                          <div class="row mt-3">
-                            <div class="col-2">
-                              <button class="boton bg-blue w-100 p-1 p-md-2 clone" (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt=""> Agregar opciones</button>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-6 col-md-4 col-lg-5">
+                                <label class="text3 txt-blue2">Añadir pregunta opcion multiple</label>
                             </div>
-                          </div>
-                          <div class="row mt-3 opcion">
-                              <div class="col-2">
-                                  <div class="form-check mb-3">
-                                      <label class="text13 txt-blue" for="inlineRadio1">Opcion</label>
-                                      <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                          id="inlineRadio1" value="">
-                                  </div>
-                              </div>
-                              <div class="col-3">
-                                  <input class="input5" type="text" name="opcion" id="" value="">
-                              </div>
-                              <div class="col-4 d-flex align-items-center">
-                                  <input type="file" class="file" name="avatar" accept="image/png, image/jpeg" />
-                                  <button class="boton2 remove" (click)="removeOpcion()"><img src="assets/img/quitarpreg.svg" alt=""></button>
-                              </div>
-                          </div>
+                            <div class="col-6 col-md-5 col-lg-2 offset-lg-4">
+                                <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestionsExam('close')">
+                                    Guardar
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-1">
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
+                                    (click)="changeExam(2, this.respaldo)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </div>
                         </div>
-                      </form>
+                        <hr class="w-100">
+                        <form [formGroup]="formAbiertas">
+                            <div class="pregunta mt-3">
+                                <div class="row mb-3" class="mt-3">
+                                    <div class="col-12 col-md-10">
+                                        <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
+                                        <!--button class="boton2 float-end"><img src="assets/img/close.svg" alt=""></button-->
+                                        <input type="text" class="input3" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value="" formControlName="question">
+                                    </div>
+                                </div>
+                                <!--<div class="row mt-3">
+                                    <div class="col-2">
+                                        <button class="boton bg-blue w-100 p-1 p-md-2 clone"
+                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt="">Guardar opción y agregar
+                                            nueva</button>
+                                    </div>
+                                </div>-->
+                                <!--ARREGLO QUE MUESTRA LAS OPCIONES QUE AGREGO EL USUARIO-->
+                                <div class="row mt-3 opcion" *ngIf="this.new != 0">
+                                    <div *ngFor="let option of this.optionsProv">
+                                        <div class="col-2">
+                                            <div class="form-check mb-3">
+                                                <label class="text13 txt-blue" for="inlineRadio1">Respuesta
+                                                    correcta:</label>
+                                                <!--<input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="inlineRadio1" value="">-->
+                                                <div class="form-check form-check-inline ps-0 mb-2"
+                                                    *ngIf="option.correcta == 1">
+                                                    <label class="text13 txt-blue float-start"
+                                                        for="inlineRadio1">Si</label>
+                                                    <!--<input class="form-check-input ms-3" [value]="1" type="radio"
+                                                        name="inlineRadioOptions" id="inlineSi" checked disabled>-->
+                                                </div>
+                                                <div class="form-check form-check-inline ps-0 mb-2"
+                                                    *ngIf="option.correcta == 0">
+                                                    <label class="text13 txt-blue float-start"
+                                                        for="inlineRadio1">No</label>
+                                                    <!--<input class="form-check-input ms-3" [value]="0" type="radio"
+                                                        name="inlineRadioOptions" id="inlineNo" checked disabled>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="input5" type="text" name="opcion" id=""
+                                                value="{{option.opcion}}" disabled>
+                                        </div>
+                                        <div class="col-4 d-flex align-items-center">
+                                            <!--<input type="file" class="file" name="avatar"
+                                                accept="image/png, image/jpeg" title="Añadir una imagen"/>-->
+                                            <button class="boton2 remove" title="Eliminar opción"
+                                                (click)="removeQuestion(option.idOpcion, 'new')"><img
+                                                    src="assets/img/quitarpreg.svg" alt=""></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 opcion">
+                                    <div class="col-2">
+                                        <div class="form-check mb-3">
+                                            <label class="text13 txt-blue" for="inlineRadio1">Respuesta
+                                                correcta:</label>
+                                            <!--<input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                id="inlineRadio1" value="">-->
+                                            <div class="form-check form-check-inline ps-0 mb-2">
+                                                <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
+                                                <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                                    (change)="changeOption('search')"
+                                                    [ngModelOptions]="{standalone: true}" [value]="1" type="radio"
+                                                    name="inlineRadioOptions" id="inlineRadio1">
+                                            </div>
+                                            <div class="form-check form-check-inline ps-0 mb-2">
+                                                <label class="text13 txt-blue float-start" for="inlineRadio1">No</label>
+                                                <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                                    (change)="changeOption('search')"
+                                                    [ngModelOptions]="{standalone: true}" [value]="0" type="radio">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <input class="input5" type="text" name="opcion" id="" value=""
+                                            placeholder="Escribe aquí la opción" [ngModelOptions]="{standalone: true}"
+                                            (change)="cambio()" [(ngModel)]="options">
+                                    </div>
+                                    <div class="col-4 d-flex align-items-center">
+                                        <input type="file" class="file" name="avatar" title="Añadir una imagen"
+                                            accept="image/png, image/jpeg" (change)="selectFile($event)" />
+                                        <label *ngIf="this.onImage == 1">Imagen agregada</label>
+                                        <!--<button class="boton2 remove" (click)="removeOpcion()" title="Eliminar opción"><img
+                                                src="assets/img/quitarpreg.svg" alt=""></button>-->
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="boton bg-blue w-100 p-1 p-md-2 clone"
+                                            (click)="cloneOpcionExam()"><img src="assets/img/agregar.svg" alt="">Siguiente
+                                            opción</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

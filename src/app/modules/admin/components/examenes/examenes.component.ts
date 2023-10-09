@@ -5,6 +5,7 @@ import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-examenes',
@@ -29,6 +30,7 @@ export class ExamenesComponent implements OnInit {
   public searchSelect = '0';
   public certificationSelected = '0';
   formSearch: FormGroup;
+  formAbiertas: FormGroup;
   public text1 = '';
   public dateSelected = '';
   n: number = 0;
@@ -36,6 +38,7 @@ export class ExamenesComponent implements OnInit {
   objUsers = [] as any;
   showArr = [] as any;
   examModule = [] as any;
+  optionsProv = [] as any;
   showLength = 0;
   idUser: any;
   userCourses: any;
@@ -48,6 +51,16 @@ export class ExamenesComponent implements OnInit {
   pe: any;
   allDiagnostico: any;
   respaldo1: any;
+  certificacionID: any;
+  none: number;
+  backupDiagnostic = '';
+  public options = '';
+  new = 0;
+  public selectedOption = 2;
+  backId: any;
+  image: any;
+  onImage = 0;
+  
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
 
@@ -58,7 +71,7 @@ export class ExamenesComponent implements OnInit {
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
       this.users('asignature');
-      this.startForm();
+      this.startForm(1);
       this.certifications();
     } else {
       Swal.fire({
@@ -184,15 +197,17 @@ export class ExamenesComponent implements OnInit {
           case 'asignature':
             //this.asingnature = 0;
             this.erase();
-            this.startForm();
+            this.startForm(1);
             this.users('asignature');
             break;
           case 'diagnostic':
+            this.optionsProv = [];
             this.diagnostic = 0;
             this.cloneOption = 0;
             this.certifications();
             break;
           case 'test':
+            this.optionsProv = [];
             this.exam = 0;
             this.cloneOption = 0;
             this.certifications();
@@ -201,7 +216,7 @@ export class ExamenesComponent implements OnInit {
     });
   }
 
-  changeExam(id: any, certificacion?: any, name?:any) {
+  changeExam(id: any, certificacion?: any, name?: any) {
     console.log(id, certificacion);
     Swal.fire({
       title: 'Cargando...',
@@ -210,20 +225,20 @@ export class ExamenesComponent implements OnInit {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-
-    this.exam = id;
-    console.log(this.exam);
-    if(id == 1){
-      this.respaldo1 = certificacion;
-    } else
-    if(id == 2){
-    this.respaldo = certificacion;
-    }
-    switch (id) {
-      case 0:
-        this.onClickTab('test');
-        break;
-      case 1:
+        this.moduloTitle = name;
+        this.exam = id;
+        console.log(this.exam);
+        if (id == 1) {
+          this.respaldo1 = certificacion;
+        } else
+          if (id == 2) {
+            this.respaldo = certificacion;
+          }
+        switch (id) {
+          case 0:
+            this.onClickTab('test');
+            break;
+          case 1:
             console.log(id, certificacion);
             this.get.getModules(this.respaldo1, localStorage.getItem('token')).subscribe(
               (data: any) => {
@@ -232,52 +247,79 @@ export class ExamenesComponent implements OnInit {
                 Swal.close();
               }
             );
-
-        break;
-      case 2:
-        this.cloneOption = 0;
-        console.log(id, certificacion, this.respaldo);
-        this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
-          (data: any) => {
-            console.log(data.respuestas);
-            this.examModule = data;
-            console.log(this.examModule);
+            break;
+          case 2:
+            this.cloneOption = 0;
+            this.certificacionID = certificacion;
+            console.log(id, certificacion, this.respaldo);
+            this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
+              (data: any) => {
+                if(data.length == 0){
+                  this.none = 0;
+                } else {
+                  this.none = 2;
+                  this.examModule = data;
+                }
+                Swal.close();
+              }
+            );
+            break;
+          case 3:
+            this.cloneOption = 0;
+            this.moduloTitle = name;
+            console.log(id, certificacion, this.respaldo);
+            this.get.getCursantesModulo(certificacion, localStorage.getItem('token')).subscribe(
+              (data: any) => {
+                console.log(data)
+                Swal.close();
+              }
+            );
+            break;
+          case 4:
+            this.exam = 4;
+            this.startForm(2);
             Swal.close();
-          }
-        );
-      break;
-      case 3:
-        this.cloneOption = 0;
-        this.moduloTitle = name;
-        console.log(id, certificacion, this.respaldo);
-        this.get.getCursantesModulo(certificacion, localStorage.getItem('token')).subscribe(
-          (data: any) => {
-            console.log(data)
+            break;
+          case 5:
+            this.exam = 5;
+            this.startForm(2);
             Swal.close();
-          }
-        );
-      break;
-      case 4:
-        this.exam = 4;
-        Swal.close();
-      break;
-      case 5:
-        this.exam = 5;
-        Swal.close();
-      break;
-    }
-  }});
+            break;
+        }
+      }
+    });
   }
 
-  startForm(): void {
-    //Metodo para inicializar el formulario
+  updateExamenes(ID?: any) {
+    console.log(ID, this.examModule, this.certificacionID);
+    let json = {
+      idModulo: this.certificacionID,
+      preguntas: JSON.stringify(this.examModule)
+    }
 
-    this.formSearch = this.formBuilder.group({
-      filter: [''],
-      search: [''],
-      group: [''],
-      users: [''],
-    });
+    this.session.updatePreguntasExamen(json, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    );
+
+    console.log(json);
+  }
+
+  startForm(form: any): void {
+    //Metodo para inicializar el formulario
+    if (form == 1) {
+      this.formSearch = this.formBuilder.group({
+        filter: [''],
+        search: [''],
+        group: [''],
+        users: [''],
+      });
+    } else {
+      this.formAbiertas = this.formBuilder.group({
+        question: [''],
+      });
+    }
 
   }
 
@@ -371,11 +413,14 @@ export class ExamenesComponent implements OnInit {
     console.log(this.idUser)
   }
 
-  changeDiagnostic(id: any, diagnostic?: any) {
-    //console.log(id, diagnostic)
+  changeDiagnostic(id: any, diagnostico?: any) {
+    console.log(id, diagnostico)
+    if (this.backupDiagnostic == '') this.backupDiagnostic = diagnostico;
+    console.log(this.backupDiagnostic)
     switch (id) {
       case 0:
         this.diagnostic = 0;
+        this.questions = [];
         this.certifications();
         break;
       case 1:
@@ -387,30 +432,314 @@ export class ExamenesComponent implements OnInit {
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
-            this.get.getDiagnostico(diagnostic, localStorage.getItem('token')).subscribe(
+            this.get.getDiagnostico(diagnostico, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data);
+                //console.log(data);
+                if (data == null || data.message) {
+                  console.log(data)
+                  this.none = 0;
+                } else {
+                  console.log(data);
+                  
+                  this.none = 2;
+                  //this.questions = data;
+                  this.questions = data.preguntas;
+                  console.log(data);
+                }
                 /*console.log(data, JSON.parse(data.formulario));
-                this.questions = JSON.parse(data.formulario);
-                console.log(this.questions);*/
+                this.questions = JSON.parse(data.formulario);*/
+                //console.log(this.questions);
                 Swal.close();
               }
             );
-
           }
         });
         break;
       case 2:
         this.diagnostic = 2;
+        this.startForm(2);
         break;
       case 3:
         this.diagnostic = 3;
+        this.startForm(2);
         break;
     }
   }
-  changeViewdDiagnostico(){
+
+  removeQuestion(id: any, type?: any) {
+    console.log(id);
+    console.log(this.optionsProv);
+    if (type) {
+      console.log(type);
+      this.optionsProv.forEach(element => {
+        if (element.idOpcion == id) {
+          console.log(element);
+          this.optionsProv.splice(this.optionsProv.indexOf(element), 1);
+        }
+      });
+      console.log(this.optionsProv);
+    } else {
+      this.session.deleteQuestion(id, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          Swal.fire({
+            title: '¡Eliminado con exito!',
+            text: 'La pregunta ha sido eliminada con exito.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.changeDiagnostic(1, this.backupDiagnostic);
+            }
+          });
+        }
+      );
+    }
+  }
+
+  //actualiza las preguntas de un examen
+  updateQuestionsExam(question: any) {
+    console.log(this.examModule, this.certificacionID)
+    if (this.formAbiertas.value.question == '') {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes agregar una pregunta.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+      let json = {
+        idModulo: this.certificacionID,
+        preguntas: []
+      }
+
+      if (this.examModule.length == 0) {
+        if (question == 'open') {
+          json.preguntas.push({
+            idEval_question: this.examModule.length + 1,
+            pregunta: this.formAbiertas.value.question,
+            is_active: 1,
+            respuestas: []
+          });
+        } else if (question == 'close') {
+          json.preguntas.push({
+            idEval_question: this.examModule.length + 1,
+            pregunta: this.formAbiertas.value.question,
+            is_active: 1,
+            respuestas: this.optionsProv
+          });
+        }
+        console.log(json)
+      } else {
+        this.examModule.forEach(element => {
+          this.backId = parseInt(element.idEval_question); //guarda el ultimo id de la pregunta en el arreglo
+          console.log(parseInt(element.idEval_question), this.backId);
+          //if(question == 'open'){
+          json.preguntas.push({
+            idEval_question: element.idEval_question,
+            pregunta: element.question,
+            is_active: element.is_active,
+            respuestas: element.respuestas
+          });
+        });
+        if (question == 'open') {
+          json.preguntas.push({
+            idEval_question: this.backId + 1,
+            pregunta: this.formAbiertas.value.question,
+            is_active: 1,
+            respuestas: []
+          });
+        } else if (question == 'close') {
+          json.preguntas.push({
+            idEval_question: this.backId + 1,
+            pregunta: this.formAbiertas.value.question,
+            is_active: 1,
+            respuestas: this.optionsProv
+          });
+        }
+
+        console.log(json)
+      }
+
+      let change = JSON.stringify(json);
+      console.log(change);
+      this.session.updatePreguntasExamen(json, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          Swal.fire({
+            title: '¡Modificado con exito!',
+            text: 'La pregunta se agrego con exito.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.changeExam(2, this.certificacionID);
+            }
+          });
+        }
+      );
+      console.log(json)
+    }
+  }
+
+  //actualiza las preguntas de un diagnostico
+  updateQuestions(question: any) {
+    console.log(this.questions);
+    if (this.formAbiertas.value.question == '') {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes agregar una pregunta.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+      let json = {
+        idCurso: this.backupDiagnostic,
+        preguntas: []
+      }
+      console.log(json)
+
+      if (this.questions.length == 0) {
+        if (question == 'open') {
+          json.preguntas.push({
+            idPregunta: this.questions.length + 1,
+            pregunta: this.formAbiertas.value.question,
+            is_active: 1,
+            opciones: []
+          });
+        } else if (question == 'close') {
+          json.preguntas.push({
+            idPregunta: this.questions.length + 1,
+            pregunta: this.formAbiertas.value.question,
+            is_active: 1,
+            opciones: this.optionsProv
+          });
+        }
+        console.log(json)
+      } else {
+        this.questions.forEach(element => {
+          this.backId = parseInt(element.idPregunta); //guarda el ultimo id de la pregunta en el arreglo
+          console.log(parseInt(element.idPregunta), this.backId);
+          //if(question == 'open'){
+          json.preguntas.push({
+            idPregunta: element.idPregunta,
+            pregunta: element.pregunta,
+            is_active: element.activo,
+            respuestas: element.opciones
+          });
+          /*} else if(question == 'close'){
+            json.preguntas.push({
+              idPregunta: element.idPregunta,
+              pregunta: element.pregunta,
+              is_active: 1,
+              respuestas: element.opciones
+            });
+          }*/
+        });
+        if (question == 'open') {
+          json.preguntas.push({
+            idPregunta: this.backId + 1,
+            pregunta: this.formAbiertas.value.question,
+            is_active: 1,
+            respuestas: []
+          });
+        } else if (question == 'close') {
+          json.preguntas.push({
+            idPregunta: this.backId + 1,
+            pregunta: this.formAbiertas.value.question,
+            is_active: 1,
+            respuestas: this.optionsProv
+          });
+        }
+
+        console.log(json)
+      }
+
+      /*if (question == 'open') {
+        json.preguntas.push({
+          idPregunta: '1',
+          pregunta: this.formAbiertas.value.question,
+          is_active: 1,
+          respuestas: []
+        });
+        /*json['preguntas'] = [{
+          idPregunta: '1',
+          pregunta: this.formAbiertas.value.question,
+          is_active: 1,
+          respuestas: []
+        }];*/
+      /*} else if (question == 'close') {
+        console.log(this.optionsProv)
+        json.preguntas.push({
+          idPregunta: '1',
+          pregunta: this.formAbiertas.value.question,
+          is_active: 1,
+          respuestas: this.optionsProv
+        });
+        /*json['preguntas'] = [{
+          idPregunta: '1',
+          pregunta: this.formAbiertas.value.question,
+          is_active: 1,
+          respuestas: this.optionsProv
+        }];*/
+      //}
+      //console.log(json);
+
+      let change = JSON.stringify(json);
+      console.log(change);
+      this.session.updatePreguntasDiagnostico(json, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          Swal.fire({
+            title: '¡Modificado con exito!',
+            text: 'La pregunta se agrego con exito.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.changeDiagnostic(1, this.backupDiagnostic);
+            }
+          });
+        }
+      );
+    }
 
   }
+
+  createExam(id:any, name:any){
+    console.log(id, name);
+    let nameModule = 'Examen Módulo:' + ' ' + name;
+    console.log(nameModule);
+    let formData = new FormData();
+    formData.append('idModulo', id);
+    formData.append('title', nameModule);
+
+    console.log(`Hola ${id} ${name}`)
+  }
+
+  createDiagnostic(id: any) {
+    console.log(id);
+    let formData = new FormData();
+    formData.append('idCurso', id);
+    formData.append('title', 'diagnostico');
+    this.session.updateDiagnostico(formData, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Creado con exito!',
+          text: 'El diagnostico ha sido creado con exito, ahora puedes comenzar a agregar preguntas en los botones de la parte superior.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.changeDiagnostic(1, id);
+          }
+        });
+      }
+    );
+  }
+
+
 
   changeSearch() {
     console.log(this.searchSelect);
@@ -593,30 +922,60 @@ export class ExamenesComponent implements OnInit {
     //console.log(this.chief, this.view);
   }
 
-
-
-
-  /*public events(){
-    let node = document.querySelector('.pregunta');
-    const agregar = document.querySelector('#agregar');
-    console.log(node);
-    //this.agregar.addEventListener('click', this.cloneOpcion);
-  }*/
-
-
-  change(id: any) {
-    if (id == 1) {
-      this.helpers.cursos = 1;
-    } if (id == 2) {
-      this.helpers.cursos = 2;
+  public cloneOpcionExam() {
+    console.log(this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
+    let i;
+    if (this.selectedOption == 2) {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tienes que seleccionar si la opción es la respuesta correcta o incorrecta a tu pregunta.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else if (this.options == '') {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tienes que completar la información de la opción anterior para poder agregar una nueva.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
     } else {
-      this.helpers.cursos = 3;
+      console.log(this.optionsProv);
+      if (this.optionsProv.length == 0) {
+        this.optionsProv.push({
+          idEval_option: this.optionsProv.length + 1,
+          opcion: this.options,
+          correcta: this.selectedOption,
+        });
+      } else {
+        this.optionsProv.forEach(element => {
+          i = element.idEval_option;
+        })
+        this.optionsProv.push({
+          idEval_option: i + 1,
+          opcion: this.options,
+          correcta: this.selectedOption,
+        })
+      }
+      console.log(this.optionsProv)
+      this.options = '';
+      this.selectedOption = 2;
+      this.new = this.optionsProv.length;
+      console.log(this.new)
+    }
+  }
+
+
+  cambio() {
+    console.log(this.options)
+    if (this.options != '') {
+      console.log(this.options)
     }
   }
 
   //duplicar pregunta Examenes
   public clone(): void {
-    console.log(this.cloneOption)
+    console.log(this.cloneOption, this.formAbiertas.value.question)
     let id = this.cloneOption + 1;
     this.cloneOption = id;
     console.log(this.cloneOption)
@@ -625,7 +984,7 @@ export class ExamenesComponent implements OnInit {
     var first = question[0];
     const clonequestion = first.cloneNode(true) as HTMLDivElement;
     this.n++;
-    clonequestion.setAttribute("id", "pregunta"+this.n);
+    clonequestion.setAttribute("id", "pregunta" + this.n);
     //opcion.setAttribute("id", "opcion"+this.n);
     document.querySelector(".editor").appendChild(clonequestion);
     const buttonclone = document.querySelectorAll('.clone');
@@ -641,16 +1000,75 @@ export class ExamenesComponent implements OnInit {
   i = 0;
   //duplicar opcion Examenes
   public cloneOpcion() {
-    const opcion = document.querySelectorAll('.opcion');
-    var first = opcion[0];
-    const cloneopcion = first.cloneNode(true) as HTMLDivElement;
-    this.i++;
-    cloneopcion.setAttribute("id", "opcion" + this.i);
-    document.querySelector(".pregunta").appendChild(cloneopcion);
-    const buttonremove = document.querySelectorAll('.remove');
-    buttonremove.forEach(btn => {
-      btn.addEventListener('click', this.removeOpcion)
+    console.log(this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
+    let i;
+    if (this.selectedOption == 2) {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tienes que seleccionar si la opción es la respuesta correcta o incorrecta a tu pregunta.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else if (this.options == '') {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tienes que completar la información de la opción anterior para poder agregar una nueva.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+      if (this.optionsProv.length == 0) {
+        this.optionsProv.push({
+          idOpcion: this.optionsProv.length + 1,
+          opcion: this.options,
+          correcta: this.selectedOption,
+        });
+      } else {
+        this.optionsProv.forEach(element => {
+          i = element.idOpcion;
+        })
+        this.optionsProv.push({
+          idOpcion: i + 1,
+          opcion: this.options,
+          correcta: this.selectedOption,
+        })
+      }
+      console.log(this.optionsProv)
+      this.options = '';
+      this.selectedOption = 2;
+      this.new = this.optionsProv.length;
+      console.log(this.new)
+    }
+    /*if(this.options != ''){
+      this.optionsProv.push({
+          idOpcion: this.optionsProv.length + 1,
+        opcion: this.options,
+        correcta: this.selectedOption,
+
     });
+      console.log(this.optionsProv)
+      this.options = '';
+      this.selectedOption = 2;
+      this.new = this.optionsProv.length;
+      console.log(this.new)
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tienes que completar la información de la opción anterior para poder agregar una nueva.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    }*/
+    /* const opcion = document.querySelectorAll('.opcion');
+     var first = opcion[0];
+     const cloneopcion = first.cloneNode(true) as HTMLDivElement;
+     this.i++;
+     cloneopcion.setAttribute("id", "opcion" + this.i);
+     document.querySelector(".pregunta").appendChild(cloneopcion);
+     const buttonremove = document.querySelectorAll('.remove');
+     buttonremove.forEach(btn => {
+       btn.addEventListener('click', this.removeOpcion)
+     });*/
     /*var pregunta =document.querySelector('.opcion');
     const cloneopcion = pregunta.cloneNode(true) as HTMLDivElement;
     document.querySelector('.pregunta').appendChild(cloneopcion);
@@ -679,28 +1097,28 @@ export class ExamenesComponent implements OnInit {
           document.getElementById(this.id).appendChild(opcionclon);
         }*/
 
-        /*var primerTitulo = opcion[0] as HTMLDivElement;
-        console.log(primerTitulo)
-        //var first = opcion[0];
-        //console.log(first)
-        /*const cloneopcion = primerTitulo.cloneNode(true) as HTMLDivElement;
+    /*var primerTitulo = opcion[0] as HTMLDivElement;
+    console.log(primerTitulo)
+    //var first = opcion[0];
+    //console.log(first)
+    /*const cloneopcion = primerTitulo.cloneNode(true) as HTMLDivElement;
+    document.getElementById(this.id).appendChild(cloneopcion);
+    //console.log(opcion)
+    /*for(var i=0;i<opcion.length;i++)
+    {
+      opcion[i].addEventListener("click", function($event)
+      {
+        //n++;
+        var removeid= document.getElementById(this.id);
+        console.log(removeid)
+        /*const cloneopcion = removeid.cloneNode(true) as HTMLDivElement;
+        cloneopcion.setAttribute("id", "opcion");
         document.getElementById(this.id).appendChild(cloneopcion);
-        //console.log(opcion)
-        /*for(var i=0;i<opcion.length;i++)
-        {
-          opcion[i].addEventListener("click", function($event)
-          {
-            //n++;
-            var removeid= document.getElementById(this.id);
-            console.log(removeid)
-            /*const cloneopcion = removeid.cloneNode(true) as HTMLDivElement;
-            cloneopcion.setAttribute("id", "opcion");
-            document.getElementById(this.id).appendChild(cloneopcion);
-          });
-        }
-        $event.preventDefault();
       });
-    }*/
+    }
+    $event.preventDefault();
+  });
+}*/
     //console.log("Clonado");
     /*const opcion = document.querySelectorAll('.opcion');
     console.log(opcion)
@@ -750,7 +1168,53 @@ export class ExamenesComponent implements OnInit {
     }*/
 
   }
-  public remove(): void {}
+
+  selectFile(event) {
+    console.log(event.target.value)
+    var files = event.target.files;
+    var file = files[0];
+    this.onImage = 1;
+
+    if (files && file) {
+      var reader = new FileReader();
+
+      reader.onload = this.handleFile.bind(this);
+
+      reader.readAsBinaryString(file);
+    }
+    //console.log(event.target.files, event.target.files[0]);
+    //this.image = event.target.files[0];
+    /*let me = this;
+ let file = event.target.files[0];
+ let reader = new FileReader();
+ reader.readAsDataURL(file);
+ reader.onload = function () {
+   //me.modelvalue = reader.result;
+   console.log(reader.result);
+    me.image = reader.result;
+    console.log(me.image);
+  
+ };
+ reader.onerror = function (error) {
+   console.log('Error: ', error);
+ };*/
+
+  }
+
+  handleFile(event) {
+    var binaryString = event.target.result;
+    this.image = window.btoa(binaryString);
+    console.log(this.image, window.btoa(binaryString));
+  }
+
+
+  changeOption(type: any, search?: any) {
+    //console.log(type, this.teacherSelected, this.groupSelected);
+
+
+  }
+
+  public remove(): void { }
   //remove opcion Examenes
   public removeOpcion(): void {
     var test = document.querySelectorAll('.opcion')

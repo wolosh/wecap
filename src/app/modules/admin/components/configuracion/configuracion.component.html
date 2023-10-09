@@ -14,15 +14,15 @@
                         <label class="text13 txt-blue mb-3">Personalización</label>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Logo (380*65)</label>
-                            <input class="input3" type="file" id="formFile">
+                            <input class="input3" type="file" id="formFile" accept="image/png,image/jpeg,image/jpg" (change)="personalizarFile($event, 'logo')">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Fondo (1920*1280)</label>
-                            <input class="input3" type="file" id="formFile">
+                            <input class="input3" type="file" id="formFile" accept="image/png,image/jpeg,image/jpg" (change)="personalizarFile($event, 'fondo')">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Fondo por defecto de certificado (1920*1280)</label>
-                            <input class="input3" type="file" id="formFile">
+                            <input class="input3" type="file" id="formFile" accept="image/png,image/jpeg,image/jpg" (change)="personalizarFile($event, 'certificado')">
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color del texto menú principal</label>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color 1 de botón</label>
-                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" formControlName="boton1">
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" (change)="prueba()" formControlName="boton1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color 2 de botón</label>
@@ -42,15 +42,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Vista previa botón</label>
-                            <button  id="background-change" class="botondrop bg-yellow w-85 d-block">Botón ejemplo</button>
+                            <button  id="background-change" class="botondrop bg-change w-85 d-block" disabled>Botón ejemplo</button>
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Correo electrónico de notificaciones</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="notificacionEmail">
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color cabecera y pie de página</label>
-                            <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#EBC81C" title="Choose your color">
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" formControlName="col_head_foot">
                         </div>
                         <!--<label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Color cabecera y pie de página</label>
                         <div class="form-check form-check-inline">
@@ -65,12 +65,12 @@
                         <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Me gusta y no me gusta en videos</label>
                         <div class="form-check form-check-inline mb-3">
                             <label class="text10 txt-gris2" for="inlineRadio1">Activado</label>
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" [ngModelOptions]="{standalone: true}" [(ngModel)]="like" value="1" (change)="changeActive($event, 'like')">
                         </div>
                         <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Comentarios en videos</label>
                         <div class="form-check form-check-inline mb-3">
                             <label class="text10 txt-gris2" for="inlineRadio1">Activado</label>
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions2" id="inlineRadio2" [ngModelOptions]="{standalone: true}" [(ngModel)]="coment" value="1" (change)="changeActive($event, 'comentario')">
                         </div>
                         <div>
                             <label class="text13 txt-blue mt-5 mb-3">Redes sociales: (URL completa)</label>
@@ -78,36 +78,36 @@
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Facebook:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="facebook">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Instagram:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="instagram">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Twitter:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="twitter">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">YouTube:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="youtube">
                         </div>
                         <label class="text13 txt-blue mt-5 mb-3">Correo:</label>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Host:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="host">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Username:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Contraseña:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="contraseña">
                         </div>
                         <div class="row">
                             <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="prueba()">Guardar</button>
                             </div>
                         </div>
                     </form>

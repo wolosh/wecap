@@ -4,7 +4,8 @@
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-            type="button" role="tab" aria-controls="nav-home" aria-selected="true" (click)="onClickTab('courses')">Cursos</button>
+            type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+            (click)="onClickTab('courses')">Cursos</button>
           <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
             role="tab" aria-controls="nav-profile" aria-selected="false" (click)="onClickTab('mat')">Materias</button>
           <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
@@ -196,7 +197,8 @@
                 <tbody id="modulos">
                   <tr *ngFor="let module of allModules">
                     <th scope="row">{{module.title}}</th>
-                    <td><button class="boton2" (click)="changeViewModulo('editm', module.title, module.idModule)">Editar</button></td>
+                    <td><button class="boton2"
+                        (click)="changeViewModulo('editm', module.title, module.idModule)">Editar</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -206,8 +208,7 @@
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
               </div>
-            </div-->
-
+            </div>
 
             <!---->
             <!------Diploma--->
@@ -257,16 +258,7 @@
           </div>
           <!--Editar modulo--->
           <div *ngIf="viewE == 1">
-            <div class="row mt-3 mb-3">
-              <div class="col-lg-6 ">
-                <label class="text3 txt-blue2">Editar módulo</label>
-              </div>
-              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewModulo('back')">
-                  <i class="fas fa-reply"></i>
-                </button>
-              </div>
-            </div>
+            <label class="text3 txt-blue2 mt-3">Editar módulo</label>
             <hr class="w-100">
             <form [formGroup]="formModulo">
               <div class="row mt-3 mb-3 d-flex align-items-center">
@@ -314,18 +306,16 @@
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
-                  <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono"/>
-                  <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{this.imgIcono}}" alt="imgIcono"/>
+                  <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono" />
+                  <img *ngIf="this.imgIcono != ''" class="imgPreview"
+                    src="{{helpers.domain}}/profile_pic/{{ this.imgIcono }}" alt="imgIcono" />
                   <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
                   <input type="file" class="input3" id="icono" (change)="fileIcono($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
-                  <img *ngIf="this.imgTermina == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTermina"/>
-                  <img *ngIf="this.imgTermina != ''" class="imgPreview" src="{{this.imgTermina}}" alt="imgTermina"/>
-                  <!--img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'"  alt="imgTermina"-->
-                  <input type="file" class="input3" id="medallat"
-                  (change)="fileTermina($event)">
+                  <img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'" alt="imgTermina">
+                  <input type="file" class="input3" id="medallat" (change)="fileTermina($event)">
                 </div>
                 <div class="col-6 col-lg-2">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
@@ -334,27 +324,23 @@
               </div>
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto (opcional)</label>
-                  <img *ngIf="this.imgScore == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgScore"/>
-                  <img *ngIf="this.imgScore != ''" class="imgPreview" src="{{this.imgScore}}" alt="imgScore"/>
-                  <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'"  alt="imgScore"-->
-                  <input type="file" class="input3" id="medallap"
-                  (change)="fileScore($event)">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto
+                    (opcional)</label>
+                  <img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore">
+                  <input type="file" class="input3" id="medallap" (change)="fileScore($event)">
                 </div>
                 <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo (opcional)</label>
-                  <img *ngIf="this.imgTiempo == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTiempo"/>
-                  <img *ngIf="this.imgTiempo != ''" class="imgPreview" src="{{this.imgTiempo}}" alt="imgTiempo"/>
-                  <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'"  alt="imgTiempo"-->
-                  <input type="file" class="input3" id="medallapt"
-                  (change)="fileTiempo($event)">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo
+                    (opcional)</label>
+                  <img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo">
+                  <input type="file" class="input3" id="medallapt" (change)="fileTiempo($event)">
                 </div>
               </div>
             </form>
 
             <!---Temas--->
             <label class="text3 txt-blue2 mt-3">Temas</label>
-            <!--label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label-->
+            <label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label>
             <hr class="w-100">
             <div class="table-responsive">
               <table class="table striped w-100">
@@ -367,83 +353,58 @@
                 <tbody id="temas">
                   <tr *ngFor="let tema of alltemas">
                     <th scope="row">{{tema.title}}</th>
-                    <td><button class="boton2" (click)="changeViewTemas('editT', tema.title)">Editar</button></td>
+                    <td><button class="boton2" (click)="changeViewModulo('editm', tema.title)">Editar</button></td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <!--div class="row">
+            <div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
               </div>
-            </div-->
+            </div>
           </div>
           <!---Editar tema-->
-          <div *ngIf="viewTemasE == 1">
-            <div class="row mt-3 mb-3">
-              <div class="col-lg-6 ">
-                <label class="text3 txt-blue2">Editar tema</label>
+          <div class="d-none">
+            <label class="text3 txt-blue2 mt-3">Editar tema</label>
+            <hr class="w-100">
+            <div class="row mt-3 mb-3 d-flex align-items-center">
+              <div class="col-12 col-lg-3">
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
               </div>
-              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('back')">
-                  <i class="fas fa-reply"></i>
-                </button>
+              <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+              </div>
+              <div class="col-6 col-md-3 col-lg-2">
+                <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
+              </div>
+              <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0">
+                <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
               </div>
             </div>
-            <hr class="w-100">
-            <form [formGroup]="formTemas">
-              <div class="row mt-3 mb-3 d-flex align-items-center">
-                <div class="col-12 col-lg-3">
-                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
-                </div>
-                <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
-                </div>
-                <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
-                </div>
+            <div class="row mt-3 mb-3">
+              <div class="col-12 col-lg-4 mb-3">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
+                <img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgTema">
+                <input type="file" class="input3" id="medallapt" (change)="fileTema($event)">
               </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
-                <input type="text" class="input3" formControlName="title">
+              <div class="col-12 col-lg-4">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
+                <img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV">
+                <input type="file" class="input3" id="medallapt" (change)="fileTemaV($event)">
               </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
-                <textarea class="input3" id="floatingTextarea2" style="height: 100px"
-                  formControlName="descripcion"></textarea>
+            </div>
+            <div class="row mt-3 mb-3">
+              <div class="col-12 col-lg-4 mb-3">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
+                <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".srt">
               </div>
-              <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-4 mb-3">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
-                  <img *ngIf="this.imgTema == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTema"/>
-                  <img *ngIf="this.imgTema != ''" class="imgPreview" src="{{this.imgTema}}" alt="imgTema"/>
-                  <!--img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'"  alt="imgTema"-->
-                  <input type="file" class="input3" id="medallapt"
-                  (change)="fileTema($event)">
-                </div>
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
-                  <img *ngIf="this.imgTemaV == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTemaV"/>
-                  <img *ngIf="this.imgTemaV != ''" class="imgPreview" src="{{this.imgTemaV}}" alt="imgTemaV"/>
-                  <!--img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'"  alt="imgTemaV"-->
-                  <input type="file" class="input3" id="medallapt"
-                  (change)="fileTemaV($event)">
-                </div>
+              <div class="col-12 col-lg-4">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube,
+                  vimeo o PDF (previamente subido a medios))</label>
+                <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
               </div>
-              <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-4 mb-3">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
-                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".srt">
-                </div>
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube, vimeo o PDF (previamente subido a medios))</label>
-                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
 
 
@@ -478,25 +439,27 @@
             </div>
             <div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeViewMat(1)">Agregar materia</button>
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeViewMat(1)">Agregar
+                  materia</button>
               </div>
             </div>
           </div>
 
           <!------Agregar materia--->
           <div *ngIf="agMat == 1">
-          <label class="text3 txt-blue2 mt-3">Agregar materia</label>
-          <div class="col-lg-2 offset-lg-4 mt-3">
-            <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewMat(0)">Cancelar</button>
-          </div>
-          <hr class="w-100">
-          <form [formGroup]="formNewMat">
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de la materia</label>
-              <input formControlName="name" type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <label class="text3 txt-blue2 mt-3">Agregar materia</label>
+            <div class="col-lg-2 offset-lg-4 mt-3">
+              <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewMat(0)">Cancelar</button>
             </div>
-            <div class="dropdown">
-              <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+            <hr class="w-100">
+            <form [formGroup]="formNewMat">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de la materia</label>
+                <input formControlName="name" type="text" class="input3" id="exampleInputEmail1"
+                  aria-describedby="emailHelp">
+              </div>
+              <div class="dropdown">
+                <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 Profesor
               </button>
@@ -505,20 +468,20 @@
                 <li><a class="dropdown-item" href="#">Another action</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>-->
-              <select class="botondrop dropdown-toggle" [(ngModel)]="teacherSelected" (change)="changeOption('teacher')"
-                      [ngModelOptions]="{standalone: true}">
-                      <option value="0" hidden>Profesor</option>
-                      <option *ngFor="let teacher of teachers" [value]="teacher.idUser">{{teacher.full_name}}</option>
-                    </select>
-            </div>
-            <div class="row">
-              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addMat()">Guardar</button>
+                <select class="botondrop dropdown-toggle" [(ngModel)]="teacherSelected"
+                  (change)="changeOption('teacher')" [ngModelOptions]="{standalone: true}">
+                  <option value="0" hidden>Profesor</option>
+                  <option *ngFor="let teacher of teachers" [value]="teacher.idUser">{{teacher.full_name}}</option>
+                </select>
               </div>
-            </div>
-          </form>
+              <div class="row">
+                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addMat()">Guardar</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
         <!--TABLA GRUPOS-->
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
           <div *ngIf="this.view == 0">
@@ -536,7 +499,8 @@
                 <tbody>
                   <tr *ngFor="let user of user | paginate: { itemsPerPage: 6, currentPage: pg }">
                     <th scope="row">
-                      <button class="boton4" (click)="changeViewGroups(1, 'modiGroup', user.idUser, user.full_name)" type="button">
+                      <button class="boton4" (click)="changeViewGroups(1, 'modiGroup', user.idUser, user.full_name)"
+                        type="button">
                         {{user.full_name}}
                       </button>
                     </th>
@@ -567,38 +531,42 @@
                   <div class="form-check form-check-inline ps-0 mb-2">
                     <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
                     <input class="form-check-input ms-3" [(ngModel)]="searchSelect" (change)="changeOption('search')"
-                    [ngModelOptions]="{standalone: true}" [value]="1" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                      >
+                      [ngModelOptions]="{standalone: true}" [value]="1" type="radio" name="inlineRadioOptions"
+                      id="inlineRadio1">
                   </div>
                   <div class="form-check form-check-inline ps-0 mb-2">
                     <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
                     <input class="form-check-input ms-3" [(ngModel)]="searchSelect" (change)="changeOption('search')"
-                    [ngModelOptions]="{standalone: true}" [value]="2" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                     >
+                      [ngModelOptions]="{standalone: true}" [value]="2" type="radio" name="inlineRadioOptions"
+                      id="inlineRadio1">
                   </div>
                   <div class="form-check form-check-inline ps-0 mb-2">
                     <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
                     <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                    [(ngModel)]="searchSelect" (change)="changeOption('search')"
-                    [ngModelOptions]="{standalone: true}" [value]="3">
+                      [(ngModel)]="searchSelect" (change)="changeOption('search')" [ngModelOptions]="{standalone: true}"
+                      [value]="3">
                   </div>
                 </div>
                 <div class="col-6 col-md-3 col-lg-2">
                   <button class="botondrop bg-grey2 p-1" (click)="searchUsers('show')">Mostrar todos</button>
                 </div>
                 <div class="col-4 col-md-3 col-lg-2 offset-xl-2 offset-lg-0 offset-md-9 mt-lg-0">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="asignarGrupo()">Guardar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    (click)="asignarGrupo()">Guardar</button>
                 </div>
               </div>
               <div class="mt-3 mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
-                <input type="text" class="input3" id="busqueda" aria-describedby="emailHelp" [ngModelOptions]="{standalone: true}" (ngModelChange)="didModify()" [(ngModel)]="text1">
+                <input type="text" class="input3" id="busqueda" aria-describedby="emailHelp"
+                  [ngModelOptions]="{standalone: true}" (ngModelChange)="didModify()" [(ngModel)]="text1">
               </div>
               <div class="row mt-4 mb-4" *ngIf="this.length != 0">
                 <div class="col-12 col-lg-6">
                   <ul class="list-group">
-                    <li class="list-group-item" *ngFor="let user of searchArray | paginate: { itemsPerPage: 6, currentPage: pgm }">
-                      <input class="form-check-input me-1 float-end" type="checkbox" value="{{user.idUser}}" id="firstCheckbox" (change)="changeValue($event)">
+                    <li class="list-group-item"
+                      *ngFor="let user of searchArray | paginate: { itemsPerPage: 6, currentPage: pgm }">
+                      <input class="form-check-input me-1 float-end" type="checkbox" value="{{user.idUser}}"
+                        id="firstCheckbox" (change)="changeValue($event)">
                       <label class="text13 txt-blue" for="firstCheckbox">{{user.full_name}} </label>
                     </li>
                     <!--<li class="list-group-item">
@@ -630,16 +598,16 @@
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>-->
                 <select class="botondrop dropdown-toggle" [(ngModel)]="groupSelected"
-                      [ngModelOptions]="{standalone: true}">
-                      <option value="0" hidden>Grupo</option>
-                      <option *ngFor="let g of group" [value]="g.id">{{g.nombre_grupo}}</option>
-                    </select>
+                  [ngModelOptions]="{standalone: true}">
+                  <option value="0" hidden>Grupo</option>
+                  <option *ngFor="let g of group" [value]="g.id">{{g.nombre_grupo}}</option>
+                </select>
               </div>
               <div *ngIf="showLength != 0">
-              <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>
+                <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>
 
-              <label class="text7 txt-gris d-block" *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
-            </div>
+                <label class="text7 txt-gris d-block" *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
+              </div>
             </form>
           </div>
           <!------Modificar grupo--->
@@ -670,8 +638,8 @@
                       <li><a class="dropdown-item" href="#">Another action</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>-->
-                    <select class="botondrop dropdown-toggle" [(ngModel)]="groupSelected" (change)="changeOption('group')"
-                      [ngModelOptions]="{standalone: true}">
+                    <select class="botondrop dropdown-toggle" [(ngModel)]="groupSelected"
+                      (change)="changeOption('group')" [ngModelOptions]="{standalone: true}">
                       <option value="0" hidden>Seleccionar grupo</option>
                       <option *ngFor="let group of group" [value]="group.id">{{group.nombre_grupo}}</option>
                       <!--<option value="quids">Más contenido</option>
@@ -681,7 +649,8 @@
                   </div>
                 </div>
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="asignarGrupo()">Modificar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    (click)="asignarGrupo()">Modificar</button>
                 </div>
               </div>
             </form>

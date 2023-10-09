@@ -3,102 +3,141 @@
         <div class="col-12">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Mail</button>
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                        (click)="onClickTab()">Mail</button>
                 </div>
-              </nav>
-              <div class="tab-content mb-5" id="nav-tabContent">
+            </nav>
+            <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <div *ngIf="this.helpers.cursos == 1">
-                    <label class="text3 txt-blue2 mt-3">Correos programados</label>
-                    <hr class="w-100">
-                    <!--Tabla--->
-                    <table id="mails" class="table data striped display responsive nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Asunto</th>
-                                <th>Fechas</th>
-                                <th>Correos</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngFor="let mails of this.mail">
-                            <tr>
-                                <th scope="row"><button type="button" class="boton4" (click)="change(2)">{{mails.asunto}}</button></th>
-                                <td>{{fecha}}</td>
-                                <td>{{correo}}</td>
-                            </tr>
-                            <!--tr>
-                                <th scope="row">asdasdas</th>
-                                <td>09/07/2021, 09/23/2021</td>
-                                <td>felix.velasco@creativesoft.mx</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">asdasdas</th>
-                                <td>09/07/2021, 09/23/2021</td>
-                                <td>felix.velasco@creativesoft.mx</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">asdasdas</th>
-                                <td>09/07/2021, 09/23/2021</td>
-                                <td>felix.velasco@creativesoft.mx</td>
-                            </tr-->
-                        </tbody>
-                    </table>
-                  </div>
+                    <div *ngIf="this.viewMail == 0">
+                        <label class="text3 txt-blue2 mt-3">Correos programados</label>
+                        <hr class="w-100">
+                        <!--Tabla--->
+                        <table id="mails" class="table data striped display responsive nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Asunto</th>
+                                    <th>Fechas</th>
+                                    <th>Correos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let mails of this.mail | paginate: { itemsPerPage: 6, currentPage: p}; let i=index">
+                                    <th scope="row"><button type="button" class="boton4"
+                                            (click)="changeViewMail(1, mails.id)">{{mails.asunto}}</button></th>
+                                    <td>{{fecha[i]}}</td>
+                                    <td>{{correo[i]}}</td>
+                                </tr>
+                            </tbody>
+                            <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+                                nextLabel="Siguiente"></pagination-controls>
+                        </table>
+                    </div>
 
 
                     <!--Conferencias--->
-                    <div *ngIf="this.helpers.cursos == 2">
-                      <label class="text3 txt-blue2 mt-3">Enviar Correo</label>
-                      <hr class="w-100">
-                      <form>
-                          <div class="mb-3">
-                              <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
-                              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                          </div>
-                          <div class="mb-3">
-                              <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
-                              <ckeditor [editor]="Editor" data=""></ckeditor>
-                          </div>
-                          <div class="mb-3">
-                              <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
-                              <input class="input3" type="file" id="formFile">
-                          </div>
-                          <div class="mb-3">
-                              <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona las fechas</label>
-                              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                          </div>
-                          <div class="row">
-                              <div class="col-md-2 col-lg-2">
-                                  <label class="text13 txt-blue">Buscar por:</label>
+                    <div *ngIf="this.viewMail == 1">
+                        <label class="text3 txt-blue2 mt-3">Enviar Correo</label>
+                        <div class="col-lg-2 offset-lg-4 mt-3">
+                            <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewMail(0)">Regresar
+                                a
+                                Listado</button>
+                        </div>
+                        <hr class="w-100">
+                        <form [formGroup]="formMail">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
+                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    formControlName="titulo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
+                                <ckeditor [editor]="Editor" data="" formControlName="cuerpo"></ckeditor>
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
+                                <input class="input3" type="file" id="formFile">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona las
+                                    fechas</label>
+                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    formControlName="fechas">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 col-lg-2">
+                                    <label class="text13 txt-blue">Buscar por:</label>
+                                </div>
+                                <div class="col-md-6 col-lg-5 col-xl-4">
+                                    <div class="form-check form-check-inline ps-0 mb-2">
+                                        <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
+                                        <input class="form-check-input ms-3" [(ngModel)]="searchSelect"
+                                            (change)="changeOption('search')" [ngModelOptions]="{standalone: true}"
+                                            [value]="1" type="radio" name="inlineRadioOptions" id="inlineRadio1">
+                                    </div>
+                                    <div class="form-check form-check-inline ps-0 mb-2">
+                                        <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
+                                        <input class="form-check-input ms-3" [(ngModel)]="searchSelect"
+                                            (change)="changeOption('search')" [ngModelOptions]="{standalone: true}"
+                                            [value]="2" type="radio" name="inlineRadioOptions" id="inlineRadio1">
+                                    </div>
+                                    <div class="form-check form-check-inline ps-0 mb-2">
+                                        <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
+                                        <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio1" [(ngModel)]="searchSelect"
+                                            (change)="changeOption('search')" [ngModelOptions]="{standalone: true}"
+                                            [value]="3">
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 col-lg-2">
+                                    <button class="botondrop bg-grey2 p-1" (click)="searchUsers('show')">Mostrar
+                                        todos</button>
+                                </div>
+                            </div>
+                            <div class="mt-3 mb-3">
+                                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
+                                <input type="text" class="input3" id="busqueda" aria-describedby="emailHelp"
+                                    [ngModelOptions]="{standalone: true}" (ngModelChange)="didModify()"
+                                    [(ngModel)]="text1">
+                            </div>
+                            <div class="row mt-4 mb-4" *ngIf="this.length != 0">
+                                <div class="col-12 col-lg-6">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"
+                                            *ngFor="let user of searchArray | paginate: { itemsPerPage: 6, currentPage: pedit }">
+                                            <input class="form-check-input me-1 float-end" type="checkbox"
+                                                value="{{user.idUser}}" id="firstCheckbox"
+                                                (change)="changeValue($event)">
+                                            <label class="text13 txt-blue" for="firstCheckbox">{{user.full_name}}
+                                            </label>
+                                        </li>
+                                        <!--<li class="list-group-item">
+                                      <input class="form-check-input me-1 float-end" type="checkbox" value="" id="secondCheckbox">
+                                      <label class="text13 txt-blue" for="secondCheckbox">Alejandra</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                      <input class="form-check-input me-1 float-end" type="checkbox" value="" id="thirdCheckbox">
+                                      <label class="text13 txt-blue" for="thirdCheckbox">Alejandra</label>
+                                    </li>-->
+                                    </ul>
+                                </div>
+                                <pagination-controls (pageChange)="pedit = $event" previousLabel="Anterior"
+                                    nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                            <div *ngIf="showLength != 0">
+                                <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>
+                
+                                <label class="text7 txt-gris d-block" *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
                               </div>
-                              <div class="col-md-6 col-lg-5 col-xl-4">
-                                  <div class="form-check form-check-inline ps-0 mb-2">
-                                      <label class="text13 txt-blue float-start" for="inlineRadio1">Nombre</label>
-                                      <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                  </div>
-                                  <div class="form-check form-check-inline ps-0 mb-2">
-                                      <label class="text13 txt-blue float-start" for="inlineRadio1">Area</label>
-                                      <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                  </div>
-                                  <div class="form-check form-check-inline ps-0 mb-2">
-                                      <label class="text13 txt-blue float-start" for="inlineRadio1">Puesto</label>
-                                      <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                  </div>
-                              </div>
-                              <div class="col-md-3 col-lg-2">
-                                  <button class="botondrop bg-grey2 p-1">Mostrar todos</button>
-                              </div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp">
-                          </div>
-                          <div class="row">
-                              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Enviar</button>
-                              </div>
-                          </div>
-                      </form>
+                            <div class="row">
+                                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                                        (click)="send()">Enviar</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
