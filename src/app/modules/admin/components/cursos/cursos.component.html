@@ -198,7 +198,7 @@
                   <tr *ngFor="let module of allModules">
                     <th scope="row">{{module.title}}</th>
                     <td><button class="boton2"
-                        (click)="changeViewModulo('editm', module.title, module.idModule)">Editar</button></td>
+                        (click)="changeViewModulo('editm', module.idModule, module.title)">Editar</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -307,14 +307,15 @@
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
                   <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono" />
-                  <img *ngIf="this.imgIcono != ''" class="imgPreview"
-                    src="{{helpers.domain}}/profile_pic/{{ this.imgIcono }}" alt="imgIcono" />
+                  <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{ this.imgIconoblob }}" alt="imgIcono" />
                   <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
                   <input type="file" class="input3" id="icono" (change)="fileIcono($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
-                  <img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'" alt="imgTermina">
+                  <img *ngIf="this.imgTermina == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTermina" />
+                  <img *ngIf="this.imgTermina != ''" class="imgPreview" src="{{ this.imgTerminablob }}" alt="imgTermina" />
+                  <!--img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'" alt="imgTermina"-->
                   <input type="file" class="input3" id="medallat" (change)="fileTermina($event)">
                 </div>
                 <div class="col-6 col-lg-2">
@@ -326,13 +327,17 @@
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto
                     (opcional)</label>
-                  <img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore">
+                  <img *ngIf="this.imgScore == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgScore" />
+                  <img *ngIf="this.imgScore != ''" class="imgPreview" src="{{ this.imgScoreblob }}" alt="imgScore" />
+                  <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore"-->
                   <input type="file" class="input3" id="medallap" (change)="fileScore($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo
                     (opcional)</label>
-                  <img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo">
+                  <img *ngIf="this.imgTiempo == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTiempo" />
+                  <img *ngIf="this.imgTiempo != ''" class="imgPreview" src="{{ this.imgTiempoblob }}" alt="imgTiempo" />
+                  <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
                   <input type="file" class="input3" id="medallapt" (change)="fileTiempo($event)">
                 </div>
               </div>
@@ -340,7 +345,6 @@
 
             <!---Temas--->
             <label class="text3 txt-blue2 mt-3">Temas</label>
-            <label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label>
             <hr class="w-100">
             <div class="table-responsive">
               <table class="table striped w-100">
@@ -353,7 +357,7 @@
                 <tbody id="temas">
                   <tr *ngFor="let tema of alltemas">
                     <th scope="row">{{tema.title}}</th>
-                    <td><button class="boton2" (click)="changeViewModulo('editm', tema.title)">Editar</button></td>
+                    <td><button class="boton2" (click)="changeViewTemas('editT', tema.title)">Editar</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -365,46 +369,57 @@
             </div>
           </div>
           <!---Editar tema-->
-          <div class="d-none">
-            <label class="text3 txt-blue2 mt-3">Editar tema</label>
-            <hr class="w-100">
-            <div class="row mt-3 mb-3 d-flex align-items-center">
-              <div class="col-12 col-lg-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
+          <div *ngIf="viewTemasE == 1">
+            <form [formGroup]="formTemas">
+              <label class="text3 txt-blue2 mt-3">Editar tema</label>
+              <hr class="w-100">
+              <div class="row mt-3 mb-3 d-flex align-items-center">
+                <div class="col-12 col-lg-3">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
+                </div>
+                <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
+                </div>
+                <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0">
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
+                </div>
               </div>
-              <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
-                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
+                <input type="text" class="input3" formControlName="title">
               </div>
-              <div class="col-6 col-md-3 col-lg-2">
-                <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
+                <textarea class="input3" id="floatingTextarea2" style="height: 100px"
+                  formControlName="descripcion"></textarea>
               </div>
-              <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0">
-                <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
+              <div class="row mt-3 mb-3">
+                <div class="col-12 col-lg-4 mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
+                  <img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgTema">
+                  <input type="file" class="input3" id="medallapt" (change)="fileTema($event)">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
+                  <img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV">
+                  <input type="file" class="input3" id="medallapt" (change)="fileTemaV($event)">
+                </div>
               </div>
-            </div>
-            <div class="row mt-3 mb-3">
-              <div class="col-12 col-lg-4 mb-3">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
-                <img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgTema">
-                <input type="file" class="input3" id="medallapt" (change)="fileTema($event)">
+              <div class="row mt-3 mb-3">
+                <div class="col-12 col-lg-4 mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
+                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".srt">
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube,
+                    vimeo o PDF (previamente subido a medios))</label>
+                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
+                </div>
               </div>
-              <div class="col-12 col-lg-4">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
-                <img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV">
-                <input type="file" class="input3" id="medallapt" (change)="fileTemaV($event)">
-              </div>
-            </div>
-            <div class="row mt-3 mb-3">
-              <div class="col-12 col-lg-4 mb-3">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
-                <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".srt">
-              </div>
-              <div class="col-12 col-lg-4">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube,
-                  vimeo o PDF (previamente subido a medios))</label>
-                <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
-              </div>
-            </div>
+            </form>
           </div>
 
 

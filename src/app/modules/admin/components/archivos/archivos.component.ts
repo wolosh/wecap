@@ -27,6 +27,8 @@ export class ArchivosComponent implements OnInit {
   viewEdit= 1;
   idArch: any;
   formEdit: FormGroup;
+  urls: any;
+  notificarCargaCompleta: any;
 
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private session: SessionService, private formBuilder: FormBuilder) { }
 
@@ -61,7 +63,7 @@ export class ArchivosComponent implements OnInit {
 
   getPage(page: any) {
     this.p = page;
-  } 
+  }
 
 
   files() {
@@ -90,7 +92,7 @@ export class ArchivosComponent implements OnInit {
   selectFiles(event: any, type: any, name?: any, url?: any) {
     console.log(event.target.files, type, name, url, this.cloneIn, this.file);
     if(type == 'archivo'){
-   
+
     }
     console.log(this.file);
   }
@@ -151,24 +153,30 @@ export class ArchivosComponent implements OnInit {
   }
 
   selectFile(event) {
-    //console.log(event.target.value)
-    //console.log(event.target.files, event.target.files[0]);
-    //this.image = event.target.files[0];
-    //console.log(this.image, this.image.name);
-    //this.image = [];
-    for (var i = 0; i < event.target.files.length; i++) {
-      this.image.push(event.target.files[i]);
+    if (event.target.files) {
+      //this.img = event.target.files[0]
+      var filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[i]);
+        reader.onload = (events: any) => {
+          this.urls.push(events.target.result);
+          if (this.urls.length == filesAmount) {
+            this.notificarCargaCompleta.next();
+          }
+        };
+      }
     }
   }
 
   //Crear nuevo curso
   subirMedia() {
     this.image.forEach((value) => {
-      //this.formData.append("img[]", value);
-      this.formData.append("img[]", value, value.name);
+      this.formData.append("img[]", value);
+      //this.formData.append("img[]", value, value.name);
       //formData.append("fieldName", JSON.stringify(testObject));
     });
-    //console.log(this.formData.getAll('img'));
+    console.log(this.formData.getAll('img[]'));
     //console.log(this.formData.getAll('img[]'));
     /*this.formData.append('img',this.image);
     console.log(this.formData.getAll('image'));
