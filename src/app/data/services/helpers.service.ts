@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Data, Router } from '@angular/router';
+import { Buffer } from 'buffer';
+
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +48,13 @@ export class HelpersService {
         }, 900);
       },
     });
+  }
+  public dataUrlToBlob(dataUrl: string): Blob {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    const byteString = Buffer.from(dataUrl, 'base64').toString('utf-8');
+    // separate out the mime component
+    const blob = new Blob([byteString], { type: 'application/octet-stream' });
+    return blob;
   }
 }

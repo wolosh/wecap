@@ -849,13 +849,34 @@ export class CursosComponent implements OnInit {
     }*/
     //console.log(this.showArr);
   }
-
   //Guardar imagen
   fileIcono(event) {
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgIcono = event.target.result;
+        console.log(this.imgIcono)
+        /*let imageBlob = this.helpers.dataUrlToBlob(this.imgIcono);
+        console.log(imageBlob)
+        //declara el archivo que se va a subir
+        let imageFile = new File([imageBlob], 'img', { type: 'image/png' });
+        //console.log(imageFile)
+        //declaramos un arreglo de archivos
+        const fileArray: File[] = [];
+        //agregamos el archivo al arreglo
+        fileArray.push(imageFile);
+        
+        //mostramos una modal de carga
+        /*Swal.fire({
+          title: 'Subiendo imagen',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });*/
+        //llamamos la función uploadFile que se encuentra en el servicio y le pasamos el arreglo de archivos
+        //this.uploadFile(fileArray as unknown as FileList);
+        //console.log(this.imgIcono)
       };
       reader.readAsDataURL(event.target.files[0])
     }
@@ -912,15 +933,15 @@ export class CursosComponent implements OnInit {
     modulo.append('cursoId', this.idCertification);
     modulo.append('title', this.formModulo.value.title);
     modulo.append('descripcion', this.formModulo.value.descripcion);
-    modulo.append('imgIcono',this.imgIcono, this.imgIcono.name);
+    //modulo.append('imgIcono',this.imgIcono, this.imgIcono.name);
     modulo.append('color', this.formModulo.value.color);
-    /*modulo.append(this.imgTermina, this.imgTermina.name);
-    modulo.append(this.imgScore, this.imgScore.name);
+    console.log(modulo.append(this.imgIcono, this.imgIcono.name));
+    /*modulo.append(this.imgScore, this.imgScore.name);
     modulo.append(this.imgTiempo, this.imgTiempo.name);*/
     modulo.append('duracion', this.formModulo.value.duracion);
     modulo.append('score', this.formModulo.value.score);
     modulo.append('hasExam', this.exam);
-    console.log(modulo.getAll('imgIcono'))
+    console.log(modulo.getAll(this.imgIcono))
     //console.log(diploma.getAll('cursoId'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('img'), diploma.getAll('activado'), diploma.getAll('logo'), diploma.get);
     //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
     /*this.session.updateModulo(this.idCertification,modulo, localStorage.getItem('token')).subscribe(
