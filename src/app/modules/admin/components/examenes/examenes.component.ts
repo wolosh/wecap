@@ -14,6 +14,21 @@ import { Title } from '@angular/platform-browser';
 })
 export class ExamenesComponent implements OnInit {
   //n:number=0;
+  /*formModal = this.formBuilder.group({
+    titulo: ([''],[Validators.required]),
+    title: [''],
+    duracion: [''],
+    fechaInicio: [''],
+    fechaFinal: [''],
+  });*/
+
+  formModal = new FormGroup({
+    title: new FormControl('', Validators.required),
+    duracion: new FormControl('', Validators.required),
+    fechaInicio: new FormControl('', Validators.required),
+    fechaFinal: new FormControl('', Validators.required),
+  });
+
   cloneOption: number = 0;
   usersArr: any;
   searchArray: any;
@@ -60,7 +75,8 @@ export class ExamenesComponent implements OnInit {
   backId: any;
   image: any;
   onImage = 0;
-  
+  error = 0;
+
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
 
@@ -254,12 +270,13 @@ export class ExamenesComponent implements OnInit {
             console.log(id, certificacion, this.respaldo);
             this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                if(data.length == 0){
-                  this.none = 0;
+                console.log(data);
+                /*if (data.preguntas.length == 0) {
+                  this.none = 1;
                 } else {
                   this.none = 2;
-                  this.examModule = data;
-                }
+                  this.examModule = data.preguntas;
+                }*/
                 Swal.close();
               }
             );
@@ -315,7 +332,7 @@ export class ExamenesComponent implements OnInit {
         group: [''],
         users: [''],
       });
-    } else {
+    } else if (form == 2) {
       this.formAbiertas = this.formBuilder.group({
         question: [''],
       });
@@ -327,7 +344,7 @@ export class ExamenesComponent implements OnInit {
   users(type: any) {
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         if (type == 'asignature') {
           this.usersArr = data.users;
           this.pas = 1;
@@ -347,7 +364,7 @@ export class ExamenesComponent implements OnInit {
     this.certificaciones = [];
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.certificaciones = data;
         //this.countCert = this.certificaciones.length;
         console.log(this.certificaciones);
@@ -419,9 +436,18 @@ export class ExamenesComponent implements OnInit {
     console.log(this.backupDiagnostic)
     switch (id) {
       case 0:
+        Swal.fire({
+          title: 'Cargando...',
+          html: 'Espera un momento por favor',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+        this.backupDiagnostic = '';
         this.diagnostic = 0;
-        this.questions = [];
         this.certifications();
+          }
+          });
         break;
       case 1:
         this.diagnostic = 1;
@@ -440,11 +466,14 @@ export class ExamenesComponent implements OnInit {
                   this.none = 0;
                 } else {
                   console.log(data);
-                  
+                  if(data.preguntas.length == 0){
+                    this.none = 1;
+                  }else{
                   this.none = 2;
                   //this.questions = data;
                   this.questions = data.preguntas;
                   console.log(data);
+                  }
                 }
                 /*console.log(data, JSON.parse(data.formulario));
                 this.questions = JSON.parse(data.formulario);*/
@@ -605,14 +634,14 @@ export class ExamenesComponent implements OnInit {
             idPregunta: this.questions.length + 1,
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
-            opciones: []
+            respuestas: []
           });
         } else if (question == 'close') {
           json.preguntas.push({
             idPregunta: this.questions.length + 1,
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
-            opciones: this.optionsProv
+            respuestas: this.optionsProv
           });
         }
         console.log(json)
@@ -706,15 +735,47 @@ export class ExamenesComponent implements OnInit {
 
   }
 
-  createExam(id:any, name:any){
+  createExam(id: any, name?: any) {
     console.log(id, name);
-    let nameModule = 'Examen Módulo:' + ' ' + name;
-    console.log(nameModule);
-    let formData = new FormData();
-    formData.append('idModulo', id);
-    formData.append('title', nameModule);
+      console.log(this.formModal.value);
+if(this.formModal.valid){
+  this.error = 0;
+      let formData = new FormData();
+      formData.append('idModulo', id);
+      formData.append('title', this.formModal.value.title);
+      formData.append('duracion', this.formModal.value.duracion);
+      formData.append('fechaInicio', this.formModal.value.fechaInicio);
+      formData.append('fechaFinal', this.formModal.value.fechaFinal);
 
-    console.log(`Hola ${id} ${name}`)
+      console.log(formData.getAll('idModulo'), formData.getAll('title'), formData.getAll('duracion'), formData.getAll('fechaInicio'), formData.getAll('fechaFinal'));
+
+      this.session.updateCreateExamen(formData, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          Swal.fire({
+            title: '¡Creado con exito!',
+            text: 'El examen ha sido creado con exito, ahora puedes comenzar a agregar preguntas en los botones de la parte superior.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.changeExam(2, id);
+            }
+          });
+        }
+      );
+} else {
+  this.error=1;
+}
+      
+      /*let nameModule = 'Examen Módulo:' + ' ' + name;
+      console.log(nameModule);
+      let formData = new FormData();
+      formData.append('idModulo', id);
+      formData.append('title', nameModule);
+  
+      console.log(`Hola ${id} ${name}`)*/
+    
   }
 
   createDiagnostic(id: any) {

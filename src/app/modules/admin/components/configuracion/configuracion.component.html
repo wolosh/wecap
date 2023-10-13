@@ -34,11 +34,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color 1 de botón</label>
-                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" (change)="prueba()" formControlName="boton1">
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" (change)="prueba()" formControlName="boton1Color1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color 2 de botón</label>
-                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" formControlName="boton2">
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" formControlName="boton1Color2">
                         </div>
                         <div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Vista previa botón</label>
@@ -107,7 +107,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="prueba()">Guardar</button>
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveConfiguration()">Guardar</button>
                             </div>
                         </div>
                     </form>

@@ -323,5 +323,39 @@ export class SessionService {
     );
   }
 
+  public updateCreateExamen(form, token) {
+    //console.log(form)
+    console.log(form,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}updateExamen`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public updateConfiguration(form, token) {
+    //console.log(form)
+    console.log(form,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}updateConfig`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
 }
 

@@ -5,6 +5,7 @@ import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
+import { config } from 'rxjs';
 
 
 @Component({
@@ -54,8 +55,8 @@ export class ConfiguracionComponent implements OnInit {
     this.formConfiguracion = this.formBuilder.group({
       colorText: ['', [Validators.required]],
       txt_sesionUsuario: ['', [Validators.required]],
-      boton1: ['', [Validators.required]],
-      boton2: ['', [Validators.required]],
+      boton1Color1: ['', [Validators.required]],
+      boton1Color2: ['', [Validators.required]],
       notificacionEmail: ['', [Validators.required]],
       col_head_foot: ['', [Validators.required]],
       isLike: ['', [Validators.required]],
@@ -78,8 +79,8 @@ export class ConfiguracionComponent implements OnInit {
         this.formConfiguracion.patchValue({
           colorText: data.colorText,
           txt_sesionUsuario: data.txt_sesionUsuario,
-          boton1: data.boton1Color1,
-          boton2: data.boton1Color2,
+          boton1Color1: data.boton1Color1,
+          boton1Color2: data.boton1Color2,
           notificacionEmail: data.notificationEmail,
           col_head_foot: data.col_head_foot,
           isLike: data.isLike,
@@ -149,7 +150,7 @@ export class ConfiguracionComponent implements OnInit {
     //(event.target.value, type);
     let w, h, logo, firma;
     if (event.target.files !== 0) {
-      //console.log(event.target.files, event.target.files[0]);
+      console.log(event.target.files, event.target.files[0]);
       var _URL = window.URL || window.webkitURL;
       var img = new Image();
       img.src = _URL.createObjectURL(event.target.files[0]);
@@ -161,7 +162,7 @@ export class ConfiguracionComponent implements OnInit {
           //console.log(w, h);
           if (w <= 380 && h <= 65) {
             this.logo = event.target.files[0];
-            //console.log(this.logo);
+            console.log(this.logo);
           } else {
             Swal.fire({
               title: '¡Error!',
@@ -176,9 +177,11 @@ export class ConfiguracionComponent implements OnInit {
             switch(type){
               case 'fondo':
                 this.fondo = event.target.files[0];
+                console.log(this.fondo);
                 break;
               case 'certificado':
                 this.certificado = event.target.files[0];
+                console.log(this.certificado);
                 break;
             }
             //console.log(this.firma);
@@ -211,6 +214,60 @@ export class ConfiguracionComponent implements OnInit {
 
 
     //console.log(this.logo, this.firma);
+  }
+
+  saveConfiguration(){
+    let configuracion = new FormData();
+
+    console.log(this.formConfiguracion.value, this.logo, this.fondo, this.certificado);
+
+    if(this.logo != undefined){
+      configuracion.append('logo', this.logo, this.logo.name);
+    }
+    if(this.fondo != undefined){
+      configuracion.append('fondo', this.fondo, this.fondo.name);
+    }
+    if(this.certificado != undefined){
+      configuracion.append('certificado', this.certificado, this.certificado.name);
+    }
+    configuracion.append('colorText', this.formConfiguracion.controls['colorText'].value);
+    configuracion.append('txt_sesionUsuario', this.formConfiguracion.controls['txt_sesionUsuario'].value);
+    configuracion.append('boton1Color1', this.formConfiguracion.controls['boton1Color1'].value);
+    configuracion.append('boton1Color2', this.formConfiguracion.controls['boton1Color2'].value);
+    configuracion.append('notificationEmail', this.formConfiguracion.controls['notificacionEmail'].value);
+    configuracion.append('col_head_foot', this.formConfiguracion.controls['col_head_foot'].value);
+    configuracion.append('isLike', this.formConfiguracion.controls['isLike'].value);
+    configuracion.append('isComentario', this.formConfiguracion.controls['isComentario'].value);
+    configuracion.append('red_facebook', this.formConfiguracion.controls['facebook'].value);
+    configuracion.append('red_instagram', this.formConfiguracion.controls['instagram'].value);
+    configuracion.append('red_twitter', this.formConfiguracion.controls['twitter'].value);
+    configuracion.append('red_youtube', this.formConfiguracion.controls['youtube'].value);
+    configuracion.append('host', this.formConfiguracion.controls['host'].value);
+    configuracion.append('username', this.formConfiguracion.controls['username'].value);
+    configuracion.append('password', this.formConfiguracion.controls['contraseña'].value);
+
+    console.log(configuracion.getAll('logo'), configuracion.getAll('fondo'), configuracion.getAll('certificado'));
+
+    this.session.updateConfiguration(configuracion, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Se ha actualizado la configuración.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        });
+        this.getConfiguration();
+      }, (error: any) => {
+        console.log(error);
+        Swal.fire({
+          title: '¡Error!',
+          text: 'No se ha podido actualizar la configuración.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        });
+      }
+    );
   }
 
 }

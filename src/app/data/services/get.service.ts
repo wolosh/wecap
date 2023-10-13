@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SessionService } from './session.service';
+import { Observable, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,12 @@ export class GetService {
     console.log(headers)
     return this.http.get(this.session.API + 'certifications', {
       headers,
-    });
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
   }
 
   getUsers(token:any) {
@@ -36,7 +42,12 @@ export class GetService {
     //console.log(headers)
     return this.http.get(this.session.API + 'users', {
       headers,
-    });
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
   }
 
   getMaterias(token:any) {
@@ -169,7 +180,7 @@ export class GetService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get(`${this.session.API}preguntas/${id}`, {
+    return this.http.get(`${this.session.API}examen/${id}`, {
       headers,
     })
   }
