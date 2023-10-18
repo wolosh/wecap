@@ -6,12 +6,14 @@ import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuar
 import { TemasComponent } from './components/temas/temas.component';
 import { TestComponent } from './components/test/test.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { SeccionComponent } from './components/seccion/seccion.component';
 
 const routes: Routes = [
   {path: "cmtemplate", component: CursosModulosComponent}, 
   {path: "perfil", component: PerfilUsuarioComponent},
   {path: "temas", component: TemasComponent},
-  {path: "test", component: TestComponent}
+  {path: "test", component: TestComponent},
+  {path: "seccion", component: SeccionComponent}
 ];
 
 @NgModule({
@@ -19,7 +21,8 @@ const routes: Routes = [
     CursosModulosComponent,
     PerfilUsuarioComponent,
     TemasComponent,
-    TestComponent
+    TestComponent,
+    SeccionComponent
   ],
   imports: [
     CarouselModule,
