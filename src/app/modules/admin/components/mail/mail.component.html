@@ -12,6 +12,12 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div *ngIf="this.viewMail == 0">
                         <label class="text3 txt-blue2 mt-3">Correos programados</label>
+                        <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
+                            <button class="boton bg-blue w-100 p-1 p-md-2">
+                                <img src="assets/img/agregar.svg" alt="" (click)="changeViewMail(1, 'crear')">
+                                Agregar correo nuevo
+                            </button>
+                        </div>
                         <hr class="w-100">
                         <!--Tabla--->
                         <table id="mails" class="table data striped display responsive nowrap" style="width:100%">
@@ -26,7 +32,7 @@
                                 <tr
                                     *ngFor="let mails of this.mail | paginate: { itemsPerPage: 6, currentPage: p}; let i=index">
                                     <th scope="row"><button type="button" class="boton4"
-                                            (click)="changeViewMail(1, mails.id)">{{mails.asunto}}</button></th>
+                                            (click)="changeViewMail(1, 'editar', mails.id)">{{mails.asunto}}</button></th>
                                     <td>{{fecha[i]}}</td>
                                     <td>{{correo[i]}}</td>
                                 </tr>
@@ -54,7 +60,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
-                                <ckeditor [editor]="Editor" data="" formControlName="cuerpo"></ckeditor>
+                                <ckeditor [editor]="Editor" data=""  (ready)="onReady($event)" formControlName="cuerpo"></ckeditor>
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>

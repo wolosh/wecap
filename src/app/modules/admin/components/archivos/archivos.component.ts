@@ -24,11 +24,14 @@ export class ArchivosComponent implements OnInit {
   file: any[] = [];
   f: object = {};
   p: any;
-  viewEdit= 1;
+  viewEdit = 0;
   idArch: any;
   formEdit: FormGroup;
   urls: any;
   notificarCargaCompleta: any;
+  //mostrar editar about
+  showDescription = false;
+  description: any;
 
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private session: SessionService, private formBuilder: FormBuilder) { }
 
@@ -38,25 +41,26 @@ export class ArchivosComponent implements OnInit {
       this.helpers.type = localStorage.getItem('type');
       //console.log(localStorage.getItem('token'));
       this.files();
-      //this.startForm(1);
+      this.startForm(1);
       //this.allMedia();
       this.helpers.cursos = 1;
       //this.startForm(1);
     } else {
-      Swal.fire({
-        title: '¡Error!',
-        text: 'No tienes permiso para acceder a esta página.',
-        icon: 'error',
-        confirmButtonColor: '#015287',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (this.helpers.type == '4') {
+      if (localStorage.getItem('type') == '4') {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'No tienes permiso para acceder a esta página.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
-          } else if (localStorage.getItem('token') == null) {
-            this.route.navigate(['']);
           }
-        }
-      });
+        });
+      } else if(localStorage.getItem('token') == null){
+        this.route.navigate(['/']);
+      }
     }
   }
 
@@ -73,17 +77,23 @@ export class ArchivosComponent implements OnInit {
         if (data.message == 'Consulta correcta') {
           console.log(data.files);
           if (data.files.description != null) {
+            this.showDescription = false;
+            this.description = data.files.description;
             this.formArchivos.controls['descripcion'].setValue(data.files.description);
             this.formData.append("descripcion", data.files.description);
+          } else {
+            this.showDescription = true
+            this.formArchivos.controls['descripcion'].setValue('Agrega una descripción para los usuarios');
           }
           console.log(this.formArchivos.value);
           this.filesArr = data.files.files;
           console.log(this.filesArr)
-          this.filesArr.forEach((value) => {
+          /*this.filesArr.forEach((value) => {
             console.log(value);
             this.file.push({[value.name]: value.url});
           });
-          console.log(this.file);
+          console.log(this.file);*/
+          Swal.close();
         }
       }
     );
@@ -91,26 +101,36 @@ export class ArchivosComponent implements OnInit {
 
   selectFiles(event: any, type: any, name?: any, url?: any) {
     console.log(event.target.files, type, name, url, this.cloneIn, this.file);
-    if(type == 'archivo'){
+    if (type == 'archivo') {
 
     }
     console.log(this.file);
   }
 
   onClickTab(type: any) {
-    console.log(type)
-    switch (type) {
-      case 'files':
-        this.file = [];
-        this.startForm(1);
-        this.files();
-        break;
-      case 'media':
-        this.viewFiles = 1;
-        this.allMedia();
-        this.startForm(2);
-        break;
-    }
+    Swal.fire({
+      title: 'Cargando...',
+      html: 'Espera un momento por favor',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        console.log(type)
+        this.filesArr = [];
+        switch (type) {
+          case 'files':
+            this.startForm(1);
+            this.files();
+            break;
+          case 'media':
+            this.viewFiles = 1;
+            this.allMedia();
+            this.startForm(2);
+            break;
+        }
+      }
+    });
+
   }
 
   allMedia() {
@@ -241,13 +261,15 @@ export class ArchivosComponent implements OnInit {
       });
     }
   }
-  changeViewArchivos(view: any, name?: any, id?:any ) {
+  changeViewArchivos(view: any, name?: any, id?: any) {
     //console.log(view, name, id);
     switch (view) {
       case 'back':
         this.viewEdit = 0;
+        this.startForm(1);
+        this.files();
         break;
-      case 'editArch':
+      case 'añadir':
         this.viewEdit = 2;
         //this.promos;
         for (let item of this.filesArr) {
@@ -262,8 +284,14 @@ export class ArchivosComponent implements OnInit {
         }
     }
   }
+
+  updateFiles(){
+    console.log(this.formArchivos.value);
+
+  }
 }
-//cambia la vista a Temas
+
+
 
 /*const buttons = Array.from(document.getElementsByClassName('btn'));
 

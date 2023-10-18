@@ -266,7 +266,7 @@
                                         (click)="editCourse(curso.idCertification, 'editar')">Modificar</button>
                                 </div>
                                 <div class="col-4 col-md-2 order-2 order-md-3">
-                                    <button class="botondrop bg-grey2 p-1 w-100"
+                                    <button class="botondrop changeExExbg-grey2 p-1 w-100"
                                         (click)="editCourse(curso.idCertification, 'quitar')">Quitar</button>
                                 </div>
                             </div>
@@ -357,7 +357,7 @@
                         <hr class="w-100">
                         <!--Tabla de examenes--->
                         <div class="table-responsive" *ngIf="this.none == 0">
-                            Aún no cuentas con un diagnostico, crea uno presionando el botón "Crear".
+                            Aún no cuentas con un examen, crea uno presionando el botón "Crear".
                         </div>
                         <div class="table-responsive" *ngIf="this.none == 1">
                             Ya puedes agregar preguntas en los botones de la parte superior, pueden ser "Abiertas" o de
@@ -383,10 +383,10 @@
                                                     class="boton4">{{question.pregunta}}</button></th>
                                             <!--<td>{{question.respuesta}}</td>
                                             <td>{{question.abierta}}</td>-->
-                                            <td *ngIf="question.opciones.length != 0">Opción multiple</td>
+                                            <td *ngIf="question.opciones != 0">Opción multiple</td>
                                             <td *ngIf="question.opciones == 0">Abierta</td>
                                             <td><button class="boton2 removeArchivos"
-                                                    (click)="removeQuestion(question.idPregunta)"><img
+                                                    (click)="removeQuestion(question.idPregunta, 'diagnostic')"><img
                                                         src="assets/img/close.svg" alt="close"></button></td>
                                         </tr>
                                     </tbody>
@@ -492,7 +492,7 @@
                             </div>
                             <div class="col-6 col-md-4 col-lg-2 offset-lg-5">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestions('open')">
-                                    Guardar
+                                    Guardar pregunta
                                 </button>
                             </div>
                             <div class="col-6 col-md-4 col-lg-1">
@@ -522,7 +522,7 @@
                             </div>
                             <div class="col-6 col-md-5 col-lg-2 offset-lg-4">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestions('close')">
-                                    Guardar
+                                    Guardar pregunta
                                 </button>
                             </div>
                             <div class="col-6 col-md-4 col-lg-1">
@@ -580,10 +580,13 @@
                                                 value="{{option.opcion}}" disabled>
                                         </div>
                                         <div class="col-4 d-flex align-items-center">
-                                            <!--<input type="file" class="file" name="avatar"
-                                                accept="image/png, image/jpeg" title="Añadir una imagen"/>-->
+                                            <div *ngIf="option.img != null">
+                                            <input id="fileDiag" type="file" class="file" name="avatar"
+                                                accept="image/png, image/jpeg" title="Imagen añadida" disabled/>
+                                                <label>Imagen agregada</label>
+                                            </div>
                                             <button class="boton2 remove" title="Eliminar opción"
-                                                (click)="removeQuestion(option.idOpcion, 'new')"><img
+                                                (click)="removeQuestion(option.idOpcion, 'option', 'new')"><img
                                                     src="assets/img/quitarpreg.svg" alt=""></button>
                                         </div>
                                     </div>
@@ -624,8 +627,7 @@
                                     </div>
                                     <div class="col-2">
                                         <button class="boton bg-blue w-100 p-1 p-md-2 clone"
-                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt="">Siguiente
-                                            opción</button>
+                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt="">Guardar opción</button>
                                     </div>
                                 </div>
                             </div>
@@ -721,7 +723,7 @@
                                     Crear
                                 </button>
                             </div>
-                            <div *ngIf="this.none == 2">
+                            <div *ngIf="this.none == 1 || this.none == 2">
                                 <div class="col-8 col-md-4 col-lg-3">
                                     <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
                                         <img src="assets/img/agregar.svg" alt="">
@@ -782,13 +784,14 @@
                                     </thead>
                                     <tbody>
                                         <tr
-                                            *ngFor="let pregunta of examModule | paginate: { itemsPerPage: 6, currentPage: pe}">
+                                            *ngFor="let pregunta of this.examModule | paginate: { itemsPerPage: 6, currentPage: pe}">
                                             <th scope="row">{{pregunta.question}}</th>
                                             <!--<td >{{pregunta.respuestas.option}}</td>-->
-                                            <td *ngIf="pregunta.respuestas.length != 0">Opción multiple</td>
+                                            <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
                                             <td *ngIf="pregunta.respuestas == 0">Abierta</td>
-                                            <td><button class="boton2 removeArchivos"><img src="assets/img/close.svg"
-                                                        alt="close"></button></td>
+                                                        <td><button class="boton2 removeArchivos"
+                                                            (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
+                                                                src="assets/img/close.svg" alt="close"></button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -876,11 +879,20 @@
                     <div *ngIf="this.exam == 3">
                         <label class="text3 txt-blue2 mt-3">Usuarios</label>
                         <label class="text6 txt-gris mt-3 ms-2">Participantes en el modulo: {{this.moduloTitle}}</label>
-                        <button class="boton bg-blue mx-auto d-block w-100 p-2"
-                            (click)="changeExam(1,this.respaldo)">Regresar a modulos</button>
+                        <div class="col-6 col-lg-1">
+                            <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
+                                (click)="changeExam(1, this.respaldo1)">
+                                <i class="fas fa-reply"></i>
+                            </button>
+                        </div>
+                        <!--<button class="boton bg-blue mx-auto d-block w-100 p-2"
+                            (click)="changeExam(1,this.respaldo)">Regresar a modulos</button>-->
                         <hr class="w-100">
+                        <div class="table-responsive" *ngIf="this.usersModule.length == 0">
+                            Aún no cuentas con un usuarios para este modulo.
+                        </div>
                         <!--Tabla--->
-                        <table id="asignacion" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <table id="asignacion" class="table data striped dt-responsive nowrap" style="width:100%" *ngIf="this.usersModule.length != 0">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -890,20 +902,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--<tr *ngFor="let user of usersArr | paginate: { itemsPerPage: 6, currentPage: pas}">
+                                <tr *ngFor="let user of usersModule | paginate: { itemsPerPage: 6, currentPage: pas}">
                                     <th scope="row">{{user.idUser}}</th>
                                     <th scope="row"><button type="button" class="boton4"
-                                            (click)="changeAsignature(1, user.idUser)">{{user.full_name}}</button></th>
+                                            >{{user.full_name}}</button></th>
                                     <td>{{user.job}}</td>
                                     <td *ngIf="user.area != ''">{{user.area}}</td>
                                     <td *ngIf="user.area == ''">N/A</td>
-                                </tr>-->
-                                <tr>
+                                </tr>
+                                <!--<tr>
                                     <th scope="row">1</th>
                                     <th scope="row"><button type="button" class="boton4">Ramon</button></th>
                                     <td>Programador</td>
                                     <td>Sistemas</td>
-                                </tr>
+                                </tr>-->
                             </tbody>
                             <!--<pagination-controls (pageChange)="pas = $event" previousLabel="Anterior"
                                 nextLabel="Siguiente"></pagination-controls>-->
@@ -916,7 +928,7 @@
                             </div>
                             <div class="col-6 col-md-4 col-lg-2 offset-lg-5">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestionsExam('open')">
-                                    Guardar
+                                  Guardar pregunta
                                 </button>
                             </div>
                             <div class="col-6 col-md-4 col-lg-1">
@@ -946,7 +958,7 @@
                             </div>
                             <div class="col-6 col-md-5 col-lg-2 offset-lg-4">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestionsExam('close')">
-                                    Guardar
+                                    Guardar pregunta
                                 </button>
                             </div>
                             <div class="col-6 col-md-4 col-lg-1">
@@ -1007,7 +1019,7 @@
                                             <!--<input type="file" class="file" name="avatar"
                                                 accept="image/png, image/jpeg" title="Añadir una imagen"/>-->
                                             <button class="boton2 remove" title="Eliminar opción"
-                                                (click)="removeQuestion(option.idOpcion, 'new')"><img
+                                                (click)="removeQuestion(option.idOpcion, 'option', 'new')"><img
                                                     src="assets/img/quitarpreg.svg" alt=""></button>
                                         </div>
                                     </div>
@@ -1049,8 +1061,7 @@
                                     <div class="col-2">
                                         <button class="boton bg-blue w-100 p-1 p-md-2 clone"
                                             (click)="cloneOpcionExam()"><img src="assets/img/agregar.svg"
-                                                alt="">Siguiente
-                                            opción</button>
+                                                alt="">Guardar opción</button>
                                     </div>
                                 </div>
                             </div>

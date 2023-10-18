@@ -309,11 +309,25 @@ export class SessionService {
     );
   }
 
-  public deleteQuestion(idUser, token) {
+  public deleteQuestionDiagnostico(idPregunta, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-    return this.http.delete(`${this.API}eliminaPreguntaDiagnostico/${idUser}`, {
+    return this.http.delete(`${this.API}eliminaPreguntaDiagnostico/${idPregunta}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public deleteQuestionExam(idPregunta, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.delete(`${this.API}eliminaPreguntaExamen/${idPregunta}`, {
       headers,
     }).pipe(
       catchError((err) => {
@@ -348,6 +362,20 @@ export class SessionService {
     });
 
     return this.http.post(`${this.API}updateConfig`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public updateFiles(id, form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}uodateFiles/${id}`, form, {
       headers,
     }).pipe(
       catchError((err) => {

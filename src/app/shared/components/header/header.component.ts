@@ -23,8 +23,9 @@ export class HeaderComponent implements OnInit {
   /*Cambiar color de nav al hacer scroll*/
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
+    let e = document.getElementsByClassName('navbar').item(0).clientHeight;
     let element = document.querySelector('.navbar') as HTMLElement;
-    if (window.scrollY > element.clientHeight) {
+    if (window.scrollY > e) {
       element.classList.add('bg-white');
     } else {
       element.classList.remove('bg-white');

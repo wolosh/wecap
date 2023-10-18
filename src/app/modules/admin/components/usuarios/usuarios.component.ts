@@ -45,20 +45,21 @@ export class UsuariosComponent implements OnInit {
           }
         });
     } else {
-      Swal.fire({
-        title: '¡Error!',
-        text: 'No tienes permiso para acceder a esta página.',
-        icon: 'error',
-        confirmButtonColor: '#015287',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (this.helpers.type == '4') {
+      if (localStorage.getItem('type') == '4') {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'No tienes permiso para acceder a esta página.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
-          } else if (localStorage.getItem('token') == null) {
-            this.route.navigate(['']);
           }
-        }
-      });
+        });
+      } else if(localStorage.getItem('token') == null){
+        this.route.navigate(['/']);
+      }
     }
   }
 

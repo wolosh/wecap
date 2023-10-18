@@ -81,6 +81,7 @@ export class CursosComponent implements OnInit {
   imgScoreblob: any;
   imgTiempoblob: any;
   imgBlob: any;
+  imgTemablob: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -98,20 +99,21 @@ export class CursosComponent implements OnInit {
       this.startForm(1);
       //console.log(this.view)
     } else {
-      Swal.fire({
-        title: '¡Error!',
-        text: 'No tienes permiso para acceder a esta página.',
-        icon: 'error',
-        confirmButtonColor: '#015287',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (this.helpers.type == '4') {
+      if (localStorage.getItem('type') == '4') {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'No tienes permiso para acceder a esta página.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
-          } else if (localStorage.getItem('token') == null) {
-            this.route.navigate(['']);
           }
-        }
-      });
+        });
+      } else if(localStorage.getItem('token') == null){
+        this.route.navigate(['/']);
+      }
     }
   }
 
@@ -220,6 +222,7 @@ export class CursosComponent implements OnInit {
         duracion: [''],
         score: [''],
         color: [''],
+        url_video: [''],
       });
     }
     else if (id == 6) {
@@ -414,6 +417,7 @@ export class CursosComponent implements OnInit {
         this.cview1 = 1;
         for (let item of this.certificaciones) {
           if (item.title == name) {
+            console.log(item.idCertification)
             this.idCertification = item.idCertification;
             this.modules(item.idCertification);
             this.diploma(item.idCertification);
@@ -499,9 +503,9 @@ export class CursosComponent implements OnInit {
     //console.log(id);
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.allModules = data;
-        //console.log(this.allModules)
+        console.log(this.allModules)
       }
     );
   }
@@ -528,11 +532,12 @@ export class CursosComponent implements OnInit {
             this.formModulo.controls['duracion'].setValue(data.max_time);
             this.formModulo.controls['score'].setValue(data.min_score);
             this.exam = parseInt(data.hasExam);
-            this.imgIconoblob = data.icon;
-            this.imgTerminablob = data.medal_finish;
-            this.imgScoreblob = data.medal_perfect;
-            this.imgTiempoblob = data.medal_time;
+            this.imgIcono = data.icon;
+            this.imgTermina = data.medal_finish;
+            this.imgScore = data.medal_perfect;
+            this.imgTiempo = data.medal_time;
             this.formModulo.controls['color'].setValue(data.color_style);
+            this.formModulo.controls['url_video'].setValue(data.url_video);
             //console.log(this.exam)
           }
         );
@@ -857,8 +862,10 @@ export class CursosComponent implements OnInit {
     //console.log(this.showArr);
   }
   //Guardar imagen
-  fileIcono(event) {
+  fileIcono(event, show?:any) {
+    if(show){
     this.imgIcono = event.target.files[0]
+    }
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
@@ -903,10 +910,11 @@ export class CursosComponent implements OnInit {
     }
   }
   fileTema(event) {
+    this.imgTema = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imgTema = event.target.result;
+        this.imgTemablob = event.target.result;
       };
       reader.readAsDataURL(event.target.files[0])
     }
@@ -923,6 +931,7 @@ export class CursosComponent implements OnInit {
 
   //salva la configuración de los diplomas
   saveModulo() {
+    console.log(this.imgIconoblob, this.imgIcono, this.imgTermina, this.idCertification)
     let modulo = new FormData();
     modulo.append('idCertification', this.idCertification);
     modulo.append('title', this.formModulo.value.title);
@@ -930,27 +939,28 @@ export class CursosComponent implements OnInit {
     if(this.imgIcono != undefined){
       modulo.append('icon',this.imgIcono, this.imgIcono.name);
     }else{
-      modulo.append('icon',this.imgIconoblob);
+      modulo.append('icon',this.imgIcono);
     }
     modulo.append('color_style', this.formModulo.value.color);
+    modulo.append('url_video', this.formModulo.value.url_video);
     if(this.imgTermina != undefined){
-      modulo.append('icon',this.imgTermina, this.imgTermina.name);
+      modulo.append('medal_finish',this.imgTermina, this.imgTermina.name);
     }else{
-      modulo.append('icon',this.imgTerminablob);
+      modulo.append('medal_finish',this.imgTermina);
     }
-    modulo.append('medal_finish',this.imgTermina, this.imgTermina.name);
+    //modulo.append('medal_finish',this.imgTermina, this.imgTermina.name);
     if(this.imgScore != undefined){
-      modulo.append('icon',this.imgScore, this.imgScore.name);
+      modulo.append('medal_perfect',this.imgScore, this.imgScore.name);
     }else{
-      modulo.append('icon',this.imgScoreblob);
+      modulo.append('medal_perfect',this.imgScore);
     }
-    modulo.append('medal_perfect',this.imgScore, this.imgScore.name);
+    //modulo.append('medal_perfect',this.imgScore, this.imgScore.name);
     if(this.imgTiempo != undefined){
-      modulo.append('icon',this.imgTiempo, this.imgTiempo.name);
+      modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
     }else{
-      modulo.append('icon',this.imgTiempoblob);
+      modulo.append('medal_time',this.imgTiempo);
     }
-    modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
+    //modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
     modulo.append('max_time', this.formModulo.value.duracion);
     modulo.append('min_score', this.formModulo.value.score);
     modulo.append('hasExam', this.exam);
@@ -966,12 +976,12 @@ export class CursosComponent implements OnInit {
     this.session.updateModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
-        /*Swal.fire({
+        Swal.fire({
           title: '¡Actualizado con exito!',
-          text: 'El diploma ha sido actualizado.',
+          text: 'El módulo ha sido actualizado.',
           icon: 'success',
           confirmButtonColor: '#015287',
-        });*/
+        });
         //this.modules(this.idCertification);
         this.changeViewModulo('back',this.idCertification)
       }

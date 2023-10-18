@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         this.session.login(this.formLogin.value.email, this.formLogin.value.password).subscribe(
           (data: Data) => {
 
-            //console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
+            console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
             localStorage.setItem('token', data['token']);
             localStorage.setItem('userName', data['full_name']);
             if(data['is_admin'] == 0){
@@ -59,9 +59,10 @@ export class LoginComponent implements OnInit {
             } else {
             localStorage.setItem('type', data['is_admin']);
             }
+            this.helpers.type = localStorage.getItem('type');
+            //this.helpers.name = localStorage.getItem('userName');
             localStorage.setItem('id', data['id']);
             console.log(localStorage.getItem('type'))
-            this.helpers.type = localStorage.getItem('type');
             console.log(localStorage.getItem('type'), this.helpers.type)
             //console.log(localStorage.getItem('token'), localStorage.getItem('userName'), localStorage.getItem('idUser') );
             if (data['is_admin'] == 0) {

@@ -1,11 +1,12 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
-import { FormGroup, FormBuilder, Validators, FormControl,} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Data, Router } from '@angular/router';
+import { UploadAdapter } from '../mail/my-upload-adapter';
 
 @Component({
   selector: 'app-mail',
@@ -15,9 +16,9 @@ import { Data, Router } from '@angular/router';
 })
 export class MailComponent implements OnInit {
 
-  public Editor:any = ClassicEditor;
+  public Editor: any = ClassicEditor;
   formMail: FormGroup;
-  mail:any;
+  mail: any;
   fecha: any = [];
   asunto: any;
   correo: any = [];
@@ -34,33 +35,34 @@ export class MailComponent implements OnInit {
   showArr = [] as any;
   showLength = 0;
 
-  constructor(private route: Router, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder,private session: SessionService) { }
+  constructor(private route: Router, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
-    this.mails();
-    this.helpers.cursos = 1;
-  } else {
-    Swal.fire({
-      title: '¡Error!',
-      text: 'No tienes permiso para acceder a esta página.',
-      icon: 'error',
-      confirmButtonColor: '#015287',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        if (this.helpers.type == '4') {
-          this.route.navigate(['/cmtemplate']);
-        } else if (localStorage.getItem('token') == null) {
-          this.route.navigate(['']);
-        }
+      this.mails();
+      this.helpers.cursos = 1;
+    } else {
+      if (localStorage.getItem('type') == '4') {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'No tienes permiso para acceder a esta página.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
+            this.route.navigate(['/cmtemplate']);
+          }
+        });
+      } else if(localStorage.getItem('token') == null){
+        this.route.navigate(['/']);
       }
-    });
-  }
+    }
   }
 
-  startForm(){
+  startForm() {
     this.formMail = this.formBuilder.group({
       titulo: ['', [Validators.required]],
       fechas: ['', [Validators.required]],
@@ -92,11 +94,11 @@ export class MailComponent implements OnInit {
 
   }
 
-  mails(){
+  mails() {
     this.get.getMails(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
-        for(var i = 0;i<data.length;i++) {
+        for (var i = 0; i < data.length; i++) {
           //console.log(data[i])
           this.fecha.push(JSON.parse(data[i].fechas));
           this.correo.push(JSON.parse(data[i].correos));
@@ -108,8 +110,8 @@ export class MailComponent implements OnInit {
     );
   }
 
-  changeViewMail(type:any, id?:any){
-    console.log(type, id);
+  changeViewMail(type: any, kind?: any, id?: any,) {
+    console.log(type, id, kind);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -117,7 +119,7 @@ export class MailComponent implements OnInit {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-        switch(type){
+        switch (type) {
           case 0:
             this.viewMail = type;
             this.mails();
@@ -125,20 +127,33 @@ export class MailComponent implements OnInit {
           case 1:
             this.viewMail = type;
             this.startForm();
-            this.mail.forEach((element:any) => {
-              if(element.id == id){
-                this.formMail.controls['titulo'].setValue(element.asunto);
-                this.formMail.controls['fechas'].setValue(JSON.parse(element.fechas));
-                this.formMail.controls['cuerpo'].setValue(element.cuerpo);
-              }
-            });
-            this.users();
-            console.log(this.mailito);
+            if (kind == 'editar') {
+              this.mail.forEach((element: any) => {
+                if (element.id == id) {
+                  this.formMail.controls['titulo'].setValue(element.asunto);
+                  this.formMail.controls['fechas'].setValue(JSON.parse(element.fechas));
+                  this.formMail.controls['cuerpo'].setValue(element.cuerpo);
+                }
+              });
+              this.users();
+              console.log(this.mailito);
+            } else {
+              console.log('nuevo');
+              Swal.close();
+            }
             break;
         }
-        
+
       }
     })
+  }
+
+  onReady(eventData) {
+    eventData.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+      console.log(btoa(loader.file));
+      console.log(new UploadAdapter(loader));
+      //return new UploadAdapter(loader);
+    };
   }
 
   changeOption(type: any, search?: any) {
@@ -273,14 +288,14 @@ export class MailComponent implements OnInit {
       }
     );
   }
-  
 
-  send(){
+
+  send() {
     console.log(this.Editor)
   }
 
-  change(id:any){
-    if(id == 1){
+  change(id: any) {
+    if (id == 1) {
       this.helpers.cursos = 1;
     } else {
       this.helpers.cursos = 2;

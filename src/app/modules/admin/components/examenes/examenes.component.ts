@@ -54,11 +54,12 @@ export class ExamenesComponent implements OnInit {
   showArr = [] as any;
   examModule = [] as any;
   optionsProv = [] as any;
+  usersModule = [] as any;
   showLength = 0;
   idUser: any;
   userCourses: any;
   userCL: number = 0;
-  questions: any;
+  questions = [] as any;
   userAL: number = 0;
   userId: any;
   moduloTitle: any;
@@ -67,7 +68,7 @@ export class ExamenesComponent implements OnInit {
   allDiagnostico: any;
   respaldo1: any;
   certificacionID: any;
-  none: number;
+  none = 0;
   backupDiagnostic = '';
   public options = '';
   new = 0;
@@ -90,20 +91,21 @@ export class ExamenesComponent implements OnInit {
       this.startForm(1);
       this.certifications();
     } else {
-      Swal.fire({
-        title: '¡Error!',
-        text: 'No tienes permiso para acceder a esta página.',
-        icon: 'error',
-        confirmButtonColor: '#015287',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (this.helpers.type == '4') {
+      if (localStorage.getItem('type') == '4') {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'No tienes permiso para acceder a esta página.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
-          } else if (localStorage.getItem('token') == null) {
-            this.route.navigate(['']);
           }
-        }
-      });
+        });
+      } else if(localStorage.getItem('token') == null){
+        this.route.navigate(['/']);
+      }
     }
     this.helpers.cursos = 1;
   }
@@ -217,12 +219,14 @@ export class ExamenesComponent implements OnInit {
             this.users('asignature');
             break;
           case 'diagnostic':
+            this.questions = [];
             this.optionsProv = [];
             this.diagnostic = 0;
             this.cloneOption = 0;
             this.certifications();
             break;
           case 'test':
+            this.examModule = [];
             this.optionsProv = [];
             this.exam = 0;
             this.cloneOption = 0;
@@ -277,6 +281,23 @@ export class ExamenesComponent implements OnInit {
                   this.none = 2;
                   this.examModule = data.preguntas;
                 }*/
+                if (data == null || data.message) {
+                  console.log(data)
+                  this.none = 0;
+                } else {
+                  console.log(data);
+                  if (data.preguntas.length == 0) {
+                    console.log('no tiene preguntas')
+                    this.none = 1;
+                  } else {
+                    console.log('si tiene preguntas')
+                    this.none = 2;
+                    //this.questions = data;
+                    this.examModule = data.preguntas;
+                    console.log(data);
+                  }
+                }
+                console.log(this.none);
                 Swal.close();
               }
             );
@@ -289,6 +310,8 @@ export class ExamenesComponent implements OnInit {
               (data: any) => {
                 console.log(data)
                 Swal.close();
+                this.usersModule = data.usuarios;
+                console.log(this.usersModule)
               }
             );
             break;
@@ -443,11 +466,11 @@ export class ExamenesComponent implements OnInit {
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
-        this.backupDiagnostic = '';
-        this.diagnostic = 0;
-        this.certifications();
+            this.backupDiagnostic = '';
+            this.diagnostic = 0;
+            this.certifications();
           }
-          });
+        });
         break;
       case 1:
         this.diagnostic = 1;
@@ -466,13 +489,15 @@ export class ExamenesComponent implements OnInit {
                   this.none = 0;
                 } else {
                   console.log(data);
-                  if(data.preguntas.length == 0){
+                  if (data.preguntas.length == 0) {
+                    console.log('no tiene preguntas')
                     this.none = 1;
-                  }else{
-                  this.none = 2;
-                  //this.questions = data;
-                  this.questions = data.preguntas;
-                  console.log(data);
+                  } else {
+                    console.log('si tiene preguntas')
+                    this.none = 2;
+                    //this.questions = data;
+                    this.questions = data.preguntas;
+                    console.log(data);
                   }
                 }
                 /*console.log(data, JSON.parse(data.formulario));
@@ -495,7 +520,7 @@ export class ExamenesComponent implements OnInit {
     }
   }
 
-  removeQuestion(id: any, type?: any) {
+  removeQuestion(id: any, action: any, type?: any) {
     console.log(id);
     console.log(this.optionsProv);
     if (type) {
@@ -508,21 +533,39 @@ export class ExamenesComponent implements OnInit {
       });
       console.log(this.optionsProv);
     } else {
-      this.session.deleteQuestion(id, localStorage.getItem('token')).subscribe(
-        (data: any) => {
-          console.log(data);
-          Swal.fire({
-            title: '¡Eliminado con exito!',
-            text: 'La pregunta ha sido eliminada con exito.',
-            icon: 'success',
-            confirmButtonColor: '#015287',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.changeDiagnostic(1, this.backupDiagnostic);
-            }
-          });
-        }
-      );
+      if (action == 'diagnostic') {
+        this.session.deleteQuestionDiagnostico(id, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            console.log(data);
+            Swal.fire({
+              title: '¡Eliminado con exito!',
+              text: 'La pregunta ha sido eliminada con exito.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.changeDiagnostic(1, this.backupDiagnostic);
+              }
+            });
+          }
+        );
+      } else if (action == 'exam') {
+        this.session.deleteQuestionExam(id, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            console.log(data);
+            Swal.fire({
+              title: '¡Eliminado con exito!',
+              text: 'La pregunta ha sido eliminada con exito.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.changeExam(2, this.certificacionID);
+              }
+            });
+          }
+        );
+      }
     }
   }
 
@@ -545,14 +588,16 @@ export class ExamenesComponent implements OnInit {
       if (this.examModule.length == 0) {
         if (question == 'open') {
           json.preguntas.push({
-            idEval_question: this.examModule.length + 1,
+            //idEval_question: this.examModule.length + 1,
+            idEval_question: '',
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
             respuestas: []
           });
         } else if (question == 'close') {
           json.preguntas.push({
-            idEval_question: this.examModule.length + 1,
+            //idEval_question: this.examModule.length + 1,
+            idEval_question: '',
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
             respuestas: this.optionsProv
@@ -573,14 +618,16 @@ export class ExamenesComponent implements OnInit {
         });
         if (question == 'open') {
           json.preguntas.push({
-            idEval_question: this.backId + 1,
+            //idEval_question: this.backId + 1,
+            idEval_question: '',
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
             respuestas: []
           });
         } else if (question == 'close') {
           json.preguntas.push({
-            idEval_question: this.backId + 1,
+            //idEval_question: this.backId + 1,
+            idEval_question: '',
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
             respuestas: this.optionsProv
@@ -628,17 +675,19 @@ export class ExamenesComponent implements OnInit {
       }
       console.log(json)
 
-      if (this.questions.length == 0) {
+      if (this.questions.length === 0) {
         if (question == 'open') {
           json.preguntas.push({
-            idPregunta: this.questions.length + 1,
+            //idPregunta: this.questions.length + 1,
+            idPregunta: '',
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
             respuestas: []
           });
         } else if (question == 'close') {
           json.preguntas.push({
-            idPregunta: this.questions.length + 1,
+            //idPregunta: this.questions.length + 1,
+            idPregunta: '',
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
             respuestas: this.optionsProv
@@ -652,6 +701,7 @@ export class ExamenesComponent implements OnInit {
           //if(question == 'open'){
           json.preguntas.push({
             idPregunta: element.idPregunta,
+            //idPregunta: '',
             pregunta: element.pregunta,
             is_active: element.activo,
             respuestas: element.opciones
@@ -667,14 +717,16 @@ export class ExamenesComponent implements OnInit {
         });
         if (question == 'open') {
           json.preguntas.push({
-            idPregunta: this.backId + 1,
+            //idPregunta: this.backId + 1,
+            idPregunta: '',
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
             respuestas: []
           });
         } else if (question == 'close') {
           json.preguntas.push({
-            idPregunta: this.backId + 1,
+            //idPregunta: this.backId + 1,
+            idPregunta: '',
             pregunta: this.formAbiertas.value.question,
             is_active: 1,
             respuestas: this.optionsProv
@@ -737,9 +789,9 @@ export class ExamenesComponent implements OnInit {
 
   createExam(id: any, name?: any) {
     console.log(id, name);
-      console.log(this.formModal.value);
-if(this.formModal.valid){
-  this.error = 0;
+    console.log(this.formModal.value);
+    if (this.formModal.valid) {
+      this.error = 0;
       let formData = new FormData();
       formData.append('idModulo', id);
       formData.append('title', this.formModal.value.title);
@@ -764,18 +816,18 @@ if(this.formModal.valid){
           });
         }
       );
-} else {
-  this.error=1;
-}
-      
-      /*let nameModule = 'Examen Módulo:' + ' ' + name;
-      console.log(nameModule);
-      let formData = new FormData();
-      formData.append('idModulo', id);
-      formData.append('title', nameModule);
-  
-      console.log(`Hola ${id} ${name}`)*/
-    
+    } else {
+      this.error = 1;
+    }
+
+    /*let nameModule = 'Examen Módulo:' + ' ' + name;
+    console.log(nameModule);
+    let formData = new FormData();
+    formData.append('idModulo', id);
+    formData.append('title', nameModule);
+ 
+    console.log(`Hola ${id} ${name}`)*/
+
   }
 
   createDiagnostic(id: any) {
@@ -986,6 +1038,8 @@ if(this.formModal.valid){
   public cloneOpcionExam() {
     console.log(this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     let i;
+    let img = this.onImage != 0 ? this.image : null;
+    console.log(img)
     if (this.selectedOption == 2) {
       Swal.fire({
         title: '¡Error!',
@@ -1004,24 +1058,31 @@ if(this.formModal.valid){
       console.log(this.optionsProv);
       if (this.optionsProv.length == 0) {
         this.optionsProv.push({
-          idEval_option: this.optionsProv.length + 1,
+          //idEval_option: this.optionsProv.length + 1,
+          idEval_option: '',
           opcion: this.options,
           correcta: this.selectedOption,
+          img: img
         });
       } else {
         this.optionsProv.forEach(element => {
           i = element.idEval_option;
         })
         this.optionsProv.push({
-          idEval_option: i + 1,
+          //idEval_option: i + 1,
+          idEval_option: '',
           opcion: this.options,
           correcta: this.selectedOption,
+          img: img
         })
       }
+
       console.log(this.optionsProv)
       this.options = '';
       this.selectedOption = 2;
       this.new = this.optionsProv.length;
+      this.image = '';
+      this.onImage = 0;
       console.log(this.new)
     }
   }
@@ -1058,11 +1119,13 @@ if(this.formModal.valid){
       btnR.addEventListener('click', this.remove)
     });
   }
-  i = 0;
+  //i = 0;
   //duplicar opcion Examenes
   public cloneOpcion() {
     console.log(this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     let i;
+    let img = this.onImage != 0 ? this.image : null;
+    console.log(img)
     if (this.selectedOption == 2) {
       Swal.fire({
         title: '¡Error!',
@@ -1080,24 +1143,30 @@ if(this.formModal.valid){
     } else {
       if (this.optionsProv.length == 0) {
         this.optionsProv.push({
-          idOpcion: this.optionsProv.length + 1,
+          //idOpcion: this.optionsProv.length + 1,
+          idOpcion: '',
           opcion: this.options,
           correcta: this.selectedOption,
+          img: img
         });
       } else {
         this.optionsProv.forEach(element => {
           i = element.idOpcion;
         })
         this.optionsProv.push({
-          idOpcion: i + 1,
+          //idOpcion: i + 1,
+          idOpcion: '',
           opcion: this.options,
           correcta: this.selectedOption,
+          img: img
         })
       }
       console.log(this.optionsProv)
       this.options = '';
       this.selectedOption = 2;
       this.new = this.optionsProv.length;
+      this.image = '';
+      this.onImage = 0;
       console.log(this.new)
     }
     /*if(this.options != ''){
@@ -1241,8 +1310,12 @@ if(this.formModal.valid){
 
       reader.onload = this.handleFile.bind(this);
 
-      reader.readAsBinaryString(file);
+      reader.readAsBinaryString(file)
+      console.log(file)
     }
+
+    console.log(file)
+
     //console.log(event.target.files, event.target.files[0]);
     //this.image = event.target.files[0];
     /*let me = this;

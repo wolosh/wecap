@@ -302,14 +302,18 @@
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Score mínimo para medalla por score (opcional)</label>
                   <input type="text" class="input3" formControlName="score">
                 </div>
+                <div class="col-12 col-lg-5">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Url del video</label>
+                  <input type="text" class="input3" formControlName="url_video">
+                </div>
               </div>
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
                   <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono" />
-                  <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{ this.imgIconoblob }}" alt="imgIcono" />
+                  <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{ this.imgIcono }}" alt="imgIcono" />
                   <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
-                  <input type="file" class="input3" id="icono" (change)="fileIcono($event)">
+                  <input type="file" class="input3" id="icono" (change)="fileIcono($event, 'change')">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
