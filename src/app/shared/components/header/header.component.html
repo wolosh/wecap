@@ -91,7 +91,7 @@
                     <span class="navbar-toggler-icon me-1"></span>
                     MENU
                 </button>
-                <a class="navbar-brand ms-lg-3 me-0 order-3 order-lg-1" href="#">
+                <a class="navbar-brand ms-lg-3 me-0 order-3 order-lg-1" [routerLink]="['/cmtemplate']">
                     <img src="assets/img/logo.svg" alt="" width="100">
                 </a>
                 <div class="collapse navbar-collapse order-5 order-lg-2" id="navbarSupportedContent">
@@ -146,9 +146,8 @@
                             {{this.name}}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end text-lg-end" aria-labelledby="navbarDropdown">
-                            <!--<li><a class="dropdown-item bg-blue rounded-top" href="/perfil">Perfil</a></li>-->
-                            <li (click)="this.helpers.logout()"><a
-                                    class="dropdown-item bg-grey rounded-bottom">Salir</a></li>
+                            <li><a class="text-white dropdown-item bg-blue rounded-top" (click)="goTo(2)">Perfil</a></li>
+                            <li (click)="this.helpers.logout()"><a class="dropdown-item bg-grey rounded-bottom">Salir</a></li>
                         </ul>
                     </li>
                 </ul>

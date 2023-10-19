@@ -1,16 +1,16 @@
 <div class="container-lg page-content top pb-5">
-    <div class="row">
-        <div class="col-12">
+    <div class="row d-flex align-items-center">
+        <div class="col-12 col-lg-11">
             <h1 class="text txt-blue" *ngIf="this.cursos == 1">Cursos</h1> 
             <h1 class="text txt-blue" *ngIf="this.cursos == 2">Módulos</h1> 
-            <div class="col-6 col-lg-1" *ngIf="this.cursos == 2">
-                <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
-                    (click)="changeViewCourses(1)">
-                    <i class="fas fa-reply"></i>
-                </button>
-            </div>
-            <hr>
         </div>
+        <div class="col-6 col-lg-1" *ngIf="this.cursos == 2">
+            <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
+                (click)="changeViewCourses(1)">
+                <i class="fas fa-reply"></i>
+            </button>
+        </div>
+        <hr>
     </div>
     <!--Parte cursos-->
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mt-5 mb-5 home" *ngIf="this.cursos == 1">
@@ -74,8 +74,8 @@
             <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
                 <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
             <div class="carousel-caption">
-                <button *ngIf="slide.idModule == '2'" type="button" class="card-title w-100" (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
-                <button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
+                <button *ngIf="slide.idModule == '2'" type="button" class="card-title w-100 border-0" (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
+                <button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100 border-0" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
                 
                 <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                     <div class="row">

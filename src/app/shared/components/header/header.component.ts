@@ -38,6 +38,10 @@ export class HeaderComponent implements OnInit {
       this.session.curso = false;
       this.route.navigate(['/cmtemplate']);
       break;
+    case 2:
+      this.session.curso = false;
+      this.route.navigate(['/perfil']);
+    break;
   }
  }
 

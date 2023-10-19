@@ -160,6 +160,13 @@ input[type=file]::-webkit-file-upload-button{
 }
 .dropdown-item{
     color: #015287 !important;
+    cursor: pointer;
+}
+.navbar-brand{
+    cursor: pointer;
+}
+.dropdown-item.text-white{
+    color: #fff !important;
 }
 select:focus-visible{
     outline: none !important;
@@ -419,9 +426,7 @@ hr{
 }
 .rounded-circle.border-blue{
     width: 100%;
-    max-width: 150px;
-    height: 100vh;
-    max-height: 150px;
+    aspect-ratio: 1/1;
 }
 /*Modales*/
 .modal-content{
