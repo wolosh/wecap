@@ -10,7 +10,7 @@ export class SessionService {
 
   API: string = 'http://35.92.150.230/api/'
 
-  curso = false;
+  curso: boolean = false;
   userName = '';
   idUser: number;
 
@@ -18,7 +18,7 @@ export class SessionService {
 
   //login
   public login(email: string, password: string) {
-    console.log(email, password);
+    //console.log(email, password);
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', password);
@@ -49,7 +49,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -63,7 +63,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -80,7 +80,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -97,7 +97,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -112,7 +112,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -127,7 +127,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -135,7 +135,7 @@ export class SessionService {
 
   public asignarGrupo(idGroup, form, token) {
     //console.log(form)
-    console.log(idGroup, form, token)
+    //console.log(idGroup, form, token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -144,7 +144,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -153,7 +153,7 @@ export class SessionService {
 
   public editarPerfil(idUser, form, token) {
     //console.log(form)
-    console.log(idUser, form, token)
+    //console.log(idUser, form, token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -162,7 +162,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -170,7 +170,7 @@ export class SessionService {
 
   public deleteUser(idUser, token) {
     //console.log(form)
-    console.log(idUser,  token)
+    //console.log(idUser,  token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -179,7 +179,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -187,7 +187,7 @@ export class SessionService {
 
   public changeStatusUser(idUser, form, token) {
     //console.log(form)
-    console.log(idUser,  token)
+    //console.log(idUser,  token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -196,7 +196,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -204,7 +204,7 @@ export class SessionService {
 
   public asignarCurso(form, token) {
     //console.log(form)
-    console.log(form,  token)
+    //console.log(form,  token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -213,7 +213,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -221,7 +221,7 @@ export class SessionService {
 
   public editarExpiracion(form, token) {
     //console.log(form)
-    console.log(form,  token)
+    //console.log(form,  token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -230,7 +230,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -238,7 +238,7 @@ export class SessionService {
 
   public quitarCurso(form, token) {
     //console.log(form)
-    console.log(form,  token)
+    //console.log(form,  token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -247,7 +247,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -261,7 +261,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -275,7 +275,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -289,7 +289,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -303,7 +303,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -317,7 +317,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -331,7 +331,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -339,7 +339,7 @@ export class SessionService {
 
   public updateCreateExamen(form, token) {
     //console.log(form)
-    console.log(form,  token)
+    //console.log(form,  token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -348,7 +348,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -356,7 +356,7 @@ export class SessionService {
 
   public updateConfiguration(form, token) {
     //console.log(form)
-    console.log(form,  token)
+    //console.log(form,  token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -365,7 +365,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );
@@ -379,7 +379,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        console.log(err);
+        //console.log(err);
         return err;
       })
     );

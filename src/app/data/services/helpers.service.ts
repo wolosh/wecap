@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Data, Router } from '@angular/router';
 import { Buffer } from 'buffer';
-import { buffer } from 'rxjs';
+import { SessionService } from 'src/app/data/services/session.service';
 
 
 @Injectable({
@@ -16,11 +16,15 @@ export class HelpersService {
   name:any;
   section = '';
   idModuleBackUp:any;
+  nameModuleBackUp:any;
+  idTopicBackUp:any;
+  nameTopicBackUp:any;
+  public finalizados = [] as any;
+  public conferencias = false;
 
-  constructor(private route: Router) { }
+  constructor(private route: Router, public session:SessionService) { }
 
   goTop(){
-    document.body.scrollTop = 0;
     window.scroll({
       top: 0,
       left: 0,
@@ -42,16 +46,18 @@ export class HelpersService {
           //cerramos la sesion
           this.type = 0;
           localStorage.clear();
-          localStorage.removeItem('token');
-          localStorage.removeItem('userName');
-          localStorage.removeItem('type');
-          localStorage.removeItem('id');
+          this.session.curso = false;
+          this.conferencias = false;
           //redireccionamos a la pagina de inicio despues de 7 segundos
           this.route.navigate(['/']);
         }, 900);
       },
     });
   }
+
+  
+
+
   public dataUrlToBlob(dataUrl: string): Blob {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this

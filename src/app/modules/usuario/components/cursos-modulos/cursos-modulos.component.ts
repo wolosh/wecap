@@ -29,6 +29,7 @@ export class CursosModulosComponent implements OnInit {
   modulesCertifications: any;
   cursos = 1;
   certificationBackup: any;
+  arrFiles: any;
   constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
@@ -38,11 +39,24 @@ export class CursosModulosComponent implements OnInit {
       console.log('Usuario');
     }*/
     if (localStorage.getItem('type') == '4') {
-      console.log(localStorage.getItem('type'));
-      this.helpers.type = localStorage.getItem('type');
-      this.profile();
-      this.certifications();
-      this.helpers.cursos = 1;
+      this.helpers.goTop();
+      Swal.fire({
+        title: 'Cargando',
+        text: 'Espere un momento por favor',
+        icon: 'info',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+          //console.log(localStorage.getItem('type'));
+          this.helpers.type = localStorage.getItem('type');
+          this.profile();
+          this.certifications();
+          this.helpers.cursos = 1;
+          this.session.curso = false;
+          this.helpers.conferencias = false;
+        }
+      });
     } else {
       if (localStorage.getItem('type') == '1') {
         Swal.fire({
@@ -51,7 +65,7 @@ export class CursosModulosComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cursos']);
           }
@@ -65,16 +79,16 @@ export class CursosModulosComponent implements OnInit {
   profile() {
     this.get.getProfile(localStorage.getItem('id'), localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.email = data;
-        console.log(this.email);
+        //console.log(this.email);
         this.certifications();
       }
     );
   }
 
   changeViewCourses(view: any, id?: any) {
-    console.log(view, id);
+    //console.log(view, id);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -90,6 +104,8 @@ export class CursosModulosComponent implements OnInit {
           case 2:
             this.cursos = 2;
             this.modules(id);
+            localStorage.setItem('idCertification', id);
+            this.helpers.conferencias = true;
             break;
         }
       }
@@ -99,39 +115,43 @@ export class CursosModulosComponent implements OnInit {
   certifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
-        console.log(this.certificaciones);
+        //console.log(this.certificaciones);
         Swal.close();
       }
     );
   }
 
-  modules(id:any){
+  modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.modulesCertifications = data;
-        console.log(this.modulesCertifications);
+        //console.log(this.modulesCertifications);
         this.files(id);
       }
     );
   }
 
-  files(id:any){
+  files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
+        this.arrFiles = data.files;
+        //console.log(this.arrFiles);
         Swal.close();
       }
     );
   }
 
-  verTemas(idMod:any){
-    this.route.navigate(['/temas']).then(() => {
-      window.location.reload();
-      this.helpers.idModuleBackUp = idMod;
-    });          
+  verTemas(idMod: any, nameMod: any) {
+    localStorage.setItem('idModule', idMod);
+    localStorage.setItem('nameModule', nameMod);
+    this.helpers.idModuleBackUp = idMod;
+    this.helpers.nameModuleBackUp = nameMod;
+    //console.log(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp);
+    this.route.navigate(['/seccion']);
   }
 
   change(id: any) {

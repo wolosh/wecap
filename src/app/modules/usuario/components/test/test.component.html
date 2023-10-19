@@ -5,79 +5,115 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <h1 class="text2 txt-blue">Corporativo - Evaluación</h1>
+                            <h1 class="text2 txt-blue">{{this.helpers.nameModuleBackUp}} - Evaluación</h1>
                             <hr class="w-100">
+                            <div *ngIf="this.valido == false">
+                                <label class="text6 txt-blue mb-3 mt-3">1. ¿Debe ser conciso un video
+                                    promocional?</label>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault1"
+                                        id="flexRadioDefault1" [(ngModel)]="text1" (change)="changeOption()"
+                                        [value]="1">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        Si
+                                    </label>
+                                </div>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault2"
+                                        id="flexRadioDefault2" [(ngModel)]="text1" (change)="changeOption()"
+                                        [value]="2">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        No
+                                    </label>
+                                </div>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault3"
+                                        id="flexRadioDefault3" [(ngModel)]="text1" (change)="changeOption()"
+                                        [value]="3">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        Claro que no
+                                    </label>
+                                </div>
+                                <label class="text6 txt-blue mb-3 mt-3">2. ¿Las empresas necesitan un video
+                                    promocional?</label>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault4"
+                                        id="flexRadioDefault4" [(ngModel)]="text2" (change)="changeOption()"
+                                        [value]="1">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        Si
+                                    </label>
+                                </div>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault5"
+                                        id="flexRadioDefault5" [(ngModel)]="text2" (change)="changeOption()"
+                                        [value]="2">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        No
+                                    </label>
+                                </div>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault6"
+                                        id="flexRadioDefault6" [(ngModel)]="text2" (change)="changeOption()"
+                                        [value]="3">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        Claro que no
+                                    </label>
+                                </div>
+                                <label class="text6 txt-blue mb-3 mt-3">3. ¿Te gustaría tener un video promocional para
+                                    tu empresa?</label>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault7"
+                                        id="flexRadioDefault7" [(ngModel)]="text3" (change)="changeOption()"
+                                        [value]="1">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        Si
+                                    </label>
+                                </div>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault8"
+                                        id="flexRadioDefault8" [(ngModel)]="text3" (change)="changeOption()"
+                                        [value]="2">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        No
+                                    </label>
+                                </div>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault9"
+                                        id="flexRadioDefault9" [(ngModel)]="text3" (change)="changeOption()"
+                                        [value]="3">
+                                    <label class="text5 txt-blue" for="flexRadioDefault1">
+                                        Claro que no
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngIf="this.valido == true">
+                                <p class="text6 txt-blue">¡Ya has completado esta evaluación!
+                                </p>
+                                <p class="text9 txt-blue">
+                                    Puedes consultar tu calificación en la parte superior de la pantalla.
+                                    <br>
+                                    Si aun no se encuentra disponible, espera a que tu instructor la califique.
 
-                            <label class="text6 txt-blue mb-3 mt-3">1. ¿Debe ser conciso un video corporativo?</label>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    Si
-                                </label>
+                                </p>
                             </div>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    No
-                                </label>
-                            </div>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    Claro que no
-                                </label>
-                            </div>
-                            <label class="text6 txt-blue mb-3 mt-3">2. ¿Las empresas necesitan un video Corporativo?</label>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    Si
-                                </label>
-                            </div>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    No
-                                </label>
-                            </div>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    Claro que no
-                                </label>
-                            </div>
-                            <label class="text6 txt-blue mb-3 mt-3">3. ¿Te gustaría tener un video Corporativo para tu empresa?</label>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    Si
-                                </label>
-                            </div>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    No
-                                </label>
-                            </div>
-                            <div class="form-check ms-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="text5 txt-blue" for="flexRadioDefault1">
-                                    Claro que no
-                                </label>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" class="boton3 mx-auto d-block mt-3 mb-5">Evaluación</button>
+                    <button type="button" class="boton3 mx-auto d-block mt-3 mb-5"
+                        (click)="saveTest()" *ngIf="this.valido == false">Evaluación</button>
+                        <button type="button" class="boton3 mx-auto d-block mt-3 mb-5"
+                        (click)="temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp)" *ngIf="this.valido == true">Regresar</button>
                 </div>
             </div>
         </div>
-        
+
         <div class="col-12 col-md-6 col-lg-4 mb-5">
-            <div class="card color p-3">
+            <div class="card color p-3" *ngIf="this.valido == false">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
@@ -87,25 +123,27 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <div class="rounded-circle bg-transparent border-blue d-flex justify-content-center align-items-center">
+                            <div
+                                class="rounded-circle bg-transparent border-blue d-flex justify-content-center align-items-center">
                                 <div class="row text-center">
                                     <div class="col-12">
                                         <label class="text5 txt-blue txt-blue d-block">Minutos</label>
                                     </div>
                                     <div class="col-12">
-                                        <label class="text12">3</label>
+                                        <label class="text12">{{this.minutesDisplay}}</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="rounded-circle bg-transparent border-blue d-flex justify-content-center align-items-center">
+                            <div
+                                class="rounded-circle bg-transparent border-blue d-flex justify-content-center align-items-center">
                                 <div class="row text-center">
                                     <div class="col-12">
                                         <label class="text5 txt-blue txt-blue d-block">Segundos</label>
                                     </div>
                                     <div class="col-12">
-                                        <label class="text12">0</label>
+                                        <label class="text12">{{this.secondsDisplay}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +151,22 @@
                     </div>
                 </div>
             </div>
-            <div class="card color p-3 mt-5">
+            <div class="card color p-3" *ngIf="this.valido == true">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="text3 txt-blue">Resultado: Aprobado (95)</label>
+                            <hr class="w-100">
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="card color p-3 mt-5">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
@@ -136,6 +189,59 @@
                         </div>
                     </div>
                 </div>
+            </div>-->
+        </div>
+    </div>
+</div>
+<!-- Modal Archivos-->
+<div class="modal fade" id="archivos" tabindex="-1" aria-labelledby="archivos" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="modal-title mb-3" id="exampleModalLabel">Archivos</h5>
+                <p class="text7 txt-gris mb-3">Estos recursos son brindados con el fin de que puedas guiar tu aprendizaje de la mano de los mismos.</p>
+                <div class="card color rounded-4 mb-3" *ngFor="let file of this.nameFiles">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 mt-1">
+                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
+                            </div>
+                            <div>
+                                <label class="text9 txt-blue d-block">{{file.name}}</label>
+                                <a href="{{file.url}}" target="_blank" download="plantilla_usuarios.csv" class="boton2 ps-0">Descargar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="card color rounded-4 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 mt-1">
+                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
+                            </div>
+                            <div>
+                                <label class="text9 txt-blue d-block">Coporativo Wecap 2022</label>
+                                <button type="button" class="boton2 ps-0">Descargar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card color rounded-4 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 mt-1">
+                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
+                            </div>
+                            <div>
+                                <label class="text9 txt-blue d-block">Formatos para Iconos</label>
+                                <button type="button" class="boton2 ps-0">Descargar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -154,7 +260,99 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="fs-6 boton3 w-25 ">Iniciar</button>
-              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Ayuda-->
+<div class="modal fade" id="ayuda" tabindex="-1" aria-labelledby="ayuda" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="modal-title mb-3" id="exampleModalLabel">Ayuda</h5>
+                <p class="text7 txt-gris mb-3">Preguntas Frecuentes</p>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item border-0 mb-3">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <img src="assets/img/question.svg" class="me-2" alt="...">
+                            <label class="text10 txt-blue">¿Cómo hago mi examen?</label>
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body ms-4">
+                            <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador te asigne un examen,
+                                una vez asignado tienes que ver todos los videos del modulo,
+                                una vez terminado podras contestar el examen.
+                            </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item border-0 mb-3">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <img src="assets/img/question.svg" class="me-2" alt="...">
+                            <label class="text10 txt-blue">¿Cuántos puntos necesito para pasar?</label>
+                        </button>
+                      </h2>
+                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body ms-4">
+                            <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha certificación. 
+                            </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item border-0 mb-3">
+                      <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <img src="assets/img/question.svg" class="me-2" alt="...">
+                            <label class="text10 txt-blue">¿Cuánto tiempo tengo para responder la prueba?</label>
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body ms-4">
+                            <p class="text11 txt-blue lh-1">El tiempo asignado para cada prueba, te será informado por el sistema al momento de iniciar la evaluación.
+                            </p>
+                        </div>
+                      </div>
+                    </div>
+                    <!--<div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header" id="headingFour">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                              <img src="assets/img/question.svg" class="me-2" alt="...">
+                              <label class="text10 txt-blue">Contactar soporte académico</label>
+                          </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                          <div class="accordion-body ms-4">
+                              <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador te asigne un examen,
+                                  una vez asignado tienes que ver todos los videos del modulo,
+                                  una vez terminado podras contestar el examen.
+                              </p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 mb-3">
+                        <h2 class="accordion-header" id="headingFive">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                              <img src="assets/img/question.svg" class="me-2" alt="...">
+                              <label class="text10 txt-blue">Contactar soporte</label>
+                          </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                          <div class="accordion-body ms-4">
+                              <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador te asigne un examen,
+                                  una vez asignado tienes que ver todos los videos del modulo,
+                                  una vez terminado podras contestar el examen.
+                              </p>
+                          </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
         </div>
     </div>
 </div>

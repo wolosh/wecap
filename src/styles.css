@@ -275,6 +275,16 @@ hr{
     padding-right: 4%;
     border: none;
 }
+.boton3copy{
+    font-size: 1.8rem;
+    background-color: #919191;
+    border-radius: 30px;
+    color: #fff;
+    padding: 1%;
+    padding-left: 4%;
+    padding-right: 4%;
+    border: none;
+}
 .boton4{
   font-family: 'Helvetica-Bold';
   font-size: 1.1rem !important;

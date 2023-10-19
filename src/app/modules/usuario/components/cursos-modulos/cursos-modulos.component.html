@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <!--<div class="col">
+        <div class="col">
             <div class="card h-100">
                 <img src="assets/img/metrihealth.svg" class="card-img mx-auto d-block" alt="...">
                 <div class="card-img-overlay d-flex justify-content-center align-items-center">
@@ -53,7 +53,7 @@
                                         </p>
                                     </div>
                                     <div class="col-12 mt-3">
-                                        <button type="button" class="boton mx-auto d-block">Comenzar</button>
+                                        <button type="button" class="boton mx-auto d-block" disabled>Proximamente</button>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
     </div>
     <!--Parte modulos-->
     <carousel *ngIf="this.cursos == 2" [itemsPerSlide]="itemsPerSlide"
@@ -70,11 +70,13 @@
           [interval]="0"
           [noWrap]="noWrap">
         <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3">
-            <img src="{{slide.img}}" alt="image slide" style="display: block; width: 100%;">
+            <img src="assets/img/alsain.svg" alt="image slide" style="display: block; width: 100%;">
             <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
                 <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
             <div class="carousel-caption">
-                <button type="button" class="card-title w-100" (click)="verTemas(slide.idModule)">{{slide.title}}</button>
+                <button *ngIf="slide.idModule == '2'" type="button" class="card-title w-100" (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
+                <button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
+                
                 <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                     <div class="row">
                         <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="..."></div>
@@ -148,7 +150,7 @@
             </div>
             <div class="modal-body">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Conferencias</h5>
-                <p class="text7 txt-gris mb-3">Aquí podras ver las conferencias programadas.</p>
+                <p class="text7 txt-gris mb-3">Aquí podras ver las conferencias programadas para esta certificación.</p>
                 <div class="card color rounded-4 mb-3">
                     <div class="card-body">
                         <div class="d-flex">
@@ -156,10 +158,10 @@
                                 <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
                             </div>
                             <div>
-                                <label class="text10 txt-blue d-block">Seguimiento</label>
-                                <label class="text9 txt-blue d-block">31 de Enero</label>
-                                <label class="text9 txt-blue d-block">Prueba</label>
-                                <button type="button" class="boton2 ps-0">Link</button>
+                                <label class="text10 txt-blue d-block">Introducción: Promocional</label>
+                                <label class="text9 txt-blue d-block">15 de Octubre</label>
+                                <label class="text9 txt-blue d-block">Bases para módulo Promocional.</label>
+                                <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank" class="boton2 ps-0">Link</a>
                             </div>
                         </div>
                     </div>
@@ -173,9 +175,9 @@
                             <div>
                                 <div>
                                     <label class="text10 txt-blue d-block">Seguimiento</label>
-                                    <label class="text9 txt-blue d-block">31 de Enero</label>
-                                    <label class="text9 txt-blue d-block">Prueba</label>
-                                    <button type="button" class="boton2 ps-0">Link</button>
+                                    <label class="text9 txt-blue d-block">31 de Octubre</label>
+                                    <label class="text9 txt-blue d-block">Dudas y sugerencias</label>
+                                    <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank" class="boton2 ps-0">Link</a>
                                 </div>
                             </div>
                         </div>
@@ -221,9 +223,7 @@
                       </h2>
                       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador te asigne un examen,
-                                una vez asignado tienes que ver todos los videos del modulo,
-                                una vez terminado podras contestar el examen.
+                            <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha certificación. 
                             </p>
                         </div>
                       </div>
@@ -237,14 +237,12 @@
                       </h2>
                       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                         <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador te asigne un examen,
-                                una vez asignado tienes que ver todos los videos del modulo,
-                                una vez terminado podras contestar el examen.
+                            <p class="text11 txt-blue lh-1">El tiempo asignado para cada prueba, te será informado por el sistema al momento de iniciar la evaluación.
                             </p>
                         </div>
                       </div>
                     </div>
-                    <div class="accordion-item border-0 mb-3">
+                    <!--<div class="accordion-item border-0 mb-3">
                         <h2 class="accordion-header" id="headingFour">
                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                               <img src="assets/img/question.svg" class="me-2" alt="...">
@@ -275,7 +273,7 @@
                               </p>
                           </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

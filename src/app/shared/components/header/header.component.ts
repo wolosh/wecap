@@ -32,6 +32,13 @@ export class HeaderComponent implements OnInit {
     }
   }
 
- 
+ goTo(vista:any){
+  switch(vista){
+    case 1:
+      this.session.curso = false;
+      this.route.navigate(['/cmtemplate']);
+      break;
+  }
+ }
 
 }
