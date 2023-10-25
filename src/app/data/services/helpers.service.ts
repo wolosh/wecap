@@ -81,4 +81,8 @@ export class HelpersService {
     const blob = new Blob([ia], { type: mimeString });
     return blob;
   }
+
+  pauseTimer(interval: any) {
+    clearInterval(interval);
+  }
 }

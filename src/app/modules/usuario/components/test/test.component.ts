@@ -82,12 +82,14 @@ export class TestComponent implements OnInit {
         this.timeLeft--;
         this.transform(this.timeLeft);
       } else if (this.timeLeft === 0) {
+        stop
          Swal.fire({
           title: '¡Tiempo!',
           text: 'Se termino el tiempo de aplicación.',
           icon: 'info',
           confirmButtonColor: '#015287',
         }).then((result) => {
+          this.helpers.pauseTimer(this.interval);
           //console.log(result)
           if (result.isConfirmed) {
             this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
@@ -116,7 +118,10 @@ export class TestComponent implements OnInit {
     }
   }
 
+
+
   public temasSeccion(id: any, name: any){
+    this.helpers.pauseTimer(this.interval);
     this.helpers.idModuleBackUp = id;
     this.helpers.nameModuleBackUp = name;
     this.route.navigate(['/seccion']);

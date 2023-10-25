@@ -115,7 +115,7 @@ export class CursosModulosComponent implements OnInit {
   certifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.certificaciones = data;
         //console.log(this.certificaciones);
         Swal.close();
@@ -126,7 +126,7 @@ export class CursosModulosComponent implements OnInit {
   modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.modulesCertifications = data;
         //console.log(this.modulesCertifications);
         this.files(id);
@@ -137,7 +137,7 @@ export class CursosModulosComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.arrFiles = data.files;
         //console.log(this.arrFiles);
         Swal.close();

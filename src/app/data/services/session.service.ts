@@ -375,7 +375,7 @@ export class SessionService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-    return this.http.post(`${this.API}uodateFiles/${id}`, form, {
+    return this.http.post(`${this.API}updateFiles/${id}`, form, {
       headers,
     }).pipe(
       catchError((err) => {

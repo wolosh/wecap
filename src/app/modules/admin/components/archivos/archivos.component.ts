@@ -21,9 +21,10 @@ export class ArchivosComponent implements OnInit {
   mediaLength = 0;
   filesArr: any;
   cloneIn = 0;
-  file: any[] = [];
+  file: any;
   f: object = {};
-  p: any;
+  p: number = 1;
+  pg: number = 1;
   viewEdit = 0;
   idArch: any;
   formEdit: FormGroup;
@@ -58,7 +59,7 @@ export class ArchivosComponent implements OnInit {
             this.route.navigate(['/cmtemplate']);
           }
         });
-      } else if(localStorage.getItem('token') == null){
+      } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
       }
     }
@@ -101,8 +102,9 @@ export class ArchivosComponent implements OnInit {
 
   selectFiles(event: any, type: any, name?: any, url?: any) {
     console.log(event.target.files, type, name, url, this.cloneIn, this.file);
+    console.log(event.target.files[0])
     if (type == 'archivo') {
-
+      this.file = event.target.files[0];
     }
     console.log(this.file);
   }
@@ -143,6 +145,7 @@ export class ArchivosComponent implements OnInit {
         console.log(this.medias);
         this.mediaLength = this.medias.length;
         console.log(this.mediaLength);
+        Swal.close();
       }
     );
   }
@@ -263,31 +266,102 @@ export class ArchivosComponent implements OnInit {
   }
   changeViewArchivos(view: any, name?: any, id?: any) {
     //console.log(view, name, id);
-    switch (view) {
-      case 'back':
-        this.viewEdit = 0;
-        this.startForm(1);
-        this.files();
-        break;
-      case 'añadir':
-        this.viewEdit = 2;
-        //this.promos;
-        for (let item of this.filesArr) {
-          console.log(item)
-          if (item.name == name) {
-            this.idArch = item.idTopic;
+    Swal.fire({
+      title: 'Cargando...',
+      html: 'Espera un momento por favor',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        switch (view) {
+          case 'back':
+            this.viewEdit = 0;
             this.startForm(1);
-            //console.log(this.alltemas)
-            this.formArchivos.controls['name'].setValue(item.name);
-            this.formArchivos.controls['url'].setValue(item.url);
-          }
+            this.files();
+            break;
+          case 'añadir':
+            this.viewEdit = 2;
+            //this.promos;
+            for (let item of this.filesArr) {
+              console.log(item)
+              if (item.name == name) {
+                this.idArch = item.idTopic;
+                this.startForm(1);
+                //console.log(this.alltemas)
+                this.formArchivos.controls['name'].setValue(item.name);
+                this.formArchivos.controls['url'].setValue(item.url);
+              }
+            }
+            Swal.close();
         }
-    }
+      }
+    });
   }
 
-  updateFiles(){
-    console.log(this.formArchivos.value);
+  updateFiles(update: any) {
+    console.log(this.formArchivos.value, this.file);
 
+    let files = new FormData();
+    Swal.fire({
+      title: 'Cargando...',
+      html: 'Espera un momento por favor',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        if (update == 'descripcion') {
+          if (this.formArchivos.value.descripcion != '') {
+            files.append('descripcion', this.formArchivos.value.descripcion);
+          } else {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'Debes agregar una descripción',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          }
+        } else if (update == 'files') {
+          console.log(this.filesArr.length)
+          /*if (this.filesArr.length > 0) {
+            for (let item of this.filesArr) {
+              console.log(item)
+              files.append('files[]', item.url, item.name);
+            }
+          }*/
+          if (this.file != undefined) {
+            files.append('files[]', this.file, this.formArchivos.value.name);
+          } else {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'Debes agregar un archivo',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          }
+        }
+        console.log(files.getAll('files[]'));
+      }
+    });
+
+    this.session.updateFiles(1, files, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        Swal.close();
+        console.log(data);
+        if (data.message == 'Consulta correcta') {
+          Swal.fire({
+            title: '¡Archivo guardado!',
+            text: 'El archivo se agrego correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            console.log(result)
+            if (result.isConfirmed) {
+              this.changeViewArchivos('back');
+            }
+          });
+        }
+      }
+    );
   }
 }
 

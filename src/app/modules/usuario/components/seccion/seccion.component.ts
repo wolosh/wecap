@@ -89,7 +89,7 @@ export class SeccionComponent implements OnInit {
 
   temas() {
     this.get.getTemas(this.helpers.idModuleBackUp, localStorage.getItem('token')).subscribe((data: any) => {
-      //console.log(data)
+      console.log(data)
       this.temasArr = data;
       //console.log(this.temasArr)
       Swal.close();
