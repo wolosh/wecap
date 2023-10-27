@@ -11,12 +11,16 @@
             <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div *ngIf="this.viewMail == 0">
-                        <label class="text3 txt-blue2 mt-3">Correos programados</label>
-                        <div class="col-8 col-md-4 col-lg-3 offset-lg-2">
-                            <button class="boton bg-blue w-100 p-1 p-md-2">
-                                <img src="assets/img/agregar.svg" alt="" (click)="changeViewMail(1, 'crear')">
-                                Agregar correo nuevo
-                            </button>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-6">
+                                <label class="text3 txt-blue2">Correos programados</label>
+                            </div>
+                            <div class="col-8 col-md-4 col-lg-3 offset-lg-3">
+                                <button class="boton bg-blue w-100 p-1 p-md-2">
+                                    <img src="assets/img/agregar.svg" alt="" (click)="changeViewMail(1, 'crear')">
+                                    Agregar correo nuevo
+                                </button>
+                            </div>
                         </div>
                         <hr class="w-100">
                         <!--Tabla--->
@@ -37,20 +41,34 @@
                                     <td>{{correo[i]}}</td>
                                 </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
-                                nextLabel="Siguiente"></pagination-controls>
                         </table>
+                        <div class="row">
+                            <div class="col-12">
+                                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                                nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </div>
                     </div>
 
 
                     <!--Conferencias--->
                     <div *ngIf="this.viewMail == 1">
-                        <label class="text3 txt-blue2 mt-3">Enviar Correo</label>
+                        <div class="row mt-3 mb-3 d-flex align-items-center">
+                            <div class="col-lg-6 ">
+                                <label class="text3 txt-blue2">Enviar Correo</label>
+                            </div>
+                            <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewMail(0)">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!--label class="text3 txt-blue2 mt-3">Enviar Correo</label>
                         <div class="col-lg-2 offset-lg-4 mt-3">
                             <button class="boton bg-blue mx-auto d-block w-100 p-2" (click)="changeViewMail(0)">Regresar
                                 a
                                 Listado</button>
-                        </div>
+                        </div-->
                         <hr class="w-100">
                         <form [formGroup]="formMail">
                             <div class="mb-3">
@@ -129,8 +147,10 @@
                                     </li>-->
                                     </ul>
                                 </div>
-                                <pagination-controls (pageChange)="pedit = $event" previousLabel="Anterior"
+                                <div class="col-12">
+                                    <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pedit = $event" previousLabel="Anterior"
                                     nextLabel="Siguiente"></pagination-controls>
+                                </div>
                             </div>
                             <div *ngIf="showLength != 0">
                                 <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>

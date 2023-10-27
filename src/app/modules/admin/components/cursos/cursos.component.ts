@@ -931,32 +931,32 @@ export class CursosComponent implements OnInit {
 
   //salva la configuración de los diplomas
   saveModulo() {
-    console.log(this.imgIconoblob, this.imgIcono, this.imgTermina, this.idCertification)
+    //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
     let modulo = new FormData();
     modulo.append('idCertification', this.idCertification);
     modulo.append('title', this.formModulo.value.title);
     modulo.append('description', this.formModulo.value.descripcion);
     if(this.imgIcono != undefined){
-      modulo.append('icon',this.imgIcono, this.imgIcono.name);
+      modulo.append('icon',this.imgIcono, /*this.imgIcono.name*/);
     }else{
       modulo.append('icon',this.imgIcono);
     }
     modulo.append('color_style', this.formModulo.value.color);
     modulo.append('url_video', this.formModulo.value.url_video);
     if(this.imgTermina != undefined){
-      modulo.append('medal_finish',this.imgTermina, this.imgTermina.name);
+      modulo.append('medal_finish',this.imgTermina, /*this.imgTermina.name*/);
     }else{
       modulo.append('medal_finish',this.imgTermina);
     }
     //modulo.append('medal_finish',this.imgTermina, this.imgTermina.name);
     if(this.imgScore != undefined){
-      modulo.append('medal_perfect',this.imgScore, this.imgScore.name);
+      modulo.append('medal_perfect',this.imgScore, /*this.imgScore.name*/);
     }else{
       modulo.append('medal_perfect',this.imgScore);
     }
     //modulo.append('medal_perfect',this.imgScore, this.imgScore.name);
     if(this.imgTiempo != undefined){
-      modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
+      modulo.append('medal_time',this.imgTiempo, /*this.imgTiempo.name*/);
     }else{
       modulo.append('medal_time',this.imgTiempo);
     }
@@ -964,7 +964,7 @@ export class CursosComponent implements OnInit {
     modulo.append('max_time', this.formModulo.value.duracion);
     modulo.append('min_score', this.formModulo.value.score);
     modulo.append('hasExam', this.exam);
-    console.log(modulo.getAll('icon'))
+    //console.log(modulo.getAll('icon'))
     /*console.log(modulo.getAll)
     console.log(modulo.get)*/
     /*console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
