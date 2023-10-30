@@ -279,7 +279,8 @@
                   <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveModulo()">Guardar</button>
                 </div>
                 <div class="col-6 col-md-3 col-lg-2">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
+                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
+                    <!--button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar usuario</button-->
                 </div>
               </div>
               <div class="mb-3">
@@ -392,10 +393,11 @@
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
                 </div>
                 <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveTemas()">Guardar</button>
                 </div>
                 <div class="col-6 col-md-3 col-lg-2">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1" (click)="status(0)">Desactivar</button>
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar</button>
                 </div>
                 <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0">
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Eliminar</button>
@@ -413,24 +415,28 @@
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4 mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
-                  <img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgTema">
+                  <img *ngIf="this.imgTema == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTema" />
+                  <img *ngIf="this.imgTema != ''" class="imgPreview" src="{{ this.imgTema }}" alt="imgTema" />
+                  <!--img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgPreview"-->
                   <input type="file" class="input3" id="medallapt" (change)="fileTema($event)">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
-                  <img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV">
+                  <img *ngIf="this.imgTemaV == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTemaV" />
+                  <img *ngIf="this.imgTemaV != ''" class="imgPreview" src="{{ this.imgTemaV }}" alt="imgTemaV" />
+                  <!--img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV"-->
                   <input type="file" class="input3" id="medallapt" (change)="fileTemaV($event)">
                 </div>
               </div>
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4 mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
-                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".srt">
+                  <input type="text" class="input3" formControlName="url_video">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube,
                     vimeo o PDF (previamente subido a medios))</label>
-                  <input type="file" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
+                  <input type="text" class="input3" formControlName="url_subtitulos">
                 </div>
               </div>
             </form>

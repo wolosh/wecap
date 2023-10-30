@@ -66,7 +66,7 @@ export class TemasComponent implements OnInit {
   }
 
   checkFinalizado(arr:any) {
-//console.log(arr);
+  //console.log(arr);
     if (arr != null) {
       let arr2 = JSON.parse(arr);
       //console.log(arr2)
@@ -128,7 +128,7 @@ export class TemasComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.arrFiles = data.files;
-this.nameFiles = data.files.files;
+        this.nameFiles = data.files.files;
         //console.log(this.arrFiles, this.nameFiles);
         Swal.close();
       }

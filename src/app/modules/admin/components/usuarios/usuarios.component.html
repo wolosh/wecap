@@ -69,9 +69,8 @@
                                     <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" (click)="deleteUser()">Eliminar</button>
                                 </div>
                                 <div class="col-6 col-md-3 col-xl-2">
-                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1" (click)="status(0)">Desactivar
-                                        usuario</button>
-                                        <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar usuario</button>
+                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1" (click)="status(0)">Desactivar usuario</button>
+                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar usuario</button>
                                 </div>
                             </div>
                             <div class="mb-3">

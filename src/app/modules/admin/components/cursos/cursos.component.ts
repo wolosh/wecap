@@ -229,6 +229,8 @@ export class CursosComponent implements OnInit {
       this.formTemas = this.formBuilder.group({
         title: [''],
         descripcion: [''],
+        url_video: [''],
+        url_subtitulos: [''],
       });
     }
   }
@@ -576,9 +578,45 @@ export class CursosComponent implements OnInit {
             this.formTemas.controls['descripcion'].setValue(item.description);
             this.imgTema = item.icon;
             this.imgTemaV = item.icon_gold;
+            this.active = item.is_active;
+            console.log(this.active)
           }
         }
     }
+  }
+
+  status(status: any) {
+    let form = new FormData();
+    form.append('is_active', status);
+    console.log(form)
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Puedes revertir el cambio mas tarde.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#015287',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, cambiar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.session.changeStatusTema(this.idTema, form, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+           //console.log(data);
+            Swal.fire({
+              title: '¡Cambiado!',
+              text: 'El tema ha sido cambiado de estado.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.changeViewTemas('back');
+              }
+            });
+          }
+        );
+      }
+    })
   }
 
   //trae el diploma de una certificación
@@ -929,7 +967,6 @@ export class CursosComponent implements OnInit {
     }
   }
 
-  //salva la configuración de los diplomas
   saveModulo() {
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
     let modulo = new FormData();
@@ -948,13 +985,11 @@ export class CursosComponent implements OnInit {
     }else{
       modulo.append('medal_finish',this.imgTermina);
     }
-    //modulo.append('medal_finish',this.imgTermina, this.imgTermina.name);
     if(this.imgScore != undefined){
       modulo.append('medal_perfect',this.imgScore, /*this.imgScore.name*/);
     }else{
       modulo.append('medal_perfect',this.imgScore);
     }
-    //modulo.append('medal_perfect',this.imgScore, this.imgScore.name);
     if(this.imgTiempo != undefined){
       modulo.append('medal_time',this.imgTiempo, /*this.imgTiempo.name*/);
     }else{
@@ -964,15 +999,15 @@ export class CursosComponent implements OnInit {
     modulo.append('max_time', this.formModulo.value.duracion);
     modulo.append('min_score', this.formModulo.value.score);
     modulo.append('hasExam', this.exam);
-    //console.log(modulo.getAll('icon'))
-    /*console.log(modulo.getAll)
-    console.log(modulo.get)*/
-    /*console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
+    /*console.log(modulo.getAll('icon'))
+    console.log(modulo.getAll)
+    console.log(modulo.get)
+    console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
     modulo.getAll('description'), modulo.getAll('imgIcono'),
     modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
     modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
-    modulo.getAll('score'), modulo.getAll('hasExam'));*/
-    //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
+    modulo.getAll('score'), modulo.getAll('hasExam'));
+    console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
     this.session.updateModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
@@ -988,35 +1023,45 @@ export class CursosComponent implements OnInit {
     );
   }
   saveTemas() {
-    let modulo = new FormData();
-    modulo.append('idModule', this.idTema);
-    modulo.append('title', this.formTemas.value.title);
-    modulo.append('description', this.formTemas.value.descripcion);
-
-    modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
-    modulo.append('max_time', this.formModulo.value.duracion);
-    modulo.append('min_score', this.formModulo.value.score);
-    modulo.append('hasExam', this.exam);
-    console.log(modulo.getAll('icon'))
-    /*console.log(modulo.getAll)
-    console.log(modulo.get)*/
-    /*console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
+    //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
+    let tema = new FormData();
+    tema.append('idModule', this.idModulo);
+    tema.append('title', this.formTemas.value.title);
+    tema.append('description', this.formTemas.value.description);
+    tema.append('order_number', '5');
+    tema.append('is_active', this.formTemas.value.status);
+    if(this.imgTema != undefined){
+      tema.append('icon',this.imgTema, /*this.imgIcono.name*/);
+    }else{
+      tema.append('icon',this.imgTema);
+    }
+    tema.append('url_video', this.formTemas.value.url_video);
+    tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
+    if(this.imgTemaV != undefined){
+      tema.append('icon_gold',this.imgTemaV, /*this.imgTermina.name*/);
+    }else{
+      tema.append('icon_gold',this.imgTemaV);
+    }
+    /*console.log(modulo.getAll('icon'))
+    console.log(modulo.getAll)
+    console.log(modulo.get)
+    console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
     modulo.getAll('description'), modulo.getAll('imgIcono'),
     modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
     modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
-    modulo.getAll('score'), modulo.getAll('hasExam'));*/
-    //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
-    this.session.updateModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
+    modulo.getAll('score'), modulo.getAll('hasExam'));
+    console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
+    this.session.updateTemas(this.idModulo, tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
-        /*Swal.fire({
+        Swal.fire({
           title: '¡Actualizado con exito!',
-          text: 'El diploma ha sido actualizado.',
+          text: 'El módulo ha sido actualizado.',
           icon: 'success',
           confirmButtonColor: '#015287',
-        });*/
+        });
         //this.modules(this.idCertification);
-        this.changeViewModulo('back',this.idCertification)
+        this.changeViewTemas('back',this.idModulo)
       }
     );
   }

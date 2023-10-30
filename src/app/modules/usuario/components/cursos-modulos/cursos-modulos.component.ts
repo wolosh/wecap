@@ -105,7 +105,7 @@ export class CursosModulosComponent implements OnInit {
             this.cursos = 2;
             this.modules(id);
             localStorage.setItem('idCertification', id);
-            this.helpers.conferencias = true;
+            //this.helpers.conferencias = true;
             break;
         }
       }
@@ -150,6 +150,7 @@ export class CursosModulosComponent implements OnInit {
     localStorage.setItem('nameModule', nameMod);
     this.helpers.idModuleBackUp = idMod;
     this.helpers.nameModuleBackUp = nameMod;
+    this.helpers.conferencias = true;
     //console.log(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp);
     this.route.navigate(['/seccion']);
   }

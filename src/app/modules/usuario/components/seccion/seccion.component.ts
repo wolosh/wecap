@@ -80,7 +80,7 @@ export class SeccionComponent implements OnInit {
   certifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.certificaciones = data;
         //console.log(this.certificaciones);
       }
@@ -101,8 +101,8 @@ export class SeccionComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.arrFiles = data.files;
-this.nameFiles = data.files.files;
-        //console.log(this.arrFiles, this.nameFiles);
+        this.nameFiles = data.files.files;
+        console.log(this.arrFiles, this.nameFiles);
         Swal.close();
       }
     );
