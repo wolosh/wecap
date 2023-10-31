@@ -13,7 +13,7 @@ import { Buffer } from 'buffer';
 })
 export class TestComponent implements OnInit {
 
-  valido:boolean = false;
+  valido: boolean = false;
   timeLeft: number; //variabe timer
   interval: any;
   minutesDisplay: number;
@@ -46,12 +46,13 @@ export class TestComponent implements OnInit {
           this.session.curso = true;
           //console.log(this.helpers.nameModuleBackUp);
           //console.log(localStorage.getItem('test'));
-          if(localStorage.getItem('test') == 'true'){
+          if (localStorage.getItem('test') == 'true') {
             this.valido = true;
           }
           //this.certifications();
           //this.temas();
           //Swal.close();
+          this.getInfoExam(this.helpers.idModuleBackUp)
           this.timeLeft = 120;
           this.startTimer();
         }
@@ -75,6 +76,17 @@ export class TestComponent implements OnInit {
     }
   }
 
+  getInfoExam(id: any) {
+    console.log(id);
+    this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+
+        Swal.close();
+      }
+    );
+  }
+
   startTimer() {
     Swal.close();
     this.interval = setInterval(() => {
@@ -82,21 +94,20 @@ export class TestComponent implements OnInit {
         this.timeLeft--;
         this.transform(this.timeLeft);
       } else if (this.timeLeft === 0) {
-        stop
-         Swal.fire({
+        this.helpers.pauseTimer(this.interval);
+        Swal.fire({
           title: '¡Tiempo!',
           text: 'Se termino el tiempo de aplicación.',
           icon: 'info',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          this.helpers.pauseTimer(this.interval);
           //console.log(result)
           if (result.isConfirmed) {
             this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
             this.valido = false;
             localStorage.setItem('test', this.valido.toString());
           }
-         });
+        });
       }
     }, 1000);
   }
@@ -120,21 +131,21 @@ export class TestComponent implements OnInit {
 
 
 
-  public temasSeccion(id: any, name: any){
+  public temasSeccion(id: any, name: any) {
     this.helpers.pauseTimer(this.interval);
     this.helpers.idModuleBackUp = id;
     this.helpers.nameModuleBackUp = name;
     this.route.navigate(['/seccion']);
     this.session.curso = true;
-    
+
   }
 
   changeOption() {
-//console.log(this.text1, this.text2, this.text3);
+    //console.log(this.text1, this.text2, this.text3);
   }
 
-  saveTest(){
-    if(this.text1 == '' || this.text2 == '' || this.text3 == ''){
+  saveTest() {
+    if (this.text1 == '' || this.text2 == '' || this.text3 == '') {
       Swal.fire({
         title: '¡Error!',
         text: 'Debes responder todas las preguntas.',
@@ -153,18 +164,18 @@ export class TestComponent implements OnInit {
           this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
           this.valido = true;
           localStorage.setItem('test', this.valido.toString());
-          
+
         }
       });
     }
   }
 
-  files(){
+  files() {
     this.get.getFiles(localStorage.getItem('idCertification'), localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
         this.arrFiles = data.files;
-this.nameFiles = data.files.files;
+        this.nameFiles = data.files.files;
         //console.log(this.arrFiles, this.nameFiles);
         Swal.close();
       }

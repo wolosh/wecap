@@ -25,7 +25,7 @@
                         <tbody>
                             <tr *ngFor="let curso of allcursos | paginate: { itemsPerPage: 6, currentPage: p}">
                                 <th scope="row">{{curso.idCertification}}</th>
-                                <th scope="row"><button type="button" class="boton4" (click)="changeViewConferencias('editConf', curso.title)">{{curso.title}}</button></th>
+                                <th scope="row"><button type="button" class="boton4" (click)="changeViewConferencias('verConf', curso.title, curso.idCertification)">{{curso.title}}</button></th>
                                 <td>{{curso.description}}</td>
                                 <td>{{curso.creation_date}}</td>
                                 <td *ngIf="this.curso.is_active == 1">Activa</td>
@@ -44,7 +44,7 @@
                     <!--Conferencias--->
                     <div class="row d-flex align-items-center">
                         <div class="col-6 col-md-4 col-lg-3">
-                            <label class="text3 txt-blue2">Conferencias</label>
+                            <label class="text3 txt-blue2">Conferencias {{this.nombreCertificacion}}</label>
                         </div>
                         <div class="col-6 col-md-5 col-lg-3 offset-lg-6 offset-md-3">
                             <button class="botondrop bg-blue w-100 p-1 p-md-2" (click)="changeViewConferencias('newConf')">
@@ -143,19 +143,19 @@
                     <form [formGroup]="formConf" id="conferencias">
                         <div class="row d-flex align-items-center">
                             <div class="col-8 col-md-5 col-lg-4">
-                                <label class="text3 txt-blue2">Añadir Conferencias</label>
+                                <label class="text3 txt-blue2">Añadir Conferencia</label>
                             </div>
                             <div class="col-4 col-md-4 col-lg-2 offset-lg-6 offset-md-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar</button>
+                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addConferencia()">Guardar</button>
                             </div>
                         </div>
                         <hr class="w-100">
                         <div class="row">
                           <div class="col-12">
-                            <input type="text" class="input3 mb-3" placeholder="Título conferencia"  formControlName="title" ngModel="title">
-                            <input type="text" class="input3 mb-3" placeholder="Descripción"  formControlName="description">
+                            <input type="text" class="input3 mb-3" placeholder="Título de la conferencia"  formControlName="titulo" >
+                            <input type="text" class="input3 mb-3" placeholder="Descripción"  formControlName="descripcion">
+                            <input type="text" class="input3 mb-3" placeholder="Link para ingresar"  formControlName="link">
                             <input type="text" class="input3 mb-3" placeholder="Fecha"  formControlName="fecha">
-                            <input type="text" class="input3 mb-3" placeholder="Link"  formControlName="link">
                             <hr class="hr-gris mt-4 mb-4">
                           </div>
                         </div>

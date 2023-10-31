@@ -105,6 +105,8 @@ export class ArchivosComponent implements OnInit {
     console.log(event.target.files[0])
     if (type == 'archivo') {
       this.file = event.target.files[0];
+    } else if (type == 'media') {
+      this.file = event.target.files[0];
     }
     console.log(this.file);
   }
@@ -121,6 +123,7 @@ export class ArchivosComponent implements OnInit {
         this.filesArr = [];
         switch (type) {
           case 'files':
+            this.viewEdit = 0;
             this.startForm(1);
             this.files();
             break;
@@ -139,7 +142,7 @@ export class ArchivosComponent implements OnInit {
     this.medias = [];
     this.get.getMedia(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         //this.startForm(2);
         this.medias = data.media;
         console.log(this.medias);
@@ -194,24 +197,50 @@ export class ArchivosComponent implements OnInit {
 
   //Crear nuevo curso
   subirMedia() {
-    this.image.forEach((value) => {
-      this.formData.append("img[]", value);
-      //this.formData.append("img[]", value, value.name);
-      //formData.append("fieldName", JSON.stringify(testObject));
-    });
-    console.log(this.formData.getAll('img[]'));
-    //console.log(this.formData.getAll('img[]'));
-    /*this.formData.append('img',this.image);
-    console.log(this.formData.getAll('image'));
-    //console.log(this.formData.append('img', this.image));*/
-    //console.log(this.formData);
-    this.session.uploadMedia(this.formData, localStorage.getItem('token')).subscribe(
+    console.log(this.file)
+    let media = new FormData();
+    if( this.file != undefined){
+      media.append('files[]',  this.file, this.file.name);
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes agregar un archivo',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    }
+
+console.log(media.getAll('files[]'))
+
+    this.session.uploadMedia(media, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
         //this.allMedia();
+        Swal.fire({
+          title: '¡Archivo guardado!',
+          text: 'El archivo se agrego correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
+            this.onClickTab('media');
+          }
+        });
       }
     );
   }
+
+  removeMedia(media:any){
+    console.log(media); 
+
+    let json = {
+      media: media
+    }
+
+    console.log(json)
+  }
+
   i = 0;
   //Clone archivos
   public cloneArchivos(): void {
@@ -231,6 +260,7 @@ export class ArchivosComponent implements OnInit {
       btn.addEventListener('click', this.removeArchivos)
     });
   }
+
   public removeArchivos(): void {
     console.log(this.formArchivos.value);
     var test = document.querySelectorAll('.cloneArchivos')
@@ -255,6 +285,7 @@ export class ArchivosComponent implements OnInit {
       btn.addEventListener('click', this.remove)
     });
   }
+
   public remove(): void {
     var test = document.querySelectorAll('.clone')
     for (var i = 0; i < test.length; i++) {
@@ -264,6 +295,7 @@ export class ArchivosComponent implements OnInit {
       });
     }
   }
+
   changeViewArchivos(view: any, name?: any, id?: any) {
     //console.log(view, name, id);
     Swal.fire({
@@ -297,6 +329,32 @@ export class ArchivosComponent implements OnInit {
       }
     });
   }
+
+  changeViewMultimedia(view: any, name?:any){
+    Swal.fire({
+      title: 'Cargando...',
+      html: 'Espera un momento por favor',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        switch (view) {
+          case 'back':
+            this.viewFiles = 1;
+            this.startForm(2);
+            this.files();
+            break;
+          case 'añadir':
+            this.viewFiles = 2;
+            //this.promos;
+            setTimeout(() => {
+              Swal.close();
+             }, 500);
+        }
+      }
+    });
+  }
+
 
   updateFiles(update: any) {
     console.log(this.formArchivos.value, this.file);

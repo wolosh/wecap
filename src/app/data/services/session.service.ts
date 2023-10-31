@@ -414,5 +414,31 @@ export class SessionService {
     );
   }
 
+  public addConferencia(id, form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}addConferencia/${id}`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  deleteMedia(data: any, token: any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+   
+   return this.http.post(`${this.API}deleteMedia`, data, {
+    headers,
+   });
+  }
+
+  
+
 }
 

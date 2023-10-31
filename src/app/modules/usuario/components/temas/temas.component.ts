@@ -5,6 +5,7 @@ import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-temas',
@@ -17,9 +18,10 @@ export class TemasComponent implements OnInit {
   finalizado = 0;
   arrFiles: any;
   nameFiles: any;
+  video: any;
 
 
-  constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
+  constructor(private dom:DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
@@ -42,7 +44,7 @@ export class TemasComponent implements OnInit {
           this.session.curso = true
           //console.log(this.helpers.nameTopicBackUp, this.helpers.idTopicBackUp)
           this.checkFinalizado(localStorage.getItem('finalizados'));
-          
+
           this.temas();
         }
       });
@@ -65,8 +67,8 @@ export class TemasComponent implements OnInit {
     }
   }
 
-  checkFinalizado(arr:any) {
-  //console.log(arr);
+  checkFinalizado(arr: any) {
+      //console.log(arr);
     if (arr != null) {
       let arr2 = JSON.parse(arr);
       //console.log(arr2)
@@ -80,27 +82,36 @@ export class TemasComponent implements OnInit {
   }
 
   temas() {
-    this.get.getTemas(localStorage.getItem('idModule'), localStorage.getItem('token')).subscribe((data: any) => {
+    console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
+    this.get.getOnlyTema(this.helpers.idTopicBackUp, localStorage.getItem('token')).subscribe((data: any) => {
+      console.log(data)
+      this.temasArr = data;
+      console.log(this.temasArr)
+      this.video = this.dom.bypassSecurityTrustResourceUrl(data.url_video);
+
+      Swal.close();
+    });
+    /*this.get.getTemas(localStorage.getItem('idModule'), localStorage.getItem('token')).subscribe((data: any) => {
       //console.log(data)
       this.temasArr = data;
       //console.log(this.temasArr)
       Swal.close();
-    });
+    });*/
   }
 
   temaFinalizado(idTopic: any) {
-    if(localStorage.getItem('finalizados')){
-    let arr = JSON.parse(localStorage.getItem('finalizados'));
-    //console.log(idTopic, arr)
-    arr.push(idTopic);
-    //console.log(arr)
-    localStorage.setItem('finalizados', JSON.stringify(arr));
+    if (localStorage.getItem('finalizados')) {
+      let arr = JSON.parse(localStorage.getItem('finalizados'));
+      //console.log(idTopic, arr)
+      arr.push(idTopic);
+      //console.log(arr)
+      localStorage.setItem('finalizados', JSON.stringify(arr));
     } else {
       let arr = [];
       //console.log(idTopic, arr)
-    arr.push(idTopic);
-    //console.log(arr)
-    localStorage.setItem('finalizados', JSON.stringify(arr));
+      arr.push(idTopic);
+      //console.log(arr)
+      localStorage.setItem('finalizados', JSON.stringify(arr));
     }
     //console.log(this.helpers.finalizados, localStorage.getItem('finalizados'))
     Swal.fire({
@@ -116,14 +127,14 @@ export class TemasComponent implements OnInit {
     });
   }
 
-  public temasSeccion(id: any, name: any){
+  public temasSeccion(id: any, name: any) {
     this.helpers.idModuleBackUp = id;
     this.helpers.nameModuleBackUp = name;
     this.route.navigate(['/seccion']);
     this.session.curso = true;
   }
 
-  files(){
+  files() {
     this.get.getFiles(localStorage.getItem('idCertification'), localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);

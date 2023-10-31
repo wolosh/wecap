@@ -109,9 +109,10 @@ export class SeccionComponent implements OnInit {
   }
 
   goToTheme(id:any, name:any){
-    //console.log(id);
+    console.log(id);
     localStorage.setItem('idTopic', id);
     localStorage.setItem('nameTopic', name);
+    console.log(localStorage.getItem('idTopic'), localStorage.getItem('nameTopic'));
     this.route.navigate(['/temas']);
   }
 

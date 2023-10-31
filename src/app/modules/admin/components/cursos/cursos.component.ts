@@ -93,6 +93,7 @@ export class CursosComponent implements OnInit {
       //console.log(this.searchArray)
       //console.log(localStorage.getItem('token'));
       this.helpers.type = localStorage.getItem('type');
+      this.helpers.name = localStorage.getItem('name');
       this.helpers.goTop();
       this.certifications();
       //this.helpers.cursos = 1;

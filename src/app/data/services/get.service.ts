@@ -225,4 +225,22 @@ getFiles(id:any, token){
       headers,
     })
   }
+
+  getOnlyTema(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'getTema/' + id, {
+      headers
+  });
+  }
+
+  getInfoExamen(id:any, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'examen/' + id, {
+      headers
+  });
+  }
 }

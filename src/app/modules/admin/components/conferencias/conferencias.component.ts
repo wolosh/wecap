@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Data, Router } from '@angular/router';
 import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
-import { FormGroup, FormBuilder, Validators, FormControl,FormArray} from '@angular/forms';
+import Swal from 'sweetalert2';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
@@ -15,13 +17,13 @@ export class ConferenciasComponent implements OnInit {
   allcursos: any;
   p: any;
   allConferencias: any;
-  viewConf= 0;
+  viewConf = 0;
   formConf: FormGroup;
   idConf: any;
   //title= '';
   prueba: any[];
   title = 'form-array';
-
+  nombreCertificacion = '';
   fg!: FormGroup
   dataSourcePacks!: MatTableDataSource<any>;
   displayedColumns = ["titulo", "descripcion", "fecha", "link"]
@@ -32,99 +34,148 @@ export class ConferenciasComponent implements OnInit {
   link = new FormControl('')
   dataSource: any;
   viewNew: number;
+  backId: any;
 
 
 
-  constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder,private session: SessionService, private _fb: FormBuilder,
+  constructor(private get: GetService, private route: Router, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private _fb: FormBuilder,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.helpers.goTop();
-    this.helpers.cursos = 1;
-    this.cursos();
-    //this.conferencias();
-    this.fg = this._fb.group({
-      titulo: this.titulo,
-      descripcion: this.descripcion,
-      fecha: this.fecha,
-      link: this.link,
-      promos: this._fb.array([])
-    });
+    if (localStorage.getItem('type') == '1') {
+
+      //console.log(this.searchArray)
+      //console.log(localStorage.getItem('token'));
+      this.helpers.type = localStorage.getItem('type');
+      this.helpers.name = localStorage.getItem('name');
+      this.helpers.goTop();
+      this.getCertifications();
+      //this.conferencias();
+      this.fg = this._fb.group({
+        titulo: this.titulo,
+        descripcion: this.descripcion,
+        fecha: this.fecha,
+        link: this.link,
+        promos: this._fb.array([])
+      });
+    } else {
+      if (localStorage.getItem('type') == '4') {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'No tienes permiso para acceder a esta página.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
+            this.route.navigate(['/cmtemplate']);
+          }
+        });
+      } else if (localStorage.getItem('token') == null) {
+        this.route.navigate(['/']);
+      }
+    }
   }
 
-  getPage(page: any) {
-    this.p = page;
-  }
 
-  /*startForm(): void {
-    //Metodo para inicializar el formulario
-    this.formConf = this.formBuilder.group({
-      title: [''],
-      description: [''],
-      fecha: [''],
-      link: ['']
-    });
-  }*/
-  //Llena cursos
-  cursos(){
-    //this.allcursos = [];
+  getCertifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
-        this.allcursos = data;
-        //console.log(this.allcursos);
         console.log(data);
-        this.conferencia = data;
-        console.log(this.conferencia);
+        this.allcursos = data;
+        console.log(this.allcursos);
       }
     );
   }
-  //trae los temas de un modulo
-  conferencias(id=2) {
+
+  getConferencias(id: any) {
+    console.log(id);
     this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data)
+        console.log(data);
         this.allConferencias = data;
-        //console.log(this.conferencias)
+        console.log(this.allConferencias);
       }
     );
   }
 
-  /*change(id: any) {
-    if (id == 2) {
-      this.viewConf = 2;
+  startForm() {
+    this.formConf = this.formBuilder.group({
+      titulo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      link: ['', Validators.required],
+      fecha: ['', Validators.required],
+    });
+  }
+
+  addConferencia() {
+    console.log(this.formConf.value, this.backId);
+
+    if (this.formConf.valid) {
+      if (this.formConf.value.descripcion.length < 10) {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'La descripción debe tener al menos 10 caracteres.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        });
+      } else {
+        let conferencia = new FormData();
+        console.log(this.formConf.value);
+
+        conferencia.append('titulo', this.formConf.value.titulo);
+        conferencia.append('descripcion', this.formConf.value.descripcion);
+        conferencia.append('link', this.formConf.value.link);
+        conferencia.append('fecha', this.formConf.value.fecha);
+
+        console.log(conferencia.getAll('titulo'), conferencia.getAll('descripcion'), conferencia.getAll('link'), conferencia.getAll('fecha'));
+        this.session.addConferencia(this.backId, conferencia, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            console.log(data);
+            Swal.fire({
+              title: '¡Listo!',
+              text: 'Conferencia agregada correctamente.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then((result) => {
+              console.log(result)
+              if (result.isConfirmed) {
+                this.changeViewConferencias('back');
+              }
+            });
+          }
+        );
+      }
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Todos los campos son obligatorios.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
     }
-  }*/
+  }
 
   //cambia la vista a Temas
-  changeViewConferencias(view: any, name?: any, id=2 ) {
+  changeViewConferencias(view: any, name?: any, id?: any) {
+
     console.log(view, name, id);
+    this.nombreCertificacion = name;
     switch (view) {
       case 'back':
         this.viewConf = 0;
         break;
+      case 'verConf':
+        this.backId = id;
+        this.viewConf = 1;
+        this.getConferencias(id);
+        break;
       case 'newConf':
         this.viewConf = 2;
-        break;
-      case 'editConf':
-        this.viewConf = 1;
-        //this.promos;
-        this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
-          (data: any) => {
-            //this.addLesson('llamar',data);
-            /*this.dataSourcePacks = new MatTableDataSource(data);
-            console.log(this.dataSourcePacks)*/
-            this.allConferencias=data
-            /*for (let item of data) {
-              this.fg.controls['titulo'].setValue(item.titulo);
-              this.fg.controls['descripcion'].setValue(item.descripcion);
-              this.fg.controls['fecha'].setValue(item.fecha);
-              this.fg.controls['link'].setValue(item.link);
-              //this.title=item.titulo
-            }
-            console.log(this.fg.value)*/
-          }
-        );
+        this.startForm();
+      //this.promos;
+
+
     }
   }
   /*public clone(): void {
