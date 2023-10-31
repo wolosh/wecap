@@ -1,8 +1,8 @@
 <div class="container-lg page-content top pb-5">
     <div class="row d-flex align-items-center">
         <div class="col-12 col-lg-11">
-            <h1 class="text txt-blue" *ngIf="this.cursos == 1">Cursos</h1> 
-            <h1 class="text txt-blue" *ngIf="this.cursos == 2">Módulos</h1> 
+            <h1 class="text txt-blue" *ngIf="this.cursos == 1">Cursos</h1>
+            <h1 class="text txt-blue" *ngIf="this.cursos == 2">Módulos</h1>
         </div>
         <div class="col-6 col-lg-1" *ngIf="this.cursos == 2">
             <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
@@ -76,7 +76,7 @@
             <div class="carousel-caption">
                 <button *ngIf="slide.idModule == '2'" type="button" class="card-title w-100 border-0" (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
                 <button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100 border-0" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
-                
+
                 <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                     <div class="row">
                         <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="..."></div>
@@ -223,7 +223,7 @@
                       </h2>
                       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha certificación. 
+                            <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha certificación.
                             </p>
                         </div>
                       </div>

@@ -207,34 +207,17 @@
             <div class="modal-body">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Conferencias</h5>
                 <p class="text7 txt-gris mb-3">Aquí podras ver las conferencias programadas para esta certificación.</p>
-                <div class="card color rounded-4 mb-3">
+                <div class="card color rounded-4 mb-3" *ngFor="let conferencia of this.allConferencias">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="me-3 mt-1">
                                 <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
                             </div>
                             <div>
-                                <label class="text10 txt-blue d-block">Introducción: Promocional</label>
-                                <label class="text9 txt-blue d-block">15 de Octubre</label>
-                                <label class="text9 txt-blue d-block">Bases para módulo Promocional.</label>
-                                <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank" class="boton2 ps-0">Link</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color rounded-4 mb-3">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="me-3 mt-1">
-                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
-                            </div>
-                            <div>
-                                <div>
-                                    <label class="text10 txt-blue d-block">Seguimiento</label>
-                                    <label class="text9 txt-blue d-block">31 de Octubre</label>
-                                    <label class="text9 txt-blue d-block">Dudas y sugerencias</label>
-                                    <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank" class="boton2 ps-0">Link</a>
-                                </div>
+                                <label class="text10 txt-blue d-block">{{conferencia.titulo}}</label>
+                                <label class="text9 txt-blue d-block">{{conferencia.fecha}}</label>
+                                <label class="text9 txt-blue d-block">{{conferencia.descripcion}}</label>
+                                <a href="{{conferencia.link}}" target="_blank" class="boton2 ps-0">Link</a>
                             </div>
                         </div>
                     </div>
@@ -279,7 +262,7 @@
                       </h2>
                       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha certificación. 
+                            <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha certificación.
                             </p>
                         </div>
                       </div>

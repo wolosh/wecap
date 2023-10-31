@@ -23,6 +23,7 @@ export class TestComponent implements OnInit {
   public text3 = '';
   arrFiles: any;
   nameFiles: any;
+  allConferencias: any;
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
@@ -55,6 +56,7 @@ export class TestComponent implements OnInit {
           this.getInfoExam(this.helpers.idModuleBackUp)
           this.timeLeft = 120;
           this.startTimer();
+          this.conferencias(localStorage.getItem('idCertification'))
         }
       });
     } else {
@@ -178,6 +180,16 @@ export class TestComponent implements OnInit {
         this.nameFiles = data.files.files;
         //console.log(this.arrFiles, this.nameFiles);
         Swal.close();
+      }
+    );
+  }
+
+  conferencias(id:any) {
+    this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data)
+        this.allConferencias = data;
+        //console.log(this.allConferencias)
       }
     );
   }

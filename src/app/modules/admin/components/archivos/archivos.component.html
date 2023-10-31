@@ -36,7 +36,7 @@
                                     Editar descripción
                                 </button>
                             </div>
-    
+
                             <div class="col-6" *ngIf="showDescription == true">
                                 <button type="button" class="boton bg-blue w-auto p-2 ps-3 pe-3 float-end"
                                     (click)="showDescription = false">
@@ -117,13 +117,19 @@
                         </div>
                     </div>
                     <div *ngIf="viewEdit == 2">
-                        <label class="text3 txt-blue2 mt-3">Añadir Archivo</label>
-                        <div class="col-6 col-md-4 col-lg-1">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="text3 txt-blue2">Añadir Archivo</label>
+                          </div>
+                          <div class="col-6 offset-6 col-lg-1 offset-lg-5">
                             <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
                                 (click)="changeViewArchivos('back')">
                                 <i class="fas fa-reply"></i>
                             </button>
+                          </div>
                         </div>
+
+
                         <hr class="w-100">
 
                         <form [formGroup]="formArchivos">
@@ -238,7 +244,7 @@
                                     <label for="formFile" class="text13 txt-blue mb-2 d-block">Selecciona un
                                         archivo</label>
                                     <input class="input3 d-inline-flex w-auto" type="file" formControlName="img"
-                                        (change)="selectFiles($event, 'media')" 
+                                        (change)="selectFiles($event, 'media')"
                                         accept="image/png,image/jpeg,image/jpg, video/MP4">
                                     <!--accept="image/png,image/jpeg,image/jpg,.pdf,video/MP4">-->
                                     <!--<button class="boton2 d-inline-flex remove" (click)="remove()"><img
@@ -259,12 +265,16 @@
                     </div>
                     <div *ngIf="this.viewFiles == 1">
                         <div *ngIf="this.mediaLength != 0">
-                            <label class="text3 txt-blue2 mt-3">Listado Multimedia</label>
-                            <div class="col-5 col-md-3 col-lg-2 offset-7 offset-md-0">
+                            <div class="row">
+                              <div class="col-6">
+                                <label class="text3 txt-blue2">Listado Multimedia</label>
+                              </div>
+                              <div class="col-5 col-md-3 col-lg-2 offset-7 offset-md-4">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeViewMultimedia('añadir')">
                                     <img src="assets/img/agregar.svg" alt="">
                                     Subir multimedia
                                 </button>
+                              </div>
                             </div>
                             <hr class="w-100">
                             <!--Tabla--->

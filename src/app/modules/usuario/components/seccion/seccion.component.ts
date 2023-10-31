@@ -20,11 +20,12 @@ export class SeccionComponent implements OnInit {
   arrFiles: any;
   nameFiles: any;
   showMedallas: boolean;
+  allConferencias: any;
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
-
+    //console.log(localStorage.getItem('idCertification'));
     if (localStorage.getItem('type') == '4') {
       this.helpers.goTop();
       Swal.fire({
@@ -47,7 +48,7 @@ export class SeccionComponent implements OnInit {
           //console.log(localStorage.getItem('test'));
           if(localStorage.getItem('test') == 'true'){
             this.test = true;
-          } 
+          }
           if(localStorage.getItem('finalizados')){
             this.showMedallas = true;
           } else {
@@ -56,6 +57,7 @@ export class SeccionComponent implements OnInit {
           this.certifications();
           this.temas();
           this.files();
+          this.conferencias(localStorage.getItem('idCertification'))
         }
       });
     } else {
@@ -120,5 +122,15 @@ export class SeccionComponent implements OnInit {
     localStorage.setItem('idModule', this.helpers.idModuleBackUp);
     localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
     this.route.navigate(['/test']);
+  }
+
+  conferencias(id:any) {
+    this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data)
+        this.allConferencias = data;
+        //console.log(this.allConferencias)
+      }
+    );
   }
 }

@@ -432,13 +432,29 @@ export class SessionService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-   
    return this.http.post(`${this.API}deleteMedia`, data, {
     headers,
-   });
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
   }
 
-  
+  public deleteTema(idTema, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.delete(`${this.API}deleteTema/${idTema}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
 
 }
 

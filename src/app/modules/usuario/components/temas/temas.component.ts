@@ -19,6 +19,7 @@ export class TemasComponent implements OnInit {
   arrFiles: any;
   nameFiles: any;
   video: any;
+  allConferencias: any;
 
 
   constructor(private dom:DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
@@ -46,6 +47,7 @@ export class TemasComponent implements OnInit {
           this.checkFinalizado(localStorage.getItem('finalizados'));
 
           this.temas();
+          this.conferencias(localStorage.getItem('idCertification'))
         }
       });
     } else {
@@ -94,7 +96,7 @@ export class TemasComponent implements OnInit {
     /*this.get.getTemas(localStorage.getItem('idModule'), localStorage.getItem('token')).subscribe((data: any) => {
       //console.log(data)
       this.temasArr = data;
-      //console.log(this.temasArr)
+      console.log(this.temasArr)
       Swal.close();
     });*/
   }
@@ -142,6 +144,16 @@ export class TemasComponent implements OnInit {
         this.nameFiles = data.files.files;
         //console.log(this.arrFiles, this.nameFiles);
         Swal.close();
+      }
+    );
+  }
+
+  conferencias(id:any) {
+    this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data)
+        this.allConferencias = data;
+        //console.log(this.allConferencias)
       }
     );
   }
