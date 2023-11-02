@@ -46,6 +46,7 @@ export class HelpersService {
         setTimeout(() => {
           Swal.close();
           //cerramos la sesion
+          this.pauseTimer(this.interval);
           this.type = 0;
           localStorage.clear();
           this.session.curso = false;
