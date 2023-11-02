@@ -82,6 +82,7 @@ export class CursosComponent implements OnInit {
   imgTiempoblob: any;
   imgBlob: any;
   imgTemablob: any;
+  activeM: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -506,9 +507,9 @@ export class CursosComponent implements OnInit {
     //console.log(id);
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.allModules = data;
-        console.log(this.allModules)
+        //console.log(this.allModules)
       }
     );
   }
@@ -527,6 +528,7 @@ export class CursosComponent implements OnInit {
         this.startForm(5);
         this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
           (data: any) => {
+            console.log(data)
             this.idModulo = data.idModule;
             this.temas(this.idModulo);
             this.formModulo.controls['title'].setValue(data.title);
@@ -540,7 +542,13 @@ export class CursosComponent implements OnInit {
             this.imgTiempo = data.medal_time;
             this.formModulo.controls['color'].setValue(data.color_style);
             this.formModulo.controls['url_video'].setValue(data.url_video);
-            //console.log(this.exam)
+            this.activeM = data.is_active;
+
+
+            // Codificar la URL a Base64
+            /*const base64Data = Buffer.from(this.imgIcono).toString("base64");
+            this.imgIcono = `data:image/jpeg;base64,${base64Data}`;
+            console.log(this.imgIcono);*/
           }
         );
     }
@@ -903,19 +911,36 @@ export class CursosComponent implements OnInit {
     }*/
     //console.log(this.showArr);
   }
-  //Guardar imagen
-  fileIcono(event, show?:any) {
-    if(show){
-    this.imgIcono = event.target.files[0]
+  /*convertEventResultToFile(event: ProgressEvent<FileReader>, fileName: string, mimeType: string): File | null {
+    const result = event.target.result;
+    //console.log(result)
+    if (result instanceof ArrayBuffer) {
+      const buff = Buffer.from(result);
+      console.log(buff)
+      return new File([buff], fileName, { type: mimeType });
     }
+    return null;
+  }*/
+  //Guardar imagen
+  filenameI: any;
+  filetypeI: any;
+  filenameT: any;
+  filetypeT: any;
+  filenameS: any;
+  filetypeS: any;
+  filenameD: any;
+  filetypeD: any;
+  fileIcono(event, show?:any) {
+    this.imgIcono = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgIcono = event.target.result;
       };
       reader.readAsDataURL(event.target.files[0])
-      //console.log(reader.readAsDataURL(event.target.files[0]));
     }
+    this.filenameI = this.imgIcono.name;
+    this.filetypeI = this.imgIcono.type;
   }
   fileTermina(event) {
     this.imgTermina = event.target.files[0]
@@ -926,6 +951,8 @@ export class CursosComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[0])
     }
+    this.filenameT = this.imgTermina.name;
+    this.filetypeT = this.imgTermina.type;
   }
   fileScore(event) {
     this.imgScore = event.target.files[0]
@@ -936,6 +963,8 @@ export class CursosComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[0])
     }
+    this.filenameS = this.imgScore.name;
+    this.filetypeS = this.imgScore.type;
   }
   fileTiempo(event) {
     this.imgTiempo = event.target.files[0]
@@ -943,10 +972,12 @@ export class CursosComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTiempo = event.target.result;
-
+        //this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo, this.imgTiempo.name);
       };
       reader.readAsDataURL(event.target.files[0])
     }
+    this.filenameD = this.imgTiempo.name;
+    this.filetypeD = this.imgTiempo.type;
   }
   fileTema(event) {
     this.imgTema = event.target.files[0]
@@ -954,6 +985,7 @@ export class CursosComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTema = event.target.result;
+        //this.imgTema = this.helpers.dataUrlToFile(this.imgTema, this.imgTema.name);
       };
       reader.readAsDataURL(event.target.files[0])
     }
@@ -964,13 +996,23 @@ export class CursosComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTemaV = event.target.result;
+        //this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV, this.imgTemaV.name);
       };
       reader.readAsDataURL(event.target.files[0])
     }
   }
 
   saveModulo() {
-    //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
+    console.log(this.imgIcono)
+    this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
+    this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
+    this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
+    this.imgTiempo = new File([this.imgTiempo], this.filenameD, { type: this.filetypeD });
+    /*this.imgIcono = this.helpers.dataUrlToFile(this.imgIcono);
+    this.imgTermina = this.helpers.dataUrlToFile(this.imgTermina);
+    this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
+    this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
+    
     let modulo = new FormData();
     modulo.append('idCertification', this.idCertification);
     modulo.append('title', this.formModulo.value.title);
@@ -1010,6 +1052,8 @@ export class CursosComponent implements OnInit {
     modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
     modulo.getAll('score'), modulo.getAll('hasExam'));
     console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
+    console.log(modulo.getAll('icon'),modulo.getAll('medal_finish'),modulo.getAll('medal_perfect'),modulo.getAll('medal_time'))
+
     this.session.updateModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
@@ -1025,6 +1069,8 @@ export class CursosComponent implements OnInit {
     );
   }
   saveTemas() {
+    /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
+    this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
     let tema = new FormData();
     tema.append('idModule', this.idModulo);
@@ -1098,5 +1144,45 @@ export class CursosComponent implements OnInit {
         );
       }
     })
+  }
+
+  //cambia el status de los modulo
+  statusModulos(set: any) {
+    let formData = new FormData();
+    formData.append('is_active', set);
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "¡No podras revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#015287',
+      cancelButtonColor: '#A6DAFC',
+      confirmButtonText: '¡Si!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Actualizando...',
+          html: 'Espera un momento por favor',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+            this.session.statusModulo(this.idModulo, formData, localStorage.getItem('token')).subscribe(
+              (data: any) => {
+                //console.log(data);
+                this.cview1 = 0;
+                Swal.fire({
+                  title: '¡Actualizado!',
+                  text: 'El status ha sido actualizado.',
+                  icon: 'success',
+                  confirmButtonColor: '#015287',
+                });
+                this.changeViewModulo('editm', this.idModulo);
+              }
+            );
+          }
+        })
+      }
+    });
   }
 }

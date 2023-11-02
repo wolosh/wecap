@@ -288,8 +288,10 @@
                   <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveModulo()">Guardar</button>
                 </div>
                 <div class="col-6 col-md-3 col-lg-2">
-                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2">Desactivar</button>
-                    <!--button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar usuario</button-->
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusModulos(0)"
+                    *ngIf="this.activeM == '1'">Desactivar</button>
+                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusModulos(1)"
+                    *ngIf="this.activeM == '0'">Activar</button>
                 </div>
               </div>
               <div class="mb-3">
@@ -338,7 +340,7 @@
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
                   <img *ngIf="this.imgTermina == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTermina" />
-                  <img *ngIf="this.imgTermina != ''" class="imgPreview" src="{{ this.imgTerminablob }}" alt="imgTermina" />
+                  <img *ngIf="this.imgTermina != ''" class="imgPreview" src="{{ this.imgTermina }}" alt="imgTermina" />
                   <!--img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'" alt="imgTermina"-->
                   <input type="file" class="input3" id="medallat" (change)="fileTermina($event)">
                 </div>
@@ -352,7 +354,7 @@
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto
                     (opcional)</label>
                   <img *ngIf="this.imgScore == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgScore" />
-                  <img *ngIf="this.imgScore != ''" class="imgPreview" src="{{ this.imgScoreblob }}" alt="imgScore" />
+                  <img *ngIf="this.imgScore != ''" class="imgPreview" src="{{ this.imgScore }}" alt="imgScore" />
                   <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore"-->
                   <input type="file" class="input3" id="medallap" (change)="fileScore($event)">
                 </div>
@@ -360,7 +362,7 @@
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo
                     (opcional)</label>
                   <img *ngIf="this.imgTiempo == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTiempo" />
-                  <img *ngIf="this.imgTiempo != ''" class="imgPreview" src="{{ this.imgTiempoblob }}" alt="imgTiempo" />
+                  <img *ngIf="this.imgTiempo != ''" class="imgPreview" src="{{ this.imgTiempo }}" alt="imgTiempo" />
                   <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
                   <input type="file" class="input3" id="medallapt" (change)="fileTiempo($event)">
                 </div>

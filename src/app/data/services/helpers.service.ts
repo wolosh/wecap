@@ -60,7 +60,7 @@ export class HelpersService {
   
 
 
-  public dataUrlToBlob(dataUrl: string): Blob {
+  /*public dataUrlToBlob(dataUrl: string): Blob {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
     const byteString = Buffer.from(dataUrl, 'base64').toString('ascii');
@@ -82,9 +82,55 @@ export class HelpersService {
     // write the ArrayBuffer to a blob, and you're done
     const blob = new Blob([ia], { type: mimeString });
     return blob;
-  }
+  }*/
 
   pauseTimer(interval: any) {
     clearInterval(interval);
   }
+
+  /*public dataUrlToArrayBuffer(dataUrl) {
+    const base64Data = dataUrl.split(',')[1];
+    const binaryString = window.atob(base64Data);
+    const length = binaryString.length;
+    const arrayBuffer = new ArrayBuffer(length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < length; i++) {
+      uint8Array[i] = binaryString.charCodeAt(i);
+    }
+    return arrayBuffer;
+  }
+  /*public dataUrlToArrayBuffer(dataUrl) {
+    // Extraer la parte de los datos codificados en base64 de la cadena Data URL
+    const base64Data = dataUrl.split(',')[1];
+    // Decodificar la cadena base64 a un ArrayBuffer
+    const binaryString = window.atob(base64Data);
+    const length = binaryString.length;
+    const arrayBuffer = new ArrayBuffer(length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+  
+    for (let i = 0; i < length; i++) {
+      uint8Array[i] = binaryString.charCodeAt(i);
+    }
+  
+    return arrayBuffer;
+  }*/
+  /*public base64ToFile(base64Data: string, fileName: string, mimeType: string): File {
+    const buff = Buffer.from(base64Data, 'base64');
+    return new File([buff], fileName, { type: mimeType });
+  }*/
+  /*public imageToBase64(imagePath: string): string | null {
+    try {
+      // Lee el archivo de imagen como un búfer (buffer)
+      const buffer = fs.readFileSync(imagePath);
+  
+      // Convierte el búfer en una cadena base64
+      const base64Data = buffer.toString('base64');
+      const base64String = `data:image/jpeg;base64,${base64Data}`; // Reemplaza 'jpeg' con el tipo de imagen apropiado
+  
+      return base64String;
+    } catch (error) {
+      console.error(`Error al convertir la imagen en base64: ${error}`);
+      return null;
+    }
+  }*/
 }

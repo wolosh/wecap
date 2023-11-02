@@ -92,7 +92,6 @@ export class SessionService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-
     return this.http.post(`${this.API}changeStatusCertification/${id}`, form, {
       headers,
     }).pipe(
@@ -475,6 +474,20 @@ export class SessionService {
       'Authorization': `Bearer ${token}`,
     });
     return this.http.post(`${this.API}calificaExamen`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public statusModulo(id, form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}changeStatusModulo/${id}`, form, {
       headers,
     }).pipe(
       catchError((err) => {
