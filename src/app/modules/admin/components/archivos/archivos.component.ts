@@ -72,6 +72,7 @@ export class ArchivosComponent implements OnInit {
 
 
   files() {
+    console.log(localStorage.getItem('id'), localStorage.getItem('token'));
     this.get.getFiles(localStorage.getItem('id'), localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
@@ -128,6 +129,7 @@ export class ArchivosComponent implements OnInit {
             this.files();
             break;
           case 'media':
+            this.pg = 1;
             this.viewFiles = 1;
             this.allMedia();
             this.startForm(2);
@@ -199,8 +201,8 @@ export class ArchivosComponent implements OnInit {
   subirMedia() {
     console.log(this.file)
     let media = new FormData();
-    if( this.file != undefined){
-      media.append('files[]',  this.file, this.file.name);
+    if (this.file != undefined) {
+      media.append('files[]', this.file, this.file.name);
     } else {
       Swal.fire({
         title: '¡Error!',
@@ -210,7 +212,7 @@ export class ArchivosComponent implements OnInit {
       });
     }
 
-console.log(media.getAll('files[]'))
+    console.log(media.getAll('files[]'))
 
     this.session.uploadMedia(media, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -231,14 +233,32 @@ console.log(media.getAll('files[]'))
     );
   }
 
-  removeMedia(media:any){
-    console.log(media); 
-
-    let json = {
+  removeMedia(media: any) {
+    console.log(media);
+    let json = JSON.stringify({
       media: media
-    }
+    })
 
-    console.log(json)
+    console.log(json);
+
+
+    this.session.deleteMedia(json, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Archivo eliminado!',
+          text: 'El archivo se elimino correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
+            this.onClickTab('media');
+          }
+        });
+      }
+    );
+
   }
 
   i = 0;
@@ -330,7 +350,7 @@ console.log(media.getAll('files[]'))
     });
   }
 
-  changeViewMultimedia(view: any, name?:any){
+  changeViewMultimedia(view: any, name?: any) {
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -349,57 +369,26 @@ console.log(media.getAll('files[]'))
             //this.promos;
             setTimeout(() => {
               Swal.close();
-             }, 500);
+            }, 500);
         }
       }
     });
   }
 
-
-  updateFiles(update: any) {
-    console.log(this.formArchivos.value, this.file);
+  updateDescription(update: any) {
+    console.log(this.formArchivos.controls['descripcion'].value, this.file);
 
     let files = new FormData();
-    Swal.fire({
-      title: 'Cargando...',
-      html: 'Espera un momento por favor',
-      allowEscapeKey: false,
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-        if (update == 'descripcion') {
-          if (this.formArchivos.value.descripcion != '') {
-            files.append('descripcion', this.formArchivos.value.descripcion);
-          } else {
-            Swal.fire({
-              title: '¡Error!',
-              text: 'Debes agregar una descripción',
-              icon: 'error',
-              confirmButtonColor: '#015287',
-            });
-          }
-        } else if (update == 'files') {
-          console.log(this.filesArr.length)
-          /*if (this.filesArr.length > 0) {
-            for (let item of this.filesArr) {
-              console.log(item)
-              files.append('files[]', item.url, item.name);
-            }
-          }*/
-          if (this.file != undefined) {
-            files.append('files[]', this.file, this.formArchivos.value.name);
-          } else {
-            Swal.fire({
-              title: '¡Error!',
-              text: 'Debes agregar un archivo',
-              icon: 'error',
-              confirmButtonColor: '#015287',
-            });
-          }
-        }
-        console.log(files.getAll('files[]'));
-      }
-    });
+    if (this.formArchivos.controls['descripcion'].value != '') {
+      files.append('descripcion', this.formArchivos.controls['descripcion'].value);
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes agregar una descripción',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    }
 
     this.session.updateFiles(1, files, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -407,8 +396,8 @@ console.log(media.getAll('files[]'))
         console.log(data);
         if (data.message == 'Consulta correcta') {
           Swal.fire({
-            title: '¡Archivo guardado!',
-            text: 'El archivo se agrego correctamente.',
+            title: '¡Actualizado!',
+            text: 'Se agrego correctamente.',
             icon: 'success',
             confirmButtonColor: '#015287',
           }).then((result) => {
@@ -420,6 +409,109 @@ console.log(media.getAll('files[]'))
         }
       }
     );
+  }
+
+  updateFiles(update: any) {
+    console.log(this.formArchivos.controls['descripcion'].value, this.file);
+
+    let files = new FormData();
+
+    if (this.formArchivos.controls['name'].value == '') {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes agregar un nombre',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+
+      if (this.file != undefined) {
+        files.append('files[]', this.file, this.formArchivos.controls['name'].value);
+      } else {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'Debes agregar un archivo',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        });
+      }
+    }
+
+    this.session.updateFiles(1, files, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        Swal.close();
+        console.log(data);
+        if (data.message == 'Consulta correcta') {
+          Swal.fire({
+            title: '¡Actualizado!',
+            text: 'Se agrego correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            console.log(result)
+            if (result.isConfirmed) {
+              this.changeViewArchivos('back');
+            }
+          });
+        }
+      }
+    );
+
+
+    /*Swal.fire({
+      title: 'Cargando...',
+      html: 'Espera un momento por favor',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        if (update == 'description') {
+          if (this.formArchivos.controls['descripcion'].value != '') {
+            files.append('descripcion', this.formArchivos.controls['descripcion'].value);
+          } else {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'Debes agregar una descripción',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          }
+        } else if (update == 'files') {
+          console.log(this.filesArr.length)
+          if (this.file != undefined) {
+            files.append('files[]', this.file, this.formArchivos.controls['name'].value);
+          } else {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'Debes agregar un archivo',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          }
+        }
+        console.log(files.getAll('files[]'), files.getAll('descripcion'));
+      }
+    });
+
+    this.session.updateFiles(1, files, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        Swal.close();
+        console.log(data);
+        if (data.message == 'Consulta correcta') {
+          Swal.fire({
+            title: '¡Actualizado!',
+            text: 'Se agrego correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            console.log(result)
+            if (result.isConfirmed) {
+              this.changeViewArchivos('back');
+            }
+          });
+        }
+      }
+    );*/
   }
 }
 
@@ -434,3 +526,4 @@ buttons.forEach(btn => {
     console.log(event.target);
   });
 });*/
+

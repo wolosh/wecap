@@ -285,14 +285,17 @@ export class ExamenesComponent implements OnInit {
                 if (data == null || data.message) {
                   console.log(data)
                   this.none = 0;
+                  console.log(this.none)
                 } else {
                   console.log(data);
                   if (data.preguntas.length == 0) {
                     console.log('no tiene preguntas')
                     this.none = 1;
+                    console.log(this.none)
                   } else {
                     console.log('si tiene preguntas')
                     this.none = 2;
+                    console.log(this.none)
                     //this.questions = data;
                     this.examModule = data.preguntas;
                     console.log(data);

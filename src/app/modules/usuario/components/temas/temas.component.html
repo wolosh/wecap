@@ -1,1290 +1,28 @@
 <div class="page-content container-lg top">
-    <!--<div>
-        <div class="row pt-3">
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card color p-3 p-md-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <h1 class="text2 txt-blue">{{this.temasArr.title}}</h1>
-                                <hr class="w-100">
-                                <div class="ratio ratio-16x9 mt-5">
-                                    <iframe
-                                        [src]="this.video"
-                                        title="YouTube video" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <div class="col-2 col-lg-1 offset-8 offset-lg-10">
-                                <img src="assets/img/like.svg" class="w-100" alt="">
-                            </div>
-                            <div class="col-2 col-lg-1">
-                                <img src="assets/img/deslike.svg" class="w-100" alt="">
+    <div class="row pt-3">
+        <div class="col-12 col-md-6 col-lg-8">
+            <div class="card color p-3 p-md-5 mb-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <h1 class="text2 txt-blue">{{this.temasArr.title}}</h1>
+                            <hr class="w-100">
+                            <div class="ratio ratio-16x9 mt-5">
+                                <iframe [src]="this.video" title="YouTube video" allowfullscreen></iframe>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card color p-3 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Avance de medalla</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color p-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Medallas</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 0">
-                            <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 1">
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Terminado</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                        (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                        *ngIf="this.finalizado == 1">Regresar a temas</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="text6 txt-blue">Un vídeo promocional para el evento charro millonario.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-7 col-lg-8">
-                                <h1 class="text4 txt-blue">Valley</h1>-->
-    <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
-                                </h1>
-                                <h1 class="text4 txt-blue">CAMPEONATO CHARRO
-                                    FUTURITY 2019
-                                    RESULTADOS 2019
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">FUTURITY 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">RESULTADOS 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">CAMPEONATO MILLONARIO TEQUILA HACIENDA VIEJA</h1>
-                                <p class="text9 txt-blue">
-
-                                    Desde 1998, la Organización Bañuelos ha fomentado la charrería de alto nivel
-                                    deportivo y
-                                    organizacional en México, a través de un torneo que reúne a los más experimentados
-                                    charros y escaramuzas del país. Durante los ocho días del campeonato charro, el
-                                    público
-                                    es testigo del talento y valentía mexicanos en las charreadas AA y AAA, el
-                                    coleadero, el
-                                    pialadero y el ya conocido, caladero Futurity.
-                                    <br>
-                                    <br>
-                                    ¡No te pierdas este magno evento y vive la Tradición Millonaria!
-                                </p>
-                                <p class="text6 txt-blue mt-3 mb-0">NOSOTROS</p>
-                                <p class="text9 txt-blue">Somos una empresa 100% mexicana, con más de 55 años de
-                                    trayectoria,
-                                    nuestro fundador fue Don Augusto Wirz, un hombre visionario y trabajador que
-                                    fue capaz de crear las herramientas para transformar la historia agrícola del país.
-                                </p>
-                                <p class="text6 txt-blue mt-3 mb-0">VISIÓN:</p>
-                                <p class="text9 txt-blue">Ser una empresa de clase mundial, mantener el liderazgo del
-                                    negocio medular
-                                    en el mercado nacional, aumentar la participación de las unidades de negocio
-                                    actuales
-                                    en el mercado nacional e internacional, incorporando además nuevas unidades de
-                                    negocio.
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-1">
-                                <div class="vr h-100 d-none d-md-block"></div>
-                                <hr class="w-100 d-md-none">
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 text-center mt-4">
-                                <h1 class="text6 txt-blue mb-3">SERVICIOS DE CAMPEONATO MILLONARIO</h1>
-                                <p class="text9 txt-blue">Para su comodidad y conveniencia, el Campeonato Charro
-                                    Millonario Tequila Hacienda
-                                    Vieja contará con diversos servicios para participantes y público asistente.</p>
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">HOSPEDAJE</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <img src="assets/img/producto2.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">CABALLERIZAS</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto3.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">TIENDA</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto4.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">ALIMENTOS</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
-                                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
-                                <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    disabled>Tema Finalizado</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!---<div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
-                                <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
-                                    alt="">
-                            </div>
-                            <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
-                                <input type="text" class="input2 w-100" placeholder="Comentar...">
-                            </div>
-                            <div class="col-12">
-                                <button type="button"
-                                    class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
-    <!--<div *ngIf="this.helpers.idTopicBackUp == 4">
-        <div class="row pt-3">
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card color p-3 p-md-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <h1 class="text2 txt-blue">{{this.helpers.nameTopicBackUp}}</h1>
-                                <hr class="w-100">
-                                <div class="ratio ratio-16x9 mt-5">
-                                    <iframe
-                                        src="https://capacitacionvideodemo.s3-us-west-2.amazonaws.com/alsain/PROMOCIONAL/CHIVAS_YouTube_1080_1.mp4"
-                                        title="YouTube video" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <!--<div class="col-2 col-lg-1 offset-8 offset-lg-10">
-                                <img src="assets/img/like.svg" class="w-100" alt="">
-                            </div>
-                            <div class="col-2 col-lg-1">
-                                <img src="assets/img/deslike.svg" class="w-100" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!--<div class="card color p-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Avance de medalla</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color p-3 mt-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Medallas</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 0">
-                            <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 1">
-
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Terminado</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <!--<div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                        (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                        *ngIf="this.finalizado == 1">Regresar a temas</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="text6 txt-blue">Un vídeo realizado para motivar a la afición de las chivas.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-7 col-lg-8">
-                                <!--<h1 class="text4 txt-blue">Valley</h1>-->
-                                <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
-                                </h1>
-                                <h1 class="text4 txt-blue">CAMPEONATO CHARRO
-                                    FUTURITY 2019
-                                    RESULTADOS 2019
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">FUTURITY 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">RESULTADOS 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">EL ORIGEN</h1>
-                                <p class="text9 txt-blue">
-                                    ​El Club Deportivo Guadalajara S.A. de C.V., mejor conocido como Chivas, es uno de
-                                    los dos equipos con más campeonatos en la historia del futbol mexicano. Fue fundado
-                                    el 8 de mayo de 1906 y su propietario desde 2003 es el empresario Jorge Vergara
-                                    Madrigal, quien también funge como Presidente del Grupo Omnilife-Chivas.
-                                    <br>
-                                    <br>
-                                    Guadalajara juega en el Estadio Akron. Entre las leyendas que han vestido la
-                                    camiseta rojiblanca se encuentran: Salvador Reyes, José Villegas, Sabas Ponce,
-                                    Guillermo Sepúlveda, Juan Jasso, Jaime Gómez, Héctor Hernández, Ignacio Calderón,
-                                    Fernando Quitarte, Benjamín Galindo, Javier Ledesma, Eduardo de la Torre, Ramón
-                                    Ramírez, Alberto Coyote, Oswaldo Sánchez, Ramón Morales, Adolfo Bautista, Omar
-                                    Bravo, Carlos Salcido y Javier ‘Chicharito’ Hernández.
-                                    <br>
-                                    <br>
-                                    A lo largo de 112 años, las rayas rojas y blancas han pintado la historia del futbol
-                                    mexicano con múltiples episodios de alegría y de triunfos, estampas de goles y
-                                    marcas que han forjado la tradición que hoy define al Rebaño Sagrado.
-                                    <br>
-                                    <br>
-                                    Los primeros jugadores de Chivas en jugar un mundial de futbol fueron Rodrigo Ruiz,
-                                    Max Prieto y 'Tepa' Gómez
-                                    <br>
-                                    <br>
-                                    Todo empezó cuando un grupo de jóvenes, en el albor del siglo XX, decidió seguir la
-                                    idea del belga Edgar Everaert para fundar el Unión Football Club, primer nombre que
-                                    tuvieron las Chivas Rayadas del Guadalajara.
-                                    <br>
-                                    <br>
-                                    Fue en el almacen llamado La Ciudad de México donde Everaert y los hermanos Rafael y
-                                    Gregorio Orozco se animaron y le dieron a La Perla de Occidente uno de sus emblemas
-                                    más reconocidos.
-                                    <br>
-                                    <br>
-                                    Enfundado en una camiseta blanca, el equipo disputó su primer partido contra el
-                                    conjunto del Gimnasio Atlético Occidental y el cuadro recién formado tuvo como
-                                    estratega a Rafael Orozco, quien también fue su primer presidente y bajo su mando
-                                    llegaron las rayas rojas y blancas a sugerencia de Everaert, quien tomó los colores
-                                    de la bandera de la ciudad de Brujas, Bélgica (de donde era originario), así como el
-                                    cambio de nombre a Guadalajara, el cual quedó oficializado el 26 de febrero de 1908.
-                                    <br>
-                                    <br>
-                                    En ese inicio, el Guadalajara contaba en sus filas con jugadores belgas, franceses,
-                                    españoles y mexicanos, y fue hasta la temporada 1943-44, en su ingreso al
-                                    profesionalismo, que el club decidió contar en su plantilla sólo con elementos
-                                    mexicanos.
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">ÉPOCA AMATEUR
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Una docena de títulos fue la cosecha del Guadalajara en esos primeros años de vida,
-                                    al mismo tiempo que el futbol en Jalisco se consolidaba gracias a los nombres de
-                                    figuras rojiblancas que sobresalían por su calidad y pasión. Pablo ‘Pablotas’
-                                    González, Fausto y Max Prieto, además de José ‘Pelón’ Gutiérrez, fueron algunos de
-                                    los elementos que empezaron a grabar en la memoria histórica del club sus nombres
-                                    como estrellas del que a la postre se transformaría en el cuadro más querido de todo
-                                    México.
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">ÉPOCA PROFESIONAL
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    La Primera División profesional inició formalmente en la temporada 1943-44 y con
-                                    ello el Guadalajara empezó su andar en los campos de futbol del país y en su debut
-                                    superó al experimentado Atlante en la Ciudad de México por 4-1.
-
-
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">EL MOTE DE ‘Chivas’
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    El mote que actualmente el Guadalajara ostenta con orgullo nació en la década de los
-                                    40, cuando el periódico El Informador, de la capital de Jalisco, publicó el 30 de
-                                    septiembre de 1948, después de un encuentro contra el Tampico por la Jornada Dos, el
-                                    encabezado: JUGARON A LAS CARRERAS Y GANARON LAS ‘CHIVAS’ UNO A CERO; el título fue
-                                    aprovechado por los seguidores del acérrimo rival, Atlas, para mofarse del conjunto
-                                    rojiblanco.
-                                    <br>
-                                    <br>
-                                    Lo que inició como una burla se transformó en un sonido que retumba en
-                                    todo el futbol mexicano hasta la fecha, un fenómeno que trasciende fronteras con los
-                                    más de 40 millones de seguidores en el país, Estados Unidos y el mundo.
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">CAMPEONÍSIMO
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Fue el nombre que se le dio al equipo que representó a Chivas en la etapa
-                                    comprendida entre 1957 y 1970, pues la hazaña conseguida por este grupo de jugadores
-                                    es inigualable hasta ahora, ya que se conquistaron:
-                                    <br>
-                                    <br>
-                                    <br>
-                                    8 Títulos de Liga
-                                    <br>
-                                    2 Copas México
-                                    <br>
-                                    6 Campeón de Campeones
-                                    <br>
-                                    1 vez Campeonísimo
-                                    <br>
-                                    1 título de la Concacaf
-                                    <br>
-                                    1 Copa Challenger
-                                    <br>
-                                    3 Pentagonales Internacionales
-                                    <br>
-                                    1 Torneo de la Ciudad de Guadalajara
-                                </p>
-                                <!--<p class="text6 txt-blue mt-3 mb-0">NOSOTROS</p>
-                                <p class="text9 txt-blue">Somos una empresa 100% mexicana, con más de 55 años de
-                                    trayectoria,
-                                    nuestro fundador fue Don Augusto Wirz, un hombre visionario y trabajador que
-                                    fue capaz de crear las herramientas para transformar la historia agrícola del país.
-                                </p>
-                                <p class="text6 txt-blue mt-3 mb-0">VISIÓN:</p>
-                                <p class="text9 txt-blue">Ser una empresa de clase mundial, mantener el liderazgo del
-                                    negocio medular
-                                    en el mercado nacional, aumentar la participación de las unidades de negocio
-                                    actuales
-                                    en el mercado nacional e internacional, incorporando además nuevas unidades de
-                                    negocio.
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-1">
-                                <div class="vr h-100 d-none d-md-block"></div>
-                                <hr class="w-100 d-md-none">
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 text-center mt-4">
-                                <!--<h1 class="text6 txt-blue mb-3">SERVICIOS DE CAMPEONATO MILLONARIO</h1>
-                                <p class="text9 txt-blue">Para su comodidad y conveniencia, el Campeonato Charro
-                                    Millonario Tequila Hacienda
-                                    Vieja contará con diversos servicios para participantes y público asistente.</p>
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <img src="assets/img/chivas1.jpg" class="w-100" alt="">
-                                        <!--<label class="text5 txt-blue mt-3">HOSPEDAJE</label>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <div class="col-12 mb-3">
-                                        <br>
-                                        <br>
-                                        <img src="assets/img/chivas2.jpg" class="w-100" alt="">
-                                        <!--<label class="text5 txt-blue mt-3">CABALLERIZAS</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <br>
-                                        <br>
-                                        <img src="assets/img/chivas4.jpg" class="w-100" alt="">
-                                        <!--<label class="text5 txt-blue mt-3">HOSPEDAJE</label>
-                                    </div>
-
-                                    <div class="col-12 mb-3">
-                                        <br>
-                                        <br>
-                                        <img src="assets/img/chivas3.jpg" class="w-100" alt="">
-                                        <!--<label class="text5 txt-blue mt-3">CABALLERIZAS</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <br>
-                                        <br>
-                                        <img src="assets/img/chivas5.jpg" class="w-100" alt="">
-                                        <!--<label class="text5 txt-blue mt-3">CABALLERIZAS</label>
-                                    </div>
-                                    <!--<div class="col-12 mb-3">
-                                        <img src="assets/img/producto3.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">TIENDA</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <img src="assets/img/producto4.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">ALIMENTOS</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
-                                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
-                                <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    disabled>Tema Finalizado</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!---<div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
-                                <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
-                                    alt="">
-                            </div>
-                            <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
-                                <input type="text" class="input2 w-100" placeholder="Comentar...">
-                            </div>
-                            <div class="col-12">
-                                <button type="button"
-                                    class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="this.helpers.idTopicBackUp == 12">
-        <div class="row pt-3">
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card color p-3 p-md-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <h1 class="text2 txt-blue">{{this.helpers.nameTopicBackUp}}</h1>
-                                <hr class="w-100">
-                                <div class="ratio ratio-16x9 mt-5">
-                                    <iframe
-                                        src="https://s3-us-west-2.amazonaws.com/capacitacionvideodemo/alsain/PROMOCIONAL/INTERURBANA_COLOR_1.mp4"
-                                        title="YouTube video" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <!--<div class="col-2 col-lg-1 offset-8 offset-lg-10">
-                                <img src="assets/img/like.svg" class="w-100" alt="">
-                            </div>
-                            <div class="col-2 col-lg-1">
-                                <img src="assets/img/deslike.svg" class="w-100" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!--<div class="card color p-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Avance de medalla</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color p-3 mt-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Medallas</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 0">
-                            <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 1">
-
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Terminado</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <!--<div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                        (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                        *ngIf="this.finalizado == 1">Regresar a temas</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="text6 txt-blue">Un vídeo realizado para promocionar los servicios de
-                                    INTERURBANA.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-7 col-lg-8">
-                                <!--<h1 class="text4 txt-blue">Valley</h1>-->
-                                <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
-                                </h1>
-                                <h1 class="text4 txt-blue">CAMPEONATO CHARRO
-                                    FUTURITY 2019
-                                    RESULTADOS 2019
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">FUTURITY 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">RESULTADOS 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">
-                                    INTERURBANA</h1>
-                                <p class="text9 txt-blue">
-                                    Somos una empresa con origen en el año 2000, que desarrolla
-                                    proyectos y estudios arquitectónicos eficientes a través de una profunda
-                                    investigación de mercado, con soluciones arquitectónicas alineadas a la demanda.
-                                </p>
-                                <br>
-                                <br>
-                                <h1 class="text4 txt-blue">
-                                    OBJETIVO PRIMORDIAL</h1>
-                                <p class="text9 txt-blue">
-                                    lograr proyectos equilibrados
-                                    entre
-                                    lógica, eficiencia y emoción que generen una conexión entre arquitectura y usuario.
-                                    Nuestro proceso de diseño arquitectónico a través de la investigación especializada
-                                    nos permite proporcionar soluciones creativas en proyectos de vivienda, planes
-                                    mixtos, corporativos, comerciales y maestros.
-                                </p>
-                                <br>
-                                <p class="text9 txt-blue">
-                                    Este año 2020 nos sentimos muy agradecidos y felices de cumplir 20 años de entrega y
-                                    pasión a cada proyecto, cliente y usuarios.
-                                </p>
-                                <!--<br>
-                                <br>
-                                <h1 class="text4 txt-blue">SERVICIOS
-                                </h1>
-                                <br>
-                                <h1 class="text4 txt-blue">ARQUITECTURA
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Nuestra visión de la arquitectura se basa en encontrar el equilibrio entre los dos
-                                    actores principales que integran sus fuerzas, los usuarios y los desarrolladores,
-                                    donde nosotros, como arquitectos, esperamos ofrecer soluciones que puedan brindar el
-                                    mejor resultado para cada uno de ellos.
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">OBRA CIVIL
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Entendemos la importancia de lo que un edificio industrial de alta calidad ya que
-                                    representa para nuestros clientes y lo es
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">CAMPEONÍSIMO
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Fue el nombre que se le dio al equipo que representó a Chivas en la etapa
-                                    comprendida entre 1957 y 1970, pues la hazaña conseguida por este grupo de jugadores
-                                    es inigualable hasta ahora, ya que se conquistaron:
-                                    <br>
-                                    <br>
-                                    <br>
-                                    8 Títulos de Liga
-                                    <br>
-                                    2 Copas México
-                                    <br>
-                                    6 Campeón de Campeones
-                                    <br>
-                                    1 vez Campeonísimo
-                                    <br>
-                                    1 título de la Concacaf
-                                    <br>
-                                    1 Copa Challenger
-                                    <br>
-                                    3 Pentagonales Internacionales
-                                    <br>
-                                    1 Torneo de la Ciudad de Guadalajara
-                                </p>-->
-                                <!--<p class="text6 txt-blue mt-3 mb-0">NOSOTROS</p>
-                                <p class="text9 txt-blue">Somos una empresa 100% mexicana, con más de 55 años de
-                                    trayectoria,
-                                    nuestro fundador fue Don Augusto Wirz, un hombre visionario y trabajador que
-                                    fue capaz de crear las herramientas para transformar la historia agrícola del país.
-                                </p>
-                                <p class="text6 txt-blue mt-3 mb-0">VISIÓN:</p>
-                                <p class="text9 txt-blue">Ser una empresa de clase mundial, mantener el liderazgo del
-                                    negocio medular
-                                    en el mercado nacional, aumentar la participación de las unidades de negocio
-                                    actuales
-                                    en el mercado nacional e internacional, incorporando además nuevas unidades de
-                                    negocio.
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-1">
-                                <div class="vr h-100 d-none d-md-block"></div>
-                                <hr class="w-100 d-md-none">
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 text-center mt-4">
-                                <h1 class="text6 txt-blue mb-3">SERVICIOS</h1>
-                                <!--<p class="text9 txt-blue">Para su comodidad y conveniencia, el Campeonato Charro
-                                    Millonario Tequila Hacienda
-                                    Vieja contará con diversos servicios para participantes y público asistente.</p>
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">ARQUITECTURA</label>
-                                        <br>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            Nuestra visión de la arquitectura se basa en encontrar el equilibrio entre
-                                            los dos
-                                            actores principales que integran sus fuerzas, los usuarios y los
-                                            desarrolladores,
-                                            donde nosotros, como arquitectos, esperamos ofrecer soluciones que puedan
-                                            brindar el
-                                            mejor resultado para cada uno de ellos.
-                                        </p>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">OBRA CIVIL</label>
-                                        <br>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            Entendemos la importancia de lo que un edificio industrial de alta calidad
-                                            representa para nuestros clientes.
-
-                                        </p>
-                                    </div>
-                                    <!--<div class="col-12 mb-3">
-                                        <img src="assets/img/producto3.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">TIENDA</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <img src="assets/img/producto4.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">ALIMENTOS</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
-                                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
-                                <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    disabled>Tema Finalizado</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!---<div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
-                                <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
-                                    alt="">
-                            </div>
-                            <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
-                                <input type="text" class="input2 w-100" placeholder="Comentar...">
-                            </div>
-                            <div class="col-12">
-                                <button type="button"
-                                    class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="this.helpers.idTopicBackUp == 13">
-        <div class="row pt-3">
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card color p-3 p-md-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <h1 class="text2 txt-blue">{{this.helpers.nameTopicBackUp}}</h1>
-                                <hr class="w-100">
-                                <div class="ratio ratio-16x9 mt-5">
-                                    <iframe
-                                        src="https://s3-us-west-2.amazonaws.com/capacitacionvideodemo/alsain/PROMOCIONAL/N%26B+COSMETICOS_07_1.mp4"
-                                        title="YouTube video" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <!--<div class="col-2 col-lg-1 offset-8 offset-lg-10">
-                                <img src="assets/img/like.svg" class="w-100" alt="">
-                            </div>
-                            <div class="col-2 col-lg-1">
-                                <img src="assets/img/deslike.svg" class="w-100" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!--<div class="card color p-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Avance de medalla</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color p-3 mt-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Medallas</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 0">
-                            <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 1">
-
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Terminado</label>
-                            </div>
-                            <!--<div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                        (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                        *ngIf="this.finalizado == 1">Regresar a temas</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="text6 txt-blue">INICIA TU PROPIO NEGOCIO
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-7 col-lg-8">
-                                <!--<h1 class="text4 txt-blue">Valley</h1>-->
-                                <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
-                                </h1>
-                                <h1 class="text4 txt-blue">CAMPEONATO CHARRO
-                                    FUTURITY 2019
-                                    RESULTADOS 2019
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">FUTURITY 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">RESULTADOS 2019
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Adquiere tu kit de empresario
-                                    <br>
-                                    <br>
-                                    En línea
-                                    <br>
-                                    <br>
-                                    Adquiere tu kit en línea
-                                    <br>
-                                    <br>
-                                    Si tienes un presentador, pídele su número de Empresario y comienza tu registro en
-                                    linea
-                                </p>
-                                <br>
-
-                                <h1 class="text4 txt-blue">
-                                    Cedis</h1>
-                                <p class="text9 txt-blue">
-                                    Adquiere tu kit en CEDIS
-                                    <br>
-                                    <br>
-                                    Acude a tu Centro de Distribución más cercano con una copia de tu Identificación
-                                    Oficial Vigente.
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">
-                                    Vía telefónica</h1>
-                                <p class="text9 txt-blue">
-                                    Adquiere tu kit vía telefónica
-                                    <br>
-                                    <br>
-                                    Realiza un depósito por $575 ($500 del kit más $75 de gastos de envío). Ver cuentas
-                                    bancarias. Después comunícate al Departamento de Servicio al Empresario al 0133 3540
-                                    3802.
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-1">
-                                <div class="vr h-100 d-none d-md-block"></div>
-                                <hr class="w-100 d-md-none">
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 text-center mt-4">
-                                <!---<h1 class="text6 txt-blue mb-3">Plan de Negocio</h1>-->
-                                <!--<p class="text9 txt-blue">Para su comodidad y conveniencia, el Campeonato Charro
-                                    Millonario Tequila Hacienda
-                                    Vieja contará con diversos servicios para participantes y público asistente.</p>
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">Plan de Negocio</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            Te ofrecemos la oportunidad de iniciar tu propio negocio cuentes o no con
-                                            un capital de inversión, magníficas herramientas como nuestros catálogos
-                                            están a tu disposición para que comiences de inmediato. Contamos también con
-                                            un crédito interno "CREDINICE" a través del cual con una inversión inicial
-                                            podrás adquirir inventario y pagar el resto a 6 meses sin intereses.
-
-                                        </p>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">Escala de Descuentos</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            En cada una de tus compras obtendrás Puntos, los cuales se irán acumulando
-                                            para avanzar en la Escala Ascendente de Descuentos. Una vez que obtienes un
-                                            Nivel de Descuento, no lo perderás. A mayor Descuento, mayor será tu
-                                            ganancia.
-
-                                        </p>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">Comparte el Negocio</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            Adicionalmente, cuando compartas la Oportunidad de Negocio con más personas,
-                                            podrás recibir hasta el 5% del total de las compras de tus invitados!
-
-                                        </p>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">Viajes, autos y sueños cumplidos</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            Durante todo el año puedes participar para ser acreedor a viajes nacionales
-                                            e internacionales, autos último modelo y muchos otros reconocimientos
-                                            mercantiles.
-                                            <br>
-                                            Te permitimos disponer de tu propio tiempo, ya que puedes combinar tu
-                                            empleo actual, tus estudios, o actividades normales con tu propio negocio,
-                                            cualquier persona sin importar su edad o preparación escolar. Todo esto es
-                                            lo que nos hace ser diferentes a cualquier otro negocio tradicional que
-                                            pudieras emprender.
-                                        </p>
-                                    </div>
-
-                                    <!--<div class="col-12 mb-3">
-                                        <img src="assets/img/producto3.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">TIENDA</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <img src="assets/img/producto4.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">ALIMENTOS</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
-                                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
-                                <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    disabled>Tema Finalizado</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!---<div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
-                                <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
-                                    alt="">
-                            </div>
-                            <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
-                                <input type="text" class="input2 w-100" placeholder="Comentar...">
-                            </div>
-                            <div class="col-12">
-                                <button type="button"
-                                    class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="this.helpers.idTopicBackUp == 14">
-        <div class="row pt-3">
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card color p-3 p-md-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <h1 class="text2 txt-blue">{{this.helpers.nameTopicBackUp}}</h1>
-                                <hr class="w-100">
-                                <div class="ratio ratio-16x9 mt-5">
-                                    <iframe
-                                        src="https://s3-us-west-2.amazonaws.com/capacitacionvideodemo/alsain/PROMOCIONAL/PASTEL+CORAZON_03_1.mp4"
-                                        title="YouTube video" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <!--<div class="col-2 col-lg-1 offset-8 offset-lg-10">
-                                <img src="assets/img/like.svg" class="w-100" alt="">
-                            </div>
-                            <div class="col-2 col-lg-1">
-                                <img src="assets/img/deslike.svg" class="w-100" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!--<div class="card color p-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Avance de medalla</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color p-3 mt-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Medallas</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 0">
-                            <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 1">
-
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Terminado</label>
-                            </div>
-                            <!--<div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                        (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                        *ngIf="this.finalizado == 1">Regresar a temas</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="text6 txt-blue">I AM A GREAT Franchise
-                                    OPPORTUNITY
-
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-7 col-lg-8">
-                                <!--<h1 class="text4 txt-blue">Valley</h1>-->
-                                <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
-                                </h1>
-                                <h1 class="text4 txt-blue">CAMPEONATO CHARRO
-                                    FUTURITY 2019
-                                    RESULTADOS 2019
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">FUTURITY 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">RESULTADOS 2019
-                                </h1>
-                                <br>
-
-                                <h1 class="text4 txt-blue">
-                                    Come Be a Part of Our Sweet Success
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    The secret to the Dairy Queen® brand’s success has always been simple. Our recipe
-                                    combines hardworking individuals and great-tasting food that’s served in a welcoming
-                                    environment. What began as the 10-cent sale of an unknown frozen treat in 1938
-                                    quickly boomed into one of the most well-known soft serve/frozen treat companies of
-                                    all time. Food franchising had yet to exist, but the Dairy Queen® product’s
-                                    rapid-growth potential made the process a piece of cake. Today, there are more than
-                                    6,800 restaurants in the United States, Canada, and 27 other countries.
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <img src="assets/img/dq1.jpg" class="w-100" alt="">
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    If you’re looking to play a bigger role in your community or in the world of
-                                    delicious desserts, we’ve got a treat for you. We’re looking for qualified
-                                    individuals or groups to help us continue our story as a Dairy Queen® franchisee.
-                                    Are you motivated and willing to help us delight our fans with the refreshing
-                                    atmosphere, delectable food, and chocolate-dipped happiness you’ve come to know and
-                                    love? If so, we have the resources to guide you towards successful Dairy Queen®
-                                    franchise ownership.
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <img src="assets/img/dq2.jpg" class="w-100" alt="">
-
-                                </p>
-                                <br>
-                            </div>
-                            <div class="col-12 col-md-1">
-                                <div class="vr h-100 d-none d-md-block"></div>
-                                <hr class="w-100 d-md-none">
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 text-center mt-4">
-                                <!---<h1 class="text6 txt-blue mb-3">Plan de Negocio</h1>-->
-                                <!--<p class="text9 txt-blue">Para su comodidad y conveniencia, el Campeonato Charro
-                                    Millonario Tequila Hacienda
-                                    Vieja contará con diversos servicios para participantes y público asistente.</p>
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">A Nostalgic Experience</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-
-                                            With the opening of 1,346 new stores between 1947 and 1950, we set a
-                                            record-breaking pace and are proud to be one of the largest food systems in
-                                            the world. Our franchisees love what they do and the relationships they have
-                                            with our corporate support team.
-
-                                        </p>
-                                        <img src="assets/img/dq3.png" class="w-100" alt="">
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-
-                                        <p class="text9 txt-blue">
-
-                                            With the opening of 1,346 new stores between 1947 and 1950, we set a
-                                            record-breaking pace and are proud to be one of the largest food systems in
-                                            the world. Our franchisees love what they do and the relationships they have
-                                            with our corporate support team.
-
-                                        </p>
-                                        <img src="assets/img/dq4.jpg" class="w-100" alt="">
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-
-                                        <p class="text9 txt-blue">
-                                            Our goal is to give every Dairy Queen® franchisee the same success story so
-                                            they can become part of our timeless tradition and create excellent customer
-                                            experiences for DQ® fans around the world.
-                                        </p>
-                                        <img src="assets/img/dq5.jpg" class="w-100" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
-                                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
-                                <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    disabled>Tema Finalizado</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!---<div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
-                                <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
-                                    alt="">
-                            </div>
-                            <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
-                                <input type="text" class="input2 w-100" placeholder="Comentar...">
-                            </div>
-                            <div class="col-12">
-                                <button type="button"
-                                    class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
-    <div>
-        <div class="row pt-3">
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card color p-3 p-md-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <h1 class="text2 txt-blue">{{this.temasArr.title}}</h1>
-                                <hr class="w-100">
-                                <div class="ratio ratio-16x9 mt-5">
-                                    <iframe
-                                        [src]="this.video"
-                                        title="YouTube video" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <!--<div class="col-2 col-lg-1 offset-8 offset-lg-10">
+                        <!--<div class="col-2 col-lg-1 offset-8 offset-lg-10">
                                 <img src="assets/img/like.svg" class="w-100" alt="">
                             </div>
                             <div class="col-2 col-lg-1">
                                 <img src="assets/img/deslike.svg" class="w-100" alt="">
                             </div>-->
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!--<div class="card color p-3">
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <!--<div class="card color p-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
@@ -1299,59 +37,59 @@
                         </div>
                     </div>
                 </div>-->
-                <div class="card color p-3 mt-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Medallas</label>
-                                <hr class="w-100">
-                            </div>
+            <div class="card color p-3 mt-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="text3 txt-blue">Medallas</label>
+                            <hr class="w-100">
                         </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 0">
-                            <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 1">
+                    </div>
+                    <div class="row text-center" *ngIf="this.finalizado == 0">
+                        <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
+                    </div>
+                    <div class="row text-center" *ngIf="this.finalizado == 1">
 
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Terminado</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class=" mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <!--<div class="col-4">
+                        <div class="col-4">
+                            <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
+                            <label class="text8 txt-blue">Terminado</label>
+                        </div>
+                        <div class="col-4">
+                            <img src="assets/img/medallaavance.svg" class=" mx-auto d-block w-75" alt="">
+                            <label class="text8 txt-blue">Perfecto</label>
+                        </div>
+                        <!--<div class="col-4">
                                 <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
                                 <label class="text8 txt-blue">Tiempo</label>
                             </div>-->
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
+                        <div class="col-4">
+                            <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
+                            <label class="text8 txt-blue">Tiempo</label>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 mt-5">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                        (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                        *ngIf="this.finalizado == 1">Regresar a temas</button>
-                </div>
+            </div>
+            <div class="col-12 mt-5">
+                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
+                    (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
+                    *ngIf="this.finalizado == 1">Regresar a temas</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="text4 txt-blue">{{this.temasArr.title}}
-                                </p>
-                            </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card color p-5 mb-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="text4 txt-blue">{{this.temasArr.title}}
+                            </p>
                         </div>
-                        <div class="row">
-                            <div class="col-12 col-md-7 col-lg-8">
-                                <!--<h1 class="text4 txt-blue">Valley</h1>-->
-                                <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-7 col-lg-8">
+                            <!--<h1 class="text4 txt-blue">Valley</h1>-->
+                            <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
                                 </h1>
                                 <h1 class="text4 txt-blue">CAMPEONATO CHARRO
                                     FUTURITY 2019
@@ -1364,9 +102,9 @@
                                 <h1 class="text4 txt-blue">
                                     ¿Quiénes somos?
                                 </h1>-->
-                                <p class="text9 txt-blue">
-                                    {{this.temasArr.description}}
-                                    <!--<br>
+                            <p class="text9 txt-blue">
+                                {{this.temasArr.description}}
+                                <!--<br>
                                     <br>
                                     El área de niñas está inspirado en los aposentos de la princesa persa, donde se
                                     originan los cuentos de “Las mil y una noches™”. Antes de comenzar la lectura, y
@@ -1381,26 +119,26 @@
                                     <br>
                                     <br>
                                     <img src="assets/img/mm1.jpg" class="w-100" alt="">-->
-                                </p>
-                                <br>
-                                <br>
+                            </p>
+                            <br>
+                            <br>
 
 
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
-                                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
-                                <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    disabled>Tema Finalizado</button>
-                            </div>
+                        </div>
+                        <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
+                            <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
+                                (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
+                        </div>
+                        <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
+                            <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4" disabled>Tema
+                                Finalizado</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!---<div class="row">
+    </div>
+    <!---<div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
                 <div class="card color p-5 mb-5">
                     <div class="card-body">
@@ -1421,521 +159,9 @@
                 </div>
             </div>
         </div>-->
-    </div>
-
-    <!--<div *ngIf="this.helpers.idTopicBackUp == 16">
-        <div class="row pt-3">
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card color p-3 p-md-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <h1 class="text2 txt-blue">{{this.helpers.nameTopicBackUp}}</h1>
-                                <hr class="w-100">
-                                <div class="ratio ratio-16x9 mt-5">
-                                    <iframe
-                                        src="https://s3-us-west-2.amazonaws.com/capacitacionvideodemo/alsain/PROMOCIONAL/CATALOGO+318_1.mp4"
-                                        title="YouTube video" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <div class="col-2 col-lg-1 offset-8 offset-lg-10">
-                                <img src="assets/img/like.svg" class="w-100" alt="">
-                            </div>
-                            <div class="col-2 col-lg-1">
-                                <img src="assets/img/deslike.svg" class="w-100" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!--<div class="card color p-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Avance de medalla</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color p-3 mt-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Medallas</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 0">
-                            <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 1">
-
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Terminado</label>
-                            </div>
-                            <!--<div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class=" mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                        (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                        *ngIf="this.finalizado == 1">Regresar a temas</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="text4 txt-blue">NICE
-                                </p>
-                                <p class="text9 txt-blue">
-
-                                    Fashion film del lanzamiento de Catalogo de NICE de la linea 218
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-7 col-lg-8">
-                                <!--<h1 class="text4 txt-blue">Valley</h1>-->
-    <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
-                                </h1>
-                                <h1 class="text4 txt-blue">CAMPEONATO CHARRO
-                                    FUTURITY 2019
-                                    RESULTADOS 2019
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">FUTURITY 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">RESULTADOS 2019
-                                </h1>
-                                <p class="text6 txt-blue">INICIA TU PROPIO NEGOCIO
-                                </p>
-                                <p class="text9 txt-blue">
-                                    Adquiere tu kit de empresario NICE
-                                    <br>
-                                    <br>
-                                    En línea
-                                    <br>
-                                    <br>
-                                    Adquiere tu kit en línea
-                                    <br>
-                                    <br>
-                                    Si tienes un presentador, pídele su número de Empresario y comienza tu registro en
-                                    linea
-                                </p>
-                                <br>
-
-                                <h1 class="text4 txt-blue">
-                                    Cedis</h1>
-                                <p class="text9 txt-blue">
-                                    Adquiere tu kit en CEDIS
-                                    <br>
-                                    <br>
-                                    Acude a tu Centro de Distribución más cercano con una copia de tu Identificación
-                                    Oficial Vigente.
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">
-                                    Vía telefónica</h1>
-                                <p class="text9 txt-blue">
-                                    Adquiere tu kit vía telefónica
-                                    <br>
-                                    <br>
-                                    Realiza un depósito por $575 ($500 del kit más $75 de gastos de envío). Ver cuentas
-                                    bancarias. Después comunícate al Departamento de Servicio al Empresario al 0133 3540
-                                    3802.
-                                </p>
-                                <!--<br>
-                                <br>
-                                <h1 class="text4 txt-blue">SERVICIOS
-                                </h1>
-                                <br>
-                                <h1 class="text4 txt-blue">ARQUITECTURA
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Nuestra visión de la arquitectura se basa en encontrar el equilibrio entre los dos
-                                    actores principales que integran sus fuerzas, los usuarios y los desarrolladores,
-                                    donde nosotros, como arquitectos, esperamos ofrecer soluciones que puedan brindar el
-                                    mejor resultado para cada uno de ellos.
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">OBRA CIVIL
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Entendemos la importancia de lo que un edificio industrial de alta calidad ya que
-                                    representa para nuestros clientes y lo es
-                                </p>
-                                <br>
-                                <h1 class="text4 txt-blue">CAMPEONÍSIMO
-                                </h1>
-                                <p class="text9 txt-blue">
-                                    Fue el nombre que se le dio al equipo que representó a Chivas en la etapa
-                                    comprendida entre 1957 y 1970, pues la hazaña conseguida por este grupo de jugadores
-                                    es inigualable hasta ahora, ya que se conquistaron:
-                                    <br>
-                                    <br>
-                                    <br>
-                                    8 Títulos de Liga
-                                    <br>
-                                    2 Copas México
-                                    <br>
-                                    6 Campeón de Campeones
-                                    <br>
-                                    1 vez Campeonísimo
-                                    <br>
-                                    1 título de la Concacaf
-                                    <br>
-                                    1 Copa Challenger
-                                    <br>
-                                    3 Pentagonales Internacionales
-                                    <br>
-                                    1 Torneo de la Ciudad de Guadalajara
-                                </p>-->
-    <!--<p class="text6 txt-blue mt-3 mb-0">NOSOTROS</p>
-                                <p class="text9 txt-blue">Somos una empresa 100% mexicana, con más de 55 años de
-                                    trayectoria,
-                                    nuestro fundador fue Don Augusto Wirz, un hombre visionario y trabajador que
-                                    fue capaz de crear las herramientas para transformar la historia agrícola del país.
-                                </p>
-                                <p class="text6 txt-blue mt-3 mb-0">VISIÓN:</p>
-                                <p class="text9 txt-blue">Ser una empresa de clase mundial, mantener el liderazgo del
-                                    negocio medular
-                                    en el mercado nacional, aumentar la participación de las unidades de negocio
-                                    actuales
-                                    en el mercado nacional e internacional, incorporando además nuevas unidades de
-                                    negocio.
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-1">
-                                <div class="vr h-100 d-none d-md-block"></div>
-                                <hr class="w-100 d-md-none">
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 text-center mt-4">
-                                <!---<h1 class="text6 txt-blue mb-3">Plan de Negocio</h1>-->
-    <!--<p class="text9 txt-blue">Para su comodidad y conveniencia, el Campeonato Charro
-                                    Millonario Tequila Hacienda
-                                    Vieja contará con diversos servicios para participantes y público asistente.</p>
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">Plan de Negocio</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            NICE te ofrece la oportunidad de iniciar tu propio negocio cuentes o no con
-                                            un capital de inversión, magníficas herramientas como nuestros catálogos
-                                            están a tu disposición para que comiences de inmediato. Contamos también con
-                                            un crédito interno "CREDINICE" a través del cual con una inversión inicial
-                                            podrás adquirir inventario y pagar el resto a 6 meses sin intereses.
-
-                                        </p>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">Escala de Descuentos</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            En cada una de tus compras obtendrás Puntos, los cuales se irán acumulando
-                                            para avanzar en la Escala Ascendente de Descuentos. Una vez que obtienes un
-                                            Nivel de Descuento, no lo perderás. A mayor Descuento, mayor será tu
-                                            ganancia.
-
-                                        </p>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">Comparte el Negocio</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            Adicionalmente, cuando compartas la Oportunidad de Negocio con más personas,
-                                            podrás recibir hasta el 5% del total de las compras de tus invitados!
-
-                                        </p>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">Viajes, autos y sueños cumplidos</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                            Durante todo el año puedes participar para ser acreedor a viajes nacionales
-                                            e internacionales, autos último modelo y muchos otros reconocimientos
-                                            mercantiles.
-                                            <br>
-                                            NICE te permite disponer de tu propio tiempo, ya que puedes combinar tu
-                                            empleo actual, tus estudios, o actividades normales con tu propio negocio,
-                                            cualquier persona sin importar su edad o preparación escolar. Todo esto es
-                                            lo que nos hace ser diferentes a cualquier otro negocio tradicional que
-                                            pudieras emprender.
-                                        </p>
-                                    </div>
-
-                                    <!--<div class="col-12 mb-3">
-                                        <img src="assets/img/producto3.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">TIENDA</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <img src="assets/img/producto4.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">ALIMENTOS</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
-                                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
-                                <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    disabled>Tema Finalizado</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!---<div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
-                                <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
-                                    alt="">
-                            </div>
-                            <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
-                                <input type="text" class="input2 w-100" placeholder="Comentar...">
-                            </div>
-                            <div class="col-12">
-                                <button type="button"
-                                    class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="this.helpers.idTopicBackUp == 17">
-        <div class="row pt-3">
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card color p-3 p-md-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <h1 class="text2 txt-blue">{{this.helpers.nameTopicBackUp}}</h1>
-                                <hr class="w-100">
-                                <div class="ratio ratio-16x9 mt-5">
-                                    <iframe
-                                        src="https://s3-us-west-2.amazonaws.com/capacitacionvideodemo/alsain/PROMOCIONAL/RUSO+BLANCO_04_1.mp4"
-                                        title="YouTube video" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <!--<div class="col-2 col-lg-1 offset-8 offset-lg-10">
-                                <img src="assets/img/like.svg" class="w-100" alt="">
-                            </div>
-                            <div class="col-2 col-lg-1">
-                                <img src="assets/img/deslike.svg" class="w-100" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <!--<div class="card color p-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Avance de medalla</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color p-3 mt-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text3 txt-blue">Medallas</label>
-                                <hr class="w-100">
-                            </div>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 0">
-                            <p class="text9 txt-blue">Una vez que finalices el tema podrás ver aquí tus medallas.</p>
-                        </div>
-                        <div class="row text-center" *ngIf="this.finalizado == 1">
-
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Terminado</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Perfecto</label>
-                            </div>
-                            <div class="col-4">
-                                <img src="assets/img/medallaavance.svg" class=" mx-auto d-block w-75" alt="">
-                                <label class="text8 txt-blue">Tiempo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                        (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                        *ngIf="this.finalizado == 1">Regresar a temas</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="text4 txt-blue">VODKAS & FLAVORS
-
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-7 col-lg-8">
-                                <!--<h1 class="text4 txt-blue">Valley</h1>-->
-    <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
-                                </h1>
-                                <h1 class="text4 txt-blue">CAMPEONATO CHARRO
-                                    FUTURITY 2019
-                                    RESULTADOS 2019
-                                    CONTACTO</h1>
-                                <h1 class="text4 txt-blue">FUTURITY 2019
-                                </h1>
-                                <h1 class="text4 txt-blue">RESULTADOS 2019
-                                </h1>
-                                <p class="text6 txt-blue">CLASSIC VODKA
-                                </p>
-                                <p class="text9 txt-blue">
-                                    Zavorich is the most awarded name in vodka, with countless years of heritage and unmatched quality. Our classic trio is Kosher Certified, gluten-free and crafted with non-GMO corn for a delicious, smooth taste. Available in 80 proof, 90 proof, or 100 proof, our vodka is the perfect addition to your favorite cocktails.
-
-                                    <br>
-                                    <br>
-                                    <img src="assets/img/zv1.jpg" class="w-100" alt="">
-                                </p>
-                                <br>
-
-                                <h1 class="text4 txt-blue">
-                                    ZERO SUGAR INFUSIONS</h1>
-                                <p class="text9 txt-blue">
-                                    Zavorich Zero Sugar Infusions features zero sugar, and 100% flavor. Delicious flavor combinations include Cucumber & Lime, Strawberry & Rose, and Watermelon & Mint. For an easy to serve drink, simply add 2 oz of your favorite Zero Sugar variant, add 4 oz of club soda, garnish, and you’re done
-                                    <br>
-                                    <br>
-                                    <img src="assets/img/zv4.jpg" class="w-100" alt="">
-                                </p>
-                                <br>
-
-                            </div>
-                            <div class="col-12 col-md-1">
-                                <div class="vr h-100 d-none d-md-block"></div>
-                                <hr class="w-100 d-md-none">
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 text-center mt-4">
-                                <!---<h1 class="text6 txt-blue mb-3">Plan de Negocio</h1>
-    <!--<p class="text9 txt-blue">Para su comodidad y conveniencia, el Campeonato Charro
-                                    Millonario Tequila Hacienda
-                                    Vieja contará con diversos servicios para participantes y público asistente.</p>
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">FLAVORS</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-
-Zaverich has flavors for all occasions and seasons, no matter what you’re craving. Made with triple distilled vodka and made with natural flavors, our line up includes berries, citrus, indulgent, tropical, and classic fruity. Simply mix with soda or add to your favorite cocktail to enjoy the clean, refreshing taste of Zaverich.
-
-<img src="assets/img/zv2.jpg" class="w-100" alt="">
-                                        </p>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!--<img src="assets/img/producto.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">RED, YELLOW & BLACK</label>
-                                        <br>
-                                        <p class="text9 txt-blue">
-                                           Zavorich Red, Yellow & Black is our go-to #drinksofthesummer. Infused with cherry, citrus, and blue raspberry flavors, this spirit is a crowd pleaser.
-                                           <img src="assets/img/zv3.jpg" class="w-100" alt="">
-
-                                        </p>
-                                    </div>
 
 
-                                    <!--<div class="col-12 mb-3">
-                                        <img src="assets/img/producto3.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">TIENDA</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <img src="assets/img/producto4.svg" class="w-100" alt="">
-                                        <label class="text5 txt-blue mt-3">ALIMENTOS</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
-                                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
-                            </div>
-                            <div class="col-12 mt-5" *ngIf="this.finalizado == 1">
-                                <button type="button" class="boton3copy mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                                    disabled>Tema Finalizado</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!---<div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="card color p-5 mb-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
-                                <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
-                                    alt="">
-                            </div>
-                            <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
-                                <input type="text" class="input2 w-100" placeholder="Comentar...">
-                            </div>
-                            <div class="col-12">
-                                <button type="button"
-                                    class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
+
 </div>
 <!-- Modal Archivos-->
 <div class="modal fade" id="archivos" tabindex="-1" aria-labelledby="archivos" aria-hidden="true">
@@ -1946,7 +172,9 @@ Zaverich has flavors for all occasions and seasons, no matter what you’re crav
             </div>
             <div class="modal-body">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Archivos</h5>
-                <p class="text7 txt-gris mb-3">Estos recursos son brindados con el fin de que puedas guiar tu
+                <p class="text7 txt-gris mb-3">Estos recursos son brindados con el
+                    fin de
+                    que puedas guiar tu
                     aprendizaje de la mano de los mismos.</p>
                 <div class="card color rounded-4 mb-3" *ngFor="let file of this.nameFiles">
                     <div class="card-body">
@@ -2037,15 +265,20 @@ Zaverich has flavors for all occasions and seasons, no matter what you’re crav
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <img src="assets/img/question.svg" class="me-2" alt="...">
-                                <label class="text10 txt-blue">¿Cómo hago mi examen?</label>
+                                <label class="text10 txt-blue">¿Cómo hago mi
+                                    examen?</label>
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body ms-4">
-                                <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador
+                                <p class="text11 txt-blue lh-1">Para hacer el examen
+                                    es
+                                    importante que un administrador
                                     te asigne un examen,
-                                    una vez asignado tienes que ver todos los videos del modulo,
+                                    una vez asignado tienes que ver todos los videos
+                                    del
+                                    modulo,
                                     una vez terminado podras contestar el examen.
                                 </p>
                             </div>
@@ -2056,14 +289,19 @@ Zaverich has flavors for all occasions and seasons, no matter what you’re crav
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <img src="assets/img/question.svg" class="me-2" alt="...">
-                                <label class="text10 txt-blue">¿Cuántos puntos necesito para pasar?</label>
+                                <label class="text10 txt-blue">¿Cuántos puntos
+                                    necesito para
+                                    pasar?</label>
                             </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body ms-4">
-                                <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una
-                                    puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha
+                                <p class="text11 txt-blue lh-1">Para aprobar una
+                                    certificación, se necesita una
+                                    puntuación mayor a 70 en la evaluación de cada
+                                    modulo
+                                    que contenga dicha
                                     certificación.
                                 </p>
                             </div>
@@ -2074,14 +312,19 @@ Zaverich has flavors for all occasions and seasons, no matter what you’re crav
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 <img src="assets/img/question.svg" class="me-2" alt="...">
-                                <label class="text10 txt-blue">¿Cuánto tiempo tengo para responder la prueba?</label>
+                                <label class="text10 txt-blue">¿Cuánto tiempo tengo
+                                    para
+                                    responder la prueba?</label>
                             </button>
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body ms-4">
-                                <p class="text11 txt-blue lh-1">El tiempo asignado para cada prueba, te será informado
-                                    por el sistema al momento de iniciar la evaluación.
+                                <p class="text11 txt-blue lh-1">El tiempo asignado
+                                    para cada
+                                    prueba, te será informado
+                                    por el sistema al momento de iniciar la
+                                    evaluación.
                                 </p>
                             </div>
                         </div>

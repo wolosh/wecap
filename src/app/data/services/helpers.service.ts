@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { Data, Router } from '@angular/router';
 import { Buffer } from 'buffer';
 import { SessionService } from 'src/app/data/services/session.service';
+import { interval } from 'rxjs';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class HelpersService {
   nameModuleBackUp:any;
   idTopicBackUp:any;
   nameTopicBackUp:any;
+  interval:any;
   public finalizados = [] as any;
   public conferencias = false;
 

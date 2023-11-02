@@ -82,7 +82,7 @@ export class SeccionComponent implements OnInit {
   certifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
         //console.log(this.certificaciones);
       }
@@ -91,7 +91,7 @@ export class SeccionComponent implements OnInit {
 
   temas() {
     this.get.getTemas(this.helpers.idModuleBackUp, localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.temasArr = data;
       //console.log(this.temasArr)
       Swal.close();
@@ -104,17 +104,17 @@ export class SeccionComponent implements OnInit {
         //console.log(data);
         this.arrFiles = data.files;
         this.nameFiles = data.files.files;
-        console.log(this.arrFiles, this.nameFiles);
+        //console.log(this.arrFiles, this.nameFiles);
         Swal.close();
       }
     );
   }
 
   goToTheme(id:any, name:any){
-    console.log(id);
+    //console.log(id);
     localStorage.setItem('idTopic', id);
     localStorage.setItem('nameTopic', name);
-    console.log(localStorage.getItem('idTopic'), localStorage.getItem('nameTopic'));
+    //console.log(localStorage.getItem('idTopic'), localStorage.getItem('nameTopic'));
     this.route.navigate(['/temas']);
   }
 

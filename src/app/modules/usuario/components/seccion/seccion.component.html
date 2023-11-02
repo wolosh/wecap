@@ -12,8 +12,8 @@
                     <div class="row row-cols-2 row-cols-md-2 row-cols-xl-3 g-5 mt-1 modulo">
                         <div class="col" *ngFor="let tema of this.temasArr; let i = index">
                             <div class="card corpo">
-                                <img *ngIf="tema.icon_gold != ''" src="http://35.92.150.230/imagenes/{{tema.icon_gold}}" class="img-fluid" alt="">
-                                <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
+                                <!--<img *ngIf="tema.icon_gold != ''" src="http://35.92.150.230/imagenes/{{tema.icon_gold}}" class="img-fluid" alt="">-->
+                                <img src="assets/img/f2.jpg" class="img-fluid" alt="">
                                 <div class="transbox2 d-flex justify-content-center align-items-center">
                                     <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="goToTheme(tema.idTopic, tema.title)">{{tema.title}}</a>
                                 </div>

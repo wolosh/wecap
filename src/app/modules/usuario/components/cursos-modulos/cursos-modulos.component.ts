@@ -36,7 +36,7 @@ export class CursosModulosComponent implements OnInit {
     /*if(localStorage.getItem('token') == null){
       window.location.href = '/login';
     } else if(localStorage.getItem('type') == '0'){
-      console.log('Usuario');
+      ////console.log('Usuario');
     }*/
     if (localStorage.getItem('type') == '4') {
       this.helpers.goTop();
@@ -48,13 +48,14 @@ export class CursosModulosComponent implements OnInit {
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
-          //console.log(localStorage.getItem('type'));
+          ////console.log(localStorage.getItem('type'));
           this.helpers.type = localStorage.getItem('type');
           this.profile();
           this.certifications();
           this.helpers.cursos = 1;
           this.session.curso = false;
           this.helpers.conferencias = false;
+          this.helpers.pauseTimer(this.helpers.interval);
         }
       });
     } else {
@@ -65,7 +66,7 @@ export class CursosModulosComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          //console.log(result)
+          ////console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cursos']);
           }
@@ -79,16 +80,16 @@ export class CursosModulosComponent implements OnInit {
   profile() {
     this.get.getProfile(localStorage.getItem('id'), localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        ////console.log(data);
         this.email = data;
-        //console.log(this.email);
+        ////console.log(this.email);
         this.certifications();
       }
     );
   }
 
   changeViewCourses(view: any, id?: any) {
-    //console.log(view, id);
+    ////console.log(view, id);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -115,9 +116,9 @@ export class CursosModulosComponent implements OnInit {
   certifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        ////console.log(data);
         this.certificaciones = data;
-        //console.log(this.certificaciones);
+        ////console.log(this.certificaciones);
         Swal.close();
       }
     );
@@ -126,7 +127,7 @@ export class CursosModulosComponent implements OnInit {
   modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.modulesCertifications = data;
         //console.log(this.modulesCertifications);
         this.files(id);
@@ -137,9 +138,9 @@ export class CursosModulosComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        ////console.log(data);
         this.arrFiles = data.files;
-        //console.log(this.arrFiles);
+        //////console.log(this.arrFiles);
         Swal.close();
       }
     );
@@ -151,7 +152,7 @@ export class CursosModulosComponent implements OnInit {
     this.helpers.idModuleBackUp = idMod;
     this.helpers.nameModuleBackUp = nameMod;
     this.helpers.conferencias = true;
-    //console.log(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp);
+    //////console.log(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp);
     this.route.navigate(['/seccion']);
   }
 

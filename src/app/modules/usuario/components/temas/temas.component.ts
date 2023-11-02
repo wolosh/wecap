@@ -84,19 +84,20 @@ export class TemasComponent implements OnInit {
   }
 
   temas() {
-    console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
+    //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(this.helpers.idTopicBackUp, localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.temasArr = data;
-      console.log(this.temasArr)
+      //console.log(this.temasArr)
       this.video = this.dom.bypassSecurityTrustResourceUrl(data.url_video);
 
       Swal.close();
     });
     /*this.get.getTemas(localStorage.getItem('idModule'), localStorage.getItem('token')).subscribe((data: any) => {
-      //console.log(data)
+      ////console.log(data)
       this.temasArr = data;
       console.log(this.temasArr)
+      ////console.log(this.temasArr)
       Swal.close();
     });*/
   }
@@ -104,18 +105,18 @@ export class TemasComponent implements OnInit {
   temaFinalizado(idTopic: any) {
     if (localStorage.getItem('finalizados')) {
       let arr = JSON.parse(localStorage.getItem('finalizados'));
-      //console.log(idTopic, arr)
+      ////console.log(idTopic, arr)
       arr.push(idTopic);
-      //console.log(arr)
+      ////console.log(arr)
       localStorage.setItem('finalizados', JSON.stringify(arr));
     } else {
       let arr = [];
-      //console.log(idTopic, arr)
+      ////console.log(idTopic, arr)
       arr.push(idTopic);
-      //console.log(arr)
+      ////console.log(arr)
       localStorage.setItem('finalizados', JSON.stringify(arr));
     }
-    //console.log(this.helpers.finalizados, localStorage.getItem('finalizados'))
+    ////console.log(this.helpers.finalizados, localStorage.getItem('finalizados'))
     Swal.fire({
       title: '¡Tema finalizado!',
       text: '¡Has finalizado este tema!',

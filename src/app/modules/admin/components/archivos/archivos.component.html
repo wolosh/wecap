@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="row mb-4" *ngIf="showDescription == true">
-                            <form [formGroup]="formArchivos" (ngSubmit)="updateFiles('description')">
+                            <form [formGroup]="formArchivos" (ngSubmit)="updateDescription('description')">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
                                     <textarea class="input3" id="floatingTextarea2" style="height: 100px"
@@ -101,8 +101,8 @@
                                                     disabled>{{archivo.name}}</button>
                                             </th>
                                             <td>{{archivo.url}}</td>
-                                            <td><button class="boton2 removeArchivos" (click)="removeMedia(archivo.name)"><img
-                                                        src="assets/img/close.svg" alt="close"></button></td>
+                                            <!--<td><button class="boton2 removeArchivos" (click)="removeMedia(archivo.name)"><img
+                                                        src="assets/img/close.svg" alt="close"></button></td>-->
                                         </tr>
                                     </tbody>
                                 </table>

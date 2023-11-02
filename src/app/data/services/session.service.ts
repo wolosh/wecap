@@ -456,5 +456,33 @@ export class SessionService {
     );
   }
 
+  public iniciaExamen( form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}iniciaExamen`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public calificaExamen( form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}calificaExamen`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
 }
 

@@ -24,6 +24,12 @@ export class TestComponent implements OnInit {
   arrFiles: any;
   nameFiles: any;
   allConferencias: any;
+  nameExam: any;
+  questionsExam: any;
+  formExam: FormGroup;
+  objResp = {} as any;
+  idExamBackUp: any;
+  score: any;
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
@@ -45,18 +51,19 @@ export class TestComponent implements OnInit {
           }
           this.helpers.type = localStorage.getItem('type');
           this.session.curso = true;
-          //console.log(this.helpers.nameModuleBackUp);
-          //console.log(localStorage.getItem('test'));
-          if (localStorage.getItem('test') == 'true') {
+          ////console.log(this.helpers.nameModuleBackUp);
+          ////console.log(localStorage.getItem('test'));
+          /*if (localStorage.getItem('test') == 'true') {
             this.valido = true;
-          }
+          } else {
+            this.valido = false;
+          }*/
           //this.certifications();
           //this.temas();
           //Swal.close();
           this.getInfoExam(this.helpers.idModuleBackUp)
-          this.timeLeft = 120;
-          this.startTimer();
           this.conferencias(localStorage.getItem('idCertification'))
+          //this.startTimer();
         }
       });
     } else {
@@ -67,7 +74,7 @@ export class TestComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          //console.log(result)
+          ////console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cursos']);
           }
@@ -78,20 +85,58 @@ export class TestComponent implements OnInit {
     }
   }
 
+  starForm() {
+    this.formExam = new FormGroup({});
+  }
+
   getInfoExam(id: any) {
-    console.log(id);
+    this.valido = false;
+    //console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
+        this.idExamBackUp = data.idExamen;
+        this.timeLeft = data.duracion;
+        this.nameExam = data.title;
+        this.questionsExam = data.preguntas;
+        //console.log(this.nameExam, this.questionsExam)
+        this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            //console.log(data);
+            //console.log(parseInt(data.calificacion));
+            if (parseInt(data.calificacion) > 0) {
+              Swal.close();
+              this.valido = true;
+              this.score = parseInt(data.calificacion);
+            } else if (parseInt(data.calificacion) == 0) {
+              this.valido = false;
+              let start = new FormData();
+              start.append('idExamen', this.idExamBackUp);
+              //console.log(start.get('idExamen'));
+              this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
+                (data: any) => {
+                  this.idExamBackUp = data.id;
+                  ////console.log(data);
+                  this.startTimer();
+                }
+              );
+            }
+            ////console.log(this.valido)
+          }
+        );
 
-        Swal.close();
+
       }
     );
   }
 
   startTimer() {
-    Swal.close();
+
+    setTimeout(() => {
+      Swal.close();
+    }, 800);
     this.interval = setInterval(() => {
+      this.helpers.interval = this.interval;
       if (this.timeLeft > 0) {
         this.timeLeft--;
         this.transform(this.timeLeft);
@@ -103,7 +148,7 @@ export class TestComponent implements OnInit {
           icon: 'info',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          //console.log(result)
+          //////console.log(result)
           if (result.isConfirmed) {
             this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
             this.valido = false;
@@ -142,11 +187,91 @@ export class TestComponent implements OnInit {
 
   }
 
-  changeOption() {
-    //console.log(this.text1, this.text2, this.text3);
+  changeOption(event: any, question: any) {
+    ////console.log(event.target.value, question);
+    //if (!this.objResp[question]) this.objResp[question] = [];
+
+    this.objResp[question] = event.target.value;
+
+
+    ////console.log(this.objResp)
   }
 
+  /*changeOption() {
+    ////console.log(this.text1, this.text2, this.text3);
+    
+  }*/
+
   saveTest() {
+
+    ////console.log(this.objResp, Object.keys(this.objResp), this.questionsExam.length);
+
+    if (Object.keys(this.objResp).length < this.questionsExam.length) {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes responder todas las preguntas.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+      let send = {
+        id: this.idExamBackUp,
+        respuestas: []
+      }
+
+      Object.keys(this.objResp).forEach((key, index) => {
+        ////console.log(key, index, this.objResp[key]);
+        send.respuestas.push({ idEval_question: key, respuesta: this.objResp[key] });
+      });
+
+      this.session.calificaExamen(send, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          ////console.log(data);
+          Swal.fire({
+            title: '¡Listo!',
+            text: 'Se guardo tu test, pronto uno de los administradores calificara tus respuestas.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            //////console.log(result)
+            if (result.isConfirmed) {
+              this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
+              this.valido = true;
+              localStorage.setItem('test', this.valido.toString());
+            }
+          });
+        }
+      );
+
+      ////console.log(send);
+    }
+
+    /*if (this.text1 == '' || this.text2 == '' || this.text3 == '') {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Debes responder todas las preguntas.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+      Swal.fire({
+        title: '¡Listo!',
+        text: 'Se guardo tu test, pronto uno de los administradores calificara tus respuestas.',
+        icon: 'success',
+        confirmButtonColor: '#015287',
+      }).then((result) => {
+        //////console.log(result)
+        if (result.isConfirmed) {
+          this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
+          this.valido = true;
+          localStorage.setItem('test', this.valido.toString());
+
+        }
+      });
+    }*/
+  }
+
+  /*saveTest() {
     if (this.text1 == '' || this.text2 == '' || this.text3 == '') {
       Swal.fire({
         title: '¡Error!',
@@ -161,7 +286,7 @@ export class TestComponent implements OnInit {
         icon: 'success',
         confirmButtonColor: '#015287',
       }).then((result) => {
-        //console.log(result)
+        //////console.log(result)
         if (result.isConfirmed) {
           this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
           this.valido = true;
@@ -170,15 +295,18 @@ export class TestComponent implements OnInit {
         }
       });
     }
-  }
+  }*/
+
+
+
 
   files() {
     this.get.getFiles(localStorage.getItem('idCertification'), localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        ////console.log(data);
         this.arrFiles = data.files;
         this.nameFiles = data.files.files;
-        //console.log(this.arrFiles, this.nameFiles);
+        ////console.log(this.arrFiles, this.nameFiles);
         Swal.close();
       }
     );

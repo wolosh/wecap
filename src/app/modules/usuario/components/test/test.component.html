@@ -5,89 +5,101 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <h1 class="text2 txt-blue">{{this.helpers.nameModuleBackUp}} - Evaluación</h1>
+                            <h1 class="text2 txt-blue">{{this.nameExam}}</h1>
                             <hr class="w-100">
                             <div *ngIf="this.valido == false">
-                                <label class="text6 txt-blue mb-3 mt-3">1. ¿Debe ser conciso un video
+                                <!--INICIO DE COMENTARIOS DE PARTE QUE SE RELLENA CON LA LLAMADA DE BD-->
+                                <div *ngFor="let q of this.questionsExam">
+                                    <label class="text6 txt-blue mb-3 mt-3">{{q.question}}</label>
+                                    <div *ngIf="q.respuestas != 0">
+                                        <div class="form-check ms-4" *ngFor="let answers of q.respuestas">
+                                            <input class="form-check-input" type="radio" name="{{q.idEval_question}}"
+                                                id="flexRadioDefault1"
+                                                (change)="changeOption($event, q.idEval_question)"
+                                                value="{{answers.idEval_option}}">
+                                            <label class="text5 txt-blue" for="flexRadioDefault1">
+                                                {{answers.option}}
+                                            </label>
+                                        </div>
+                                        <!--<div class="form-check ms-4">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault2"
+                                                id="flexRadioDefault2" [(ngModel)]="text1" (change)="changeOption()"
+                                                [value]="2">
+                                            <label class="text5 txt-blue" for="flexRadioDefault1">
+                                                No
+                                            </label>
+                                        </div>
+                                        <div class="form-check ms-4">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault3"
+                                                id="flexRadioDefault3" [(ngModel)]="text1" (change)="changeOption()"
+                                                [value]="3">
+                                            <label class="text5 txt-blue" for="flexRadioDefault1">
+                                                Claro que no
+                                            </label>
+                                        </div>-->
+                                    </div>
+                                    <div *ngIf="q.respuestas == 0">
+                                        <div class="row">
+                                            <input type="text" class="input3" id="exampleInputEmail1">
+
+                                        </div>
+                                    </div>
+                                    <!--<label class="text6 txt-blue mb-3 mt-3">2. ¿Las empresas necesitan un video
                                     promocional?</label>
-                                <div class="form-check ms-4">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault1"
-                                        id="flexRadioDefault1" [(ngModel)]="text1" (change)="changeOption()"
-                                        [value]="1">
-                                    <label class="text5 txt-blue" for="flexRadioDefault1">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check ms-4">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault2"
-                                        id="flexRadioDefault2" [(ngModel)]="text1" (change)="changeOption()"
-                                        [value]="2">
-                                    <label class="text5 txt-blue" for="flexRadioDefault1">
-                                        No
-                                    </label>
-                                </div>
-                                <div class="form-check ms-4">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault3"
-                                        id="flexRadioDefault3" [(ngModel)]="text1" (change)="changeOption()"
-                                        [value]="3">
-                                    <label class="text5 txt-blue" for="flexRadioDefault1">
-                                        Claro que no
-                                    </label>
-                                </div>
-                                <label class="text6 txt-blue mb-3 mt-3">2. ¿Las empresas necesitan un video
-                                    promocional?</label>
-                                <div class="form-check ms-4">
+                                    <div class="form-check ms-4">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault4"
                                         id="flexRadioDefault4" [(ngModel)]="text2" (change)="changeOption()"
                                         [value]="1">
                                     <label class="text5 txt-blue" for="flexRadioDefault1">
                                         Si
                                     </label>
-                                </div>
-                                <div class="form-check ms-4">
+                                    </div>
+                                    <div class="form-check ms-4">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault5"
                                         id="flexRadioDefault5" [(ngModel)]="text2" (change)="changeOption()"
                                         [value]="2">
                                     <label class="text5 txt-blue" for="flexRadioDefault1">
                                         No
                                     </label>
-                                </div>
-                                <div class="form-check ms-4">
+                                    </div>
+                                    <div class="form-check ms-4">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault6"
                                         id="flexRadioDefault6" [(ngModel)]="text2" (change)="changeOption()"
                                         [value]="3">
                                     <label class="text5 txt-blue" for="flexRadioDefault1">
                                         Claro que no
                                     </label>
-                                </div>
-                                <label class="text6 txt-blue mb-3 mt-3">3. ¿Te gustaría tener un video promocional para
+                                    </div>
+                                    <label class="text6 txt-blue mb-3 mt-3">3. ¿Te gustaría tener un video promocional para
                                     tu empresa?</label>
-                                <div class="form-check ms-4">
+                                    <div class="form-check ms-4">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault7"
                                         id="flexRadioDefault7" [(ngModel)]="text3" (change)="changeOption()"
                                         [value]="1">
                                     <label class="text5 txt-blue" for="flexRadioDefault1">
                                         Si
                                     </label>
-                                </div>
-                                <div class="form-check ms-4">
+                                    </div>
+                                    <div class="form-check ms-4">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault8"
                                         id="flexRadioDefault8" [(ngModel)]="text3" (change)="changeOption()"
                                         [value]="2">
                                     <label class="text5 txt-blue" for="flexRadioDefault1">
                                         No
                                     </label>
-                                </div>
-                                <div class="form-check ms-4">
+                                    </div>
+                                    <div class="form-check ms-4">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault9"
                                         id="flexRadioDefault9" [(ngModel)]="text3" (change)="changeOption()"
                                         [value]="3">
                                     <label class="text5 txt-blue" for="flexRadioDefault1">
                                         Claro que no
                                     </label>
+                                    </div>-->
                                 </div>
                             </div>
                             <div *ngIf="this.valido == true">
+                                <div *ngIf="this.score >= 7">
                                 <p class="text6 txt-blue">¡Ya has completado esta evaluación!
                                 </p>
                                 <p class="text9 txt-blue">
@@ -96,6 +108,17 @@
                                     Si aun no se encuentra disponible, espera a que tu instructor la califique.
 
                                 </p>
+                                </div>
+                                <div *ngIf="this.score < 7">
+                                    <p class="text6 txt-blue">¡No lograste aprovar la evaluación!
+                                    </p>
+                                    <p class="text9 txt-blue">
+                                        No te preocupes puedes volver a intentarlo.
+                                        <br>
+                                        Solo da click en el botón de "Iniciar Evaluación"
+    
+                                    </p>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -103,10 +126,14 @@
             </div>
             <div class="row">
                 <div class="col-12">
+                    <button type="button" class="boton3 mx-auto d-block mt-3 mb-5" (click)="saveTest()"
+                        *ngIf="this.valido == false">Finalizar Evaluación</button>
+
                     <button type="button" class="boton3 mx-auto d-block mt-3 mb-5"
-                        (click)="saveTest()" *ngIf="this.valido == false">Finalizar Evaluación</button>
-                        <button type="button" class="boton3 mx-auto d-block mt-3 mb-5"
-                        (click)="temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp)" *ngIf="this.valido == true">Regresar</button>
+                        (click)="temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp)"
+                        *ngIf="this.valido == true && this.score >= 7">Regresar</button>
+                        <button type="button" class="boton3 mx-auto d-block mt-3 mb-5" (click)="saveTest()"
+                        *ngIf="this.valido == true && this.score < 7" (click)="getInfoExam(this.helpers.idModuleBackUp)">Iniciar evaluacion</button>
                 </div>
             </div>
         </div>
@@ -154,11 +181,13 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <label class="text3 txt-blue">Resultado: Aprobado (95)</label>
+                            <label *ngIf="this.score >= 7" class="text3 txt-blue">Resultado: Aprobado ({{this.score}})</label>
+                            <label *ngIf="this.score < 7" class="text3 txt-blue">Resultado: No Aprobado ({{this.score}})</label>
+                            
                             <hr class="w-100">
                         </div>
                     </div>
-                    <div class="row text-center">
+                    <div class="row text-center" *ngIf="this.score >= 7">
                         <div class="col-12">
                             <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
                         </div>
@@ -201,7 +230,8 @@
             </div>
             <div class="modal-body">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Archivos</h5>
-                <p class="text7 txt-gris mb-3">Estos recursos son brindados con el fin de que puedas guiar tu aprendizaje de la mano de los mismos.</p>
+                <p class="text7 txt-gris mb-3">Estos recursos son brindados con el fin de que puedas guiar tu
+                    aprendizaje de la mano de los mismos.</p>
                 <div class="card color rounded-4 mb-3" *ngFor="let file of this.nameFiles">
                     <div class="card-body">
                         <div class="d-flex">
@@ -210,7 +240,8 @@
                             </div>
                             <div>
                                 <label class="text9 txt-blue d-block">{{file.name}}</label>
-                                <a href="{{file.url}}" target="_blank" download="plantilla_usuarios.csv" class="boton2 ps-0">Descargar</a>
+                                <a href="{{file.url}}" target="_blank" download="plantilla_usuarios.csv"
+                                    class="boton2 ps-0">Descargar</a>
                             </div>
                         </div>
                     </div>
@@ -304,48 +335,58 @@
                 <p class="text7 txt-gris mb-3">Preguntas Frecuentes</p>
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item border-0 mb-3">
-                      <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <img src="assets/img/question.svg" class="me-2" alt="...">
-                            <label class="text10 txt-blue">¿Cómo hago mi examen?</label>
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador te asigne un examen,
-                                una vez asignado tienes que ver todos los videos del modulo,
-                                una vez terminado podras contestar el examen.
-                            </p>
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <img src="assets/img/question.svg" class="me-2" alt="...">
+                                <label class="text10 txt-blue">¿Cómo hago mi examen?</label>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body ms-4">
+                                <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador
+                                    te asigne un examen,
+                                    una vez asignado tienes que ver todos los videos del modulo,
+                                    una vez terminado podras contestar el examen.
+                                </p>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="accordion-item border-0 mb-3">
-                      <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <img src="assets/img/question.svg" class="me-2" alt="...">
-                            <label class="text10 txt-blue">¿Cuántos puntos necesito para pasar?</label>
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha certificación.
-                            </p>
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <img src="assets/img/question.svg" class="me-2" alt="...">
+                                <label class="text10 txt-blue">¿Cuántos puntos necesito para pasar?</label>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body ms-4">
+                                <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una
+                                    puntuación mayor a 7 en la evaluación de cada modulo que contenga dicha
+                                    certificación.
+                                </p>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="accordion-item border-0 mb-3">
-                      <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <img src="assets/img/question.svg" class="me-2" alt="...">
-                            <label class="text10 txt-blue">¿Cuánto tiempo tengo para responder la prueba?</label>
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">El tiempo asignado para cada prueba, te será informado por el sistema al momento de iniciar la evaluación.
-                            </p>
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <img src="assets/img/question.svg" class="me-2" alt="...">
+                                <label class="text10 txt-blue">¿Cuánto tiempo tengo para responder la prueba?</label>
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body ms-4">
+                                <p class="text11 txt-blue lh-1">El tiempo asignado para cada prueba, te será informado
+                                    por el sistema al momento de iniciar la evaluación.
+                                </p>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <!--<div class="accordion-item border-0 mb-3">
                         <h2 class="accordion-header" id="headingFour">

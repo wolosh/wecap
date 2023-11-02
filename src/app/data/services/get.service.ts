@@ -10,17 +10,17 @@ export class GetService {
 
   constructor(private session: SessionService, private http: HttpClient) { }
 
-  getProfile(id:any, token:any) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
+  getProfile(id: any, token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-      return this.http.get(this.session.API + 'perfil/' + id, {
-        headers
+    return this.http.get(this.session.API + 'perfil/' + id, {
+      headers
     });
   }
 
-  getCertifications(token:any) {
+  getCertifications(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -35,7 +35,7 @@ export class GetService {
     );
   }
 
-  getUsers(token:any) {
+  getUsers(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -50,7 +50,7 @@ export class GetService {
     );
   }
 
-  getMaterias(token:any) {
+  getMaterias(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -60,7 +60,7 @@ export class GetService {
     });
   }
 
-  getGroups(token:any) {
+  getGroups(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -70,7 +70,7 @@ export class GetService {
     });
   }
 
-  getMedia(token:any) {
+  getMedia(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -80,7 +80,7 @@ export class GetService {
     })
   }
 
-  getMails(token:any) {
+  getMails(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -90,7 +90,7 @@ export class GetService {
     })
   }
 
-  getConferencias(id:any, token){
+  getConferencias(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -99,7 +99,7 @@ export class GetService {
     });
   }
   //llamada para traer modulos de un curso
-  getModules(id:any, token){
+  getModules(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -108,7 +108,7 @@ export class GetService {
     });
   }
   //llamada para traer modulos de un curso
-  getinfoModulo(id:any, token){
+  getinfoModulo(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -117,7 +117,7 @@ export class GetService {
     });
   }
   //llamada para traer modulos de un curso
-  getTemas(id:any, token){
+  getTemas(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -127,16 +127,16 @@ export class GetService {
   }
 
   //trae el diploma de la base de datos
-  getDiploma(id:any, token){
+  getDiploma(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(this.session.API + 'diploma/' + id, {
       headers
-  });
+    });
   }
 
-  searchUsers(filter, cad, token, ){
+  searchUsers(filter, cad, token,) {
     console.log(filter, cad, token)
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -146,17 +146,17 @@ export class GetService {
     })
   }
 
-  getTeachers(token){
+  getTeachers(token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get(this.session.API + 'getAllMaestros',{
+    return this.http.get(this.session.API + 'getAllMaestros', {
       headers
-  });
+    });
   }
 
-  getUserCourses(id:any, token){
+  getUserCourses(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -166,7 +166,7 @@ export class GetService {
     })
   }
 
-  getDiagnostico(id:any, token){
+  getDiagnostico(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -175,7 +175,7 @@ export class GetService {
     })
   }
 
-  getExamModule(id:any, token){
+  getExamModule(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -185,7 +185,7 @@ export class GetService {
     })
   }
 
-  getCursantesModulo(id:any, token){
+  getCursantesModulo(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -195,7 +195,7 @@ export class GetService {
     })
   }
 
-  getEstadisticas(token:any){
+  getEstadisticas(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -206,7 +206,7 @@ export class GetService {
   }
 
 
-getFiles(id:any, token){
+  getFiles(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -216,7 +216,7 @@ getFiles(id:any, token){
     })
   }
 
-  getConfiguration(token:any){
+  getConfiguration(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -226,21 +226,31 @@ getFiles(id:any, token){
     })
   }
 
-  getOnlyTema(id:any, token){
+  getOnlyTema(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(this.session.API + 'getTema/' + id, {
       headers
-  });
+    });
   }
 
-  getInfoExamen(id:any, token){
+  getInfoExamen(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(this.session.API + 'examen/' + id, {
       headers
-  });
+    });
+  }
+
+  getCalificacion(id: any, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}calificacion/${id}`, {
+      headers,
+    })
   }
 }

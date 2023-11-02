@@ -16,8 +16,9 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mt-5 mb-5 home" *ngIf="this.cursos == 1">
         <div class="col" *ngFor="let certificacion of this.certificaciones">
             <div class="card h-100">
-                <img *ngIf="certificacion.img == ''" src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">
-                <img *ngIf="certificacion.img != ''" src="{{helpers.domain}}/imagenes/{{ certificacion.img }}" class="card-img mx-auto d-block" alt="...">
+                <img src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">
+                <!--<img *ngIf="certificacion.img == ''" src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">
+                <img *ngIf="certificacion.img != ''" src="{{helpers.domain}}/imagenes/{{ certificacion.img }}" class="card-img mx-auto d-block" alt="...">-->
                 <div class="card-img-overlay d-flex justify-content-center align-items-center">
                     <div class="row">
                         <div class="col-12">
@@ -38,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <!---<div class="col">
             <div class="card h-100">
                 <img src="assets/img/metrihealth.svg" class="card-img mx-auto d-block" alt="...">
                 <div class="card-img-overlay d-flex justify-content-center align-items-center">
@@ -61,7 +62,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
     <!--Parte modulos-->
     <carousel *ngIf="this.cursos == 2" [itemsPerSlide]="itemsPerSlide"
@@ -74,9 +75,9 @@
             <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
                 <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
             <div class="carousel-caption">
-                <button *ngIf="slide.idModule == '2'" type="button" class="card-title w-100 border-0" (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
-                <button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100 border-0" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
-
+                <button type="button" class="card-title w-100 border-0" (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
+                <!--<button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100 border-0" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>-->
+                
                 <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                     <div class="row">
                         <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="..."></div>
