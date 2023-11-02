@@ -26,6 +26,7 @@ export class UsuariosComponent implements OnInit {
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router, private session: SessionService) { }
 
   ngOnInit(): void {
+    this.helpers.goTop();
     //console.log(localStorage.getItem('token'));
     if (localStorage.getItem('type') == '1') {
       //console.log(this.searchArray)

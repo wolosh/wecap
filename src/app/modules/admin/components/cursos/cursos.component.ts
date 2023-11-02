@@ -88,6 +88,7 @@ export class CursosComponent implements OnInit {
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
   ngOnInit(): void {
+    this.helpers.goTop();
     Swal.close();
     if (localStorage.getItem('type') == '1') {
 

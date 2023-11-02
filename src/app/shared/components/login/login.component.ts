@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private session: SessionService, private router: Router, private helpers: HelpersService) { }
 
   ngOnInit(): void {
+    this.helpers.goTop();
     this.startForm();
   }
 
@@ -50,7 +51,6 @@ export class LoginComponent implements OnInit {
         Swal.showLoading()
         this.session.login(this.formLogin.value.email, this.formLogin.value.password).subscribe(
           (data: Data) => {
-
             console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
             localStorage.setItem('token', data['token']);
             localStorage.setItem('userName', data['full_name']);
@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit {
 
             } else if (data['is_admin'] == 1) {
               this.router.navigate(['/cursos']);
-
               console.log(this.helpers.cursos)
             }
           }, (e: any) => {

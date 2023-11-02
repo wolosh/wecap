@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.name = localStorage.getItem('userName');
+    console.log(this.name)
     //this.type = localStorage.getItem('type');
     //console.log(this.type)
   }

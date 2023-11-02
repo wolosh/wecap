@@ -53,6 +53,7 @@ export class HelpersService {
           this.conferencias = false;
           //redireccionamos a la pagina de inicio despues de 7 segundos
           this.route.navigate(['/']);
+          //console.log(localStorage)
         }, 900);
       },
     });

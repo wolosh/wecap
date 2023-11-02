@@ -42,6 +42,7 @@ export class ConferenciasComponent implements OnInit {
     private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.helpers.goTop();
     if (localStorage.getItem('type') == '1') {
 
       //console.log(this.searchArray)

@@ -18,6 +18,7 @@ export class PerfilUsuarioComponent implements OnInit {
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
+    this.helpers.goTop();
     this.conferencias(localStorage.getItem('idCertification'))
     //this.helpers.conferencias = true;
   }
