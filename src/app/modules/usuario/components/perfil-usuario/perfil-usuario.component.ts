@@ -14,6 +14,8 @@ export class PerfilUsuarioComponent implements OnInit {
 
   name = localStorage.getItem('userName');
   allConferencias: any;
+  id: string;
+  allPerfil: any;
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
@@ -21,6 +23,8 @@ export class PerfilUsuarioComponent implements OnInit {
     this.helpers.goTop();
     this.conferencias(localStorage.getItem('idCertification'))
     //this.helpers.conferencias = true;
+    this.id = localStorage.getItem('id');
+    this.perfil(this.id)
   }
 
 
@@ -30,6 +34,16 @@ export class PerfilUsuarioComponent implements OnInit {
         //console.log(data)
         this.allConferencias = data;
         //console.log(this.allConferencias)
+      }
+    );
+  }
+
+  perfil(id: any) {
+    //console.log(id)
+    this.get.getPerfil(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data.area);
+        this.allPerfil = data;
       }
     );
   }

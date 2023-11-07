@@ -253,4 +253,43 @@ export class GetService {
       headers,
     })
   }
+  //Estadisticas globales
+  getEstadGlobales(token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.session.API}estadisticasGlobales`, {
+      headers,
+    })
+  }
+  //Estadisticas Curso
+  getEstadCurso(id: any,token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'estadisticasCurso/' + id, {
+      headers,
+    })
+  }
+
+  //Estadisticas Modulo
+  getEstadModulo(id: any,token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'estadisticasModulo/' + id, {
+      headers,
+    })
+  }
+
+  //Info perfil
+  getPerfil(id: any,token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'perfil/' + id, {
+      headers,
+    })
+  }
+
 }

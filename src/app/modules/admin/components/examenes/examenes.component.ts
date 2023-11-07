@@ -77,6 +77,7 @@ export class ExamenesComponent implements OnInit {
   image: any;
   onImage = 0;
   error = 0;
+  question: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
@@ -457,10 +458,12 @@ export class ExamenesComponent implements OnInit {
     console.log(this.idUser)
   }
 
-  changeDiagnostic(id: any, diagnostico?: any) {
-    console.log(id, diagnostico)
+  changeDiagnostic(id: any, diagnostico?: any, question?: any) {
+    console.log(id, diagnostico,question)
+    //this.question = question;
+    //console.log(this.question)
     if (this.backupDiagnostic == '') this.backupDiagnostic = diagnostico;
-    console.log(this.backupDiagnostic)
+    //console.log(this.backupDiagnostic)
     switch (id) {
       case 0:
         Swal.fire({
@@ -520,6 +523,17 @@ export class ExamenesComponent implements OnInit {
       case 3:
         this.diagnostic = 3;
         this.startForm(2);
+        break;
+      case 4:
+          this.diagnostic = 4;
+          this.startForm(2);
+          console.log(this.question)
+          this.questions.forEach(element => {
+            if(element.idPregunta == question){
+              console.log(element)
+              this.formAbiertas.controls['question'].setValue(element.pregunta);
+            }
+          });
         break;
     }
   }
@@ -830,7 +844,7 @@ export class ExamenesComponent implements OnInit {
     let formData = new FormData();
     formData.append('idModulo', id);
     formData.append('title', nameModule);
- 
+
     console.log(`Hola ${id} ${name}`)*/
 
   }
@@ -1332,7 +1346,7 @@ export class ExamenesComponent implements OnInit {
    console.log(reader.result);
     me.image = reader.result;
     console.log(me.image);
-  
+
  };
  reader.onerror = function (error) {
    console.log('Error: ', error);

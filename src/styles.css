@@ -58,6 +58,9 @@ html, body {
     min-height: 95%;
     position: relative;
 }
+.text-mays{
+  text-transform: capitalize;
+}
 footer{
     background-color: #A6DAFC;
 }
