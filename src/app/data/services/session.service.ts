@@ -497,5 +497,21 @@ export class SessionService {
     );
   }
 
+  //editar curso
+  public editCorreo(id, form, token) {
+    //console.log(form)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}editCorreo/${id}`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
 }
 

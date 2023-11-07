@@ -129,7 +129,7 @@ export class CursosModulosComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.modulesCertifications = data;
-        //console.log(this.modulesCertifications);
+        console.log(this.modulesCertifications);
         this.files(id);
       }
     );

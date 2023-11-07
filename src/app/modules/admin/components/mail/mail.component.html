@@ -82,12 +82,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
-                                <input class="input3" type="file" id="formFile">
+                                <input class="input3" type="file" id="formFile" (change)="files($event)">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona las
                                     fechas</label>
-                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                <input type="date" class="input3 w-auto" id="exampleInputEmail1" value="{fecha[i]}"
                                     formControlName="fechas">
                             </div>
                             <div class="row">
@@ -154,13 +154,12 @@
                             </div>
                             <div *ngIf="showLength != 0">
                                 <label class="text13 txt-blue mt-4 mb-2">Usuarios seleccionados</label>
-                
                                 <label class="text7 txt-gris d-block" *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
                               </div>
                             <div class="row">
                                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                                     <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
-                                        (click)="send()">Enviar</button>
+                                        (click)="editCorreo()">Enviar</button>
                                 </div>
                             </div>
                         </form>

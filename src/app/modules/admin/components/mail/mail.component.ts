@@ -34,6 +34,9 @@ export class MailComponent implements OnInit {
   objUsers = [] as any;
   showArr = [] as any;
   showLength = 0;
+  img: any;
+  idMail: any;
+  objEmails = [] as any;
 
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService) { }
 
@@ -109,6 +112,9 @@ export class MailComponent implements OnInit {
       }
     );
   }
+  files(event) {
+    this.img = event.target.files[0]
+  }
 
   changeViewMail(type: any, kind?: any, id?: any,) {
     console.log(type, id, kind);
@@ -130,6 +136,7 @@ export class MailComponent implements OnInit {
             if (kind == 'editar') {
               this.mail.forEach((element: any) => {
                 if (element.id == id) {
+                  this.idMail=element.id
                   this.formMail.controls['titulo'].setValue(element.asunto);
                   this.formMail.controls['fechas'].setValue(JSON.parse(element.fechas));
                   this.formMail.controls['cuerpo'].setValue(element.cuerpo);
@@ -180,7 +187,6 @@ export class MailComponent implements OnInit {
 
   didModify() {
     //console.log(this.text1);
-
     if (this.text1 != '') {
       if (this.text1.length > 1) {
         this.formSearch.controls['search'].setValue(this.text1);
@@ -202,13 +208,13 @@ export class MailComponent implements OnInit {
       let f = filter;
       let cad = param;
       let token = localStorage.getItem('token');
-      console.log(f, cad);
-
+      //console.log(f, cad);
       this.get.searchUsers(f, cad, token).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           this.length = data.usuarios.length;
           this.searchArray = data.usuarios;
+          console.log(this.searchArray)
         }
       );
     } else if (kind == 'show') {
@@ -235,9 +241,14 @@ export class MailComponent implements OnInit {
     //console.log(event.target.value);
     if (event.target.checked) {
       //console.log(event.target.checked);
-      this.objUsers.push(event.target.value);
-
-      //console.log(this.objUsers)
+      //this.objUsers.push(event.target.value);
+      this.searchArray.forEach(element => {
+        console.log(this.searchArray)
+        if (element.idUser === event.target.value) {
+          this.objUsers.push(element.email);
+          console.log(this.objUsers)
+        }
+      })
     } else {
       //console.log(event.target.checked);
       this.objUsers.splice(this.objUsers.indexOf(event.target.value), 1);
@@ -300,5 +311,38 @@ export class MailComponent implements OnInit {
     } else {
       this.helpers.cursos = 2;
     }
+  }
+
+
+  editCorreo() {
+    let mail = new FormData();
+    mail.append('id', this.idMail);
+    mail.append('asunto', this.formMail.value.titulo);
+    mail.append('cuerpo', this.formMail.value.cuerpo);
+    mail.append('fechas', this.formMail.value.fechas);
+    mail.append('correos', this.objUsers);
+    if(this.img != undefined){
+      mail.append('files',this.img);
+    }else{
+      mail.append('files',this.img);
+    }
+    //console.log(mail.getAll('fechas'))
+    console.log(mail.getAll('id'), mail.getAll('asunto'), mail.getAll('cuerpo'), mail.getAll('fechas'), mail.getAll('correos'), mail.getAll('files'));
+    this.session.editCorreo(this.idMail, mail, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Actualizado con exito!',
+          text: 'El módulo ha sido actualizado.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        });
+        //this.modules(this.idCertification);
+        /*this.temas(this.idModulo);*/
+        this.searchUsers('editar');
+        this.changeViewMail(0);
+        
+      }
+    );
   }
 }

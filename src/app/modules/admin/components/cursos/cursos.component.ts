@@ -1077,7 +1077,7 @@ export class CursosComponent implements OnInit {
     tema.append('idModule', this.idModulo);
     tema.append('title', this.formTemas.value.title);
     tema.append('description', this.formTemas.value.description);
-    tema.append('order_number', '5');
+    //tema.append('order_number', '5');
     tema.append('is_active', this.formTemas.value.status);
     if(this.imgTema != undefined){
       tema.append('icon',this.imgTema);
