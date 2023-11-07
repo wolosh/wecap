@@ -17,6 +17,7 @@ import { UploadAdapter } from '../mail/my-upload-adapter';
 export class MailComponent implements OnInit {
 
   public Editor: any = ClassicEditor;
+  formNewMail: FormGroup;
   formMail: FormGroup;
   mail: any;
   fecha: any = [];
@@ -66,6 +67,12 @@ export class MailComponent implements OnInit {
   }
 
   startForm() {
+    this.formNewMail = this.formBuilder.group({
+      titulo: ['', [Validators.required]],
+      fechas: ['', [Validators.required]],
+      cuerpo: ['', [Validators.required]],
+    });
+
     this.formMail = this.formBuilder.group({
       titulo: ['', [Validators.required]],
       fechas: ['', [Validators.required]],
@@ -144,8 +151,14 @@ export class MailComponent implements OnInit {
               });
               this.users();
               console.log(this.mailito);
-            } else {
-              console.log('nuevo');
+            }
+            break;
+          case 2:
+            if (kind == 'crear') {
+              this.startForm();
+              this.viewMail = type;
+
+                //console.log('nuevo');
               Swal.close();
             }
             break;
@@ -314,6 +327,68 @@ export class MailComponent implements OnInit {
   }
 
 
+  /*saveCorreo() {
+    let mail = new FormData();
+    mail.append('id', this.idMail);
+    mail.append('asunto', this.formMail.value.titulo);
+    mail.append('cuerpo', this.formMail.value.cuerpo);
+    mail.append('fechas', this.formMail.value.fechas);
+    mail.append('correos', this.objUsers);
+    if(this.img != undefined){
+      mail.append('files',this.img);
+    }else{
+      mail.append('files',this.img);
+    }
+    //console.log(mail.getAll('fechas'))
+    console.log(mail.getAll('id'), mail.getAll('asunto'), mail.getAll('cuerpo'), mail.getAll('fechas'), mail.getAll('correos'), mail.getAll('files'));
+    this.session.editCorreo(this.idMail, mail, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Actualizado con exito!',
+          text: 'El módulo ha sido actualizado.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        });
+        //this.modules(this.idCertification);
+        /*this.temas(this.idModulo);*/
+        //this.searchUsers('editar');
+        /*this.changeViewMail(0);
+        this.searchArray = [];
+        this.showLength = 0;
+      }
+    );
+  }*/
+
+  saveCorreo(){
+    let mailNew = new FormData();
+    mailNew.append('asunto', this.formNewMail.value.titulo);
+    mailNew.append('cuerpo', this.formNewMail.value.cuerpo);
+    mailNew.append('fechas', this.formNewMail.value.fechas);
+    mailNew.append('correos', this.objUsers);
+    if(this.img != undefined){
+      mailNew.append('files',this.img);
+    }else{
+      mailNew.append('files',this.img);
+    }
+    //console.log(mail.getAll('fechas'))
+    console.log(mailNew.getAll('asunto'), mailNew.getAll('cuerpo'), mailNew.getAll('fechas'), mailNew.getAll('correos'), mailNew.getAll('files'));
+    this.session.newEmail(mailNew, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Actualizado con exito!',
+          text: 'El módulo ha sido actualizado.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        });
+        this.changeViewMail(0);
+        this.mails();
+        this.searchArray = [];
+        this.showLength = 0;
+      }
+    );
+  }
   editCorreo() {
     let mail = new FormData();
     mail.append('id', this.idMail);
@@ -339,9 +414,11 @@ export class MailComponent implements OnInit {
         });
         //this.modules(this.idCertification);
         /*this.temas(this.idModulo);*/
-        this.searchUsers('editar');
+        //this.searchUsers('editar');
         this.changeViewMail(0);
-        
+        this.mails();
+        this.searchArray = [];
+        this.showLength = 0;
       }
     );
   }
