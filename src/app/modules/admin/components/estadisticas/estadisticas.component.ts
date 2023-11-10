@@ -34,10 +34,35 @@ export class EstadisticasComponent implements OnInit {
   coursesArr: any;
 
   @ViewChild('chart') chart = ChartComponent;
-  public chartOptions: Partial<ChartOptions> | any;
+  public chartUsuarios: Partial<ChartOptions> | any;
+  public chartPromedios: Partial<ChartOptions> | any;
+  usuarios: any;
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
-    this.chartOptions = {
+    this.chartUsuarios = {
+      series: [44, 55, 13, 43, 22],
+      chart: {
+        type: "donut"
+      },
+      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      title: {
+        text: "Numero de usuarios"
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+    this.chartPromedios = {
       series: [
         {
           name: "My-series",
@@ -49,7 +74,7 @@ export class EstadisticasComponent implements OnInit {
         type: "bar"
       },
       title: {
-        text: "My First Angular Chart"
+        text: "Promedio"
       },
       xaxis: {
         categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
@@ -88,8 +113,8 @@ export class EstadisticasComponent implements OnInit {
   estadGlobales(){
     this.get.getEstadGlobales(localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
-      /*this.coursesArr =  data.records;
-      console.log(this.coursesArr);*/
+      this.usuarios =  data.usuarios;
+      console.log(this.usuarios);
     });
   }
 

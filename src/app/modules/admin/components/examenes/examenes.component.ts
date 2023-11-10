@@ -78,8 +78,8 @@ export class ExamenesComponent implements OnInit {
   onImage = 0;
   error = 0;
   question: any;
-  examQuestion: any;
-  
+  //examQuestion = [] as any;
+
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
@@ -337,20 +337,26 @@ export class ExamenesComponent implements OnInit {
             //console.log('Case')
             this.exam = 6;
             this.startForm(2);
-            console.log(id, certificacion, question)
+            //console.log(id, certificacion, question)
             this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                this.examQuestion = data;
-                console.log(this.examQuestion);
-                  this.examQuestion.forEach(element => {
-                    console.log(element);
-                    if (element.idEval_question == question) {
-                      console.log(element)
-                      this.formAbiertas.controls['question'].setValue(element.pregunta);
-                      this.formAbiertas.controls['respuestas'].setValue(element.respuesta);
+                console.log(data)
+                for(const [key, value] of Object.entries(data)){
+                  //console.log(value)
+                  const info = [...[value]];
+                  console.log(info)
+                  for(let i of info){
+                    for(const [key, value] of Object.entries(i)){
+                      //console.log(value.question)
+                      if (value.idEval_question == question) {
+                        console.log(value.question)
+                        this.formAbiertas.controls['question'].setValue(value.question);
+                        this.formAbiertas.controls['respuestas'].setValue(value.respuesta);
+                      }
                     }
-                  });
-                });
+                  }
+                }
+              });
             Swal.close();
             break;
         }
