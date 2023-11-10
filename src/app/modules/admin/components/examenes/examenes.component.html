@@ -484,10 +484,10 @@
                     <!--Vista Revision de preguntas abiertas-->
                     <div *ngIf="this.diagnostic == 4">
                       <div class="row d-flex align-items-center">
-                        <div class="col-6 col-md-4 col-lg-4">
+                        <div class="col-6 col-md-4 col-lg-5">
                             <label class="text3 txt-blue2 mt-3">Calificar preguntas abiertas</label>
                         </div>
-                        <div class="col-8 col-md-4 col-lg-3 offset-lg-4">
+                        <div class="col-8 col-md-4 col-lg-3 offset-lg-3">
                             <button class="boton bg-blue w-100 p-1 p-md-2" (click)="createDiagnostic(this.backupDiagnostic)">
                                 Guardar
                             </button>
@@ -502,13 +502,16 @@
                       <hr class="w-100">
                       <form [formGroup]="formAbiertas">
                         <div class="mt-3">
-                            <div class="row mb-3 d-flex align-items-end">
+                            <div class="row mb-3 d-flex align-items-center">
                                 <div class="col-12 col-md-8">
                                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
                                     <input type="text" class="input3" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" value="" formControlName="question">
+                                    <label for="exampleInputEmail1" class="text13 txt-blue mt-2 mb-2">Respuesta</label>
+                                    <input type="text" class="input3" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" value="" formControlName="respuesta">
                                 </div>
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-4 mt-4">
                                   <div class="form-check form-check-inline ps-0">
                                     <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
                                     <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
@@ -804,7 +807,8 @@
                                     <tbody>
                                         <tr
                                             *ngFor="let pregunta of this.examModule | paginate: { itemsPerPage: 6, currentPage: pe}">
-                                            <th scope="row">{{pregunta.question}}</th>
+                                            <th scope="row"><button type="button" (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"
+                                                class="boton4">{{pregunta.question}}</button></th>
                                             <!--<td >{{pregunta.respuestas.option}}</td>-->
                                             <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
                                             <td *ngIf="pregunta.respuestas == 0">Abierta</td>
@@ -1061,6 +1065,55 @@
                                     </div>
                                 </div>
                             </div>
+                        </form>
+                    </div>
+                    <!--Vista Revision de preguntas abiertas examenes-->
+                    <div *ngIf="this.exam == 6">
+                        <div class="row d-flex align-items-center">
+                          <div class="col-6 col-md-4 col-lg-5">
+                              <label class="text3 txt-blue2 mt-3">Calificar preguntas abiertas</label>
+                          </div>
+                          <div class="col-8 col-md-4 col-lg-3 offset-lg-3">
+                              <button class="boton bg-blue w-100 p-1 p-md-2" (click)="createDiagnostic(this.backupDiagnostic)">
+                                  Guardar
+                              </button>
+                          </div>
+                          <div class="col-6 col-lg-1">
+                              <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
+                              (click)="changeExam(1, this.respaldo1)">
+                                  <i class="fas fa-reply"></i>
+                              </button>
+                          </div>
+                        </div>
+                        <hr class="w-100">
+                        <form [formGroup]="formAbiertas">
+                          <div class="mt-3">
+                              <div class="row mb-3 d-flex align-items-center">
+                                  <div class="col-12 col-md-8">
+                                      <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
+                                      <input type="text" class="input3" id="exampleInputEmail1"
+                                          aria-describedby="emailHelp" value="" formControlName="question">
+                                      <label for="exampleInputEmail1" class="text13 txt-blue mt-2 mb-2">Respuesta</label>
+                                      <input type="text" class="input3" id="exampleInputEmail1"
+                                          aria-describedby="emailHelp" value="" formControlName="respuesta">
+                                  </div>
+                                  <div class="col-12 col-md-4 mt-4">
+                                    <div class="form-check form-check-inline ps-0">
+                                      <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
+                                      <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                          (change)="changeOption('search')"
+                                          [ngModelOptions]="{standalone: true}" [value]="1" type="radio"
+                                          name="inlineRadioOptions" id="inlineRadio1">
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <label class="text13 txt-blue float-start" for="inlineRadio1">No</label>
+                                      <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                          (change)="changeOption('search')"
+                                          [ngModelOptions]="{standalone: true}" [value]="0" type="radio">
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
                         </form>
                     </div>
                 </div>

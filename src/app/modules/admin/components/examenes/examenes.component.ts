@@ -78,6 +78,8 @@ export class ExamenesComponent implements OnInit {
   onImage = 0;
   error = 0;
   question: any;
+  examQuestion: any;
+  
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
@@ -237,9 +239,9 @@ export class ExamenesComponent implements OnInit {
     });
   }
 
-  changeExam(id: any, certificacion?: any, name?: any) {
+  changeExam(id: any, certificacion?: any, name?: any, question?: any) {
     this.examModule = [];
-    console.log(id, certificacion);
+    console.log(id, certificacion,name,question);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -300,6 +302,7 @@ export class ExamenesComponent implements OnInit {
                     //this.questions = data;
                     this.examModule = data.preguntas;
                     console.log(data);
+                    console.log(question)
                   }
                 }
                 console.log(this.none);
@@ -328,6 +331,26 @@ export class ExamenesComponent implements OnInit {
           case 5:
             this.exam = 5;
             this.startForm(2);
+            Swal.close();
+            break;
+          case 6:
+            //console.log('Case')
+            this.exam = 6;
+            this.startForm(2);
+            console.log(id, certificacion, question)
+            this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
+              (data: any) => {
+                this.examQuestion = data;
+                console.log(this.examQuestion);
+                  this.examQuestion.forEach(element => {
+                    console.log(element);
+                    if (element.idEval_question == question) {
+                      console.log(element)
+                      this.formAbiertas.controls['question'].setValue(element.pregunta);
+                      this.formAbiertas.controls['respuestas'].setValue(element.respuesta);
+                    }
+                  });
+                });
             Swal.close();
             break;
         }
@@ -363,6 +386,7 @@ export class ExamenesComponent implements OnInit {
     } else if (form == 2) {
       this.formAbiertas = this.formBuilder.group({
         question: [''],
+        respuesta: [''],
       });
     }
 
