@@ -8,13 +8,28 @@ import Swal from 'sweetalert2';
 import {
   ChartComponent,
   ApexAxisChartSeries,
+  ApexResponsive,
   ApexChart,
+  ApexDataLabels,
   ApexXAxis,
+  ApexLegend,
+  ApexPlotOptions,
   ApexTitleSubtitle
 } from "ng-apexcharts";
 
+export type ChartUsuarios = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+  colors: string[];
+  legend: ApexLegend;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
+};
 
-export type ChartOptions = {
+export type chartPromedios = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
@@ -33,36 +48,13 @@ export class EstadisticasComponent implements OnInit {
   pcursos: number = 1;
   coursesArr: any;
 
-  @ViewChild('chart') chart = ChartComponent;
-  public chartUsuarios: Partial<ChartOptions> | any;
-  public chartPromedios: Partial<ChartOptions> | any;
+  @ViewChild("chart") chart: ChartComponent;
+  public chartUsuarios: Partial<ChartUsuarios> | any;
+  public chartPromedios: Partial<any>;
   usuarios: any;
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
-    this.chartUsuarios = {
-      series: [44, 55, 13, 43, 22],
-      chart: {
-        type: "donut"
-      },
-      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
-      title: {
-        text: "Numero de usuarios"
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ]
-    };
-    this.chartPromedios = {
+    /*this.chartPromedios = {
       series: [
         {
           name: "My-series",
@@ -79,7 +71,7 @@ export class EstadisticasComponent implements OnInit {
       xaxis: {
         categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
       }
-    };
+    };*/
   }
 
   ngOnInit(): void {
@@ -104,9 +96,9 @@ export class EstadisticasComponent implements OnInit {
 
   estadisticasCurso(){
     this.get.getEstadisticas(localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.coursesArr =  data.records;
-      console.log(this.coursesArr);
+      //console.log(this.coursesArr);
     });
   }
 
@@ -114,7 +106,70 @@ export class EstadisticasComponent implements OnInit {
     this.get.getEstadGlobales(localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
       this.usuarios =  data.usuarios;
-      console.log(this.usuarios);
+      //console.log(this.usuarios)
+      let hombres=5;
+      let mujeres=5;
+      let otros=5;
+      this.chartUsuarios = {
+        series: [hombres, mujeres, otros],
+        chart: {
+          type: "donut"
+        },
+        colors: [
+          '#015287',
+          '#A6DAFC',
+          '#707070',
+        ],
+        title: {
+          text: "Numero de usuarios",
+          align: 'center',
+          style: {
+            fontSize:  '18px',
+            fontFamily:  'Helvetica-Bold',
+            color:  '#015287'
+          },
+        },
+        dataLabels: {
+          //offseY: 30,
+          style: {
+            fontSize:  '16px',
+            fontFamily:  'Helvetica-Bold',
+            colors: ['#FFF']
+          },
+          dropShadow: {
+              enabled: false
+          }
+        },
+        plotOptions: {
+          pie: {
+            customScale: 0.8,
+          }
+        },
+        labels: ["Hombres", "Mujeres",  "Otros"],
+        legend: {
+          position: 'bottom',
+          fontSize: '16px',
+          fontFamily: 'Helvetica-Bold',
+          labels: {
+            colors: ['#015287']
+          },
+          markers: {
+            width: 25,
+            height: 25,
+            radius: 5,
+          },
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+            }
+          }
+        ]
+      };
     });
   }
 
@@ -122,7 +177,7 @@ export class EstadisticasComponent implements OnInit {
     //console.log(id)
     this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         //this.allModules = data;
         //console.log(this.allModules)
       }
@@ -133,7 +188,7 @@ export class EstadisticasComponent implements OnInit {
     //console.log(id)
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         //this.allModules = data;
         //console.log(this.allModules)
       }

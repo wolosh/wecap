@@ -56,24 +56,30 @@
                     <!--Grafica--->
                     <div class="row mt-5">
                         <div class="col-12 col-lg-6">
-                          <apx-chart
+                          <div style="text-align:center">
+                            <apx-chart
                               [series]="chartUsuarios.series"
                               [chart]="chartUsuarios.chart"
-                              [xaxis]="chartUsuarios.xaxis"
                               [title]="chartUsuarios.title"
-                          ></apx-chart>
+                              [labels]="chartUsuarios.labels"
+                              [colors]="chartUsuarios.colors"
+                              [legend]="chartUsuarios.legend"
+                              [dataLabels]="chartUsuarios.dataLabels"
+                              [plotOptions]="chartUsuarios.plotOptions"
+                            ></apx-chart>
+                          </div>
 
                           <!--div class="chart-container">
                               <canvas id="grafpromedio"></canvas>
                           </div-->
                         </div>
                         <div class="col-12 col-lg-6">
-                            <apx-chart
+                            <!--apx-chart
                                 [series]="chartPromedios.series"
                                 [chart]="chartPromedios.chart"
                                 [xaxis]="chartPromedios.xaxis"
                                 [title]="chartPromedios.title"
-                            ></apx-chart>
+                            ></apx-chart-->
 
                             <!--div class="chart-container">
                                 <canvas id="grafpromedio"></canvas>
