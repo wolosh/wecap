@@ -24,7 +24,7 @@ export class HelpersService {
   public finalizados = [] as any;
   public conferencias = false;
 
-  constructor(private route: Router, public session:SessionService) { }
+  constructor(private route: Router, public session:SessionService, ) { }
 
   goTop(){
     window.scroll({
@@ -57,6 +57,10 @@ export class HelpersService {
         }, 900);
       },
     });
+  }
+
+  public redirect(){
+    this.route.navigate(['']);
   }
 
   

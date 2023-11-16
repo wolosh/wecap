@@ -101,8 +101,8 @@
                                                     disabled>{{archivo.name}}</button>
                                             </th>
                                             <td>{{archivo.url}}</td>
-                                            <!--<td><button class="boton2 removeArchivos" (click)="removeMedia(archivo.name)"><img
-                                                        src="assets/img/close.svg" alt="close"></button></td>-->
+                                            <td><button class="boton2 removeArchivos" (click)="removeMedia(archivo.name)"><img
+                                                        src="assets/img/close.svg" alt="close"></button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -163,7 +163,7 @@
                             <div class="row">
                                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                                     <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
-                                        (click)="updateFiles('files')">Guardar</button>
+                                        (click)="updateFiles()">Guardar</button>
                                 </div>
                             </div>
                         </form>

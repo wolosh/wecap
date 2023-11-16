@@ -19,7 +19,7 @@ export class ArchivosComponent implements OnInit {
   formArchivos: FormGroup;
   viewFiles = 0;
   mediaLength = 0;
-  filesArr: any;
+  filesArr = [];
   cloneIn = 0;
   file: any;
   f: object = {};
@@ -87,8 +87,12 @@ export class ArchivosComponent implements OnInit {
             this.showDescription = true
             this.formArchivos.controls['descripcion'].setValue('Agrega una descripción para los usuarios');
           }
-          console.log(this.formArchivos.value);
-          this.filesArr = data.files.files;
+          
+          console.log(data.files.files)
+          Object.keys(data.files.files).forEach((key) => {
+            console.log(key, data.files.files[key]);
+            this.filesArr.push({idTopic: key, name: data.files.files[key].name, url: data.files.files[key].url});
+          })
           console.log(this.filesArr)
           /*this.filesArr.forEach((value) => {
             console.log(value);
@@ -235,14 +239,19 @@ export class ArchivosComponent implements OnInit {
 
   removeMedia(media: any) {
     console.log(media);
-    let json = JSON.stringify({
+    /*let json = JSON.stringify({
       media: media
     })
 
-    console.log(json);
+    console.log(json);*/
+
+    let send = new FormData();
+
+    send.append('file', media);
+    console.log(send.getAll('file'))
 
 
-    this.session.deleteMedia(json, localStorage.getItem('token')).subscribe(
+    this.session.deleteFile(send, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
         Swal.fire({
@@ -253,7 +262,7 @@ export class ArchivosComponent implements OnInit {
         }).then((result) => {
           console.log(result)
           if (result.isConfirmed) {
-            this.onClickTab('media');
+            this.onClickTab('files');
           }
         });
       }
@@ -390,11 +399,11 @@ export class ArchivosComponent implements OnInit {
       });
     }
 
-    this.session.updateFiles(1, files, localStorage.getItem('token')).subscribe(
+    this.session.updateFilesDescription(files, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
         console.log(data);
-        if (data.message == 'Consulta correcta') {
+        if (data.code == '200') {
           Swal.fire({
             title: '¡Actualizado!',
             text: 'Se agrego correctamente.',
@@ -411,7 +420,7 @@ export class ArchivosComponent implements OnInit {
     );
   }
 
-  updateFiles(update: any) {
+  updateFiles() {
     console.log(this.formArchivos.controls['descripcion'].value, this.file);
 
     let files = new FormData();
@@ -424,9 +433,8 @@ export class ArchivosComponent implements OnInit {
         confirmButtonColor: '#015287',
       });
     } else {
-
       if (this.file != undefined) {
-        files.append('files[]', this.file, this.formArchivos.controls['name'].value);
+        files.append('file', this.file, this.formArchivos.controls['name'].value);
       } else {
         Swal.fire({
           title: '¡Error!',
@@ -437,11 +445,11 @@ export class ArchivosComponent implements OnInit {
       }
     }
 
-    this.session.updateFiles(1, files, localStorage.getItem('token')).subscribe(
+    this.session.uploadFile( files, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
         console.log(data);
-        if (data.message == 'Consulta correcta') {
+        if (data.code == '200') {
           Swal.fire({
             title: '¡Actualizado!',
             text: 'Se agrego correctamente.',
@@ -450,6 +458,7 @@ export class ArchivosComponent implements OnInit {
           }).then((result) => {
             console.log(result)
             if (result.isConfirmed) {
+              this.filesArr = [];
               this.changeViewArchivos('back');
             }
           });

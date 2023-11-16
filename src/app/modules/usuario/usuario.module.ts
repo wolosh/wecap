@@ -12,9 +12,9 @@ import { FormsModule } from '@angular/forms';
 const routes: Routes = [
   {path: "cmtemplate", component: CursosModulosComponent}, 
   {path: "perfil", component: PerfilUsuarioComponent},
-  {path: "temas", component: TemasComponent},
-  {path: "test", component: TestComponent},
-  {path: "seccion", component: SeccionComponent}
+  {path: "temas/:idTopic", component: TemasComponent},
+  {path: "test/:idTest", component: TestComponent},
+  {path: "seccion/:idModule", component: SeccionComponent}
 ];
 
 @NgModule({

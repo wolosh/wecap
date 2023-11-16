@@ -114,7 +114,7 @@ export class CursosComponent implements OnInit {
             this.route.navigate(['/cmtemplate']);
           }
         });
-      } else if(localStorage.getItem('token') == null){
+      } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
       }
     }
@@ -255,6 +255,9 @@ export class CursosComponent implements OnInit {
         this.countCert = this.certificaciones.length;
         //console.log(this.certificaciones);
         Swal.close();
+      },
+      (error: any) => {
+        this.helpers.logout();
       }
     );
   }
@@ -364,6 +367,9 @@ export class CursosComponent implements OnInit {
         this.materias = data;
         //console.log(this.materias);
         Swal.close();
+      },
+      (error: any) => {
+        this.helpers.logout();
       }
     );
   }
@@ -375,6 +381,9 @@ export class CursosComponent implements OnInit {
         this.group = data.grupos;
         //console.log(this.group);
         Swal.close();
+      },
+      (error: any) => {
+        this.helpers.logout();
       }
     );
   }
@@ -392,6 +401,9 @@ export class CursosComponent implements OnInit {
           //console.log(this.searchArray, this.length)
         }
         Swal.close();
+      },
+      (error: any) => {
+        this.helpers.logout();
       }
     );
   }
@@ -406,6 +418,9 @@ export class CursosComponent implements OnInit {
           //console.log(data);
           this.teachers = data;
           //console.log(this.teachers)
+        },
+        (error: any) => {
+          this.helpers.logout();
         }
       );
     }
@@ -511,6 +526,9 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         this.allModules = data;
         //console.log(this.allModules)
+      }, 
+      (error: any) => {
+        this.helpers.logout();
       }
     );
   }
@@ -561,6 +579,9 @@ export class CursosComponent implements OnInit {
       (data: any) => {
         this.alltemas = data;
         //console.log(this.alltemas)
+      }, 
+      (error: any) => {
+        this.helpers.logout();
       }
     );
   }
@@ -580,7 +601,7 @@ export class CursosComponent implements OnInit {
         this.startForm(6);
         for (let item of this.alltemas) {
           //console.log(item)
-          if(item.title == tema) {
+          if (item.title == tema) {
             this.idTema = item.idTopic;
             //this.startForm(6);
             //console.log(item.title)
@@ -615,7 +636,7 @@ export class CursosComponent implements OnInit {
       if (result.isConfirmed) {
         this.session.changeStatusTema(this.idTema, form, localStorage.getItem('token')).subscribe(
           (data: any) => {
-           //console.log(data);
+            //console.log(data);
             Swal.fire({
               title: '¡Cambiado!',
               text: 'El tema ha sido cambiado de estado.',
@@ -648,8 +669,10 @@ export class CursosComponent implements OnInit {
         } else {
           this.hasDiploma = false;
         }
+      }, 
+      (error: any) => {
+        this.helpers.logout();
       }
-
     );
   }
 
@@ -803,6 +826,9 @@ export class CursosComponent implements OnInit {
           //console.log(data);
           this.length = data.usuarios.length;
           this.searchArray = data.usuarios;
+        }, 
+        (error: any) => {
+          this.helpers.logout();
         }
       );
     } else if (kind == 'show') {
@@ -931,7 +957,7 @@ export class CursosComponent implements OnInit {
   filetypeS: any;
   filenameD: any;
   filetypeD: any;
-  fileIcono(event, show?:any) {
+  fileIcono(event, show?: any) {
     this.imgIcono = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
@@ -1013,32 +1039,32 @@ export class CursosComponent implements OnInit {
     this.imgTermina = this.helpers.dataUrlToFile(this.imgTermina);
     this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
     this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
-    
+
     let modulo = new FormData();
     modulo.append('idCertification', this.idCertification);
     modulo.append('title', this.formModulo.value.title);
     modulo.append('description', this.formModulo.value.descripcion);
-    if(this.imgIcono != undefined){
-      modulo.append('icon',this.imgIcono, /*this.imgIcono.name*/);
-    }else{
-      modulo.append('icon',this.imgIcono);
+    if (this.imgIcono != undefined) {
+      modulo.append('icon', this.imgIcono, /*this.imgIcono.name*/);
+    } else {
+      modulo.append('icon', this.imgIcono);
     }
     modulo.append('color_style', this.formModulo.value.color);
     modulo.append('url_video', this.formModulo.value.url_video);
-    if(this.imgTermina != undefined){
-      modulo.append('medal_finish',this.imgTermina, /*this.imgTermina.name*/);
-    }else{
-      modulo.append('medal_finish',this.imgTermina);
+    if (this.imgTermina != undefined) {
+      modulo.append('medal_finish', this.imgTermina, /*this.imgTermina.name*/);
+    } else {
+      modulo.append('medal_finish', this.imgTermina);
     }
-    if(this.imgScore != undefined){
-      modulo.append('medal_perfect',this.imgScore, /*this.imgScore.name*/);
-    }else{
-      modulo.append('medal_perfect',this.imgScore);
+    if (this.imgScore != undefined) {
+      modulo.append('medal_perfect', this.imgScore, /*this.imgScore.name*/);
+    } else {
+      modulo.append('medal_perfect', this.imgScore);
     }
-    if(this.imgTiempo != undefined){
-      modulo.append('medal_time',this.imgTiempo, /*this.imgTiempo.name*/);
-    }else{
-      modulo.append('medal_time',this.imgTiempo);
+    if (this.imgTiempo != undefined) {
+      modulo.append('medal_time', this.imgTiempo, /*this.imgTiempo.name*/);
+    } else {
+      modulo.append('medal_time', this.imgTiempo);
     }
     //modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
     modulo.append('max_time', this.formModulo.value.duracion);
@@ -1053,7 +1079,7 @@ export class CursosComponent implements OnInit {
     modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
     modulo.getAll('score'), modulo.getAll('hasExam'));
     console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
-    console.log(modulo.getAll('icon'),modulo.getAll('medal_finish'),modulo.getAll('medal_perfect'),modulo.getAll('medal_time'))
+    console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
 
     this.session.updateModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -1065,7 +1091,7 @@ export class CursosComponent implements OnInit {
           confirmButtonColor: '#015287',
         });
         //this.modules(this.idCertification);
-        this.changeViewModulo('back',this.idCertification)
+        this.changeViewModulo('back', this.idCertification)
       }
     );
   }
@@ -1079,17 +1105,17 @@ export class CursosComponent implements OnInit {
     tema.append('description', this.formTemas.value.description);
     //tema.append('order_number', '5');
     tema.append('is_active', this.formTemas.value.status);
-    if(this.imgTema != undefined){
-      tema.append('icon',this.imgTema);
-    }else{
-      tema.append('icon',this.imgTema);
+    if (this.imgTema != undefined) {
+      tema.append('icon', this.imgTema);
+    } else {
+      tema.append('icon', this.imgTema);
     }
     tema.append('url_video', this.formTemas.value.url_video);
     tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
-    if(this.imgTemaV != undefined){
-      tema.append('icon_gold',this.imgTemaV,);
-    }else{
-      tema.append('icon_gold',this.imgTemaV);
+    if (this.imgTemaV != undefined) {
+      tema.append('icon_gold', this.imgTemaV,);
+    } else {
+      tema.append('icon_gold', this.imgTemaV);
     }
     /*console.log(modulo.getAll('icon'))
     console.log(modulo.getAll)
@@ -1111,7 +1137,7 @@ export class CursosComponent implements OnInit {
         });
         //this.modules(this.idCertification);
         this.temas(this.idModulo);
-        this.changeViewTemas('back',this.idModulo)
+        this.changeViewTemas('back', this.idModulo)
       }
     );
   }
@@ -1138,7 +1164,7 @@ export class CursosComponent implements OnInit {
             }).then((result) => {
               if (result.isConfirmed) {
                 this.temas(this.idModulo);
-                this.changeViewTemas('back',this.idModulo)
+                this.changeViewTemas('back', this.idModulo)
               }
             });
           }

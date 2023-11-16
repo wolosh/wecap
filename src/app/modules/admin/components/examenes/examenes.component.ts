@@ -403,6 +403,9 @@ export class ExamenesComponent implements OnInit {
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
+        if(data.error.mensaje == 'Token invalido. Exp'){
+          this.helpers.logout();
+        } else {
         if (type == 'asignature') {
           this.usersArr = data.users;
           this.pas = 1;
@@ -414,6 +417,7 @@ export class ExamenesComponent implements OnInit {
           console.log(this.searchArray, this.length)
         }
         Swal.close();
+      }
       }
     );
   }

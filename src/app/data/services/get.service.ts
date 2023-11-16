@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SessionService } from './session.service';
 import { Observable, catchError } from 'rxjs';
+import { HelpersService } from './helpers.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetService {
 
-  constructor(private session: SessionService, private http: HttpClient) { }
+  constructor(private session: SessionService, private http: HttpClient, private helpers:HelpersService) { }
 
   getProfile(id: any, token: any) {
     const headers = new HttpHeaders({
@@ -30,10 +31,13 @@ export class GetService {
     }).pipe(
       catchError((err) => {
         console.log(err);
+        if(err.status == 401) {
+        }
         return err;
       })
     );
   }
+  
 
   getUsers(token: any) {
     const headers = new HttpHeaders({
@@ -42,12 +46,7 @@ export class GetService {
     //console.log(headers)
     return this.http.get(this.session.API + 'users', {
       headers,
-    }).pipe(
-      catchError((err) => {
-        console.log(err);
-        return err;
-      })
-    );
+    })
   }
 
   getMaterias(token: any) {
@@ -143,7 +142,12 @@ export class GetService {
     });
     return this.http.get(`${this.session.API}search/${filter}/${cad}`, {
       headers,
-    })
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
   }
 
   getTeachers(token) {
@@ -302,4 +306,46 @@ export class GetService {
     })
   }
 
+
+  public checkTheme(id, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.get(`${this.session.API}isTemaFinalizado/${id}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public checkModule(id, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.get(`${this.session.API}isModuloFinalizado/${id}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public medallas(id, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.get(`${this.session.API}getMedallasFromModulo/${id}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
 }

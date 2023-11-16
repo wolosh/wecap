@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Observable, catchError } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,11 @@ export class SessionService {
   userName = '';
   idUser: number;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public route: Router) { }
+
+  public redirect(){
+    this.route.navigate(['']);
+  }
 
   //login
   public login(email: string, password: string) {
@@ -50,6 +55,9 @@ export class SessionService {
     }).pipe(
       catchError((err) => {
         //console.log(err);
+        if(err.status == 401) {
+        this.redirect();
+        }
         return err;
       })
     );
@@ -520,6 +528,62 @@ export class SessionService {
       'Authorization': `Bearer ${token}`,
     });
     return this.http.post(`${this.API}editCorreo/${id}`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public updateFilesDescription( form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}files/updateDescripcion`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public saveTheme( form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}/finalizaTema`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public uploadFile( form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}files/uploadFile`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public deleteFile( form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}files/deleteFile`, form, {
       headers,
     }).pipe(
       catchError((err) => {

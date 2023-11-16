@@ -146,7 +146,13 @@ export class CursosModulosComponent implements OnInit {
     );
   }
 
-  verTemas(idMod: any, nameMod: any) {
+  verTemas(idModulo: any, nameMod: any){
+    this.route.navigate(['/seccion', idModulo]).then(() => {
+      this.helpers.conferencias = true;
+    });          
+  }
+
+  /*verTemas(idMod: any, nameMod: any) {
     localStorage.setItem('idModule', idMod);
     localStorage.setItem('nameModule', nameMod);
     this.helpers.idModuleBackUp = idMod;
@@ -154,7 +160,7 @@ export class CursosModulosComponent implements OnInit {
     this.helpers.conferencias = true;
     //////console.log(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp);
     this.route.navigate(['/seccion']);
-  }
+  }*/
 
   change(id: any) {
     if (id == 1) {
