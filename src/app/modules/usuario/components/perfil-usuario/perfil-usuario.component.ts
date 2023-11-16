@@ -4,6 +4,7 @@ import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import { Data, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -16,19 +17,38 @@ export class PerfilUsuarioComponent implements OnInit {
   allConferencias: any;
   id: string;
   allPerfil: any;
+  certificaciones: any;
+  modulos: number;
+  public cursoSelected = '0';
+  public moduloSelected = '0';
+  modulesCertifications: any;
+  temasArr: any;
+  temas: number;
+  visto: any;
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
-    this.conferencias(localStorage.getItem('idCertification'))
+    //this.conferencias(localStorage.getItem('idCertification'))
     //this.helpers.conferencias = true;
     this.id = localStorage.getItem('id');
     this.perfil(this.id)
+    this.certifications()
   }
 
-
-  conferencias(id:any) {
+  certifications() {
+    this.get.getCertifications(localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.certificaciones = data;
+        ////console.log(this.certificaciones);
+        Swal.close();
+      }
+    );
+  }
+  
+  /*conferencias(id:any) {
     this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data)
@@ -36,15 +56,55 @@ export class PerfilUsuarioComponent implements OnInit {
         //console.log(this.allConferencias)
       }
     );
-  }
+  }*/
 
   perfil(id: any) {
     //console.log(id)
     this.get.getPerfil(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data.area);
+        //console.log(data.full_name);
         this.allPerfil = data;
+        //console.log()
       }
     );
+  }
+
+  changeOption(type: any) {
+    //console.log(type, this.cursoSelected);
+    switch (type) {
+      case 'curso':
+        this.get.getModules(this.cursoSelected, localStorage.getItem('token')).subscribe(
+            (data: any) => {
+              //console.log(data);
+              this.modulesCertifications = data;
+              console.log(this.modulesCertifications);
+              //this.files(id);
+            }
+        );
+        this.modulos = 1;
+        break;
+      case 'modulo':
+        this.get.getTemas(this.moduloSelected, localStorage.getItem('token')).subscribe((data: any) => {
+          //console.log(data)
+          this.temasArr = data;
+          console.log(this.temasArr)
+          for (let index = 0; index < this.temasArr.length; index++) {
+            const element = this.temasArr[index];
+            if(element.idTopic){
+              this.get.getTemaVisto(element.idTopic, localStorage.getItem('token')).subscribe((data: any) => {
+                //console.log(data)
+                this.visto = data.finalizado;
+                console.log(this.visto)
+                Swal.close();
+              });
+            }
+          }
+          Swal.close();
+        });
+        this.temas = 1;
+        break;
+
+    }
+
   }
 }

@@ -375,8 +375,8 @@
                                     <tbody>
                                         <tr
                                             *ngFor="let question of this.questions | paginate: { itemsPerPage: 6, currentPage: pe}">
-                                            <th scope="row"><button type="button" (click)="changeDiagnostic(4,'',question.idPregunta)"
-                                                    class="boton4">{{question.pregunta}}</button></th>
+                                            <!--Evento para abrir pregunta abierta (click)="changeDiagnostic(4,'',question.idPregunta)"-->
+                                            <th scope="row"><button type="button" class="boton4">{{question.pregunta}}</button></th>
                                             <!--<td>{{question.respuesta}}</td>
                                             <td>{{question.abierta}}</td>-->
                                             <td *ngIf="question.opciones != 0">Opción multiple</td>
@@ -807,7 +807,8 @@
                                     <tbody>
                                         <tr
                                             *ngFor="let pregunta of this.examModule | paginate: { itemsPerPage: 6, currentPage: pe}">
-                                            <th scope="row"><button type="button" (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"
+                                            <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
+                                            <th scope="row"><button type="button" 
                                                 class="boton4">{{pregunta.question}}</button></th>
                                             <!--<td >{{pregunta.respuestas.option}}</td>-->
                                             <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>

@@ -116,7 +116,7 @@ export class CursosModulosComponent implements OnInit {
   certifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        ////console.log(data);
+        console.log(data);
         this.certificaciones = data;
         ////console.log(this.certificaciones);
         Swal.close();

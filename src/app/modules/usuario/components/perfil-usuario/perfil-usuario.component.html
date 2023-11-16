@@ -13,14 +13,18 @@
         </div>
     </div>
     <div class="row pt-5 pt-md-3 mb-3">
-        <div class="col-12 col-md-6 col-lg-4">
-            <label class="text5 txt-blue">Certificado: Wecap</label>
-        </div>
-        <div class="col-6 col-md-4 offset-6 offset-md-8 offset-lg-9 offset-xl-10 col-lg-3 col-xl-2 mt-3 mt-md-0">
-            <button type="button" class="boton bg-blue mx-auto d-block w-100">Descargar diploma</button>
+        <div class="col-12">
+            <label class="text5 txt-blue me-2">Curso:</label>
+            <select class="form-select w-auto d-inline" [(ngModel)]="cursoSelected" (change)="changeOption('curso')">
+                <option value="0" hidden>Selecciona un curso</option>
+                <option *ngFor="let certificacion of this.certificaciones" [value]="certificacion.idCertification">{{certificacion.title}}</option>
+            </select>
         </div>
     </div>
-    <div class="row mt-4">
+    <div class="row" *ngIf="this.modulos == 1">
+        <div class="col-6 col-md-4 offset-6 offset-md-8 offset-lg-9 offset-xl-10 col-lg-3 col-xl-2">
+            <button type="button" class="boton bg-blue mx-auto d-block w-100">Descargar diploma</button>
+        </div>
         <div class="col-12">
             <div class="table-responsive">
                 <table id="example" class="table certificado nowrap" style="width:100%">
@@ -35,70 +39,34 @@
                             <th class="text4 txt-blue">Duración</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngFor="let modulo of this.modulesCertifications" >
                         <tr>
-                            <td class="text6 txt-blue bg-blue2 text-center">1</td>
-                            <td class="">Corporativo</td>
+                            <td class="text6 txt-blue bg-blue2 text-center">{{modulo.idModule}}</td>
+                            <td class="">{{modulo.title}}</td>
                             <td>
                                 <div class="progress bg-blue2 rounded-pill">
-                                    <div class="progress-bar bg-blue text11" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                    <div class="progress-bar bg-blue text11" role="progressbar" [style.width]="modulo.progreso+'%'" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{modulo.progreso}}%</div>
                                 </div>
                             </td>
-                            <td class="">No aplica</td>
-                            <td class="">11/04/2022</td>
-                            <td class="">No terminado</td>
-                            <td class="">0 días, 0:0:0</td>
-                        </tr>
-                        <tr>
-                            <td  class="text6 txt-blue bg-blue2 text-center">2</td>
-                            <td class="">Promocional</td>
-                            <td>
-                                <div class="progress bg-blue2 rounded-pill">
-                                    <div class="progress-bar bg-blue text11" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                </div>
-                            </td>
-                            <td class="">No aplica</td>
-                            <td class="">11/04/2022</td>
-                            <td class="">No terminado</td>
-                            <td class="">0 días, 0:0:0</td>
-                        </tr>
-                        <tr>
-                            <td  class="text6 txt-blue bg-blue2 text-center">3</td>
-                            <td class="">Documental</td>
-                            <td>
-                                <div class="progress bg-blue2 rounded-pill">
-                                    <div class="progress-bar bg-blue text11" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                </div>
-                            </td>
-                            <td class="">No aplica</td>
-                            <td class="">11/04/2022</td>
-                            <td class="">No terminado</td>
-                            <td class="">0 días, 0:0:0</td>
-                        </tr>
-                        <tr>
-                            <td class="text6 txt-blue bg-blue2 text-center">4</td>
-                            <td class="">Animación</td>
-                            <td>
-                                <div class="progress bg-blue2 rounded-pill">
-                                    <div class="progress-bar bg-blue text11" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                </div>
-                            </td>
-                            <td class="">No aplica</td>
-                            <td class=""> 11/04/2022</td>
-                            <td class="">No terminado</td>
-                            <td class="">0 días, 0:0:0</td>
+                            <td class="">{{modulo.calificacion}}</td>
+                            <td class="">{{modulo.fechaAsignacion}}</td>
+                            <td class="">{{modulo.fechaTermino}}</td>
+                            <td class="">{{modulo.duracion}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-    <div class="row pt-5 mb-3">
-        <div class="col-12">
-            <label class="text5 txt-blue">Módulo: Corporativo </label>
+        <div class="col-12 mb-3">
+            <label class="text5 txt-blue me-2">Módulo:</label>
+            <select class="form-select w-auto d-inline" [(ngModel)]="moduloSelected" (change)="changeOption('modulo')">
+                <option value="0" hidden>Selecciona un modulo</option>
+                <option *ngFor="let modulo of this.modulesCertifications"  [value]="modulo.idModule">{{modulo.title}}</option>
+            </select>
         </div>
     </div>
-    <div class="row mt-4">
+    <!--Modulos-->
+    <div class="row mt-4" *ngIf="this.temas == 1">
         <div class="col-12">
             <div class="table-responsive">
                 <table id="example2" class="stripe modulos nowrap" style="width:100%">
@@ -109,41 +77,16 @@
                             <th class="text4 txt-blue">Visto</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngFor="let tema of this.temasArr" >
                         <tr>
-                            <td><img src="assets/img/valley.svg" class=" rounded-circle" alt="" width="40px" height="40px"></td>
-                            <td class="">Valley</td>
-                            <td><img src="assets/img/close.svg" class="ps-4 close" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="assets/img/swissmex.svg" class=" rounded-circle" alt="" width="40px" height="40px"></td>
-                            <td class="">Swissmex</td>
-                            <td><img src="assets/img/close.svg" class="ps-4 close" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="assets/img/egd.svg" class=" rounded-circle" alt="" width="40px" height="40px"></td>
-                            <td class="">EGD</td>
-                            <td><img src="assets/img/close.svg" class="ps-4 close" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="assets/img/almer.svg" class=" rounded-circle" alt="" width="40px" height="40px"></td>
-                            <td class="">Almer</td>
-                            <td><img src="assets/img/close.svg" class="ps-4 close" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="assets/img/garcia.svg" class=" rounded-circle" alt="" width="40px" height="40px"></td>
-                            <td class="">García Ascencio</td>
-                            <td><img src="assets/img/close.svg" class="ps-4 close" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="assets/img/grupo.svg" class=" rounded-circle" alt="" width="40px" height="40px"></td>
-                            <td class="">Grupo Octano</td>
-                            <td><img src="assets/img/close.svg" class="ps-4 close" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="assets/img/unitrade.svg" class=" rounded-circle" alt="" width="40px" height="40px"></td>
-                            <td class="">Unitrade</td>
-                            <td><img src="assets/img/close.svg" class="ps-4 close" alt=""></td>
+                            <td><img src="{{tema.icon}}" class=" rounded-circle" alt="" width="40px" height="40px"></td>
+                            <td class="">{{tema.title}}</td>
+                            <td>
+                                <!--img  src="assets/img/close.svg" class="ps-4 close" alt="">
+                                <img *ngIf="this.visto == false" src="assets/img/close.svg" class="ps-4 close" alt=""-->
+                                <i *ngIf="this.visto == true" class="fas fa-check ps-4" style="color: #015287;"></i>
+                                <i *ngIf="this.visto == false" class="fas fa-times ps-4" style="color: #015287;"></i>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

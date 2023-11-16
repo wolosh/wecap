@@ -28,6 +28,17 @@ export type ChartUsuarios = {
   plotOptions: ApexPlotOptions;
   responsive: ApexResponsive[];
 };
+export type ChartAvances = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+  colors: string[];
+  legend: ApexLegend;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
+};
 
 export type chartPromedios = {
   series: ApexAxisChartSeries;
@@ -50,29 +61,13 @@ export class EstadisticasComponent implements OnInit {
 
   @ViewChild("chart") chart: ChartComponent;
   public chartUsuarios: Partial<ChartUsuarios> | any;
+  public chartAvances: Partial<ChartAvances> | any;
   public chartPromedios: Partial<any>;
   usuarios: any;
+  avance: any;
 
-  constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {
-    /*this.chartPromedios = {
-      series: [
-        {
-          name: "My-series",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "bar"
-      },
-      title: {
-        text: "Promedio"
-      },
-      xaxis: {
-        categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
-      }
-    };*/
-  }
+
+  constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {}
 
   ngOnInit(): void {
     this.helpers.goTop();
@@ -106,12 +101,9 @@ export class EstadisticasComponent implements OnInit {
     this.get.getEstadGlobales(localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
       this.usuarios =  data.usuarios;
-      //console.log(this.usuarios)
-      let hombres=5;
-      let mujeres=5;
-      let otros=5;
+      this.avance =  data.avance;
       this.chartUsuarios = {
-        series: [hombres, mujeres, otros],
+        series: [this.usuarios.hombres, this.usuarios.mujeres, this.usuarios.otro],
         chart: {
           type: "donut"
         },
@@ -170,6 +162,68 @@ export class EstadisticasComponent implements OnInit {
           }
         ]
       };
+
+      this.chartAvances = {
+        series: [this.avance.hombres, this.avance.mujeres, this.avance.otro],
+        chart: {
+          type: "donut"
+        },
+        colors: [
+          '#015287',
+          '#A6DAFC',
+          '#707070',
+        ],
+        title: {
+          text: "Promedio de avance global",
+          align: 'center',
+          style: {
+            fontSize:  '18px',
+            fontFamily:  'Helvetica-Bold',
+            color:  '#015287'
+          },
+        },
+        dataLabels: {
+          //offseY: 30,
+          style: {
+            fontSize:  '16px',
+            fontFamily:  'Helvetica-Bold',
+            colors: ['#FFF']
+          },
+          dropShadow: {
+              enabled: false
+          }
+        },
+        plotOptions: {
+          pie: {
+            customScale: 0.8,
+          }
+        },
+        labels: ["Hombres", "Mujeres",  "Otros"],
+        legend: {
+          position: 'bottom',
+          fontSize: '16px',
+          fontFamily: 'Helvetica-Bold',
+          labels: {
+            colors: ['#015287']
+          },
+          markers: {
+            width: 25,
+            height: 25,
+            radius: 5,
+          },
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+            }
+          }
+        ]
+      };
+
     });
   }
 
@@ -177,7 +231,7 @@ export class EstadisticasComponent implements OnInit {
     //console.log(id)
     this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         //this.allModules = data;
         //console.log(this.allModules)
       }
@@ -188,7 +242,7 @@ export class EstadisticasComponent implements OnInit {
     //console.log(id)
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         //this.allModules = data;
         //console.log(this.allModules)
       }

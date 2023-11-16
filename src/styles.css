@@ -802,3 +802,13 @@ td{
     width: 50%;
     aspect-ratio: 2/1;
 }
+.form-select{
+    border: none;
+    color: #015287;
+    font-size: 1.25rem;
+    background-image: url(../src/assets/img/down.png);
+    background-size: 16px 8px !important;
+}
+.form-select:focus{
+    box-shadow: none !important
+}

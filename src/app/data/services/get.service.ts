@@ -292,4 +292,14 @@ export class GetService {
     })
   }
 
+  //Info perfil
+  getTemaVisto(id: any,token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'isTemaFinalizado/' + id, {
+      headers,
+    })
+  }
+
 }

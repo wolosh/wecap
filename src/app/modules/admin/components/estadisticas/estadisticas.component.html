@@ -12,7 +12,7 @@
                     <label class="text6 txt-gris mt-3 ms-2">Usuarios/Análisis</label>
                     <hr class="w-100">
                     <!--Tabla--->
-                    <table id="globales" class="table data striped dt-responsive nowrap" style="width:100%">
+                    <!--table id="globales" class="table data striped dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -52,7 +52,7 @@
                           <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pusers = $event" previousLabel="Anterior"
                           nextLabel="Siguiente"></pagination-controls>
                         </div>
-                    </div>
+                    </div-->
                     <!--Grafica--->
                     <div class="row mt-5">
                         <div class="col-12 col-lg-6">
@@ -68,34 +68,26 @@
                               [plotOptions]="chartUsuarios.plotOptions"
                             ></apx-chart>
                           </div>
-
-                          <!--div class="chart-container">
-                              <canvas id="grafpromedio"></canvas>
-                          </div-->
                         </div>
                         <div class="col-12 col-lg-6">
-                            <!--apx-chart
-                                [series]="chartPromedios.series"
-                                [chart]="chartPromedios.chart"
-                                [xaxis]="chartPromedios.xaxis"
-                                [title]="chartPromedios.title"
-                            ></apx-chart-->
-
-                            <!--div class="chart-container">
-                                <canvas id="grafpromedio"></canvas>
-                            </div-->
-                        </div>
-                        <div class="col-12 col-lg-6">
-
-                            <div class="chart-container">
-                                <canvas id="graftiempo"></canvas>
-                            </div>
+                            <div style="text-align:center">
+                                <apx-chart
+                                  [series]="chartAvances.series"
+                                  [chart]="chartAvances.chart"
+                                  [title]="chartAvances.title"
+                                  [labels]="chartAvances.labels"
+                                  [colors]="chartAvances.colors"
+                                  [legend]="chartAvances.legend"
+                                  [dataLabels]="chartAvances.dataLabels"
+                                  [plotOptions]="chartAvances.plotOptions"
+                                ></apx-chart>
+                              </div>
                         </div>
                     </div>
-                    <label class="text3 txt-blue2 mt-3">Estadísticas de cursos</label>
+                    <!--label class="text3 txt-blue2 mt-3">Estadísticas de cursos</label>
                     <hr class="w-100">
-                    <!--Tabla--->
-                    <table id="estdcurso" class="table data est striped dt-responsive nowrap" style="width:100%">
+                    <Tabla--->
+                    <!--table id="estdcurso" class="table data est striped dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th></th>
@@ -134,8 +126,8 @@
                           <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pcursos = $event" previousLabel="Anterior"
                           nextLabel="Siguiente"></pagination-controls>
                         </div>
-                    </div>
-                    <div class="row mt-5 mb-5">
+                    </div-->
+                    <!--div class="row mt-5 mb-5">
                         <div class="col-12">
                             <div class="chart-container">
                                 <canvas id="grafprogreso"></canvas>
@@ -153,12 +145,12 @@
                                 <canvas id="grafporcentaje"></canvas>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                    </div-->
+                    <!--div class="row">
                         <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                             <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Descargar excel</button>
                         </div>
-                    </div>
+                    </div-->
                     <!---<label class="text3 txt-blue2 mt-3">Diagnostico Cursos</label>
                     <hr class="w-100">
                     <table id="diagnostico" class="table data striped dt-responsive nowrap" style="width:100%">
