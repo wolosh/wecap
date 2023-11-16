@@ -65,6 +65,10 @@ export class EstadisticasComponent implements OnInit {
   public chartPromedios: Partial<any>;
   usuarios: any;
   avance: any;
+  cursos: any;
+  calificacion: any;
+  tiempo: any;
+  intentos: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {}
@@ -76,7 +80,7 @@ export class EstadisticasComponent implements OnInit {
       //this.users();
       this.estadisticasCurso();
       this.estadGlobales();
-      this.estadCurso(1);
+      //this.estadCurso(1);
       this.estadModulo(1);
     }
   }
@@ -93,7 +97,15 @@ export class EstadisticasComponent implements OnInit {
     this.get.getEstadisticas(localStorage.getItem('token')).subscribe((data: any) => {
       //console.log(data)
       this.coursesArr =  data.records;
-      //console.log(this.coursesArr);
+      for (let curso of this.coursesArr ) {
+        this.get.getEstadCurso(curso, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            console.log(data);
+            //this.allModules = data;
+            //console.log(this.allModules)
+          }
+        );
+      }
     });
   }
 
@@ -102,6 +114,10 @@ export class EstadisticasComponent implements OnInit {
       console.log(data)
       this.usuarios =  data.usuarios;
       this.avance =  data.avance;
+      this.cursos =  data.totalCursos;
+      this.calificacion =  data.promedioCalificacion;
+      this.tiempo =  data.promedioTiempo;
+      this.intentos =  data.promedioIntentos;
       this.chartUsuarios = {
         series: [this.usuarios.hombres, this.usuarios.mujeres, this.usuarios.otro],
         chart: {
@@ -227,16 +243,10 @@ export class EstadisticasComponent implements OnInit {
     });
   }
 
-  estadCurso(id: any) {
+  /*estadCurso(id: any) {
     //console.log(id)
-    this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        console.log(data);
-        //this.allModules = data;
-        //console.log(this.allModules)
-      }
-    );
-  }
+   
+  }*/
 
   estadModulo(id: any) {
     //console.log(id)
