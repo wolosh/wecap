@@ -9,7 +9,9 @@ import { Observable, catchError } from 'rxjs';
 })
 export class SessionService {
 
-  API: string = 'http://35.92.150.230/api/'
+  //API: string = 'http://35.92.150.230/api/'
+  API: string = 'https://wecap.mx/api/'
+  
 
   curso: boolean = false;
   userName = '';

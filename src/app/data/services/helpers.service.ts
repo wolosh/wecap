@@ -12,7 +12,8 @@ import { interval } from 'rxjs';
 export class HelpersService {
 
   cursos = 0;
-  public domain = 'http://35.92.150.230/';
+  //public domain = 'http://35.92.150.230/';
+  public domain = 'https://wecap.mx/api/';
   type:any;
   name:any;
   section = '';
