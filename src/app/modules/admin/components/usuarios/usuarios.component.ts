@@ -98,6 +98,7 @@ export class UsuariosComponent implements OnInit {
       fecha_nacimiento: ['', [Validators.required]],
       puesto: ['', [Validators.required]],
       area: ['', [Validators.required]],
+      password: ['', [Validators.required]],
       pais: [''],
       estado: [''],
       ciudad: [''],
@@ -174,7 +175,49 @@ export class UsuariosComponent implements OnInit {
   }
 
   registerUser(){
-    
+    //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
+    let form = new FormData();
+    if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.password != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != ''){
+      console.log('esta correcto');
+      form.set('email', this.formUser.value.email);
+      form.set('password', this.formUser.value.password);
+      form.set('confirm_password', this.formUser.value.password);
+      form.set('full_name', this.formUser.value.name);
+      form.set('job', this.formUser.value.puesto);
+      form.set('area', this.formUser.value.area);
+      if(this.formUser.value.gender != '') form.set('genero', this.genderSelected);
+      form.set('fecha_nacimiento', this.formUser.value.fecha_nacimiento);
+      if(this.formUser.value.pais != '') form.set('pais', this.formUser.value.pais);
+      if(this.formUser.value.estado != '') form.set('estado', this.formUser.value.estado);
+      if(this.formUser.value.ciudad != '') form.set('ciudad', this.formUser.value.ciudad);
+      form.set('is_admin', this.typeSelected);
+      if(this.formUser.value.grupo != '') form.set('grupo', this.formUser.value.grupo);
+
+      this.session.registrarUser(form, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          //console.log(data);
+          Swal.fire({
+            title: '¡Agregado con exito!',
+            text: 'El usuario ha sido modificado.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.changeViewUsers('users');
+            }
+          });
+        }
+      );
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Faltan campos por llenar, por favor completa el formulario.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    }
+
+
   }
 
   editUser() {

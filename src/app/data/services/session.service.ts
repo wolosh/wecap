@@ -182,6 +182,23 @@ export class SessionService {
     );
   }
 
+  public registrarUser(form, token) {
+    //console.log(form)
+    //console.log(idUser, form, token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}register`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
   public deleteUser(idUser, token) {
     //console.log(form)
     //console.log(idUser,  token)
