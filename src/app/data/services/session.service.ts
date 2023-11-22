@@ -32,6 +32,11 @@ export class SessionService {
     return this.http.post(`${this.API}login`, formData
       //email: email,
       //password: password
+    ).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
     );
   }
 

@@ -9,8 +9,19 @@
             </nav>
             <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row d-flex align-items-center" *ngIf="usersView == 0">
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <label class="text3 txt-blue2 mt-3">Usuarios</label>
+                        </div>
+                        <div class="col-8 col-md-4 col-lg-3 offset-lg-1" >
+                            <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeViewUsers('edit', '')">
+                                <img src="assets/img/agregar.svg" alt="">
+                                Agregar Usuario
+                            </button>
+                        </div>
+                    </div>
                     <div *ngIf="usersView == 0">
-                        <label class="text3 txt-blue2 mt-3">Usuarios</label>
+                        <!--<label class="text3 txt-blue2 mt-3">Usuarios</label>-->
                         <hr class="w-100">
                         <!--tabla-->
                         <div class="table-responsive">
@@ -54,7 +65,8 @@
                     <div *ngIf="usersView == 1">
                         <div class="row mt-3 mb-3">
                             <div class="col-lg-6 ">
-                              <label class="text3 txt-blue2">Editar Usuario</label>
+                              <label class="text3 txt-blue2" *ngIf="this.id != 0">Editar Usuario</label>
+                              <label class="text3 txt-blue2" *ngIf="this.id == 0">Añadir Usuario</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
                               <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewUsers('users')">
@@ -66,9 +78,9 @@
                         <form [formGroup]="formUser">
                             <div class="row mt-4 mb-3">
                                 <div class="col-6 col-md-3 col-xl-2 offset-xl-8 offset-md-6">
-                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" (click)="deleteUser()">Eliminar</button>
+                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id != 0" (click)="deleteUser()">Eliminar</button>
                                 </div>
-                                <div class="col-6 col-md-3 col-xl-2">
+                                <div class="col-6 col-md-3 col-xl-2" *ngIf="this.id != 0">
                                     <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1" (click)="status(0)">Desactivar usuario</button>
                                     <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar usuario</button>
                                 </div>
@@ -105,20 +117,20 @@
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Puesto</label>
-                                <input type="text" class="input3" id="exampleInputEmail3" aria-describedby="emailHelp" formControlName="puesto">
+                                <input type="text" class="input3" id="exampleInputEmail3"  formControlName="puesto">
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Área</label>
-                                <input type="text" class="input3" id="exampleInputEmail4" aria-describedby="emailHelp"  formControlName="area">
+                                <input type="text" class="input3" id="exampleInputEmail4"  formControlName="area">
                             </div>
                             <!--<div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">No. Nómina (opcional)</label>
                                 <input type="text" class="input3" id="exampleInputEmail5" aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="formFile" class="text13 txt-blue mb-3">Contraseña (opcional)</label>
-                                <input type="password" class="input3" id="exampleInputEmail6" autocomplete>
                             </div>-->
+                            <div class="mb-3">
+                                <label for="formFile" class="text13 txt-blue mb-3">Contraseña</label>
+                                <input type="password" class="input3" id="exampleInputEmail6" formControlName="password" autocomplete="new-password">
+                            </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">País (opcional)</label>
                                 <input type="text" class="input3" id="exampleInputEmail7" aria-describedby="emailHelp"  formControlName="pais">
@@ -162,7 +174,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="editUser()">Guardar</button>
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id != 0" (click)="editUser()">Guardar</button>
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id == 0" (click)="registerUser()">Guardar</button>
+                                
                                 </div>
                             </div>
                         </form>

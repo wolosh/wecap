@@ -93,7 +93,7 @@ export class CursosComponent implements OnInit {
     if (localStorage.getItem('type') == '1') {
 
       //console.log(this.searchArray)
-      console.log(localStorage.getItem('name'));
+      //console.log(localStorage.getItem('name'));
       this.helpers.type = localStorage.getItem('type');
       this.helpers.name = localStorage.getItem('name');
       this.helpers.goTop();
@@ -109,7 +109,7 @@ export class CursosComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
           }
@@ -307,20 +307,36 @@ export class CursosComponent implements OnInit {
 
   //Crear nuevo curso
   saveCourse(kind: any, id?: any) {
-    //console.log(this.formNewCurso.value)
+    let send = new FormData();
+    //console.log(this.formNewCurso.value, this.image, this.exam)
     switch (kind) {
       case 'create':
-        this.formData.append('title', this.formNewCurso.value.title);
-        this.formData.append('description', this.formNewCurso.value.description);
-        this.formData.append('img', this.image, this.image.name);
-        //console.log(this.formData.getAll('image'), this.formData.getAll('title'), this.formData.getAll('description'));
-        this.formData.append('default_active_days', this.formNewCurso.value.default_active_days);
-        this.formData.append('hasExam', this.exam);
+        send.append('title', this.formNewCurso.value.title);
+        send.append('description', this.formNewCurso.value.description);
+        if(this.image != undefined){
+          //console.log(this.image)
+        send.append('img', this.image, this.image.name);
+        } else {
+          Swal.fire({
+            title: '¡Error!',
+            text: 'Selecciona una imagen.',
+            icon: 'error',
+            confirmButtonColor: '#015287',
+          });
+          send.delete('title');
+          send.delete('description');
+          send.delete('img');
+          send.delete('default_active_days');
+          send.delete('hasExam');
+        }
+        //console.log( send.getAll('img'),  send.getAll('title'),  send.getAll('description'));
+        send.append('default_active_days', this.formNewCurso.value.default_active_days);
+        send.append('hasExam', this.exam);
 
-        //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
-        this.session.newCurso(this.formData, localStorage.getItem('token')).subscribe(
+        //console.log( send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get);
+        this.session.newCurso(send, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            //console.log(data);}
+            //console.log(data);
             Swal.fire({
               title: '¡Creado con exito!',
               text: 'El curso ha sido creado.',
@@ -328,6 +344,11 @@ export class CursosComponent implements OnInit {
               confirmButtonColor: '#015287',
             });
             this.certifications();
+            this.formNewCurso.value.title = '';
+            this.formNewCurso.value.description = '';
+            this.exam = '';
+            this.formNewCurso.value.default_active_days = '';
+            this.formNewCurso.value.hasExam = '';
           }
         );
         break;
@@ -437,7 +458,7 @@ export class CursosComponent implements OnInit {
         this.cview1 = 1;
         for (let item of this.certificaciones) {
           if (item.title == name) {
-            console.log(item.idCertification)
+            //console.log(item.idCertification)
             this.idCertification = item.idCertification;
             this.modules(item.idCertification);
             this.diploma(item.idCertification);
@@ -547,7 +568,7 @@ export class CursosComponent implements OnInit {
         this.startForm(5);
         this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data)
+            //console.log(data)
             this.idModulo = data.idModule;
             this.temas(this.idModulo);
             this.formModulo.controls['title'].setValue(data.title);

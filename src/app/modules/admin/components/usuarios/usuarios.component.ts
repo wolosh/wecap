@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
+  id: any;
   usuarios: any;
   email: any;
   userObj: any;
@@ -129,6 +130,7 @@ export class UsuariosComponent implements OnInit {
           //console.log(this.userObj)
         }
       });
+      this.id = id;
       this.startForm();
     }
     switch (view) {
@@ -163,7 +165,16 @@ export class UsuariosComponent implements OnInit {
           is_admin: this.userObj.is_admin,
         });
         break;
+      case 'add':
+        this.usersView = 1;
+        this.startForm();
+        this.id = 0;
+        break;
     }
+  }
+
+  registerUser(){
+    
   }
 
   editUser() {
