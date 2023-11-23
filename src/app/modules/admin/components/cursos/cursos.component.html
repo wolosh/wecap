@@ -201,9 +201,9 @@
             <!------Módulos--->
             <label class="text3 txt-blue2 mt-3">Módulos</label>
             <label class="text6 txt-gris mt-3 ms-2">Selecciona un módulo para conocer o editar sus detalles</label>
-            <div class="col-8 col-md-4 ">
-              <button class="boton bg-blue p-1 p-md-2">
-                  <img src="assets/img/agregar.svg" alt="" (click)="changeViewModulo('add')">
+            <div class="col-8 col-md-4 "> 
+              <button class="boton bg-blue  p-1 p-md-2" (click)="changeViewModulo('add')">
+                  <img src="assets/img/agregar.svg" alt="" >
                   Añadir Módulo	
               </button>
           </div>
@@ -361,7 +361,7 @@
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
                   <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono" />
-                  <img *ngIf="this.imgIcono != ''" class="imgPreview" src="{{ this.imgIcono }}" alt="imgIcono" />
+                  <img *ngIf="this.imgIcono != ''" class="imgPreview"  [src]=" this.imgIcono" alt="imgIcono"/>
                   <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
                   <input type="file" class="input3" id="icono" (change)="fileIcono($event, 'change')">
                 </div>
@@ -401,8 +401,8 @@
             <label class="text3 txt-blue2 mt-3">Temas</label>
             <label class="text6 txt-gris mt-3 ms-2">Selecciona un tema para conocer o editar sus detalles</label>
             <div class="col-8 col-md-4 ">
-              <button class="boton bg-blue p-1 p-md-2">
-                  <img src="assets/img/agregar.svg" alt="" (click)="changeViewTemas('add')">
+              <button class="boton bg-blue p-1 p-md-2" (click)="changeViewTemas('add')">
+                  <img src="assets/img/agregar.svg" alt="">
                   Añadir Tema
               </button>
           </div>
@@ -431,7 +431,7 @@
             </div>
             <div class="row" *ngIf="this.alltemas.length == 0">
               <div class="col-12">
-                <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas temas para este curso en el sistema.</label>
+                <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas con temas para este curso en el sistema.</label>
               </div>
             </div>
             <!--div class="row">

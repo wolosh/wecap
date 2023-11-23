@@ -14,6 +14,9 @@ export class HelpersService {
   cursos = 0;
   //public domain = 'http://35.92.150.230/';
   public domain = 'https://ci.wecap.mx/';
+  //public domain ='https://ci.americargo.wecap.mx/'
+  //public domain ='https://ci.alsainacademy.wecap.mx/'
+
   type:any;
   name:any;
   section = '';

@@ -11,6 +11,8 @@ export class SessionService {
 
   //API: string = 'http://35.92.150.230/api/'
   API: string = 'https://ci.wecap.mx/api/'
+  //API: string = 'https://ci.americargo.wecap.mx/api/'
+  //API: string = 'https://ci.alsainacademy.wecap.mx/api/'
   
 
   curso: boolean = false;

@@ -181,10 +181,30 @@ export class UsuariosComponent implements OnInit {
   }
 
   validarEmail() {
-    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(this.formUser.value.email)){
-     alert("La dirección de email es correcta!.");
+    console.log(this.formUser.value.email);
+    if (this.formUser.value.email != '') {
+      this.get.validEmail(this.formUser.value.email, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          if (data.valid == false) {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'El correo que utilizaste ya esta registrado o no tiene un formato correcto.',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          } else {
+            this.registerUser();
+          }
+        }
+      );
     } else {
-     alert("La dirección de email es incorrecta!.");
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Faltan campos por llenar, por favor completa el formulario.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
     }
   }
 
@@ -284,7 +304,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarios = [];
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.usuarios = data.users;
         //console.log(this.usuarios)
         Swal.close();

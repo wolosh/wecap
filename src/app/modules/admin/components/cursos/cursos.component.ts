@@ -6,6 +6,7 @@ import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
 import { Buffer } from 'buffer';
+import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cursos',
@@ -62,12 +63,12 @@ isNewTheme: number = 0;
   teachers: any;
   searchArray: any[];
   length = 0;
-  imgIcono: any;
-  imgTermina: any;
-  imgScore: any;
-  imgTiempo: any;
-  imgTema: any;
-  imgTemaV: any;
+  public imgIcono: any;
+  public imgTermina: any;
+  public imgScore: any;
+  public imgTiempo: any;
+  public imgTema: any;
+  public imgTemaV: any;
   modulos: any;
   viewE: number;
   alltemas: any;
@@ -88,7 +89,7 @@ isNewTheme: number = 0;
   activeM: any;
 
 
-  constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
+  constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
@@ -138,6 +139,14 @@ isNewTheme: number = 0;
           case 'courses':
             this.p = 1;
             this.cview1 = 0;
+            this.imgIcono = '';
+            this.imgTermina = '';
+            this.imgScore = '';
+            this.imgTiempo = '';
+            this.isNewModule = 0;
+            this.viewE = 0;
+            this.isNewTheme = 0;
+        this.viewTemasE = 0;
             this.certifications();
             break;
           case 'mat':
@@ -230,6 +239,7 @@ isNewTheme: number = 0;
         color: [''],
         url_video: [''],
       });
+      Swal.close();
     }
     else if (id == 6) {
       this.formTemas = this.formBuilder.group({
@@ -551,9 +561,10 @@ isNewTheme: number = 0;
     //console.log(id);
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.allModules = data;
         //console.log(this.allModules)
+        Swal.close();
       }, 
       (error: any) => {
         this.helpers.logout();
@@ -562,62 +573,83 @@ isNewTheme: number = 0;
   }
   //cambia la vista a Modulo
   changeViewModulo(view: any, id?: any, name?: any) {
+    Swal.fire({
+      title: 'Cargando...',
+      html: 'Espera un momento por favor',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        switch (view) {
+          case 'back':
+            this.imgIcono = '';
+            this.imgTermina = '';
+            this.imgScore = '';
+            this.imgTiempo = '';
+            this.isNewModule = 0;
+            this.viewE = 0;
+            this.cview1 = 1;
+            this.modules(this.idCertification);
+            break;
+          case 'editm':
+            this.imgIcono = '';
+            this.imgTermina = '';
+            this.imgScore = '';
+            this.imgTiempo = '';
+            this.pt = 1;
+            this.p = 1;
+            this.pc = 1;
+            this.isNewModule = 2;
+            this.viewE = 1;
+            this.cview1 = 2;
+            this.startForm(5);
+            this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
+              (data: any) => {
+                console.log(data)
+                this.idModulo = data.idModule;
+                this.temas(this.idModulo);
+                this.formModulo.controls['title'].setValue(data.title);
+                this.formModulo.controls['descripcion'].setValue(data.description);
+                this.formModulo.controls['duracion'].setValue(data.max_time);
+                this.formModulo.controls['score'].setValue(data.min_score);
+                this.exam = parseInt(data.hasExam);
+                this.imgIcono = data.icon;
+                /*this.imgIcono = this.sanitizer.bypassSecurityTrustUrl(data.icon);
+                console.timeLog(this.imgIcono)*/
+                this.imgTermina = data.medal_finish;
+                this.imgScore = data.medal_perfect;
+                this.imgTiempo = data.medal_time;
+                console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo)
+                this.formModulo.controls['color'].setValue(data.color_style);
+                this.formModulo.controls['url_video'].setValue(data.url_video);
+                this.activeM = data.is_active;
+                Swal.close();
+    
+                // Codificar la URL a Base64
+                /*const base64Data = Buffer.from(this.imgIcono).toString("base64");
+                this.imgIcono = `data:image/jpeg;base64,${base64Data}`;
+                console.log(this.imgIcono);*/
+              }
+            );
+            break;
+            case 'add':
+              this.imgIcono = '';
+              this.imgTermina = '';
+              this.imgScore = '';
+              this.imgTiempo = '';
+              this.p = 1;
+              this.pc = 1;
+              this.pt = 1;
+              this.isNewModule = 1;
+              this.viewE = 1;
+            this.cview1 = 2;
+            this.startForm(5);
+              break;
+        }
+      }
+    });
     //console.log(id)
-    switch (view) {
-      case 'back':
-        this.imgIcono = '';
-        this.imgTermina = '';
-        this.imgScore = '';
-        this.imgTiempo = '';
-        this.isNewModule = 0;
-        this.viewE = 0;
-        this.cview1 = 1;
-        this.modules(this.idCertification);
-        break;
-      case 'editm':
-        this.pt = 1;
-        this.p = 1;
-        this.pc = 1;
-        this.isNewModule = 2;
-        this.viewE = 1;
-        this.cview1 = 2;
-        this.startForm(5);
-        this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
-          (data: any) => {
-            //console.log(data)
-            this.idModulo = data.idModule;
-            this.temas(this.idModulo);
-            this.formModulo.controls['title'].setValue(data.title);
-            this.formModulo.controls['descripcion'].setValue(data.description);
-            this.formModulo.controls['duracion'].setValue(data.max_time);
-            this.formModulo.controls['score'].setValue(data.min_score);
-            this.exam = parseInt(data.hasExam);
-            this.imgIcono = data.icon;
-            this.imgTermina = data.medal_finish;
-            this.imgScore = data.medal_perfect;
-            this.imgTiempo = data.medal_time;
-            this.formModulo.controls['color'].setValue(data.color_style);
-            this.formModulo.controls['url_video'].setValue(data.url_video);
-            this.activeM = data.is_active;
-
-
-            // Codificar la URL a Base64
-            /*const base64Data = Buffer.from(this.imgIcono).toString("base64");
-            this.imgIcono = `data:image/jpeg;base64,${base64Data}`;
-            console.log(this.imgIcono);*/
-          }
-        );
-        break;
-        case 'add':
-          this.p = 1;
-          this.pc = 1;
-          this.pt = 1;
-          this.isNewModule = 1;
-          this.viewE = 1;
-        this.cview1 = 2;
-        this.startForm(5);
-          break;
-    }
+    
   }
 
   //trae los temas de un modulo
@@ -655,7 +687,7 @@ isNewTheme: number = 0;
         this.viewE = 2;
         this.startForm(6);
         for (let item of this.alltemas) {
-          //console.log(item)
+          console.log(item)
           if (item.title == tema) {
             this.idTema = item.idTopic;
             //this.startForm(6);
@@ -1234,9 +1266,13 @@ isNewTheme: number = 0;
           text: 'El módulo ha sido actualizado.',
           icon: 'success',
           confirmButtonColor: '#015287',
+        }).then((result) => {
+          if(result.isConfirmed){
+            this.changeViewModulo('back', this.idCertification)
+          }
         });
         //this.modules(this.idCertification);
-        this.changeViewModulo('back', this.idCertification)
+        //this.changeViewModulo('back', this.idCertification)
       }
     );
   }

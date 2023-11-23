@@ -348,4 +348,18 @@ export class GetService {
       })
     );
   }
+
+  validEmail(email: any, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.get(`${this.session.API}isValidMail/${email}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
 }
