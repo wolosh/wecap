@@ -298,6 +298,20 @@ export class SessionService {
     );
   }
 
+  public addModulo(idUser, form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}addModulo`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
   updatePreguntasExamen(data: any, token: any){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -426,6 +440,20 @@ export class SessionService {
     }).pipe(
       catchError((err) => {
         //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public addTema(form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}addTema`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
         return err;
       })
     );

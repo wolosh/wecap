@@ -19,8 +19,9 @@
           <!--VER CURSOS Y CREAR CURSO-->
           <div *ngIf="cview1 == 0">
             <label class="text3 txt-blue2 mt-3">Ver Cursos</label>
+            <label class="text6 txt-gris mt-3 ms-2">Selecciona un curso para conocer o editar sus detalles</label>
             <hr class="w-100">
-            <div class="table-responsive">
+            <div class="table-responsive" *ngIf="this.certificaciones != 0">
               <table class="table w-100">
                 <thead>
                   <tr>
@@ -31,7 +32,7 @@
                   </tr>
                 </thead>
                 <tbody id="cursos">
-                  <tr *ngFor="let certificacion of certificaciones | paginate: { itemsPerPage: 6, currentPage: p}">
+                  <tr *ngFor="let certificacion of certificaciones | paginate: { itemsPerPage: 6, currentPage: pc}">
                     <th scope="row">
                       <button type="button" class="boton4" (click)="changeViewCourses('editc', certificacion.title)">
                         {{certificacion.title}}
@@ -46,10 +47,15 @@
                 </tbody>
               </table>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="this.certificaciones != 0">
               <div class="col-12">
-                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pc = $event" previousLabel="Anterior"
                 nextLabel="Siguiente"></pagination-controls>
+              </div>
+            </div>
+            <div class="row" *ngIf="this.certificaciones == 0">
+              <div class="col-12">
+                <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas con cursos en el sistema, desliza hacia abajo para agregar.</label>
               </div>
             </div>
             <!--div class="row">
@@ -194,9 +200,16 @@
 
             <!------Módulos--->
             <label class="text3 txt-blue2 mt-3">Módulos</label>
+            <label class="text6 txt-gris mt-3 ms-2">Selecciona un módulo para conocer o editar sus detalles</label>
+            <div class="col-8 col-md-4 ">
+              <button class="boton bg-blue p-1 p-md-2">
+                  <img src="assets/img/agregar.svg" alt="" (click)="changeViewModulo('add')">
+                  Añadir Módulo	
+              </button>
+          </div>
             <!--label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label-->
             <hr class="w-100">
-            <div class="table-responsive">
+            <div class="table-responsive" *ngIf="this.allModules.length != 0">
               <table class="table striped w-100">
                 <thead>
                   <tr>
@@ -205,13 +218,24 @@
                   </tr>
                 </thead>
                 <tbody id="modulos">
-                  <tr *ngFor="let module of allModules">
+                  <tr *ngFor="let module of allModules | paginate: { itemsPerPage: 6, currentPage: p}">
                     <th scope="row">{{module.title}}</th>
                     <td><button class="boton2"
                         (click)="changeViewModulo('editm', module.idModule, module.title)">Editar</button></td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div class="row" *ngIf="this.allModules.length != 0">
+              <div class="col-12">
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+              </div>
+            </div>
+            <div class="row" *ngIf="this.allModules.length == 0">
+              <div class="col-12">
+                <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas módulos para este curso en el sistema.</label>
+              </div>
             </div>
 
             <!--div class="row">
@@ -270,7 +294,8 @@
           <div *ngIf="viewE == 1">
             <div class="row">
               <div class="col-6">
-                <label class="text3 txt-blue2">Editar módulo</label>
+                <label class="text3 txt-blue2" *ngIf="this.isNewModule == 2">Editar Módulo</label>
+                <label class="text3 txt-blue2" *ngIf="this.isNewModule == 1">Añadir Módulo</label>
               </div>
               <div class="col-6 offset-6 col-lg-2 offset-lg-4">
                 <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewModulo('back')">
@@ -284,10 +309,13 @@
                 <div class="col-12 col-md-3">
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
                 </div>
-                <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveModulo()">Guardar</button>
+                <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2"  *ngIf="this.isNewModule == 2">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveModulo()">Guardar cambios</button>
                 </div>
-                <div class="col-6 col-md-3 col-lg-2">
+                <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2" *ngIf="this.isNewModule == 1">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addModulo()">Guardar Módulo</button>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2" *ngIf="this.isNewModule == 2">
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusModulos(0)"
                     *ngIf="this.activeM == '1'">Desactivar</button>
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusModulos(1)"
@@ -371,8 +399,15 @@
 
             <!---Temas--->
             <label class="text3 txt-blue2 mt-3">Temas</label>
+            <label class="text6 txt-gris mt-3 ms-2">Selecciona un tema para conocer o editar sus detalles</label>
+            <div class="col-8 col-md-4 ">
+              <button class="boton bg-blue p-1 p-md-2">
+                  <img src="assets/img/agregar.svg" alt="" (click)="changeViewTemas('add')">
+                  Añadir Tema
+              </button>
+          </div>
             <hr class="w-100">
-            <div class="table-responsive">
+            <div class="table-responsive" *ngIf="this.alltemas.length != 0">
               <table class="table striped w-100">
                 <thead>
                   <tr>
@@ -381,12 +416,23 @@
                   </tr>
                 </thead>
                 <tbody id="temas">
-                  <tr *ngFor="let tema of alltemas">
+                  <tr *ngFor="let tema of alltemas | paginate: { itemsPerPage: 6, currentPage: pt}">
                     <th scope="row">{{tema.title}}</th>
                     <td><button class="boton2" (click)="changeViewTemas('editT', tema.idModule, tema.title)">Editar</button></td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div class="row" *ngIf="this.alltemas.length != 0">
+              <div class="col-12">
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pt = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+              </div>
+            </div>
+            <div class="row" *ngIf="this.alltemas.length == 0">
+              <div class="col-12">
+                <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas temas para este curso en el sistema.</label>
+              </div>
             </div>
             <!--div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -399,7 +445,8 @@
             <form [formGroup]="formTemas">
               <div class="row">
                 <div class="col-6">
-                  <label class="text3 txt-blue2">Editar tema</label>
+                  <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 2">Editar Tema</label>
+                <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 1">Añadir Tema</label>
                 </div>
                 <div class="col-6 offset-6 col-lg-2 offset-lg-4">
                   <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('back')">
@@ -414,13 +461,14 @@
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
                 </div>
                 <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveTemas()">Guardar</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isNewTheme == 2" (click)="saveTemas()">Guardar cambios</button>
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isNewTheme == 1" (click)="addTema()">Guardar Tema</button>
                 </div>
-                <div class="col-6 col-md-3 col-lg-2">
+                <div class="col-6 col-md-3 col-lg-2" *ngIf="this.isNewTheme == 2">
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1" (click)="status(0)">Desactivar</button>
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar</button>
                 </div>
-                <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0">
+                <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0" *ngIf="this.isNewTheme == 2">
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" (click)="deleteTema()">Eliminar</button>
                 </div>
               </div>
@@ -452,12 +500,12 @@
               <div class="row mt-3 mb-3">
                 <div class="col-12 col-lg-4 mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
-                  <input type="text" class="input3" formControlName="url_video">
+                  <input type="text" class="input3" formControlName="url_subtitulos">
                 </div>
                 <div class="col-12 col-lg-4">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube,
-                    vimeo o PDF (previamente subido a medios))</label>
-                  <input type="text" class="input3" formControlName="url_subtitulos">
+                    vimeo)</label>
+                  <input type="text" class="input3" formControlName="url_video">
                 </div>
               </div>
             </form>

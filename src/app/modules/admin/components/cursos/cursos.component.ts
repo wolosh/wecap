@@ -14,7 +14,8 @@ import { Buffer } from 'buffer';
 })
 export class CursosComponent implements OnInit {
 
-
+isNewModule: number = 0;
+isNewTheme: number = 0;
   objUsers = [] as any;
   showArr = [] as any;
   showLength = 0;
@@ -44,6 +45,8 @@ export class CursosComponent implements OnInit {
   cview1 = 0;
   course = '';
   p: number = 1;
+  pt: number = 1;
+  pc: number = 1;
   countCert: number = 0;
   pm: number = 1;
   pg: number = 1;
@@ -452,9 +455,13 @@ export class CursosComponent implements OnInit {
     //console.log(view, name, id);
     switch (view) {
       case 'back':
+        this.pt = 1;
+        this.p = 1;
         this.cview1 = 0;
         break;
       case 'editc':
+        this.pt = 1;
+        this.p = 1;
         this.cview1 = 1;
         for (let item of this.certificaciones) {
           if (item.title == name) {
@@ -558,11 +565,20 @@ export class CursosComponent implements OnInit {
     //console.log(id)
     switch (view) {
       case 'back':
+        this.imgIcono = '';
+        this.imgTermina = '';
+        this.imgScore = '';
+        this.imgTiempo = '';
+        this.isNewModule = 0;
         this.viewE = 0;
         this.cview1 = 1;
         this.modules(this.idCertification);
         break;
       case 'editm':
+        this.pt = 1;
+        this.p = 1;
+        this.pc = 1;
+        this.isNewModule = 2;
         this.viewE = 1;
         this.cview1 = 2;
         this.startForm(5);
@@ -591,6 +607,16 @@ export class CursosComponent implements OnInit {
             console.log(this.imgIcono);*/
           }
         );
+        break;
+        case 'add':
+          this.p = 1;
+          this.pc = 1;
+          this.pt = 1;
+          this.isNewModule = 1;
+          this.viewE = 1;
+        this.cview1 = 2;
+        this.startForm(5);
+          break;
     }
   }
 
@@ -598,6 +624,7 @@ export class CursosComponent implements OnInit {
   temas(id: any) {
     this.get.getTemas(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
+        console.log(data);
         this.alltemas = data;
         //console.log(this.alltemas)
       }, 
@@ -612,10 +639,17 @@ export class CursosComponent implements OnInit {
     //console.log(name)
     switch (view) {
       case 'back':
+        this.imgTema = '';
+        this.imgTemaV = '';
+        this.helpers.goTop();
+        this.isNewTheme = 0;
         this.viewTemasE = 0;
         this.viewE = 1;
         break;
       case 'editT':
+
+        this.helpers.goTop();
+        this.isNewTheme = 2;
         this.viewTemasE = 1;
         this.cview1 = 2;
         this.viewE = 2;
@@ -637,6 +671,17 @@ export class CursosComponent implements OnInit {
             //console.log(this.active)
           }
         }
+        break;
+        case 'add':
+          this.imgTema = '';
+        this.imgTemaV = '';
+          this.helpers.goTop();
+          this.isNewTheme = 1;
+        this.viewTemasE = 1;
+        this.cview1 = 2;
+        this.viewE = 2;
+        this.startForm(6);
+        break;
     }
   }
 
@@ -1050,6 +1095,85 @@ export class CursosComponent implements OnInit {
     }
   }
 
+  addModulo(){
+    console.log(this.formModulo.value)
+    if(this.formModulo.value.title == '' || this.formModulo.value.descripcion == '' || this.formModulo.value.color == '' || this.formModulo.value.url_video == '' || this.imgIcono == undefined){
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Completa todos los campos obligatorios como titulo, descripción, examen, icono y color.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+    this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
+    this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
+    this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
+    this.imgTiempo = new File([this.imgTiempo], this.filenameD, { type: this.filetypeD });
+    /*this.imgIcono = this.helpers.dataUrlToFile(this.imgIcono);
+    this.imgTermina = this.helpers.dataUrlToFile(this.imgTermina);
+    this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
+    this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
+
+    let modulo = new FormData();
+    modulo.append('idCertification', this.idCertification);
+    modulo.append('title', this.formModulo.value.title);
+    modulo.append('description', this.formModulo.value.descripcion);
+    modulo.append('order_number', '1');
+    modulo.append('is_active', '1');
+    if (this.imgIcono != undefined) {
+      modulo.append('icon', this.imgIcono, /*this.imgIcono.name*/);
+    } else {
+      modulo.append('icon', this.imgIcono);
+    }
+    modulo.append('color_style', this.formModulo.value.color);
+    modulo.append('url_video', this.formModulo.value.url_video);
+    if (this.imgTermina != undefined) {
+      modulo.append('medal_finish', this.imgTermina, /*this.imgTermina.name*/);
+    } else {
+      modulo.append('medal_finish', this.imgTermina);
+    }
+    if (this.imgScore != undefined) {
+      modulo.append('medal_perfect', this.imgScore, /*this.imgScore.name*/);
+    } else {
+      modulo.append('medal_perfect', this.imgScore);
+    }
+    if (this.imgTiempo != undefined) {
+      modulo.append('medal_time', this.imgTiempo, /*this.imgTiempo.name*/);
+    } else {
+      modulo.append('medal_time', this.imgTiempo);
+    }
+    //modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
+    modulo.append('max_time', this.formModulo.value.duracion);
+    modulo.append('min_score', this.formModulo.value.score);
+    modulo.append('hasExam', this.exam);
+    console.log(modulo.getAll('hasExam'), modulo.getAll('default_active_days'), modulo.get);
+    /*console.log(modulo.getAll('icon'))
+    console.log(modulo.getAll)
+    console.log(modulo.get)
+    console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
+    modulo.getAll('description'), modulo.getAll('imgIcono'),
+    modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
+    modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
+    modulo.getAll('score'), modulo.getAll('hasExam'));*/
+    console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
+    console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
+
+    this.session.addModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Agregado con exito!',
+          text: 'El módulo ha sido agregado.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        });
+        //this.modules(this.idCertification);
+        this.changeViewModulo('back', this.idCertification)
+      }
+    );
+  }
+}
+
   saveModulo() {
     console.log(this.imgIcono)
     this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
@@ -1116,6 +1240,62 @@ export class CursosComponent implements OnInit {
       }
     );
   }
+
+  addTema(){
+    console.log(this.formTemas.value)
+    let tema = new FormData();
+    if(this.formTemas.value.title != '' && this.formTemas.value.description != '' && this.formTemas.value.url_video != '' && this.imgTema != undefined && this.imgTemaV != undefined){
+    tema.append('idModule', this.idModulo);
+    tema.append('title', this.formTemas.value.title);
+    tema.append('description', this.formTemas.value.description);
+    tema.append('order_number', '1');
+    tema.append('is_active', '1');
+    if (this.imgTema != undefined) {
+      tema.append('icon', this.imgTema);
+    } else {
+      tema.append('icon', this.imgTema);
+    }
+    tema.append('url_video', this.formTemas.value.url_video);
+    if(this.formTemas.value.url_subtitulos != '') tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
+    if (this.imgTemaV != undefined) {
+      tema.append('icon_gold', this.imgTemaV,);
+    } else {
+      tema.append('icon_gold', this.imgTemaV);
+    }
+    /*console.log(modulo.getAll('icon'))
+    console.log(modulo.getAll)
+    console.log(modulo.get)
+    console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
+    modulo.getAll('description'), modulo.getAll('imgIcono'),
+    modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
+    modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
+    modulo.getAll('score'), modulo.getAll('hasExam'));*/
+    console.log(tema.getAll('description'));
+
+    this.session.addTema(tema, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Agregado con exito!',
+          text: 'El tema ha sido agregado.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        });
+        //this.modules(this.idCertification);
+        this.temas(this.idModulo);
+        this.changeViewTemas('back', this.idModulo)
+      }
+    );
+  } else {
+    Swal.fire({
+      title: '¡Error!',
+      text: 'Completa todos los campos obligatorios como titulo, descripción, iconos y video.',
+      icon: 'error',
+      confirmButtonColor: '#015287',
+    });
+  }
+  }
+
   saveTemas() {
     /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
     this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/

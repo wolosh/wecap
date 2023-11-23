@@ -78,6 +78,20 @@ export class ConferenciasComponent implements OnInit {
     }
   }
 
+  onClickTab() {
+    //console.log(this.p, this.pm, this.pg);
+    Swal.fire({
+      title: 'Cargando...',
+      html: 'Espera un momento por favor',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        this.changeViewConferencias('back');
+      }
+    });
+  }
+
 
   getCertifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
@@ -85,6 +99,7 @@ export class ConferenciasComponent implements OnInit {
         console.log(data);
         this.allcursos = data;
         console.log(this.allcursos);
+        Swal.close();
       }
     );
   }
@@ -96,6 +111,7 @@ export class ConferenciasComponent implements OnInit {
         console.log(data);
         this.allConferencias = data;
         console.log(this.allConferencias);
+        Swal.close();
       }
     );
   }
@@ -107,6 +123,7 @@ export class ConferenciasComponent implements OnInit {
       link: ['', Validators.required],
       fecha: ['', Validators.required],
     });
+    Swal.close();
   }
 
   addConferencia() {
@@ -159,12 +176,19 @@ export class ConferenciasComponent implements OnInit {
 
   //cambia la vista a Temas
   changeViewConferencias(view: any, name?: any, id?: any) {
-
-    console.log(view, name, id);
+    Swal.fire({
+      title: 'Cargando...',
+      html: 'Espera un momento por favor',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        console.log(view, name, id);
     this.nombreCertificacion = name;
     switch (view) {
       case 'back':
         this.viewConf = 0;
+        this.getCertifications();
         break;
       case 'verConf':
         this.backId = id;
@@ -178,6 +202,9 @@ export class ConferenciasComponent implements OnInit {
 
 
     }
+      }
+      });
+    
   }
   /*public clone(): void {
     console.log(this.title)

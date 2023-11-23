@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
+
+  public text1 = '';
   id: any;
   usuarios: any;
   email: any;
@@ -171,8 +173,22 @@ export class UsuariosComponent implements OnInit {
         this.startForm();
         this.id = 0;
         break;
+        case 'import':
+          this.usersView = 2;
+          
+          break;
     }
   }
+
+  validarEmail() {
+    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(this.formUser.value.email)){
+     alert("La dirección de email es correcta!.");
+    } else {
+     alert("La dirección de email es incorrecta!.");
+    }
+  }
+
+  
 
   registerUser(){
     //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
@@ -195,7 +211,7 @@ export class UsuariosComponent implements OnInit {
 
       this.session.registrarUser(form, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          //console.log(data);
+          console.log(data);
           Swal.fire({
             title: '¡Agregado con exito!',
             text: 'El usuario ha sido modificado.',

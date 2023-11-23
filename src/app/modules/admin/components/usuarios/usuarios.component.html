@@ -4,7 +4,8 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                        type="button" role="tab" aria-controls="nav-home" aria-selected="true" (click)="onClickTab()">Usuarios</button>
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                        (click)="onClickTab()">Usuarios</button>
                 </div>
             </nav>
             <div class="tab-content mb-5" id="nav-tabContent">
@@ -12,19 +13,28 @@
                     <div class="row d-flex align-items-center" *ngIf="usersView == 0">
                         <div class="col-6 col-md-4 col-lg-3">
                             <label class="text3 txt-blue2 mt-3">Usuarios</label>
+                        
                         </div>
-                        <div class="col-8 col-md-4 col-lg-3 offset-lg-1" >
+                        <div class="col-8 col-md-4 col-lg-3 offset-lg-1">
                             <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeViewUsers('add', '')">
                                 <img src="assets/img/agregar.svg" alt="">
                                 Agregar Usuario
+                            </button>
+                        </div>
+                        <div class="col-8 col-md-4 col-lg-4">
+                            <button class="boton bg-blue w-100 p-1 p-md-2">
+                                <img src="assets/img/agregar.svg" alt="" (click)="changeViewUsers('import', '')">
+                                Importar usuarios
                             </button>
                         </div>
                     </div>
                     <div *ngIf="usersView == 0">
                         <!--<label class="text3 txt-blue2 mt-3">Usuarios</label>-->
                         <hr class="w-100">
+                        <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.usuarios != 0">Selecciona un usuario para conocer o editar sus detalles</label>
+                        <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.usuarios == 0">Aun no cuentas con usuarios en el sistema.</label>
                         <!--tabla-->
-                        <div class="table-responsive">
+                        <div class="table-responsive" *ngIf="this.usuarios != 0">
                             <table id="usuarios" class="table data striped display responsive nowrap"
                                 style="width:100%">
                                 <thead>
@@ -39,10 +49,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let users of this.usuarios | paginate: { itemsPerPage: 8, currentPage: pu }">
+                                    <tr
+                                        *ngFor="let users of this.usuarios | paginate: { itemsPerPage: 8, currentPage: pu }">
                                         <th scope="row">{{users.idUser}}</th>
                                         <th scope="row"><button type="button" class="boton4"
-                                                (click)="changeViewUsers('edit', users.idUser)">{{users.full_name}}</button></th>
+                                                (click)="changeViewUsers('edit', users.idUser)">{{users.full_name}}</button>
+                                        </th>
                                         <td>{{users.email}}</td>
                                         <td>{{users.job}}</td>
                                         <td>{{users.area}}</td>
@@ -54,48 +66,55 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="this.usuarios != 0">
                             <div class="col-12">
-                              <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pu = $event" previousLabel="Anterior"
-                              nextLabel="Siguiente"></pagination-controls>
+                                <pagination-controls class="w-100 d-flex justify-content-center"
+                                    (pageChange)="pu = $event" previousLabel="Anterior"
+                                    nextLabel="Siguiente"></pagination-controls>
                             </div>
-                          </div>
+                        </div>
 
                     </div>
                     <div *ngIf="usersView == 1">
                         <div class="row mt-3 mb-3">
                             <div class="col-lg-6 ">
-                              <label class="text3 txt-blue2" *ngIf="this.id != 0">Editar Usuario</label>
-                              <label class="text3 txt-blue2" *ngIf="this.id == 0">Añadir Usuario</label>
+                                <label class="text3 txt-blue2" *ngIf="this.id != 0">Editar Usuario</label>
+                                <label class="text3 txt-blue2" *ngIf="this.id == 0">Añadir Usuario</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                              <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewUsers('users')">
-                                <i class="fas fa-reply"></i>
-                              </button>
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end"
+                                    (click)="changeViewUsers('users')">
+                                    <i class="fas fa-reply"></i>
+                                </button>
                             </div>
                         </div>
                         <hr class="w-100">
                         <form [formGroup]="formUser">
                             <div class="row mt-4 mb-3">
                                 <div class="col-6 col-md-3 col-xl-2 offset-xl-8 offset-md-6">
-                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id != 0" (click)="deleteUser()">Eliminar</button>
+                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id != 0"
+                                        (click)="deleteUser()">Eliminar</button>
                                 </div>
                                 <div class="col-6 col-md-3 col-xl-2" *ngIf="this.id != 0">
-                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1" (click)="status(0)">Desactivar usuario</button>
-                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar usuario</button>
+                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2"
+                                        *ngIf="this.active == 1" (click)="status(0)">Desactivar usuario</button>
+                                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2"
+                                        *ngIf="this.active == 0" (click)="status(1)">Activar usuario</button>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Nombre Completo</label>
-                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"  formControlName="name">
+                                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    formControlName="name">
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Email</label>
-                                <input type="email" class="input3" id="exampleInputEmail2" aria-describedby="emailHelp" formControlName="email">
+                                <input type="email" class="input3" id="exampleInputEmail2" aria-describedby="emailHelp"
+                                    formControlName="email">
                             </div>
                             <label for="formFile" class="text13 txt-blue mb-2">Genero (opcional):</label>
                             <div class="dropdown mb-3">
-                               <!---<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                <!---<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton2"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Hombre
                                 </button>
@@ -104,25 +123,26 @@
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>-->
-                                <select class="botondrop dropdown-toggle" [(ngModel)]="genderSelected" (change)="changeOption('gender')"
-                      [ngModelOptions]="{standalone: true}">
-                      <option value="0" hidden>Seleccionar</option>
-                      <option value="1">Masculino</option>
-                      <option value="2">Femenino</option>
-                      <option value="3">Otro</option>
-                    </select>
+                                <select class="botondrop dropdown-toggle" [(ngModel)]="genderSelected"
+                                    (change)="changeOption('gender')" [ngModelOptions]="{standalone: true}">
+                                    <option value="0" hidden>Seleccionar</option>
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                    <option value="3">Otro</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-2">Fecha de nacimiento</label>
-                                <input class="input4" type="date" value="2017-06-01" formControlName="fecha_nacimiento"/>
+                                <input class="input4" type="date" value="2017-06-01"
+                                    formControlName="fecha_nacimiento" />
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Puesto</label>
-                                <input type="text" class="input3" id="exampleInputEmail3"  formControlName="puesto">
+                                <input type="text" class="input3" id="exampleInputEmail3" formControlName="puesto">
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Área</label>
-                                <input type="text" class="input3" id="exampleInputEmail4"  formControlName="area">
+                                <input type="text" class="input3" id="exampleInputEmail4" formControlName="area">
                             </div>
                             <!--<div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">No. Nómina (opcional)</label>
@@ -130,19 +150,23 @@
                             </div>-->
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Contraseña</label>
-                                <input type="password" class="input3" id="exampleInputEmail6" formControlName="password" autocomplete="new-password">
+                                <input type="password" class="input3" id="exampleInputEmail6" formControlName="password"
+                                    autocomplete="new-password">
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">País (opcional)</label>
-                                <input type="text" class="input3" id="exampleInputEmail7" aria-describedby="emailHelp"  formControlName="pais">
+                                <input type="text" class="input3" id="exampleInputEmail7" aria-describedby="emailHelp"
+                                    formControlName="pais">
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Estado (opcional)</label>
-                                <input type="text" class="input3" id="exampleInputEmail8" aria-describedby="emailHelp" formControlName="estado">
+                                <input type="text" class="input3" id="exampleInputEmail8" aria-describedby="emailHelp"
+                                    formControlName="estado">
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Ciudad (opcional)</label>
-                                <input type="text" class="input3" id="exampleInputEmail9" aria-describedby="emailHelp" formControlName="ciudad">
+                                <input type="text" class="input3" id="exampleInputEmail9" aria-describedby="emailHelp"
+                                    formControlName="ciudad">
                             </div>
                             <label for="formFile" class="text13 txt-blue mb-2">Tipo de usuario:</label>
                             <div class="dropdown mb-3">
@@ -155,14 +179,14 @@
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>-->
-                                <select class="botondrop dropdown-toggle" [(ngModel)]="typeSelected" (change)="changeOption('type')"
-                      [ngModelOptions]="{standalone: true}">
-                      <option value="5" hidden>Seleccionar</option>
-                      <option value="0">Usuario</option>
-                      <option value="1">Administrador</option>
-                      <option value="2">Diseñador</option>
-                      <option value="3">Instructor</option>
-                    </select>
+                                <select class="botondrop dropdown-toggle" [(ngModel)]="typeSelected"
+                                    (change)="changeOption('type')" [ngModelOptions]="{standalone: true}">
+                                    <option value="5" hidden>Seleccionar</option>
+                                    <option value="0">Usuario</option>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Diseñador</option>
+                                    <option value="3">Instructor</option>
+                                </select>
                             </div>
                             <!--<div class="form-check mb-3">
                                 <label class="text10 txt-gris2" for="inlineRadio1">Activo</label>
@@ -171,16 +195,80 @@
                             </div>-->
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Grupo (opcional)</label>
-                                <input type="text" class="input3" id="exampleInputEmail10" aria-describedby="emailHelp" formControlName="grupo">
+                                <input type="text" class="input3" id="exampleInputEmail10" aria-describedby="emailHelp"
+                                    formControlName="grupo">
                             </div>
                             <div class="row">
                                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id != 0" (click)="editUser()">Guardar</button>
-                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id == 0" (click)="registerUser()">Guardar</button>
-                                
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id != 0"
+                                        (click)="editUser()">Guardar</button>
+                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.id == 0"
+                                        (click)="registerUser()">Guardar</button>
+
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div *ngIf="usersView == 2">
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-6 ">
+                                <label class="text3 txt-blue2">Importar</label>
+                            </div>
+                            <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end"
+                                    (click)="changeViewUsers('users')">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <hr class="w-100">
+                        <div class="row">
+                            <label for="exampleInputEmail1" class="text6 txt-blue mb-2">Puedes importar varios
+                                contactos a traves de un archivo de excel en formato csv.</label>
+                            <!--<div class="col-6">
+                                <label class="text14 txt-blue mb-3">Puedes importar varios contactos a traves de un
+                                    archivo de excel en formato csv.</label>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="boton bg-blue w-auto p-2 ps-3 pe-3 float-end">
+                                    Editar descripción
+                                </button>
+                            </div>
+
+                            <div class="col-6">
+                                <button type="button" class="boton bg-blue w-auto p-2 ps-3 pe-3 float-end">
+                                    Cancelar
+                                </button>
+                            </div>-->
+                        </div>
+                        <!--<label> Este texto aparecera en la ventana donde los usuarios descargaran los archivos.</label>--->
+                        <div class="mb-3">
+                            <label class="text6 txt-gris mt-3 ms-2">1°- Descarga el archivo de ejemplo para importar:</label>
+                            <!--<p type="text" class="text19 text-dark mb-3">descripcipn</p>-->
+                            <br/>
+                            <br/>
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <a href="https://ci.capitalempleo.com/files/plantilla_usuarios.csv" target="_blank" style="text-decoration:none" class="botondrop bg-grey2 p-1" >Descargar archivo</a>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="text6 txt-gris mt-3 ms-2">2°- Edita el archivo de ejemplo con los datos de tus usuarios, no todos los datos son obligatorios, solo nombre, correo, area, puesto y contraseña.</label>
+                            <!--<p type="text" class="text19 text-dark mb-3">descripcipn</p>-->
+                            <label class="text6 txt-gris mt-3 ms-2">3°- Sube el archivo.</label>
+                            
+                           
+                            <div class="col-10 col-lg-3 d-flex align-items-end mt-3 order-4 order-md-3">
+                                <input class="input3" type="file" id="formFile"
+                                accept=".csv" >
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <button class="boton bg-blue w-auto p-2 ps-3 pe-3 ">Importar Contactos</button>
+                            </div>
+            
+                        </div>
                     </div>
                 </div>
             </div>
