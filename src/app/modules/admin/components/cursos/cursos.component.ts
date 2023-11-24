@@ -6,7 +6,7 @@ import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
 import { Buffer } from 'buffer';
-import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cursos',
@@ -15,8 +15,9 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser
 })
 export class CursosComponent implements OnInit {
 
-isNewModule: number = 0;
-isNewTheme: number = 0;
+  change: number = 0;
+  isNewModule: number = 0;
+  isNewTheme: number = 0;
   objUsers = [] as any;
   showArr = [] as any;
   showLength = 0;
@@ -69,6 +70,8 @@ isNewTheme: number = 0;
   public imgTiempo: any;
   public imgTema: any;
   public imgTemaV: any;
+  public imgTemaDos: any;
+  public imgTemaVDos: any;
   modulos: any;
   viewE: number;
   alltemas: any;
@@ -87,6 +90,18 @@ isNewTheme: number = 0;
   imgBlob: any;
   imgTemablob: any;
   activeM: any;
+  imgIconoDos: any;
+  imgTerminaDos: any;
+  imgScoreDos: any;
+  imgTiempoDos: any;
+  filenameI: any;
+  filetypeI: any;
+  filenameT: any;
+  filetypeT: any;
+  filenameS: any;
+  filetypeS: any;
+  filenameD: any;
+  filetypeD: any;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -146,7 +161,7 @@ isNewTheme: number = 0;
             this.isNewModule = 0;
             this.viewE = 0;
             this.isNewTheme = 0;
-        this.viewTemasE = 0;
+            this.viewTemasE = 0;
             this.certifications();
             break;
           case 'mat':
@@ -326,9 +341,9 @@ isNewTheme: number = 0;
       case 'create':
         send.append('title', this.formNewCurso.value.title);
         send.append('description', this.formNewCurso.value.description);
-        if(this.image != undefined){
+        if (this.image != undefined) {
           //console.log(this.image)
-        send.append('img', this.image, this.image.name);
+          send.append('img', this.image, this.image.name);
         } else {
           Swal.fire({
             title: '¡Error!',
@@ -355,13 +370,16 @@ isNewTheme: number = 0;
               text: 'El curso ha sido creado.',
               icon: 'success',
               confirmButtonColor: '#015287',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.certifications();
+                this.formNewCurso.value.title = '';
+                this.formNewCurso.value.description = '';
+                this.exam = '';
+                this.formNewCurso.value.default_active_days = '';
+                this.formNewCurso.value.hasExam = '';
+              }
             });
-            this.certifications();
-            this.formNewCurso.value.title = '';
-            this.formNewCurso.value.description = '';
-            this.exam = '';
-            this.formNewCurso.value.default_active_days = '';
-            this.formNewCurso.value.hasExam = '';
           }
         );
         break;
@@ -565,7 +583,7 @@ isNewTheme: number = 0;
         this.allModules = data;
         //console.log(this.allModules)
         Swal.close();
-      }, 
+      },
       (error: any) => {
         this.helpers.logout();
       }
@@ -586,22 +604,32 @@ isNewTheme: number = 0;
             this.imgTermina = '';
             this.imgScore = '';
             this.imgTiempo = '';
+            this.imgIconoDos = '';
+            this.imgTerminaDos = '';
+            this.imgScoreDos = '';
+            this.imgTiempoDos = '';
             this.isNewModule = 0;
             this.viewE = 0;
             this.cview1 = 1;
             this.modules(this.idCertification);
             break;
           case 'editm':
+            this.change = 2
             this.imgIcono = '';
             this.imgTermina = '';
             this.imgScore = '';
             this.imgTiempo = '';
+            this.imgIconoDos = '';
+            this.imgTerminaDos = '';
+            this.imgScoreDos = '';
+            this.imgTiempoDos = '';
             this.pt = 1;
             this.p = 1;
             this.pc = 1;
             this.isNewModule = 2;
             this.viewE = 1;
             this.cview1 = 2;
+            this.viewTemasE = 2;
             this.startForm(5);
             this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
               (data: any) => {
@@ -613,18 +641,16 @@ isNewTheme: number = 0;
                 this.formModulo.controls['duracion'].setValue(data.max_time);
                 this.formModulo.controls['score'].setValue(data.min_score);
                 this.exam = parseInt(data.hasExam);
-                this.imgIcono = data.icon;
-                /*this.imgIcono = this.sanitizer.bypassSecurityTrustUrl(data.icon);
-                console.timeLog(this.imgIcono)*/
-                this.imgTermina = data.medal_finish;
-                this.imgScore = data.medal_perfect;
-                this.imgTiempo = data.medal_time;
+                this.imgIconoDos = data.icon;
+                this.imgTerminaDos = data.medal_finish;
+                this.imgScoreDos = data.medal_perfect;
+                this.imgTiempoDos = data.medal_time;
                 console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo)
                 this.formModulo.controls['color'].setValue(data.color_style);
                 this.formModulo.controls['url_video'].setValue(data.url_video);
                 this.activeM = data.is_active;
                 Swal.close();
-    
+
                 // Codificar la URL a Base64
                 /*const base64Data = Buffer.from(this.imgIcono).toString("base64");
                 this.imgIcono = `data:image/jpeg;base64,${base64Data}`;
@@ -632,24 +658,29 @@ isNewTheme: number = 0;
               }
             );
             break;
-            case 'add':
-              this.imgIcono = '';
-              this.imgTermina = '';
-              this.imgScore = '';
-              this.imgTiempo = '';
-              this.p = 1;
-              this.pc = 1;
-              this.pt = 1;
-              this.isNewModule = 1;
-              this.viewE = 1;
+          case 'add':
+            this.viewTemasE = 2;
+            this.imgIcono = '';
+            this.imgTermina = '';
+            this.imgScore = '';
+            this.imgTiempo = '';
+            this.imgIconoDos = '';
+            this.imgTerminaDos = '';
+            this.imgScoreDos = '';
+            this.imgTiempoDos = '';
+            this.p = 1;
+            this.pc = 1;
+            this.pt = 1;
+            this.isNewModule = 1;
+            this.viewE = 1;
             this.cview1 = 2;
             this.startForm(5);
-              break;
+            break;
         }
       }
     });
     //console.log(id)
-    
+
   }
 
   //trae los temas de un modulo
@@ -659,7 +690,7 @@ isNewTheme: number = 0;
         console.log(data);
         this.alltemas = data;
         //console.log(this.alltemas)
-      }, 
+      },
       (error: any) => {
         this.helpers.logout();
       }
@@ -673,18 +704,21 @@ isNewTheme: number = 0;
       case 'back':
         this.imgTema = '';
         this.imgTemaV = '';
+        this.imgTemaDos = '';
+        this.imgTemaVDos = '';
         this.helpers.goTop();
         this.isNewTheme = 0;
-        this.viewTemasE = 0;
+        this.viewTemasE = 2;
         this.viewE = 1;
         break;
       case 'editT':
-
+        this.imgTemaDos = '';
+        this.imgTemaVDos = '';
         this.helpers.goTop();
         this.isNewTheme = 2;
         this.viewTemasE = 1;
         this.cview1 = 2;
-        this.viewE = 2;
+        this.viewE = 1;
         this.startForm(6);
         for (let item of this.alltemas) {
           console.log(item)
@@ -696,22 +730,24 @@ isNewTheme: number = 0;
             this.formTemas.controls['description'].setValue(item.description);
             this.formTemas.controls['url_video'].setValue(item.url_video);
             this.formTemas.controls['url_subtitulos'].setValue(item.url_subtitulos);
-            //console.log(this.formTemas.value)
-            this.imgTema = item.icon;
-            this.imgTemaV = item.icon_gold;
+            console.log(this.formTemas.value)
+            this.imgTemaDos = item.icon;
+            this.imgTemaVDos = item.icon_gold;
             this.active = item.is_active;
             //console.log(this.active)
           }
         }
         break;
-        case 'add':
-          this.imgTema = '';
+      case 'add':
+        this.imgTema = '';
         this.imgTemaV = '';
-          this.helpers.goTop();
-          this.isNewTheme = 1;
+        this.imgTemaDos = '';
+        this.imgTemaVDos = '';
+        this.helpers.goTop();
+        this.isNewTheme = 1;
         this.viewTemasE = 1;
         this.cview1 = 2;
-        this.viewE = 2;
+        this.viewE = 1;
         this.startForm(6);
         break;
     }
@@ -767,7 +803,7 @@ isNewTheme: number = 0;
         } else {
           this.hasDiploma = false;
         }
-      }, 
+      },
       (error: any) => {
         this.helpers.logout();
       }
@@ -924,7 +960,7 @@ isNewTheme: number = 0;
           //console.log(data);
           this.length = data.usuarios.length;
           this.searchArray = data.usuarios;
-        }, 
+        },
         (error: any) => {
           this.helpers.logout();
         }
@@ -1047,32 +1083,37 @@ isNewTheme: number = 0;
     return null;
   }*/
   //Guardar imagen
-  filenameI: any;
-  filetypeI: any;
-  filenameT: any;
-  filetypeT: any;
-  filenameS: any;
-  filetypeS: any;
-  filenameD: any;
-  filetypeD: any;
+
   fileIcono(event, show?: any) {
     this.imgIcono = event.target.files[0]
+    if (show) {
+      this.change = 1;
+      this.imgIconoDos = this.imgIconoDos;
+    }
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imgIcono = event.target.result;
+        this.imgIconoDos = event.target.result;
+        console.log(this.imgIconoDos)
       };
       reader.readAsDataURL(event.target.files[0])
     }
     this.filenameI = this.imgIcono.name;
     this.filetypeI = this.imgIcono.type;
   }
-  fileTermina(event) {
+  fileTermina(event, act?: any) {
+    if (act) {
+      if (this.change != 1) {
+        this.change = 1;
+      }
+    }
+    console.log(event.target.files)
     this.imgTermina = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imgTermina = event.target.result;
+        this.imgTerminaDos = event.target.result;
+        console.log(this.imgTerminaDos)
       };
       reader.readAsDataURL(event.target.files[0])
     }
@@ -1080,23 +1121,30 @@ isNewTheme: number = 0;
     this.filetypeT = this.imgTermina.type;
   }
   fileScore(event) {
+    if (this.imgScoreDos != '') {
+      this.change = 1;
+    }
+    console.log(event.target.files)
     this.imgScore = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imgScore = event.target.result;
+        this.imgScoreDos = event.target.result;
       };
       reader.readAsDataURL(event.target.files[0])
     }
     this.filenameS = this.imgScore.name;
     this.filetypeS = this.imgScore.type;
   }
-  fileTiempo(event) {
+  fileTiempo(event, act?: any) {
+    if (this.imgTiempoDos != '') {
+      this.change = 1;
+    }
     this.imgTiempo = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imgTiempo = event.target.result;
+        this.imgTiempoDos = event.target.result;
         //this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo, this.imgTiempo.name);
       };
       reader.readAsDataURL(event.target.files[0])
@@ -1105,31 +1153,39 @@ isNewTheme: number = 0;
     this.filetypeD = this.imgTiempo.type;
   }
   fileTema(event) {
+    if (this.imgTemaDos != '') {
+      this.change = 1;
+    }
     this.imgTema = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imgTema = event.target.result;
+        this.imgTemaDos = event.target.result;
+        console.log(this.imgTemaDos)
         //this.imgTema = this.helpers.dataUrlToFile(this.imgTema, this.imgTema.name);
       };
       reader.readAsDataURL(event.target.files[0])
     }
   }
   fileTemaV(event) {
+    if (this.imgTemaVDos != '') {
+      this.change = 1;
+    }
     this.imgTemaV = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imgTemaV = event.target.result;
+        this.imgTemaVDos = event.target.result;
+        console.log(this.imgTemaVDos)
         //this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV, this.imgTemaV.name);
       };
       reader.readAsDataURL(event.target.files[0])
     }
   }
 
-  addModulo(){
-    console.log(this.formModulo.value)
-    if(this.formModulo.value.title == '' || this.formModulo.value.descripcion == '' || this.formModulo.value.color == '' || this.formModulo.value.url_video == '' || this.imgIcono == undefined){
+  addModulo() {
+    console.log(this.formModulo.value, this.imgIcono)
+    if (this.formModulo.value.title == '' || this.formModulo.value.descripcion == '' || this.formModulo.value.color == '' || this.imgIcono == '') {
       Swal.fire({
         title: '¡Error!',
         text: 'Completa todos los campos obligatorios como titulo, descripción, examen, icono y color.',
@@ -1137,81 +1193,87 @@ isNewTheme: number = 0;
         confirmButtonColor: '#015287',
       });
     } else {
-    this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
-    this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
-    this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
-    this.imgTiempo = new File([this.imgTiempo], this.filenameD, { type: this.filetypeD });
-    /*this.imgIcono = this.helpers.dataUrlToFile(this.imgIcono);
-    this.imgTermina = this.helpers.dataUrlToFile(this.imgTermina);
-    this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
-    this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
+      /*this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
+      this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
+      this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
+      this.imgTiempo = new File([this.imgTiempo], this.filenameD, { type: this.filetypeD });
+      /*this.imgIcono = this.helpers.dataUrlToFile(this.imgIcono);
+      this.imgTermina = this.helpers.dataUrlToFile(this.imgTermina);
+      this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
+      this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
 
-    let modulo = new FormData();
-    modulo.append('idCertification', this.idCertification);
-    modulo.append('title', this.formModulo.value.title);
-    modulo.append('description', this.formModulo.value.descripcion);
-    modulo.append('order_number', '1');
-    modulo.append('is_active', '1');
-    if (this.imgIcono != undefined) {
-      modulo.append('icon', this.imgIcono, /*this.imgIcono.name*/);
-    } else {
-      modulo.append('icon', this.imgIcono);
-    }
-    modulo.append('color_style', this.formModulo.value.color);
-    modulo.append('url_video', this.formModulo.value.url_video);
-    if (this.imgTermina != undefined) {
-      modulo.append('medal_finish', this.imgTermina, /*this.imgTermina.name*/);
-    } else {
-      modulo.append('medal_finish', this.imgTermina);
-    }
-    if (this.imgScore != undefined) {
-      modulo.append('medal_perfect', this.imgScore, /*this.imgScore.name*/);
-    } else {
-      modulo.append('medal_perfect', this.imgScore);
-    }
-    if (this.imgTiempo != undefined) {
-      modulo.append('medal_time', this.imgTiempo, /*this.imgTiempo.name*/);
-    } else {
-      modulo.append('medal_time', this.imgTiempo);
-    }
-    //modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
-    modulo.append('max_time', this.formModulo.value.duracion);
-    modulo.append('min_score', this.formModulo.value.score);
-    modulo.append('hasExam', this.exam);
-    console.log(modulo.getAll('hasExam'), modulo.getAll('default_active_days'), modulo.get);
-    /*console.log(modulo.getAll('icon'))
-    console.log(modulo.getAll)
-    console.log(modulo.get)
-    console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
-    modulo.getAll('description'), modulo.getAll('imgIcono'),
-    modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
-    modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
-    modulo.getAll('score'), modulo.getAll('hasExam'));*/
-    console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
-    console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
+      let modulo = new FormData();
+      modulo.append('idCertification', this.idCertification);
+      modulo.append('title', this.formModulo.value.title);
+      modulo.append('description', this.formModulo.value.descripcion);
+      modulo.append('order_number', '1');
+      modulo.append('is_active', '1');
 
-    this.session.addModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        console.log(data);
-        Swal.fire({
-          title: '¡Agregado con exito!',
-          text: 'El módulo ha sido agregado.',
-          icon: 'success',
-          confirmButtonColor: '#015287',
-        });
-        //this.modules(this.idCertification);
-        this.changeViewModulo('back', this.idCertification)
+      modulo.append('icon', this.imgIcono, this.imgIcono.name);
+
+      modulo.append('color_style', this.formModulo.value.color);
+      if(this.formModulo.value.url_video != '') { 
+        modulo.append('url_video', this.formModulo.value.url_video);
+    } else {
+        modulo.append('url_video', '');
+    }
+      if (this.imgTermina != '') {
+        modulo.append('medal_finish', this.imgTermina, this.imgTermina.name);
+      } else {
+        modulo.append('medal_finish', '');
       }
-    );
+      if (this.imgScore != '') {
+        modulo.append('medal_perfect', this.imgScore, this.imgScore.name);
+      } else {
+        modulo.append('medal_perfect', '');
+      }
+      if (this.imgTiempo != '') {
+        modulo.append('medal_time', this.imgTiempo, this.imgTiempo.name);
+      } else {
+        modulo.append('medal_time', '');
+      }
+      //modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
+      if (this.formModulo.value.max_time != '') {
+        modulo.append('max_time', this.formModulo.value.duracion);
+      } else {
+        modulo.append('max_time', '');
+      }
+      modulo.append('min_score', this.formModulo.value.score);
+      modulo.append('hasExam', this.exam);
+      console.log(modulo.getAll('hasExam'), modulo.getAll('default_active_days'), modulo.get);
+      /*console.log(modulo.getAll('icon'))
+      console.log(modulo.getAll)
+      console.log(modulo.get)
+      console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
+      modulo.getAll('description'), modulo.getAll('imgIcono'),
+      modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
+      modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
+      modulo.getAll('score'), modulo.getAll('hasExam'));*/
+      console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
+      console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
+
+      this.session.addModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          Swal.fire({
+            title: '¡Agregado con exito!',
+            text: 'El módulo ha sido agregado.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          });
+          //this.modules(this.idCertification);
+          this.changeViewModulo('back', this.idCertification)
+        }
+      );
+    }
   }
-}
 
   saveModulo() {
     console.log(this.imgIcono)
-    this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
-    this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
-    this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
-    this.imgTiempo = new File([this.imgTiempo], this.filenameD, { type: this.filetypeD });
+    //this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
+    //this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
+    //this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
+    //this.imgTiempo = new File([this.imgTiempo], this.filenameD, { type: this.filetypeD });
     /*this.imgIcono = this.helpers.dataUrlToFile(this.imgIcono);
     this.imgTermina = this.helpers.dataUrlToFile(this.imgTermina);
     this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
@@ -1221,27 +1283,27 @@ isNewTheme: number = 0;
     modulo.append('idCertification', this.idCertification);
     modulo.append('title', this.formModulo.value.title);
     modulo.append('description', this.formModulo.value.descripcion);
-    if (this.imgIcono != undefined) {
-      modulo.append('icon', this.imgIcono, /*this.imgIcono.name*/);
+    if (this.imgIcono != '') {
+      modulo.append('icon', this.imgIcono, this.imgIcono.name);
     } else {
-      modulo.append('icon', this.imgIcono);
+      modulo.append('icon', this.imgIconoDos);
     }
     modulo.append('color_style', this.formModulo.value.color);
-    modulo.append('url_video', this.formModulo.value.url_video);
-    if (this.imgTermina != undefined) {
-      modulo.append('medal_finish', this.imgTermina, /*this.imgTermina.name*/);
+    if(this.formModulo.value.url_video != '') modulo.append('url_video', this.formModulo.value.url_video);
+    if (this.imgTermina != '') {
+      modulo.append('medal_finish', this.imgTermina, this.imgTermina.name);
     } else {
-      modulo.append('medal_finish', this.imgTermina);
+      modulo.append('medal_finish', this.imgTerminaDos);
     }
-    if (this.imgScore != undefined) {
-      modulo.append('medal_perfect', this.imgScore, /*this.imgScore.name*/);
+    if (this.imgScore != '') {
+      modulo.append('medal_perfect', this.imgScore, this.imgScore.name);
     } else {
-      modulo.append('medal_perfect', this.imgScore);
+      modulo.append('medal_perfect', this.imgScoreDos);
     }
-    if (this.imgTiempo != undefined) {
-      modulo.append('medal_time', this.imgTiempo, /*this.imgTiempo.name*/);
+    if (this.imgTiempo != '') {
+      modulo.append('medal_time', this.imgTiempo, this.imgTiempo.name);
     } else {
-      modulo.append('medal_time', this.imgTiempo);
+      modulo.append('medal_time', this.imgTiempoDos);
     }
     //modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
     modulo.append('max_time', this.formModulo.value.duracion);
@@ -1267,7 +1329,7 @@ isNewTheme: number = 0;
           icon: 'success',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          if(result.isConfirmed){
+          if (result.isConfirmed) {
             this.changeViewModulo('back', this.idCertification)
           }
         });
@@ -1277,62 +1339,63 @@ isNewTheme: number = 0;
     );
   }
 
-  addTema(){
+  addTema() {
     console.log(this.formTemas.value)
     let tema = new FormData();
-    if(this.formTemas.value.title != '' && this.formTemas.value.description != '' && this.formTemas.value.url_video != '' && this.imgTema != undefined && this.imgTemaV != undefined){
-    tema.append('idModule', this.idModulo);
-    tema.append('title', this.formTemas.value.title);
-    tema.append('description', this.formTemas.value.description);
-    tema.append('order_number', '1');
-    tema.append('is_active', '1');
-    if (this.imgTema != undefined) {
-      tema.append('icon', this.imgTema);
-    } else {
-      tema.append('icon', this.imgTema);
-    }
-    tema.append('url_video', this.formTemas.value.url_video);
-    if(this.formTemas.value.url_subtitulos != '') tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
-    if (this.imgTemaV != undefined) {
-      tema.append('icon_gold', this.imgTemaV,);
-    } else {
-      tema.append('icon_gold', this.imgTemaV);
-    }
-    /*console.log(modulo.getAll('icon'))
-    console.log(modulo.getAll)
-    console.log(modulo.get)
-    console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
-    modulo.getAll('description'), modulo.getAll('imgIcono'),
-    modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
-    modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
-    modulo.getAll('score'), modulo.getAll('hasExam'));*/
-    console.log(tema.getAll('description'));
-
-    this.session.addTema(tema, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        console.log(data);
-        Swal.fire({
-          title: '¡Agregado con exito!',
-          text: 'El tema ha sido agregado.',
-          icon: 'success',
-          confirmButtonColor: '#015287',
-        });
-        //this.modules(this.idCertification);
-        this.temas(this.idModulo);
-        this.changeViewTemas('back', this.idModulo)
+    if (this.formTemas.value.title != '' && this.formTemas.value.description != '' && this.formTemas.value.url_video != '' && this.imgTema != undefined && this.imgTemaV != undefined) {
+      tema.append('idModule', this.idModulo);
+      tema.append('title', this.formTemas.value.title);
+      tema.append('description', this.formTemas.value.description);
+      tema.append('order_number', '1');
+      tema.append('is_active', '1');
+      if (this.imgTema != '') {
+        tema.append('icon', this.imgTema, this.imgTema.name);
+      } else {
+        tema.append('icon', this.imgTemaDos);
       }
-    );
-  } else {
-    Swal.fire({
-      title: '¡Error!',
-      text: 'Completa todos los campos obligatorios como titulo, descripción, iconos y video.',
-      icon: 'error',
-      confirmButtonColor: '#015287',
-    });
-  }
+      tema.append('url_video', this.formTemas.value.url_video);
+      if (this.formTemas.value.url_subtitulos != '') tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
+      if (this.imgTemaV != '') {
+        tema.append('icon_gold', this.imgTemaV, this.imgTemaV);
+      } else {
+        tema.append('icon_gold', this.imgTemaVDos);
+      }
+      /*console.log(modulo.getAll('icon'))
+      console.log(modulo.getAll)
+      console.log(modulo.get)
+      console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
+      modulo.getAll('description'), modulo.getAll('imgIcono'),
+      modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
+      modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
+      modulo.getAll('score'), modulo.getAll('hasExam'));*/
+      console.log(tema.getAll('description'));
+
+      this.session.addTema(tema, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          Swal.fire({
+            title: '¡Agregado con exito!',
+            text: 'El tema ha sido agregado.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          });
+          //this.modules(this.idCertification);
+          this.temas(this.idModulo);
+          this.changeViewTemas('back', this.idModulo)
+        }
+      );
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Completa todos los campos obligatorios como titulo, descripción, iconos y video.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    }
   }
 
   saveTemas() {
+    console.log(this.imgTema, this.imgTemaV)
     /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
     this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
@@ -1340,22 +1403,22 @@ isNewTheme: number = 0;
     tema.append('idModule', this.idModulo);
     tema.append('title', this.formTemas.value.title);
     tema.append('description', this.formTemas.value.description);
-    //tema.append('order_number', '5');
+    tema.append('order_number', '1');
     tema.append('is_active', this.formTemas.value.status);
     if (this.imgTema != undefined) {
-      tema.append('icon', this.imgTema);
+      tema.append('icon', this.imgTema, this.imgTema.name);
     } else {
-      tema.append('icon', this.imgTema);
+      tema.append('icon', this.imgTemaDos);
     }
     tema.append('url_video', this.formTemas.value.url_video);
     tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
     if (this.imgTemaV != undefined) {
-      tema.append('icon_gold', this.imgTemaV,);
+      tema.append('icon_gold', this.imgTemaV, this.imgTemaV.name);
     } else {
-      tema.append('icon_gold', this.imgTemaV);
+      tema.append('icon_gold', this.imgTemaVDos);
     }
-    /*console.log(modulo.getAll('icon'))
-    console.log(modulo.getAll)
+    console.log(tema.getAll('icon'), tema.getAll('icon_gold'))
+    /*console.log(modulo.getAll)
     console.log(modulo.get)
     console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
     modulo.getAll('description'), modulo.getAll('imgIcono'),

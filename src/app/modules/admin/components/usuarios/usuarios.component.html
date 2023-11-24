@@ -58,8 +58,11 @@
                                         <td>{{users.email}}</td>
                                         <td>{{users.job}}</td>
                                         <td>{{users.area}}</td>
+                                        <td *ngIf="this.users.is_admin == ''">N/A</td>
                                         <td *ngIf="this.users.is_admin == 1">Administrador</td>
                                         <td *ngIf="this.users.is_admin == 0">Empleado</td>
+                                        <td *ngIf="this.users.is_admin == 2">Diseñador</td>
+                                        <td *ngIf="this.users.is_admin == 3">Instructor</td>
                                         <td *ngIf="this.users.is_active == 1">Activo</td>
                                         <td *ngIf="this.users.is_active == 0">Inactivo</td>
                                     </tr>

@@ -80,6 +80,7 @@ export class UsuariosComponent implements OnInit {
         this.genderSelected = '0';*/
         this.erase();
         this.users();
+        this.pu = 1;
       }
     });
   }

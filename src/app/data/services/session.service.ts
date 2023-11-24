@@ -308,7 +308,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        //console.log(err);
+        console.log(err);
         return err;
       })
     );

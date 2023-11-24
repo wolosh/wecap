@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
               console.log(this.helpers.cursos)
             }
           }, (e: any) => {
-            console.log(e.error.error);
+            console.log(e);
             Swal.fire({
               icon: 'error',
               title: 'Ups',

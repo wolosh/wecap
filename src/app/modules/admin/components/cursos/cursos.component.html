@@ -49,13 +49,14 @@
             </div>
             <div class="row" *ngIf="this.certificaciones != 0">
               <div class="col-12">
-                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pc = $event" previousLabel="Anterior"
-                nextLabel="Siguiente"></pagination-controls>
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pc = $event"
+                  previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
               </div>
             </div>
             <div class="row" *ngIf="this.certificaciones == 0">
               <div class="col-12">
-                <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas con cursos en el sistema, desliza hacia abajo para agregar.</label>
+                <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas con cursos en el sistema, desliza hacia abajo
+                  para agregar.</label>
               </div>
             </div>
             <!--div class="row">
@@ -201,12 +202,12 @@
             <!------Módulos--->
             <label class="text3 txt-blue2 mt-3">Módulos</label>
             <label class="text6 txt-gris mt-3 ms-2">Selecciona un módulo para conocer o editar sus detalles</label>
-            <div class="col-8 col-md-4 "> 
+            <div class="col-8 col-md-4 ">
               <button class="boton bg-blue  p-1 p-md-2" (click)="changeViewModulo('add')">
-                  <img src="assets/img/agregar.svg" alt="" >
-                  Añadir Módulo	
+                <img src="assets/img/agregar.svg" alt="">
+                Añadir Módulo
               </button>
-          </div>
+            </div>
             <!--label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label-->
             <hr class="w-100">
             <div class="table-responsive" *ngIf="this.allModules.length != 0">
@@ -228,8 +229,8 @@
             </div>
             <div class="row" *ngIf="this.allModules.length != 0">
               <div class="col-12">
-                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
-                nextLabel="Siguiente"></pagination-controls>
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event"
+                  previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
               </div>
             </div>
             <div class="row" *ngIf="this.allModules.length == 0">
@@ -292,223 +293,311 @@
           </div>
           <!--Editar modulo--->
           <div *ngIf="viewE == 1">
-            <div class="row">
-              <div class="col-6">
-                <label class="text3 txt-blue2" *ngIf="this.isNewModule == 2">Editar Módulo</label>
-                <label class="text3 txt-blue2" *ngIf="this.isNewModule == 1">Añadir Módulo</label>
-              </div>
-              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewModulo('back')">
-                  <i class="fas fa-reply"></i>
-                </button>
-              </div>
-            </div>
-            <hr class="w-100">
-            <form [formGroup]="formModulo">
-              <div class="row mt-3 mb-3 d-flex align-items-center">
-                <div class="col-12 col-md-3">
-                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
-                </div>
-                <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2"  *ngIf="this.isNewModule == 2">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveModulo()">Guardar cambios</button>
-                </div>
-                <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2" *ngIf="this.isNewModule == 1">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addModulo()">Guardar Módulo</button>
-                </div>
-                <div class="col-6 col-md-3 col-lg-2" *ngIf="this.isNewModule == 2">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusModulos(0)"
-                    *ngIf="this.activeM == '1'">Desactivar</button>
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusModulos(1)"
-                    *ngIf="this.activeM == '0'">Activar</button>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
-                <input type="text" class="input3" formControlName="title">
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
-                <textarea class="input3" id="floatingTextarea2" style="height: 100px"
-                  formControlName="descripcion"></textarea>
-              </div>
-              <div class="form-check form-check-inline ps-0">
-                <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
-                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
-                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
-                  id="inlineRadio1" [value]="1">
-              </div>
-              <div class="form-check form-check-inline ps-0">
-                <label class="text13 txt-blue float-start" for="inlineRadio2">Sin examen</label>
-                <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
-                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
-                  id="inlineRadio2" [value]="0">
-              </div>
-              <div class="row mt-3 mb-3 d-flex align-items-center">
-                <div class="col-12 col-lg-5">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Duración máxima para medalla por tiempo (opcional)</label>
-                  <input type="text" class="input3" formControlName="duracion">
-                </div>
-                <div class="col-12 col-lg-5">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Score mínimo para medalla por score (opcional)</label>
-                  <input type="text" class="input3" formControlName="score">
-                </div>
-                <div class="col-12 col-lg-5">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Url del video</label>
-                  <input type="text" class="input3" formControlName="url_video">
-                </div>
-              </div>
-              <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
-                  <img *ngIf="this.imgIcono == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgIcono" />
-                  <img *ngIf="this.imgIcono != ''" class="imgPreview"  [src]=" this.imgIcono" alt="imgIcono"/>
-                  <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
-                  <input type="file" class="input3" id="icono" (change)="fileIcono($event, 'change')">
-                </div>
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar (opcional)</label>
-                  <img *ngIf="this.imgTermina == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTermina" />
-                  <img *ngIf="this.imgTermina != ''" class="imgPreview" src="{{ this.imgTermina }}" alt="imgTermina" />
-                  <!--img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'" alt="imgTermina"-->
-                  <input type="file" class="input3" id="medallat" (change)="fileTermina($event)">
-                </div>
-                <div class="col-6 col-lg-2">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
-                  <input type="color" class="input3 w-50" id="exampleInputEmail1" formControlName="color">
-                </div>
-              </div>
-              <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto
-                    (opcional)</label>
-                  <img *ngIf="this.imgScore == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgScore" />
-                  <img *ngIf="this.imgScore != ''" class="imgPreview" src="{{ this.imgScore }}" alt="imgScore" />
-                  <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore"-->
-                  <input type="file" class="input3" id="medallap" (change)="fileScore($event)">
-                </div>
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo
-                    (opcional)</label>
-                  <img *ngIf="this.imgTiempo == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTiempo" />
-                  <img *ngIf="this.imgTiempo != ''" class="imgPreview" src="{{ this.imgTiempo }}" alt="imgTiempo" />
-                  <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
-                  <input type="file" class="input3" id="medallapt" (change)="fileTiempo($event)">
-                </div>
-              </div>
-            </form>
-
-            <!---Temas--->
-            <label class="text3 txt-blue2 mt-3">Temas</label>
-            <label class="text6 txt-gris mt-3 ms-2">Selecciona un tema para conocer o editar sus detalles</label>
-            <div class="col-8 col-md-4 ">
-              <button class="boton bg-blue p-1 p-md-2" (click)="changeViewTemas('add')">
-                  <img src="assets/img/agregar.svg" alt="">
-                  Añadir Tema
-              </button>
-          </div>
-            <hr class="w-100">
-            <div class="table-responsive" *ngIf="this.alltemas.length != 0">
-              <table class="table striped w-100">
-                <thead>
-                  <tr>
-                    <th scope="col">Título</th>
-                    <th scope="col">Editar</th>
-                  </tr>
-                </thead>
-                <tbody id="temas">
-                  <tr *ngFor="let tema of alltemas | paginate: { itemsPerPage: 6, currentPage: pt}">
-                    <th scope="row">{{tema.title}}</th>
-                    <td><button class="boton2" (click)="changeViewTemas('editT', tema.idModule, tema.title)">Editar</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="row" *ngIf="this.alltemas.length != 0">
-              <div class="col-12">
-                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pt = $event" previousLabel="Anterior"
-                nextLabel="Siguiente"></pagination-controls>
-              </div>
-            </div>
-            <div class="row" *ngIf="this.alltemas.length == 0">
-              <div class="col-12">
-                <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas con temas para este curso en el sistema.</label>
-              </div>
-            </div>
-            <!--div class="row">
-              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
-              </div>
-            </div-->
-          </div>
-          <!---Editar tema-->
-          <div *ngIf="viewTemasE == 1">
-            <form [formGroup]="formTemas">
+            <div *ngIf="viewTemasE == 2">
               <div class="row">
                 <div class="col-6">
-                  <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 2">Editar Tema</label>
-                <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 1">Añadir Tema</label>
+                  <label class="text3 txt-blue2" *ngIf="this.isNewModule == 2">Editar Módulo</label>
+                  <label class="text3 txt-blue2" *ngIf="this.isNewModule == 1">Añadir Módulo</label>
                 </div>
                 <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                  <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('back')">
+                  <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewModulo('back')">
                     <i class="fas fa-reply"></i>
                   </button>
                 </div>
               </div>
-
               <hr class="w-100">
-              <div class="row mt-3 mb-3 d-flex align-items-center">
-                <div class="col-12 col-lg-3">
-                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
+              <form [formGroup]="formModulo">
+                <div class="row mt-3 mb-3 d-flex align-items-center">
+                  <div class="col-12 col-md-3">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
+                  </div>
+                  <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2" *ngIf="this.isNewModule == 2">
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveModulo()">Guardar
+                      cambios</button>
+                  </div>
+                  <div class="col-6 col-md-3 offset-md-3 offset-lg-5 col-lg-2" *ngIf="this.isNewModule == 1">
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addModulo()">Guardar
+                      Módulo</button>
+                  </div>
+                  <div class="col-6 col-md-3 col-lg-2" *ngIf="this.isNewModule == 2">
+                    <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusModulos(0)"
+                      *ngIf="this.activeM == '1'">Desactivar</button>
+                    <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusModulos(1)"
+                      *ngIf="this.activeM == '0'">Activar</button>
+                  </div>
                 </div>
-                <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isNewTheme == 2" (click)="saveTemas()">Guardar cambios</button>
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isNewTheme == 1" (click)="addTema()">Guardar Tema</button>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
+                  <input type="text" class="input3" formControlName="title">
                 </div>
-                <div class="col-6 col-md-3 col-lg-2" *ngIf="this.isNewTheme == 2">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1" (click)="status(0)">Desactivar</button>
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0" (click)="status(1)">Activar</button>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
+                  <textarea class="input3" id="floatingTextarea2" style="height: 100px"
+                    formControlName="descripcion"></textarea>
                 </div>
-                <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0" *ngIf="this.isNewTheme == 2">
-                  <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" (click)="deleteTema()">Eliminar</button>
+                <div class="form-check form-check-inline ps-0">
+                  <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
+                  <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                    [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
+                    name="inlineRadioOptions" id="inlineRadio1" [value]="1">
+                </div>
+                <div class="form-check form-check-inline ps-0">
+                  <label class="text13 txt-blue float-start" for="inlineRadio2">Sin examen</label>
+                  <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                    [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
+                    name="inlineRadioOptions" id="inlineRadio2" [value]="0">
+                </div>
+                <div class="row mt-3 mb-3 d-flex align-items-center">
+                  <div class="col-12 col-lg-5">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Duración máxima para medalla por
+                      tiempo
+                      (opcional)</label>
+                    <input type="text" class="input3" formControlName="duracion">
+                  </div>
+                  <div class="col-12 col-lg-5">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Score mínimo para medalla por score
+                      (opcional)</label>
+                    <input type="text" class="input3" formControlName="score">
+                  </div>
+                  <div class="col-12 col-lg-5">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Url del video (opcional)</label>
+                    <input type="text" class="input3" formControlName="url_video">
+                  </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                  <div class="col-12 col-lg-4">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
+                    <img *ngIf="this.imgIconoDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgIcono" />
+                    <div *ngIf="this.isNewModule == 1">
+                      <img *ngIf="this.imgIconoDos != ''" class="imgPreview" src="{{this.imgIconoDos}}"
+                        alt="imgIcono" />
+                    </div>
+                    <div *ngIf="this.isNewModule == 2">
+                      <img *ngIf="this.imgIconoDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/' +
+                    this.imgIconoDos}}" alt="imgIcono" />
+                      <img *ngIf="this.imgIconoDos != '' && this.change == 1" class="imgPreview"
+                        src="{{this.imgIconoDos}}" alt="imgIcono" />
+                    </div>
+
+                    <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
+                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="icono"
+                      (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">
+                    <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="icono"
+                      (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar
+                      (opcional)</label>
+                    <img *ngIf="this.imgTerminaDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgTermina" />
+                    <div *ngIf="this.isNewModule == 1">
+                      <img *ngIf="this.imgTerminaDos != ''" class="imgPreview" src="{{this.imgTerminaDos}}"
+                        alt="imgIcono" />
+                    </div>
+                    <div *ngIf="this.isNewModule == 2">
+                      <img *ngIf="this.imgTerminaDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/' +
+                    this.imgTerminaDos}}" alt="imgIcono" />
+                      <img *ngIf="this.imgTerminaDos != '' && this.change == 1" class="imgPreview"
+                        src="{{this.imgTerminaDos}}" alt="imgIcono" />
+                    </div>
+                    <!--<img *ngIf="this.imgTerminaDos != ''" class="imgPreview" src="{{ this.imgTerminaDos }}" alt="imgTermina" />
+                  <img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'" alt="imgTermina"-->
+                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallat"
+                      (change)="fileTermina($event)" accept="image/png,image/jpeg,image/jpg">
+                    <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
+                      (change)="fileTermina($event, 'update')" accept="image/png,image/jpeg,image/jpg">
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
+                    <input type="color" class="input3 w-50" id="exampleInputEmail1" formControlName="color">
+                  </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                  <div class="col-12 col-lg-4">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto
+                      (opcional)</label>
+
+                    <img *ngIf="this.imgScoreDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgIcono" />
+                    <div *ngIf="this.isNewModule == 1">
+                      <img *ngIf="this.imgScoreDos != ''" class="imgPreview" src="{{this.imgScoreDos}}"
+                        alt="imgIcono" />
+                    </div>
+                    <div *ngIf="this.isNewModule == 2">
+                      <img *ngIf="this.imgScoreDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/' +
+                    this.imgScoreDos}}" alt="imgIcono" />
+                      <img *ngIf="this.imgScoreDos != '' && this.change == 1" class="imgPreview"
+                        src="{{this.imgScoreDos}}" alt="imgIcono" />
+                    </div>
+                    <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore"-->
+                    <input type="file" class="input3" id="medallap" (change)="fileScore($event)"
+                      accept="image/png,image/jpeg,image/jpg">
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo
+                      (opcional)</label>
+                    <img *ngIf="this.imgTiempoDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgIcono" />
+                    <div *ngIf="this.isNewModule == 1">
+                      <img *ngIf="this.imgTiempoDos != ''" class="imgPreview" src="{{this.imgTiempoDos}}"
+                        alt="imgIcono" />
+                    </div>
+                    <div *ngIf="this.isNewModule == 2">
+                      <img *ngIf="this.imgTiempoDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/' +
+                    this.imgTiempoDos}}" alt="imgIcono" />
+                      <img *ngIf="this.imgTiempoDos != '' && this.change == 1" class="imgPreview"
+                        src="{{this.imgTiempoDos}}" alt="imgIcono" />
+                    </div>
+                    <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
+                    <input type="file" class="input3" id="medallapt" (change)="fileTiempo($event)"
+                      accept="image/png,image/jpeg,image/jpg">
+                  </div>
+                </div>
+              </form>
+              <div *ngIf="this.isNewModule == 2">
+                <!---Temas--->
+                <label class="text3 txt-blue2 mt-3">Temas</label>
+                <label class="text6 txt-gris mt-3 ms-2">Selecciona un tema para conocer o editar sus detalles</label>
+                <div class="col-8 col-md-4 ">
+                  <button class="boton bg-blue p-1 p-md-2" (click)="changeViewTemas('add')">
+                    <img src="assets/img/agregar.svg" alt="">
+                    Añadir Tema
+                  </button>
+                </div>
+                <hr class="w-100">
+                <div class="table-responsive" *ngIf="this.alltemas.length != 0">
+                  <table class="table striped w-100">
+                    <thead>
+                      <tr>
+                        <th scope="col">Título</th>
+                        <th scope="col">Editar</th>
+                      </tr>
+                    </thead>
+                    <tbody id="temas">
+                      <tr *ngFor="let tema of alltemas | paginate: { itemsPerPage: 6, currentPage: pt}">
+                        <th scope="row">{{tema.title}}</th>
+                        <td><button class="boton2"
+                            (click)="changeViewTemas('editT', tema.idModule, tema.title)">Editar</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row" *ngIf="this.alltemas.length != 0">
+                  <div class="col-12">
+                    <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pt = $event"
+                      previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                  </div>
+                </div>
+                <div class="row" *ngIf="this.alltemas.length == 0">
+                  <div class="col-12">
+                    <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas con temas para este curso en el
+                      sistema.</label>
+                  </div>
                 </div>
               </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
-                <input type="text" class="input3" formControlName="title">
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
-                <textarea class="input3" id="floatingTextarea2" style="height: 100px"
-                  formControlName="description"></textarea>
-              </div>
-              <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-4 mb-3">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
-                  <img *ngIf="this.imgTema == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTema" />
-                  <img *ngIf="this.imgTema != ''" class="imgPreview" src="{{ this.imgTema }}" alt="imgTema" />
-                  <!--img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgPreview"-->
-                  <input type="file" class="input3" id="medallapt" (change)="fileTema($event)">
+            </div>
+            <!---Editar tema-->
+            <div *ngIf="viewTemasE == 1">
+              <form [formGroup]="formTemas">
+                <div class="row">
+                  <div class="col-6">
+                    <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 2">Editar Tema</label>
+                    <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 1">Añadir Tema</label>
+                  </div>
+                  <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                    <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('back')">
+                      <i class="fas fa-reply"></i>
+                    </button>
+                  </div>
                 </div>
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
-                  <img *ngIf="this.imgTemaV == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTemaV" />
-                  <img *ngIf="this.imgTemaV != ''" class="imgPreview" src="{{ this.imgTemaV }}" alt="imgTemaV" />
-                  <!--img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV"-->
-                  <input type="file" class="input3" id="medallapt" (change)="fileTemaV($event)">
+
+                <hr class="w-100">
+                <div class="row mt-3 mb-3 d-flex align-items-center">
+                  <div class="col-12 col-lg-3">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Datos generales</label>
+                  </div>
+                  <div class="col-6 col-md-3 offset-lg-3 col-lg-2">
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isNewTheme == 2"
+                      (click)="saveTemas()">Guardar cambios</button>
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isNewTheme == 1"
+                      (click)="addTema()">Guardar Tema</button>
+                  </div>
+                  <div class="col-6 col-md-3 col-lg-2" *ngIf="this.isNewTheme == 2">
+                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 1"
+                      (click)="status(0)">Desactivar</button>
+                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.active == 0"
+                      (click)="status(1)">Activar</button>
+                  </div>
+                  <div class="col-6 offset-6 offset-md-0 col-md-3 col-lg-2 mt-3 mt-md-0" *ngIf="this.isNewTheme == 2">
+                    <button class="boton bg-grey2 mx-auto d-block w-100 p-1 p-md-2"
+                      (click)="deleteTema()">Eliminar</button>
+                  </div>
                 </div>
-              </div>
-              <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-4 mb-3">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
-                  <input type="text" class="input3" formControlName="url_subtitulos">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Título</label>
+                  <input type="text" class="input3" formControlName="title">
                 </div>
-                <div class="col-12 col-lg-4">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor, YouTube,
-                    vimeo)</label>
-                  <input type="text" class="input3" formControlName="url_video">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
+                  <textarea class="input3" id="floatingTextarea2" style="height: 100px"
+                    formControlName="description"></textarea>
                 </div>
-              </div>
-            </form>
+                <div class="row mt-3 mb-3">
+                  <div class="col-12 col-lg-4 mb-3">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema sin visualizar</label>
+                    <img *ngIf="this.imgTemaDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgIcono" />
+                    <div *ngIf="this.isNewModule == 1">
+                      <img *ngIf="this.imgTemaDos != ''" class="imgPreview" src="{{this.imgTemaDos}}" alt="imgIcono" />
+                    </div>
+                    <div *ngIf="this.isNewModule == 2">
+                      <img *ngIf="this.imgTemaDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/temas/' +
+                    this.imgTemaDos}}" alt="imgIcono" />
+                      <img *ngIf="this.imgTemaDos != '' && this.change == 1" class="imgPreview"
+                        src="{{this.imgTemaDos}}" alt="imgIcono" />
+                    </div>
+                    <!--<img *ngIf="this.imgTemaDos == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTema" />
+                    <img *ngIf="this.imgTemaDos != ''" class="imgPreview" src="{{ this.imgTemaDos }}" alt="imgTema" />-->
+                    <!--img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgPreview"-->
+                    <input type="file" class="input3" id="medallapt" (change)="fileTema($event)">
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
+                    <img *ngIf="this.imgTemaVDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgIcono" />
+                    <div *ngIf="this.isNewModule == 1">
+                      <img *ngIf="this.imgTemaVDos != ''" class="imgPreview" src="{{this.imgTemaVDos}}"
+                        alt="imgIcono" />
+                    </div>
+                    <div *ngIf="this.isNewModule == 2">
+                      <img *ngIf="this.imgTemaVDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/temas/' +
+                    this.imgTemaVDos}}" alt="imgIcono" />
+                      <img *ngIf="this.imgTemaDos != '' && this.change == 1" class="imgPreview"
+                        src="{{this.imgTemaVDos}}" alt="imgIcono" />
+                    </div>
+                    <!--<img *ngIf="this.imgTemaVDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgTemaV" />
+                    <img *ngIf="this.imgTemaVDos != ''" class="imgPreview" src="{{ this.imgTemaVDos }}"
+                      alt="imgTemaV" />-->
+                    <!--img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV"-->
+                    <input type="file" class="input3" id="medallapt" (change)="fileTemaV($event)">
+                  </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                  <div class="col-12 col-lg-4 mb-3">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
+                    <input type="text" class="input3" formControlName="url_subtitulos">
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor,
+                      YouTube,
+                      vimeo)</label>
+                    <input type="text" class="input3" formControlName="url_video">
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
 
 
@@ -537,8 +626,8 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pm = $event" previousLabel="Anterior"
-                nextLabel="Siguiente"></pagination-controls>
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pm = $event"
+                  previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
               </div>
             </div>
             <div class="row">
@@ -622,8 +711,8 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pg = $event" previousLabel="Anterior"
-                nextLabel="Siguiente"></pagination-controls>
+                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pg = $event"
+                  previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
               </div>
             </div>
 
@@ -689,8 +778,8 @@
                 </div>
                 <div class="row mt-2">
                   <div class="col-12 col-lg-6">
-                    <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pgm = $event" previousLabel="Anterior"
-                    nextLabel="Siguiente"></pagination-controls>
+                    <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pgm = $event"
+                      previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                   </div>
                 </div>
               </div>

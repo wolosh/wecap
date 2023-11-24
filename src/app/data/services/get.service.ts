@@ -46,7 +46,12 @@ export class GetService {
     //console.log(headers)
     return this.http.get(this.session.API + 'users', {
       headers,
-    })
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
   }
 
   getMaterias(token: any) {

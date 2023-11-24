@@ -403,13 +403,11 @@ export class ExamenesComponent implements OnInit {
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
-        if(data.error.mensaje == 'Token invalido. Exp'){
-          this.helpers.logout();
-        } else {
         if (type == 'asignature') {
           this.usersArr = data.users;
           this.pas = 1;
           console.log(this.usersArr)
+          Swal.close();
         } else if (type == 'show') {
           this.searchSelect = '';
           this.searchArray = data.users;
@@ -417,8 +415,7 @@ export class ExamenesComponent implements OnInit {
           console.log(this.searchArray, this.length)
         }
         Swal.close();
-      }
-      }
+        }
     );
   }
 
@@ -431,6 +428,9 @@ export class ExamenesComponent implements OnInit {
         //this.countCert = this.certificaciones.length;
         console.log(this.certificaciones);
         Swal.close();
+      },
+      (error: any) => {
+        this.helpers.logout();
       }
     );
   }
@@ -446,6 +446,7 @@ export class ExamenesComponent implements OnInit {
         break;
       case 1:
         this.asignature = 1;
+        console.log(user)
         Swal.fire({
           title: 'Cargando...',
           html: 'Espera un momento por favor',
@@ -1026,7 +1027,7 @@ export class ExamenesComponent implements OnInit {
         icon: 'error',
         confirmButtonColor: '#015287',
       });
-    }
+    } else {
     //console.log(this.groupSelected, this.chief);
     let curso = new FormData();
     curso.append('idCurso', this.certificationSelected);
@@ -1034,6 +1035,7 @@ export class ExamenesComponent implements OnInit {
       group.append('usuario[]', this.chief);
     } else {*/
     this.objUsers.forEach(element => {
+      console.log(element)
       curso.append('idUser[]', element);
     });
     //}
@@ -1066,6 +1068,7 @@ export class ExamenesComponent implements OnInit {
         });
       }
     );
+    }
   }
 
   erase() {
