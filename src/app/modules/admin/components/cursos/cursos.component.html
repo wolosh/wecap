@@ -374,17 +374,35 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgIconoDos != '' && this.icon == 1" class="imgPreview" src="{{this.helpers.domain+'media/cursos/' +
+                      <img *ngIf="this.imgIconoDos != '' && this.icon == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
                     this.imgIconoDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgIconoDos != '' && this.icon == 2" class="imgPreview"
                         src="{{this.imgIconoDos}}" alt="imgIcono" />
                     </div>
-
                     <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
                     <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="icono"
                       (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="icono"
                       (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Cabecera</label>
+                    <img *ngIf="this.imgHeaderDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgHeader" />
+                    <div *ngIf="this.isNewModule == 1">
+                      <img *ngIf="this.imgHeaderDos != ''" class="imgPreview" src="{{this.imgHeaderDos}}"
+                        alt="imgHeader" />
+                    </div>
+                    <div *ngIf="this.isNewModule == 2">
+                      <img *ngIf="this.imgHeaderDos != '' && this.header == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
+                    this.imgHeaderDos}}" alt="imgHeader" />
+                      <img *ngIf="this.imgHeaderDos != '' && this.header == 2" class="imgPreview"
+                        src="{{this.imgHeaderDos}}" alt="imgHeader" />
+                    </div>
+                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="header"
+                      (change)="fileHeader($event, 'change')" accept="image/png,image/jpeg,image/jpg">
+                    <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="header"
+                      (change)="fileHeader($event, 'change')" accept="image/png,image/jpeg,image/jpg">
                   </div>
                   <div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar
@@ -396,7 +414,7 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTerminaDos != '' && this.terminar == 1" class="imgPreview" src="{{this.helpers.domain+'media/cursos/' +
+                      <img *ngIf="this.imgTerminaDos != '' && this.terminar == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
                     this.imgTerminaDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgTerminaDos != '' && this.terminar == 2" class="imgPreview"
                         src="{{this.imgTerminaDos}}" alt="imgIcono" />
@@ -408,16 +426,11 @@
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
                       (change)="fileTermina($event, 'update')" accept="image/png,image/jpeg,image/jpg">
                   </div>
-                  <div class="col-6 col-lg-2">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
-                    <input type="color" class="input3 w-50" id="exampleInputEmail1" formControlName="color">
-                  </div>
                 </div>
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto
                       (opcional)</label>
-
                     <img *ngIf="this.imgScoreDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgIcono" />
                     <div *ngIf="this.isNewModule == 1">
@@ -425,7 +438,7 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgScoreDos != '' && this.score == 1" class="imgPreview" src="{{this.helpers.domain+'media/cursos/' +
+                      <img *ngIf="this.imgScoreDos != '' && this.score == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
                     this.imgScoreDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgScoreDos != '' && this.score == 2" class="imgPreview"
                         src="{{this.imgScoreDos}}" alt="imgIcono" />
@@ -446,7 +459,7 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 1" class="imgPreview" src="{{this.helpers.domain+'media/cursos/' +
+                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
                     this.imgTiempoDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 2" class="imgPreview"
                         src="{{this.imgTiempoDos}}" alt="imgIcono" />
@@ -456,6 +469,10 @@
                       accept="image/png,image/jpeg,image/jpg">
                       <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallapt" (change)="fileTiempo($event, 'update')"
                       accept="image/png,image/jpeg,image/jpg">
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
+                    <input type="color" class="input3 w-50" id="exampleInputEmail1" formControlName="color">
                   </div>
                 </div>
               </form>

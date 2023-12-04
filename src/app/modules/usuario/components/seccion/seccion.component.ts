@@ -26,6 +26,7 @@ export class SeccionComponent implements OnInit {
   nameModule = '';
   idExamBackUp: any;
   showModal = false;
+  imgHeader: any;
 
   constructor( private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -52,7 +53,7 @@ export class SeccionComponent implements OnInit {
             //this.helpers.nameModuleBackUp = localStorage.getItem('nameModule');
             this.helpers.idModuleBackUp = this.idModule;
           }
-          
+
           this.helpers.type = localStorage.getItem('type');
           this.session.curso = true;
           this.helpers.conferencias = true;
@@ -120,7 +121,7 @@ export class SeccionComponent implements OnInit {
         } else {
           this.showMedallas = false;
         }
-        
+
       }
     );
   }
@@ -128,11 +129,12 @@ export class SeccionComponent implements OnInit {
   getModules(id:any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         for(let mod of data){
           //console.log(mod)
           if(mod.idModule == this.idModule){
             this.nameModule = mod.title;
+            localStorage.setItem('imgHeader', mod.imgHeader);
             localStorage.setItem('idModulo', mod.idModule);
           }
         }
@@ -186,7 +188,7 @@ export class SeccionComponent implements OnInit {
     //console.log(id);
     this.route.navigate(['/temas', idTopic]).then(() => {
       //this.helpers.conferencias = true;
-    }); 
+    });
     //localStorage.setItem('idTopic', id);
     //localStorage.setItem('nameTopic', name);
     //console.log(localStorage.getItem('idTopic'), localStorage.getItem('nameTopic'));
@@ -206,7 +208,7 @@ export class SeccionComponent implements OnInit {
       this.helpers.conferencias = true;
       localStorage.setItem('idModule', this.helpers.idModuleBackUp);
     localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
-    }); 
+    });
   }
   }
 

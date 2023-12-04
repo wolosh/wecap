@@ -9,16 +9,14 @@ import { Data, Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  imgHeader: any;
+  url: any;
   constructor(public session: SessionService, public helpers: HelpersService, private route: Router) { }
   public name: string;
   type: string;
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    //this.helpers.getName();
-    //console.log(this.name)
-    //this.type = localStorage.getItem('type');
-    //console.log(this.type)
   }
 
   /*Cambiar color de nav al hacer scroll*/
@@ -43,5 +41,9 @@ export class HeaderComponent implements OnInit {
       this.route.navigate(['/perfil']);
     break;
   }
+ }
+
+ getImage(){
+  return localStorage.getItem('imgHeader');
  }
 }

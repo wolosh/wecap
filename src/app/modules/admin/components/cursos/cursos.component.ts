@@ -107,6 +107,9 @@ export class CursosComponent implements OnInit {
   score: number = 0;
   tiempo: number = 0;
   allModulesLength: any;
+  imgHeaderDos: any;
+  imgHeader: any;
+  header: any;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -609,10 +612,12 @@ export class CursosComponent implements OnInit {
         switch (view) {
           case 'back':
             this.imgIcono = '';
+            this.imgHeader = '';
             this.imgTermina = '';
             this.imgScore = '';
             this.imgTiempo = '';
             this.imgIconoDos = '';
+            this.imgHeaderDos = '';
             this.imgTerminaDos = '';
             this.imgScoreDos = '';
             this.imgTiempoDos = '';
@@ -623,6 +628,7 @@ export class CursosComponent implements OnInit {
             break;
           case 'editm':
             this.icon = 1;
+            this.header = 1;
             this.terminar = 1;
             this.score = 1;
             this.tiempo = 1;
@@ -632,6 +638,7 @@ export class CursosComponent implements OnInit {
             this.imgScore = '';
             this.imgTiempo = '';
             this.imgIconoDos = '';
+            this.imgHeaderDos = '';
             this.imgTerminaDos = '';
             this.imgScoreDos = '';
             this.imgTiempoDos = '';
@@ -654,6 +661,7 @@ export class CursosComponent implements OnInit {
                 this.formModulo.controls['score'].setValue(data.min_score);
                 this.exam = parseInt(data.hasExam);
                 this.imgIconoDos = data.icon;
+                this.imgHeaderDos = data.imgHeader;///Checar
                 this.imgTerminaDos = data.medal_finish;
                 this.imgScoreDos = data.medal_perfect;
                 this.imgTiempoDos = data.medal_time;
@@ -673,10 +681,12 @@ export class CursosComponent implements OnInit {
           case 'add':
             this.viewTemasE = 2;
             this.imgIcono = '';
+            this.imgHeader = '';
             this.imgTermina = '';
             this.imgScore = '';
             this.imgTiempo = '';
             this.imgIconoDos = '';
+            this.imgHeaderDos = '';
             this.imgTerminaDos = '';
             this.imgScoreDos = '';
             this.imgTiempoDos = '';
@@ -1115,6 +1125,23 @@ export class CursosComponent implements OnInit {
     this.filenameI = this.imgIcono.name;
     this.filetypeI = this.imgIcono.type;
   }
+  fileHeader(event, show?: any) {
+    this.imgHeader = event.target.files[0]
+    if (show) {
+      this.header = 2;
+      this.imgHeaderDos = this.imgHeaderDos;
+    }
+    if (event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgHeaderDos = event.target.result;
+        console.log(this.imgHeaderDos)
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
+    /*this.filenameH = this.imgHeader.name;
+    this.filetypeH = this.imgHeader.type;*/
+  }
   fileTermina(event, act?: any) {
     if (act) {
 
@@ -1229,13 +1256,14 @@ export class CursosComponent implements OnInit {
       modulo.append('is_active', '1');
 
       modulo.append('icon', this.imgIcono, this.imgIcono.name);
+      modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
 
       modulo.append('color_style', this.formModulo.value.color);
       if(this.formModulo.value.url_video != '') {
         modulo.append('url_video', this.formModulo.value.url_video);
-    } else {
-        modulo.append('url_video', '');
-    }
+      } else {
+          modulo.append('url_video', '');
+      }
       if (this.imgTermina != '') {
         modulo.append('medal_finish', this.imgTermina, this.imgTermina.name);
       } else {
@@ -1297,6 +1325,7 @@ export class CursosComponent implements OnInit {
     this.imgTermina = this.helpers.dataUrlToFile(this.imgTermina);
     this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
     this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
+    console.log(this.imgHeader.name)
 
     let modulo = new FormData();
     modulo.append('idCertification', this.idCertification);
@@ -1328,6 +1357,11 @@ export class CursosComponent implements OnInit {
     modulo.append('max_time', this.formModulo.value.duracion);
     modulo.append('min_score', this.formModulo.value.score);
     modulo.append('hasExam', this.exam);
+    if (this.imgHeader != '') {
+      modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
+    } else {
+      modulo.append('imgHeader', this.imgHeaderDos);
+    }
     /*console.log(modulo.getAll('icon'))
     console.log(modulo.getAll)
     console.log(modulo.get)
