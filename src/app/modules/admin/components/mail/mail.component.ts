@@ -55,7 +55,7 @@ export class MailComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
           }
@@ -107,13 +107,13 @@ export class MailComponent implements OnInit {
   mails() {
     this.get.getMails(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         for (var i = 0; i < data.length; i++) {
           //console.log(data[i])
           this.fecha.push(JSON.parse(data[i].fechas));
           this.correo.push(JSON.parse(data[i].correos));
         }
-        console.log(this.fecha);
+        //console.log(this.fecha);
         this.mail = data;
         Swal.close();
       }
@@ -124,7 +124,7 @@ export class MailComponent implements OnInit {
   }
 
   changeViewMail(type: any, kind?: any, id?: any,) {
-    console.log(type, id, kind);
+    //console.log(type, id, kind);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -150,7 +150,7 @@ export class MailComponent implements OnInit {
                 }
               });
               this.users();
-              console.log(this.mailito);
+              //console.log(this.mailito);
             }
             break;
           case 2:
@@ -170,8 +170,8 @@ export class MailComponent implements OnInit {
 
   onReady(eventData) {
     eventData.plugins.get('FileRepository').createUploadAdapter = function (loader) {
-      console.log(btoa(loader.file));
-      console.log(new UploadAdapter(loader));
+      //console.log(btoa(loader.file));
+      //console.log(new UploadAdapter(loader));
       //return new UploadAdapter(loader);
     };
   }
@@ -218,7 +218,7 @@ export class MailComponent implements OnInit {
   }
 
   searchUsers(kind: any, filter?: any, param?: any) {
-    console.log(filter, param);
+    //console.log(filter, param);
     this.pedit = 1;
     if (kind == 'search') {
       let f = filter;
@@ -230,7 +230,7 @@ export class MailComponent implements OnInit {
           //console.log(data);
           this.length = data.usuarios.length;
           this.searchArray = data.usuarios;
-          console.log(this.searchArray)
+          //console.log(this.searchArray)
         }
       );
     } else if (kind == 'show') {
@@ -259,14 +259,14 @@ export class MailComponent implements OnInit {
       //console.log(event.target.checked);
       //this.objUsers.push(event.target.value);
       this.searchArray.forEach(element => {
-        console.log(this.searchArray)
+        //console.log(this.searchArray)
         if (element.idUser === event.target.value) {
           this.objUsers.push(element.email);
-          console.log(this.objUsers)
+          //console.log(this.objUsers)
         }
       })
     } else {
-      //console.log(event.target.checked);
+      ////console.log(event.target.checked);
       this.objUsers.splice(this.objUsers.indexOf(event.target.value), 1);
       //console.log(this.objUsers)
     }
@@ -318,7 +318,7 @@ export class MailComponent implements OnInit {
 
 
   send() {
-    console.log(this.Editor)
+    //console.log(this.Editor)
   }
 
   change(id: any) {
@@ -374,11 +374,11 @@ export class MailComponent implements OnInit {
     }else{
       mailNew.append('files',this.img);
     }
-    //console.log(mail.getAll('fechas'))
-    console.log(mailNew.getAll('asunto'), mailNew.getAll('cuerpo'), mailNew.getAll('fechas'), mailNew.getAll('correos'), mailNew.getAll('files'));
+    ////console.log(mail.getAll('fechas'))
+    //console.log(mailNew.getAll('asunto'), mailNew.getAll('cuerpo'), mailNew.getAll('fechas'), mailNew.getAll('correos'), mailNew.getAll('files'));
     this.session.newEmail(mailNew, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'El módulo ha sido actualizado.',
@@ -404,11 +404,11 @@ export class MailComponent implements OnInit {
     }else{
       mail.append('files',this.img);
     }
-    //console.log(mail.getAll('fechas'))
-    console.log(mail.getAll('id'), mail.getAll('asunto'), mail.getAll('cuerpo'), mail.getAll('fechas'), mail.getAll('correos'), mail.getAll('files'));
+    ////console.log(mail.getAll('fechas'))
+    //console.log(mail.getAll('id'), mail.getAll('asunto'), mail.getAll('cuerpo'), mail.getAll('fechas'), mail.getAll('correos'), mail.getAll('files'));
     this.session.editCorreo(this.idMail, mail, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'El módulo ha sido actualizado.',

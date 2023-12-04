@@ -96,21 +96,21 @@ export class ConferenciasComponent implements OnInit {
   getCertifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.allcursos = data;
-        console.log(this.allcursos);
+        //console.log(this.allcursos);
         Swal.close();
       }
     );
   }
 
   getConferencias(id: any) {
-    console.log(id);
+    //console.log(id);
     this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.allConferencias = data;
-        console.log(this.allConferencias);
+        //console.log(this.allConferencias);
         Swal.close();
       }
     );
@@ -127,7 +127,7 @@ export class ConferenciasComponent implements OnInit {
   }
 
   addConferencia() {
-    console.log(this.formConf.value, this.backId);
+    //console.log(this.formConf.value, this.backId);
 
     if (this.formConf.valid) {
       if (this.formConf.value.descripcion.length < 10) {
@@ -139,24 +139,24 @@ export class ConferenciasComponent implements OnInit {
         });
       } else {
         let conferencia = new FormData();
-        console.log(this.formConf.value);
+        //console.log(this.formConf.value);
 
         conferencia.append('titulo', this.formConf.value.titulo);
         conferencia.append('descripcion', this.formConf.value.descripcion);
         conferencia.append('link', this.formConf.value.link);
         conferencia.append('fecha', this.formConf.value.fecha);
 
-        console.log(conferencia.getAll('titulo'), conferencia.getAll('descripcion'), conferencia.getAll('link'), conferencia.getAll('fecha'));
+        //console.log(conferencia.getAll('titulo'), conferencia.getAll('descripcion'), conferencia.getAll('link'), conferencia.getAll('fecha'));
         this.session.addConferencia(this.backId, conferencia, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             Swal.fire({
               title: '¡Listo!',
               text: 'Conferencia agregada correctamente.',
               icon: 'success',
               confirmButtonColor: '#015287',
             }).then((result) => {
-              console.log(result)
+              //console.log(result)
               if (result.isConfirmed) {
                 this.changeViewConferencias('back');
               }
@@ -183,7 +183,7 @@ export class ConferenciasComponent implements OnInit {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-        console.log(view, name, id);
+        //console.log(view, name, id);
     this.nombreCertificacion = name;
     switch (view) {
       case 'back':
@@ -278,7 +278,7 @@ export class ConferenciasComponent implements OnInit {
   };
   onSubmit() {
     //console.log(this.promos)
-    console.log(this.promos.value)
+    //console.log(this.promos.value)
     //console.log(this.dataSourcePacks)
   }
 }

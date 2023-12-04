@@ -54,7 +54,7 @@ export class ArchivosComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
           }
@@ -72,12 +72,12 @@ export class ArchivosComponent implements OnInit {
 
 
   files() {
-    console.log(localStorage.getItem('id'), localStorage.getItem('token'));
+    //console.log(localStorage.getItem('id'), localStorage.getItem('token'));
     this.get.getFiles(localStorage.getItem('id'), localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         if (data.message == 'Consulta correcta') {
-          console.log(data.files);
+          //console.log(data.files);
           if (data.files.description != null) {
             this.showDescription = false;
             this.description = data.files.description;
@@ -88,12 +88,12 @@ export class ArchivosComponent implements OnInit {
             this.formArchivos.controls['descripcion'].setValue('Agrega una descripción para los usuarios');
           }
           
-          console.log(data.files.files)
+          //console.log(data.files.files)
           Object.keys(data.files.files).forEach((key) => {
-            console.log(key, data.files.files[key]);
+            //console.log(key, data.files.files[key]);
             this.filesArr.push({idTopic: key, name: data.files.files[key].name, url: data.files.files[key].url});
           })
-          console.log(this.filesArr)
+          //console.log(this.filesArr)
           /*this.filesArr.forEach((value) => {
             console.log(value);
             this.file.push({[value.name]: value.url});
@@ -106,14 +106,14 @@ export class ArchivosComponent implements OnInit {
   }
 
   selectFiles(event: any, type: any, name?: any, url?: any) {
-    console.log(event.target.files, type, name, url, this.cloneIn, this.file);
-    console.log(event.target.files[0])
+    //console.log(event.target.files, type, name, url, this.cloneIn, this.file);
+    //console.log(event.target.files[0])
     if (type == 'archivo') {
       this.file = event.target.files[0];
     } else if (type == 'media') {
       this.file = event.target.files[0];
     }
-    console.log(this.file);
+    //console.log(this.file);
   }
 
   onClickTab(type: any) {
@@ -124,7 +124,7 @@ export class ArchivosComponent implements OnInit {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-        console.log(type)
+        //console.log(type)
         this.filesArr = [];
         switch (type) {
           case 'files':
@@ -148,12 +148,12 @@ export class ArchivosComponent implements OnInit {
     this.medias = [];
     this.get.getMedia(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         //this.startForm(2);
         this.medias = data.media;
-        console.log(this.medias);
+        //console.log(this.medias);
         this.mediaLength = this.medias.length;
-        console.log(this.mediaLength);
+        //console.log(this.mediaLength);
         Swal.close();
       }
     );
@@ -203,7 +203,7 @@ export class ArchivosComponent implements OnInit {
 
   //Crear nuevo curso
   subirMedia() {
-    console.log(this.file)
+    //console.log(this.file)
     let media = new FormData();
     if (this.file != undefined) {
       media.append('files[]', this.file, this.file.name);
@@ -216,11 +216,11 @@ export class ArchivosComponent implements OnInit {
       });
     }
 
-    console.log(media.getAll('files[]'))
+    //console.log(media.getAll('files[]'))
 
     this.session.uploadMedia(media, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         //this.allMedia();
         Swal.fire({
           title: '¡Archivo guardado!',
@@ -228,7 +228,7 @@ export class ArchivosComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.onClickTab('media');
           }
@@ -238,29 +238,29 @@ export class ArchivosComponent implements OnInit {
   }
 
   removeMedia(media: any) {
-    console.log(media);
+    //console.log(media);
     /*let json = JSON.stringify({
       media: media
     })
 
-    console.log(json);*/
+    //console.log(json);*/
 
     let send = new FormData();
 
     send.append('file', media);
-    console.log(send.getAll('file'))
+    //console.log(send.getAll('file'))
 
 
     this.session.deleteFile(send, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Archivo eliminado!',
           text: 'El archivo se elimino correctamente.',
           icon: 'success',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.onClickTab('files');
           }
@@ -291,9 +291,9 @@ export class ArchivosComponent implements OnInit {
   }
 
   public removeArchivos(): void {
-    console.log(this.formArchivos.value);
+    //console.log(this.formArchivos.value);
     var test = document.querySelectorAll('.cloneArchivos')
-    console.log(test)
+    //console.log(test)
     for (var i = 0; i < test.length; i++) {
       test[i].addEventListener("click", function () {
         var removeid = document.getElementById(this.id);
@@ -344,7 +344,7 @@ export class ArchivosComponent implements OnInit {
             this.viewEdit = 2;
             //this.promos;
             for (let item of this.filesArr) {
-              console.log(item)
+              //console.log(item)
               if (item.name == name) {
                 this.idArch = item.idTopic;
                 this.startForm(1);
@@ -385,7 +385,7 @@ export class ArchivosComponent implements OnInit {
   }
 
   updateDescription(update: any) {
-    console.log(this.formArchivos.controls['descripcion'].value, this.file);
+    //console.log(this.formArchivos.controls['descripcion'].value, this.file);
 
     let files = new FormData();
     if (this.formArchivos.controls['descripcion'].value != '') {
@@ -402,7 +402,7 @@ export class ArchivosComponent implements OnInit {
     this.session.updateFilesDescription(files, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
-        console.log(data);
+        //console.log(data);
         if (data.code == '200') {
           Swal.fire({
             title: '¡Actualizado!',
@@ -410,7 +410,7 @@ export class ArchivosComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#015287',
           }).then((result) => {
-            console.log(result)
+            //console.log(result)
             if (result.isConfirmed) {
               this.changeViewArchivos('back');
             }
@@ -421,7 +421,7 @@ export class ArchivosComponent implements OnInit {
   }
 
   updateFiles() {
-    console.log(this.formArchivos.controls['descripcion'].value, this.file);
+    //console.log(this.formArchivos.controls['descripcion'].value, this.file);
 
     let files = new FormData();
 
@@ -448,7 +448,7 @@ export class ArchivosComponent implements OnInit {
     this.session.uploadFile( files, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
-        console.log(data);
+        //console.log(data);
         if (data.code == '200') {
           Swal.fire({
             title: '¡Actualizado!',
@@ -456,7 +456,7 @@ export class ArchivosComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#015287',
           }).then((result) => {
-            console.log(result)
+            //console.log(result)
             if (result.isConfirmed) {
               this.filesArr = [];
               this.changeViewArchivos('back');

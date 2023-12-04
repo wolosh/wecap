@@ -41,7 +41,7 @@ export class ConfiguracionComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
           }
@@ -75,7 +75,7 @@ export class ConfiguracionComponent implements OnInit {
   getConfiguration() {
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data, data.colorText);
+        //console.log(data, data.colorText);
 
         this.formConfiguracion.patchValue({
           colorText: data.colorText,
@@ -94,7 +94,7 @@ export class ConfiguracionComponent implements OnInit {
           username: data.username,
           contraseña: data.password,
         });
-        console.log(this.formConfiguracion.value);
+        //console.log(this.formConfiguracion.value);
 
         var a = document.getElementsByClassName("bg-change");
         if (data.boton1Color1 != '' && data.boton1Color2 != '') {
@@ -109,7 +109,7 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   changeActive(event: any, button: any) {
-    console.log(event.target.value, event.target.checked, button);
+    //console.log(event.target.value, event.target.checked, button);
     switch (button) {
       case 'like':
         let l: boolean;
@@ -140,18 +140,18 @@ export class ConfiguracionComponent implements OnInit {
         break;
     }
 
-    console.log(this.formConfiguracion.value);
+    //console.log(this.formConfiguracion.value);
   }
 
   prueba(){
-    console.log(this.formConfiguracion.value, this.formConfiguracion.controls['boton1'].value);
+    //console.log(this.formConfiguracion.value, this.formConfiguracion.controls['boton1'].value);
   }
 
   personalizarFile(event, type) {
     //(event.target.value, type);
     let w, h, logo, firma;
     if (event.target.files !== 0) {
-      console.log(event.target.files, event.target.files[0]);
+      //console.log(event.target.files, event.target.files[0]);
       var _URL = window.URL || window.webkitURL;
       var img = new Image();
       img.src = _URL.createObjectURL(event.target.files[0]);
@@ -163,7 +163,7 @@ export class ConfiguracionComponent implements OnInit {
           //console.log(w, h);
           if (w <= 380 && h <= 65) {
             this.logo = event.target.files[0];
-            console.log(this.logo);
+            //console.log(this.logo);
           } else {
             Swal.fire({
               title: '¡Error!',
@@ -178,11 +178,11 @@ export class ConfiguracionComponent implements OnInit {
             switch(type){
               case 'fondo':
                 this.fondo = event.target.files[0];
-                console.log(this.fondo);
+                //console.log(this.fondo);
                 break;
               case 'certificado':
                 this.certificado = event.target.files[0];
-                console.log(this.certificado);
+                //console.log(this.certificado);
                 break;
             }
             //console.log(this.firma);
@@ -220,7 +220,7 @@ export class ConfiguracionComponent implements OnInit {
   saveConfiguration(){
     let configuracion = new FormData();
 
-    console.log(this.formConfiguracion.value, this.logo, this.fondo, this.certificado);
+    //console.log(this.formConfiguracion.value, this.logo, this.fondo, this.certificado);
 
     if(this.logo != undefined){
       configuracion.append('logo', this.logo, this.logo.name);
@@ -247,11 +247,11 @@ export class ConfiguracionComponent implements OnInit {
     configuracion.append('username', this.formConfiguracion.controls['username'].value);
     configuracion.append('password', this.formConfiguracion.controls['contraseña'].value);
 
-    console.log(configuracion.getAll('logo'), configuracion.getAll('fondo'), configuracion.getAll('certificado'));
+    //console.log(configuracion.getAll('logo'), configuracion.getAll('fondo'), configuracion.getAll('certificado'));
 
     this.session.updateConfiguration(configuracion, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Éxito!',
           text: 'Se ha actualizado la configuración.',
@@ -260,7 +260,7 @@ export class ConfiguracionComponent implements OnInit {
         });
         this.getConfiguration();
       }, (error: any) => {
-        console.log(error);
+        //console.log(error);
         Swal.fire({
           title: '¡Error!',
           text: 'No se ha podido actualizar la configuración.',

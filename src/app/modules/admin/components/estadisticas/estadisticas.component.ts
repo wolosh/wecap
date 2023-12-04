@@ -87,9 +87,9 @@ export class EstadisticasComponent implements OnInit {
 
   users(){
     this.get.getUsers(localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.usersArr = data.users;
-      console.log(this.usersArr)
+      //console.log(this.usersArr)
     });
   }
 
@@ -100,7 +100,7 @@ export class EstadisticasComponent implements OnInit {
       for (let curso of this.coursesArr ) {
         this.get.getEstadCurso(curso, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             //this.allModules = data;
             //console.log(this.allModules)
           }
@@ -111,7 +111,7 @@ export class EstadisticasComponent implements OnInit {
 
   estadGlobales(){
     this.get.getEstadGlobales(localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.usuarios =  data.usuarios;
       this.avance =  data.avance;
       this.cursos =  data.totalCursos;
@@ -252,7 +252,7 @@ export class EstadisticasComponent implements OnInit {
     //console.log(id)
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         //this.allModules = data;
         //console.log(this.allModules)
       }

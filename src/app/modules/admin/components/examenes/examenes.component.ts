@@ -120,7 +120,7 @@ export class ExamenesComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
           }
@@ -137,7 +137,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   editCourse(curso: any, action: any) {
-    console.log(this.userId, curso, action, this.dateSelected);
+    //console.log(this.userId, curso, action, this.dateSelected);
     let data = new FormData();
     if (action == 'editar') {
       Swal.fire({
@@ -157,7 +157,7 @@ export class ExamenesComponent implements OnInit {
 
           this.session.editarExpiracion(data, localStorage.getItem('token')).subscribe(
             (data: any) => {
-              console.log(data);
+              //console.log(data);
               Swal.fire({
                 title: '¡Modificado con exito!',
                 text: 'La fecha ha sido ha sido modificada con exito.',
@@ -197,7 +197,7 @@ export class ExamenesComponent implements OnInit {
 
           this.session.quitarCurso(data, localStorage.getItem('token')).subscribe(
             (data: any) => {
-              console.log(data);
+              //console.log(data);
               Swal.fire({
                 title: '¡Modificado con exito!',
                 text: 'El usuario ha sido eliminado del curso.',
@@ -274,7 +274,7 @@ export class ExamenesComponent implements OnInit {
 
   changeExam(id: any, certificacion?: any, name?: any, question?: any) {
     this.examModule = [];
-    console.log(id, certificacion, name, question);
+    //console.log(id, certificacion, name, question);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -284,23 +284,23 @@ export class ExamenesComponent implements OnInit {
         Swal.showLoading();
         this.moduloTitle = name;
         this.exam = id;
-        console.log(this.exam);
+        //console.log(this.exam);
         if (id == 1) {
           this.respaldo1 = certificacion;
         } else
           if (id == 2) {
             this.respaldo = certificacion;
           }
-        console.log(certificacion)
+        //console.log(certificacion)
         switch (id) {
           case 0:
             this.onClickTab('test');
             break;
           case 1:
-            console.log(id, certificacion);
+            //console.log(id, certificacion);
             this.get.getModules(this.respaldo1, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data);
+                //console.log(data);
                 this.modules = data;
                 Swal.close();
               }
@@ -309,10 +309,10 @@ export class ExamenesComponent implements OnInit {
           case 2:
             this.cloneOption = 0;
             this.certificacionID = certificacion;
-            console.log(id, certificacion, this.respaldo, this.certificacionID);
+            //console.log(id, certificacion, this.respaldo, this.certificacionID);
             this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data);
+                //console.log(data);
                 /*if (data.preguntas.length == 0) {
                   this.none = 1;
                 } else {
@@ -320,26 +320,26 @@ export class ExamenesComponent implements OnInit {
                   this.examModule = data.preguntas;
                 }*/
                 if (data == null || data.message) {
-                  console.log(data)
+                  //console.log(data)
                   this.none = 0;
-                  console.log(this.none)
+                  //console.log(this.none)
                 } else {
-                  console.log(data);
+                  //console.log(data);
                   if (data.preguntas.length == 0) {
-                    console.log('no tiene preguntas')
+                    //console.log('no tiene preguntas')
                     this.none = 1;
-                    console.log(this.none)
+                    //console.log(this.none)
                   } else {
-                    console.log('si tiene preguntas')
+                    //console.log('si tiene preguntas')
                     this.none = 2;
-                    console.log(this.none)
+                    //console.log(this.none)
                     //this.questions = data;
                     this.examModule = data.preguntas;
-                    console.log(data, data.preguntas);
-                    console.log(question)
+                    //console.log(data, data.preguntas);
+                    //console.log(question)
                   }
                 }
-                console.log(this.none);
+                //console.log(this.none);
                 Swal.close();
               }
             );
@@ -347,13 +347,13 @@ export class ExamenesComponent implements OnInit {
           case 3:
             this.cloneOption = 0;
             this.moduloTitle = name;
-            console.log(id, certificacion, this.respaldo);
+            //console.log(id, certificacion, this.respaldo);
             this.get.getCursantesModulo(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data)
+                //console.log(data)
                 Swal.close();
                 this.usersModule = data.usuarios;
-                console.log(this.usersModule)
+                //console.log(this.usersModule)
               }
             );
             break;
@@ -374,16 +374,16 @@ export class ExamenesComponent implements OnInit {
             //console.log(id, certificacion, question)
             this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data)
+                //console.log(data)
                 for (const [key, value] of Object.entries(data)) {
                   //console.log(value)
                   const info = [...[value]];
-                  console.log(info)
+                  //console.log(info)
                   for (let i of info) {
                     for (const [key, value] of Object.entries(i)) {
                       //console.log(value.question)
                       if (value.idEval_question == question) {
-                        console.log(value.question)
+                        //console.log(value.question)
                         this.formAbiertas.controls['question'].setValue(value.question);
                         this.formAbiertas.controls['respuestas'].setValue(value.respuesta);
                       }
@@ -396,18 +396,18 @@ export class ExamenesComponent implements OnInit {
           case 7:
             this.backAnswer = question;
             this.editQuestion = 1;
-            console.log(certificacion, question, this.editQuestion)
+            //console.log(certificacion, question, this.editQuestion)
             this.get.questionInfo(question, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 this.startForm(2);
                 this.backDataAnswer =  data;
                 this.formAbiertas.controls['question'].setValue(data.question);
-                console.log(data);
+                //console.log(data);
                 if (data.respuestas) {
                   this.exam = 5;
-                  console.log(data.respuestas)
+                  //console.log(data.respuestas)
                   this.questionAnswers = data.respuestas;
-                  console.log(this.questionAnswers)
+                  //console.log(this.questionAnswers)
                 } else {
                   this.exam = 4;
                 }
@@ -421,20 +421,20 @@ export class ExamenesComponent implements OnInit {
   }
 
   editAnswers(id: any, chance: number, question:any, option?: any, correct?: any, img?: any) {
-    console.log(id, option, correct, img);
+    //console.log(id, option, correct, img);
     switch (chance) {
       case 1:
         this.backAnswer = id;
         this.backQuestion = question;
         this.formModalEdit.controls['option'].setValue(option);
-        console.log(this.formModalEdit.value)
+        //console.log(this.formModalEdit.value)
         this.selectedOption = correct;
-        console.log(this.selectedOption);
+        //console.log(this.selectedOption);
         if (img != '') {
           this.onImage = 1;
-          console.log('esta vacio')
+          //console.log('esta vacio')
         } else {
-          console.log('no esta vacio')
+          //console.log('no esta vacio')
           this.onImage = 0;
         }
         break;
@@ -446,7 +446,7 @@ export class ExamenesComponent implements OnInit {
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading();
-              console.log(this.formModalEdit.value, this.selectedOption, this.onImage, this.image, this.backAnswer);
+              //console.log(this.formModalEdit.value, this.selectedOption, this.onImage, this.image, this.backAnswer);
               if (this.formModalEdit.value.option == '' || this.formModalEdit.value.option == null) {
                 Swal.fire({
                   title: '¡Error!',
@@ -456,16 +456,16 @@ export class ExamenesComponent implements OnInit {
                 });
               } else {
                 this.questionAnswers.map((item: any) => {
-                  console.log(item)
+                  //console.log(item)
                   if (item.idEval_option == this.backAnswer) {
                     item.option = this.formModalEdit.value.option;
                     item.is_correct = this.selectedOption.toString();
                     item.img = this.image;
                   }
-                  console.log(item);
+                  //console.log(item);
                   
                 });
-                console.log(this.questionAnswers);
+                //console.log(this.questionAnswers);
                 Swal.fire({
                   title: '¡Modificado con exito!',
                   text: 'La opción ha sido modificada con exito.',
@@ -481,7 +481,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   updateExamenes(ID?: any) {
-    console.log(ID, this.examModule, this.certificacionID);
+    //console.log(ID, this.examModule, this.certificacionID);
     let json = {
       idModulo: this.certificacionID,
       preguntas: JSON.stringify(this.examModule)
@@ -489,11 +489,11 @@ export class ExamenesComponent implements OnInit {
 
     this.session.updatePreguntasExamen(json, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       }
     );
 
-    console.log(json);
+    //console.log(json);
   }
 
   startForm(form: any): void {
@@ -518,17 +518,17 @@ export class ExamenesComponent implements OnInit {
   users(type: any) {
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         if (type == 'asignature') {
           this.usersArr = data.users;
           this.pas = 1;
-          console.log(this.usersArr)
+          //console.log(this.usersArr)
           Swal.close();
         } else if (type == 'show') {
           this.searchSelect = '';
           this.searchArray = data.users;
           this.length = data.users.length;
-          console.log(this.searchArray, this.length)
+          //console.log(this.searchArray, this.length)
         }
         Swal.close();
       }
@@ -539,10 +539,10 @@ export class ExamenesComponent implements OnInit {
     this.certificaciones = [];
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
         //this.countCert = this.certificaciones.length;
-        console.log(this.certificaciones);
+        //console.log(this.certificaciones);
         Swal.close();
       },
       (error: any) => {
@@ -552,7 +552,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   changeAsignature(id: any, user?: any) {
-    console.log(id, user)
+    //console.log(id, user)
     if (user) this.userId = user;
     switch (id) {
       case 0:
@@ -562,7 +562,7 @@ export class ExamenesComponent implements OnInit {
         break;
       case 1:
         this.asignature = 1;
-        console.log(user)
+        //console.log(user)
         Swal.fire({
           title: 'Cargando...',
           html: 'Espera un momento por favor',
@@ -572,11 +572,11 @@ export class ExamenesComponent implements OnInit {
             Swal.showLoading();
             this.get.getUserCourses(user, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data, data.length);
+                //console.log(data, data.length);
                 this.userCourses = data;
                 this.userCL = data.length;
                 Swal.close();
-                console.log(this.userCourses, this.userCL);
+                //console.log(this.userCourses, this.userCL);
               }
             );
 
@@ -594,11 +594,11 @@ export class ExamenesComponent implements OnInit {
             Swal.showLoading();
             this.get.getUserCourses(user, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data, data.length);
+                //console.log(data, data.length);
                 this.userCourses = data;
                 this.userAL = data.length;
                 Swal.close();
-                console.log(this.userCourses, this.userAL);
+                //console.log(this.userCourses, this.userAL);
               }
             );
 
@@ -606,11 +606,11 @@ export class ExamenesComponent implements OnInit {
         });
     }
 
-    console.log(this.idUser)
+    //console.log(this.idUser)
   }
 
   changeDiagnostic(id: any, diagnostico?: any, question?: any) {
-    console.log(id, diagnostico, question)
+    //console.log(id, diagnostico, question)
     //this.question = question;
     //console.log(this.question)
     if (this.backupDiagnostic == '') this.backupDiagnostic = diagnostico;
@@ -643,19 +643,19 @@ export class ExamenesComponent implements OnInit {
               (data: any) => {
                 //console.log(data);
                 if (data == null || data.message) {
-                  console.log(data)
+                  //console.log(data)
                   this.none = 0;
                 } else {
-                  console.log(data);
+                  //console.log(data);
                   if (data.preguntas.length == 0) {
-                    console.log('no tiene preguntas')
+                    //console.log('no tiene preguntas')
                     this.none = 1;
                   } else {
-                    console.log('si tiene preguntas')
+                    //console.log('si tiene preguntas')
                     this.none = 2;
                     //this.questions = data;
                     this.questions = data.preguntas;
-                    console.log(data);
+                    //console.log(data);
                   }
                 }
                 /*console.log(data, JSON.parse(data.formulario));
@@ -678,10 +678,10 @@ export class ExamenesComponent implements OnInit {
       case 4:
         this.diagnostic = 4;
         this.startForm(2);
-        console.log(this.question)
+        //console.log(this.question)
         this.questions.forEach(element => {
           if (element.idPregunta == question) {
-            console.log(element)
+            //console.log(element)
             this.formAbiertas.controls['question'].setValue(element.pregunta);
           }
         });
@@ -690,22 +690,22 @@ export class ExamenesComponent implements OnInit {
   }
 
   removeQuestion(id: any, action: any, type?: any) {
-    console.log(id);
-    console.log(this.optionsProv);
+    //console.log(id);
+    //console.log(this.optionsProv);
     if (type) {
-      console.log(type);
+      //console.log(type);
       this.optionsProv.forEach(element => {
         if (element.idOpcion == id) {
-          console.log(element);
+          //console.log(element);
           this.optionsProv.splice(this.optionsProv.indexOf(element), 1);
         }
       });
-      console.log(this.optionsProv);
+      //console.log(this.optionsProv);
     } else {
       if (action == 'diagnostic') {
         this.session.deleteQuestionDiagnostico(id, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             Swal.fire({
               title: '¡Eliminado con exito!',
               text: 'La pregunta ha sido eliminada con exito.',
@@ -721,7 +721,7 @@ export class ExamenesComponent implements OnInit {
       } else if (action == 'exam') {
         this.session.deleteQuestionExam(id, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             Swal.fire({
               title: '¡Eliminado con exito!',
               text: 'La pregunta ha sido eliminada con exito.',
@@ -740,7 +740,7 @@ export class ExamenesComponent implements OnInit {
 
   //actualiza las preguntas de un examen
   updateQuestionsExam(question: any) {
-    console.log(this.examModule, this.certificacionID)
+    //console.log(this.examModule, this.certificacionID)
     if (this.formAbiertas.value.question == '') {
       Swal.fire({
         title: '¡Error!',
@@ -772,11 +772,11 @@ export class ExamenesComponent implements OnInit {
             respuestas: this.optionsProv
           });
         }
-        console.log(json)
+        //console.log(json)
       } else {
         this.examModule.forEach(element => {
           this.backId = parseInt(element.idEval_question); //guarda el ultimo id de la pregunta en el arreglo
-          console.log(parseInt(element.idEval_question), this.backId);
+          //console.log(parseInt(element.idEval_question), this.backId);
           //if(question == 'open'){
           json.preguntas.push({
             idEval_question: element.idEval_question,
@@ -803,14 +803,14 @@ export class ExamenesComponent implements OnInit {
           });
         }
 
-        console.log(json)
+        //console.log(json)
       }
 
       let change = JSON.stringify(json);
-      console.log(change);
+      //console.log(change);
       this.session.updatePreguntasExamen(json, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           Swal.fire({
             title: '¡Modificado con exito!',
             text: 'La pregunta se agrego con exito.',
@@ -823,13 +823,13 @@ export class ExamenesComponent implements OnInit {
           });
         }
       );
-      console.log(json)
+      //console.log(json)
     }
   }
 
   //actualiza las preguntas de un diagnostico
   updateQuestions(question: any) {
-    console.log(this.questions);
+    //console.log(this.questions);
     if (this.formAbiertas.value.question == '') {
       Swal.fire({
         title: '¡Error!',
@@ -842,7 +842,7 @@ export class ExamenesComponent implements OnInit {
         idCurso: this.backupDiagnostic,
         preguntas: []
       }
-      console.log(json)
+      //console.log(json)
 
       if (this.questions.length === 0) {
         if (question == 'open') {
@@ -862,11 +862,11 @@ export class ExamenesComponent implements OnInit {
             respuestas: this.optionsProv
           });
         }
-        console.log(json)
+        //console.log(json)
       } else {
         this.questions.forEach(element => {
           this.backId = parseInt(element.idPregunta); //guarda el ultimo id de la pregunta en el arreglo
-          console.log(parseInt(element.idPregunta), this.backId);
+          //console.log(parseInt(element.idPregunta), this.backId);
           //if(question == 'open'){
           json.preguntas.push({
             idPregunta: element.idPregunta,
@@ -902,7 +902,7 @@ export class ExamenesComponent implements OnInit {
           });
         }
 
-        console.log(json)
+        //console.log(json)
       }
 
       /*if (question == 'open') {
@@ -936,10 +936,10 @@ export class ExamenesComponent implements OnInit {
       //console.log(json);
 
       let change = JSON.stringify(json);
-      console.log(change);
+      //console.log(change);
       this.session.updatePreguntasDiagnostico(json, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           Swal.fire({
             title: '¡Modificado con exito!',
             text: 'La pregunta se agrego con exito.',
@@ -957,8 +957,8 @@ export class ExamenesComponent implements OnInit {
   }
 
   createExam(id: any, name?: any) {
-    console.log(id, name);
-    console.log(this.formModal.value);
+    //console.log(id, name);
+    //console.log(this.formModal.value);
     if (this.formModal.valid) {
       this.error = 0;
       let formData = new FormData();
@@ -968,11 +968,11 @@ export class ExamenesComponent implements OnInit {
       formData.append('fechaInicio', this.formModal.value.fechaInicio);
       formData.append('fechaFinal', this.formModal.value.fechaFinal);
 
-      console.log(formData.getAll('idModulo'), formData.getAll('title'), formData.getAll('duracion'), formData.getAll('fechaInicio'), formData.getAll('fechaFinal'));
+      //console.log(formData.getAll('idModulo'), formData.getAll('title'), formData.getAll('duracion'), formData.getAll('fechaInicio'), formData.getAll('fechaFinal'));
 
       this.session.updateCreateExamen(formData, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           Swal.fire({
             title: '¡Creado con exito!',
             text: 'El examen ha sido creado con exito, ahora puedes comenzar a agregar preguntas en los botones de la parte superior.',
@@ -1001,13 +1001,13 @@ export class ExamenesComponent implements OnInit {
   }
 
   createDiagnostic(id: any) {
-    console.log(id);
+    //console.log(id);
     let formData = new FormData();
     formData.append('idCurso', id);
     formData.append('title', 'diagnostico');
     this.session.updateDiagnostico(formData, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Creado con exito!',
           text: 'El diagnostico ha sido creado con exito, ahora puedes comenzar a agregar preguntas en los botones de la parte superior.',
@@ -1025,7 +1025,7 @@ export class ExamenesComponent implements OnInit {
 
 
   changeSearch() {
-    console.log(this.searchSelect);
+    //console.log(this.searchSelect);
     switch (this.searchSelect) {
       case '1':
         this.formSearch.controls['filter'].setValue('nombre');
@@ -1037,12 +1037,12 @@ export class ExamenesComponent implements OnInit {
         this.formSearch.controls['filter'].setValue('puesto');
         break;
     }
-    console.log(this.formSearch.value, this.formSearch.value.filter);
+    //console.log(this.formSearch.value, this.formSearch.value.filter);
 
   }
 
   didModify() {
-    console.log(this.text1, this.formSearch.value.filter, this.formSearch.value.search);
+    //console.log(this.text1, this.formSearch.value.filter, this.formSearch.value.search);
 
     if(this.formSearch.value.filter == ''){
       this.formSearch.controls['filter'].setValue('nombre');
@@ -1050,7 +1050,7 @@ export class ExamenesComponent implements OnInit {
     if (this.text1 != '') {
       if (this.text1.length > 1) {
         this.formSearch.controls['search'].setValue(this.text1);
-        console.log(this.formSearch.value);
+        //console.log(this.formSearch.value);
         this.searchUsers('search', this.formSearch.value.filter, this.formSearch.value.search);
       } else {
         this.searchArray = [];
@@ -1062,7 +1062,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   searchUsers(kind: any, filter?: any, param?: any) {
-    //console.log(filter, param);
+    ////console.log(filter, param);
     this.psc = 1;
     if (kind == 'search') {
       let f = filter;
@@ -1102,17 +1102,17 @@ export class ExamenesComponent implements OnInit {
       //console.log(event.target.checked);
       this.objUsers.push(event.target.value);
 
-      console.log(this.objUsers)
+      //console.log(this.objUsers)
     } else {
       //console.log(event.target.checked);
       this.objUsers.splice(this.objUsers.indexOf(event.target.value), 1);
-      console.log(this.objUsers)
+      //console.log(this.objUsers)
     }
     this.showUsers(event.target.value);
   }
 
   showUsers(array: any) {
-    console.log(array);
+    //console.log(array);
     this.searchArray.forEach(element => {
       if (element.idUser == array) {
         if (this.showArr.includes(element)) {
@@ -1134,11 +1134,11 @@ export class ExamenesComponent implements OnInit {
         }
       });
     }*/
-    console.log(this.showArr);
+    //console.log(this.showArr);
   }
 
   asignarCertificacion() {
-    console.log(this.certificationSelected);
+    //console.log(this.certificationSelected);
     if (this.certificationSelected == '0') {
       Swal.fire({
         title: '¡Error!',
@@ -1154,16 +1154,16 @@ export class ExamenesComponent implements OnInit {
         group.append('usuario[]', this.chief);
       } else {*/
       this.objUsers.forEach(element => {
-        console.log(element)
+        //console.log(element)
         curso.append('idUser[]', element);
       });
       //}
-      console.log(this.objUsers);
+      //console.log(this.objUsers);
       //let group = new FormData();
       //group.append('usuario[]', this.objUsers);
 
       //group.append('usuario[]', this.groupSelected);
-      console.log(curso.getAll('usuario[]'), curso.get, this.certificationSelected);
+      //console.log(curso.getAll('usuario[]'), curso.get, this.certificationSelected);
       this.session.asignarCurso(curso, localStorage.getItem('token')).subscribe(
         (data: any) => {
           //console.log(data);
@@ -1211,7 +1211,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   addEditExam(){
-    console.log(this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
+    //console.log(this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     let img = this.onImage != 0 ? this.image : '';
     if (this.selectedOption == 2) {
       Swal.fire({
@@ -1244,12 +1244,12 @@ export class ExamenesComponent implements OnInit {
       this.selectedOption = 2;
       this.image = '';
       this.onImage = 0;
-      console.log(this.questionAnswers)
+      //console.log(this.questionAnswers)
     }
   }
 
   public updateQuestion(type:any){
-    console.log(this.backDataAnswer, this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
+    //console.log(this.backDataAnswer, this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     this.json.idEval_question = this.backDataAnswer.idEval_question;
     this.json.pregunta = this.formAbiertas.value.question;
     this.json.is_active = 1;
@@ -1259,7 +1259,7 @@ export class ExamenesComponent implements OnInit {
 
     this.session.updatePregunta(this.json, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Modificado con exito!',
           text: 'La pregunta ha sido modificada con exito.',
@@ -1273,14 +1273,14 @@ export class ExamenesComponent implements OnInit {
       }
     );
 
-    console.log(this.json);
+    //console.log(this.json);
   }
 
   public cloneOpcionExam() {
-    console.log(this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
+    //console.log(this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     let i;
     let img = this.onImage != 0 ? this.image : null;
-    console.log(img)
+    //console.log(img)
     if (this.selectedOption == 2) {
       Swal.fire({
         title: '¡Error!',
@@ -1296,7 +1296,7 @@ export class ExamenesComponent implements OnInit {
         confirmButtonColor: '#015287',
       });
     } else {
-      console.log(this.optionsProv);
+      //console.log(this.optionsProv);
       if (this.optionsProv.length == 0) {
         this.optionsProv.push({
           //idEval_option: this.optionsProv.length + 1,
@@ -1318,30 +1318,30 @@ export class ExamenesComponent implements OnInit {
         })
       }
 
-      console.log(this.optionsProv)
+      //console.log(this.optionsProv)
       this.options = '';
       this.selectedOption = 2;
       this.new = this.optionsProv.length;
       this.image = '';
       this.onImage = 0;
-      console.log(this.new)
+      //console.log(this.new)
     }
   }
 
 
   cambio() {
-    console.log(this.options)
+    //console.log(this.options)
     if (this.options != '') {
-      console.log(this.options)
+      //console.log(this.options)
     }
   }
 
   //duplicar pregunta Examenes
   public clone(): void {
-    console.log(this.cloneOption, this.formAbiertas.value.question)
+    //console.log(this.cloneOption, this.formAbiertas.value.question)
     let id = this.cloneOption + 1;
     this.cloneOption = id;
-    console.log(this.cloneOption)
+    //console.log(this.cloneOption)
     const question = document.querySelectorAll('.pregunta');
     const opcion = document.querySelector('.opcion') as HTMLDivElement;
     var first = question[0];
@@ -1363,10 +1363,10 @@ export class ExamenesComponent implements OnInit {
   //i = 0;
   //duplicar opcion Examenes
   public cloneOpcion() {
-    console.log(this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
+    //console.log(this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     let i;
     let img = this.onImage != 0 ? this.image : null;
-    console.log(img)
+    //console.log(img)
     if (this.selectedOption == 2) {
       Swal.fire({
         title: '¡Error!',
@@ -1402,13 +1402,13 @@ export class ExamenesComponent implements OnInit {
           img: img
         })
       }
-      console.log(this.optionsProv)
+      //console.log(this.optionsProv)
       this.options = '';
       this.selectedOption = 2;
       this.new = this.optionsProv.length;
       this.image = '';
       this.onImage = 0;
-      console.log(this.new)
+      //console.log(this.new)
     }
     /*if(this.options != ''){
       this.optionsProv.push({
@@ -1541,7 +1541,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   selectFile(event) {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     var files = event.target.files;
     var file = files[0];
     this.onImage = 1;
@@ -1552,10 +1552,10 @@ export class ExamenesComponent implements OnInit {
       reader.onload = this.handleFile.bind(this);
 
       reader.readAsBinaryString(file)
-      console.log(file)
+      //console.log(file)
     }
 
-    console.log(file)
+    //console.log(file)
 
     //console.log(event.target.files, event.target.files[0]);
     //this.image = event.target.files[0];
@@ -1579,7 +1579,7 @@ export class ExamenesComponent implements OnInit {
   handleFile(event) {
     var binaryString = event.target.result;
     this.image = window.btoa(binaryString);
-    console.log(this.image, window.btoa(binaryString));
+    //console.log(this.image, window.btoa(binaryString));
   }
 
 

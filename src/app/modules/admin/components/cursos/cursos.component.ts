@@ -368,7 +368,7 @@ export class CursosComponent implements OnInit {
 
         console.log(send.getAll(''),send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get, send.getAll('img'));
         console.log( send.getAll('img'))
-        //console.log( send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get);
+        ////console.log( send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get);
         this.session.newCurso(send, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);
@@ -391,7 +391,7 @@ export class CursosComponent implements OnInit {
         );
         break;
       case 'edit':
-        console.log(this.formEdit)
+        //console.log(this.formEdit)
         this.formData.append('title', this.formEdit.value.title);
         this.formData.append('description', this.formEdit.value.description);
         this.formData.append('hasExam', this.exam);
@@ -401,10 +401,10 @@ export class CursosComponent implements OnInit {
         } else {
           this.formData.append('img', this.image);
         }
-        //console.log(this.formData.getAll('img'));
+        ////console.log(this.formData.getAll('img'));
         this.session.editCourse(id, this.formData, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            //console.log(data);}
+            ////console.log(data);}
             Swal.fire({
               title: '¡Actualizado con exito!',
               text: 'El curso ha actualizado creado.',
@@ -512,7 +512,7 @@ export class CursosComponent implements OnInit {
             this.formEdit.controls['default_active_days'].setValue(item.default_active_days);
             this.bf = item.img;
             this.exam = parseInt(item.hasExam);
-            console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
+            //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
         break;
@@ -586,7 +586,7 @@ export class CursosComponent implements OnInit {
     //console.log(id);
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.allModules = data;
         this.allModulesLength = data.length;
         //console.log(this.allModules)
@@ -645,7 +645,7 @@ export class CursosComponent implements OnInit {
             this.startForm(5);
             this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data)
+                //console.log(data)
                 this.idModulo = data.idModule;
                 this.temas(this.idModulo);
                 this.formModulo.controls['title'].setValue(data.title);
@@ -657,7 +657,7 @@ export class CursosComponent implements OnInit {
                 this.imgTerminaDos = data.medal_finish;
                 this.imgScoreDos = data.medal_perfect;
                 this.imgTiempoDos = data.medal_time;
-                console.log(this.imgIconoDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos)
+                //console.log(this.imgIconoDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos)
                 this.formModulo.controls['color'].setValue(data.color_style);
                 this.formModulo.controls['url_video'].setValue(data.url_video);
                 this.activeM = data.is_active;
@@ -699,7 +699,7 @@ export class CursosComponent implements OnInit {
   temas(id: any) {
     this.get.getTemas(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.alltemas = data;
         //console.log(this.alltemas)
       },
@@ -733,7 +733,7 @@ export class CursosComponent implements OnInit {
         this.viewE = 1;
         this.startForm(6);
         for (let item of this.alltemas) {
-          console.log(item)
+          //console.log(item)
           if (item.title == tema) {
             this.idTema = item.idTopic;
             //this.startForm(6);
@@ -742,7 +742,7 @@ export class CursosComponent implements OnInit {
             this.formTemas.controls['description'].setValue(item.description);
             this.formTemas.controls['url_video'].setValue(item.url_video);
             this.formTemas.controls['url_subtitulos'].setValue(item.url_subtitulos);
-            console.log(this.formTemas.value)
+            //console.log(this.formTemas.value)
             this.imgTemaDos = item.icon;
             this.imgTemaVDos = item.icon_gold;
             this.active = item.is_active;
@@ -1108,7 +1108,7 @@ export class CursosComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgIconoDos = event.target.result;
-        console.log(this.imgIconoDos)
+        //console.log(this.imgIconoDos)
       };
       reader.readAsDataURL(event.target.files[0])
     }
@@ -1122,13 +1122,13 @@ export class CursosComponent implements OnInit {
       this.imgTerminaDos = this.imgIconoDos;
 
     }
-    console.log(event.target.files)
+    //console.log(event.target.files)
     this.imgTermina = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTerminaDos = event.target.result;
-        console.log(this.imgTerminaDos)
+        //console.log(this.imgTerminaDos)
       };
       reader.readAsDataURL(event.target.files[0])
     }
@@ -1141,7 +1141,7 @@ export class CursosComponent implements OnInit {
     this.imgScoreDos = this.imgIconoDos;
 
   }
-    console.log(event.target.files)
+    //console.log(event.target.files)
     this.imgScore = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
@@ -1180,7 +1180,7 @@ export class CursosComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTemaDos = event.target.result;
-        console.log(this.imgTemaDos)
+        //console.log(this.imgTemaDos)
         //this.imgTema = this.helpers.dataUrlToFile(this.imgTema, this.imgTema.name);
       };
       reader.readAsDataURL(event.target.files[0])
@@ -1195,7 +1195,7 @@ export class CursosComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgTemaVDos = event.target.result;
-        console.log(this.imgTemaVDos)
+        //console.log(this.imgTemaVDos)
         //this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV, this.imgTemaV.name);
       };
       reader.readAsDataURL(event.target.files[0])
@@ -1203,7 +1203,7 @@ export class CursosComponent implements OnInit {
   }
 
   addModulo() {
-    console.log(this.formModulo.value, this.imgIcono)
+    //console.log(this.formModulo.value, this.imgIcono)
     if (this.formModulo.value.title == '' || this.formModulo.value.descripcion == '' || this.formModulo.value.color == '' || this.imgIcono == '') {
       Swal.fire({
         title: '¡Error!',
@@ -1259,8 +1259,8 @@ export class CursosComponent implements OnInit {
       }
       modulo.append('min_score', this.formModulo.value.score);
       modulo.append('hasExam', this.exam);
-      console.log(modulo.getAll('hasExam'), modulo.getAll('default_active_days'), modulo.get);
-      /*console.log(modulo.getAll('icon'))
+      //console.log(modulo.getAll('hasExam'), modulo.getAll('default_active_days'), modulo.get);
+      /*//console.log(modulo.getAll('icon'))
       console.log(modulo.getAll)
       console.log(modulo.get)
       console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
@@ -1268,12 +1268,12 @@ export class CursosComponent implements OnInit {
       modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
       modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
       modulo.getAll('score'), modulo.getAll('hasExam'));*/
-      console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
-      console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
+      //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
+      //console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
 
       this.session.addModulo(this.idCertification, modulo, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           Swal.fire({
             title: '¡Agregado con exito!',
             text: 'El módulo ha sido agregado.',
@@ -1288,7 +1288,7 @@ export class CursosComponent implements OnInit {
   }
 
   saveModulo() {
-    console.log(this.imgIcono, 'editando un modulo');
+    //console.log(this.imgIcono, 'editando un modulo');
     //this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
     //this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
     //this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
@@ -1337,11 +1337,11 @@ export class CursosComponent implements OnInit {
     modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
     modulo.getAll('score'), modulo.getAll('hasExam'));
     console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
-    console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
+    //console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
 
     this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'El módulo ha sido actualizado.',
@@ -1359,7 +1359,7 @@ export class CursosComponent implements OnInit {
   }
 
   addTema() {
-    console.log(this.formTemas.value)
+    //console.log(this.formTemas.value)
     let tema = new FormData();
     if (this.formTemas.value.title != '' && this.formTemas.value.description != '' && this.formTemas.value.url_video != '' && this.imgTema != undefined && this.imgTemaV != undefined) {
       tema.append('idModule', this.idModulo);
@@ -1387,11 +1387,11 @@ export class CursosComponent implements OnInit {
       modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
       modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
       modulo.getAll('score'), modulo.getAll('hasExam'));*/
-      console.log(tema.getAll('description'));
+      //console.log(tema.getAll('description'));
 
       this.session.addTema(tema, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           Swal.fire({
             title: '¡Agregado con exito!',
             text: 'El tema ha sido agregado.',
@@ -1414,7 +1414,7 @@ export class CursosComponent implements OnInit {
   }
 
   saveTemas() {
-    console.log(this.imgTema, this.imgTemaV)
+    //console.log(this.imgTema, this.imgTemaV)
     /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
     this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
@@ -1437,7 +1437,7 @@ export class CursosComponent implements OnInit {
     } else {
       tema.append('icon_gold', this.imgTemaVDos);
     }
-    console.log(tema.getAll('icon'), tema.getAll('icon_gold'))
+    //console.log(tema.getAll('icon'), tema.getAll('icon_gold'))
     /*console.log(modulo.getAll)
     console.log(modulo.get)
     console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
@@ -1445,10 +1445,10 @@ export class CursosComponent implements OnInit {
     modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
     modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
     modulo.getAll('score'), modulo.getAll('hasExam'));*/
-    console.log(tema.getAll('description'));
+    //console.log(tema.getAll('description'));
     this.session.updateTemas(this.idModulo, tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'El módulo ha sido actualizado.',
@@ -1475,7 +1475,7 @@ export class CursosComponent implements OnInit {
       if (result.isConfirmed) {
         this.session.deleteTema(this.idTema, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             Swal.fire({
               title: '¡Eliminado!',
               text: 'El usuario ha sido eliminado.',
