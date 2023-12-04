@@ -54,6 +54,11 @@ export class CursosModulosComponent implements OnInit {
           this.certifications();
           this.helpers.cursos = 1;
           this.session.curso = false;
+          if(this.session.cursos == 1){
+            this.changeViewCourses(1);
+          } else if(this.session.cursos == 2){
+            this.changeViewCourses(2, this.session.idCertification);
+          }
           this.helpers.conferencias = false;
           this.helpers.pauseTimer(this.helpers.interval);
         }
@@ -90,6 +95,10 @@ export class CursosModulosComponent implements OnInit {
 
   changeViewCourses(view: any, id?: any) {
     ////console.log(view, id);
+    if(id){
+      this.session.idCertification = id;
+      console.log(this.session.idCertification);
+    }
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',

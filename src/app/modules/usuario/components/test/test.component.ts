@@ -182,12 +182,12 @@ export class TestComponent implements OnInit {
     //console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.idExamBackUp = data.idExamen;
-        this.timeLeft = data.duracion;
+        this.timeLeft = (data.duracion * data.preguntas.length);
         this.nameExam = data.title;
         this.questionsExam = data.preguntas;
-        //console.log(this.nameExam, this.questionsExam)
+        console.log(this.nameExam, this.questionsExam, this.timeLeft)
         this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);

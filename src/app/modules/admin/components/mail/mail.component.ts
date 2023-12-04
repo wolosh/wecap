@@ -200,6 +200,9 @@ export class MailComponent implements OnInit {
 
   didModify() {
     //console.log(this.text1);
+    if(this.formSearch.value.filter == ''){
+      this.formSearch.controls['filter'].setValue('nombre');
+    }
     if (this.text1 != '') {
       if (this.text1.length > 1) {
         this.formSearch.controls['search'].setValue(this.text1);

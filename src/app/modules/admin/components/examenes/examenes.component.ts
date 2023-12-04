@@ -22,6 +22,13 @@ export class ExamenesComponent implements OnInit {
     fechaFinal: [''],
   });*/
 
+  json = {
+    idEval_question: '',
+    pregunta: '',
+    is_active: 0,
+    respuestas: []
+  }
+
   formModal = new FormGroup({
     title: new FormControl('', Validators.required),
     duracion: new FormControl('', Validators.required),
@@ -29,6 +36,17 @@ export class ExamenesComponent implements OnInit {
     fechaFinal: new FormControl('', Validators.required),
   });
 
+  formModalEdit = new FormGroup({
+    option: new FormControl('', Validators.required),
+    is_correct: new FormControl('', Validators.required),
+    img: new FormControl('', Validators.required),
+  });
+
+  backAnswer: any;
+  backDataAnswer: any;
+  backQuestion: any;
+  questionAnswers = [] as any;
+  editQuestion = 0;
   cloneOption: number = 0;
   usersArr: any;
   searchArray: any;
@@ -42,6 +60,7 @@ export class ExamenesComponent implements OnInit {
   psc: number = 1;
   pdiag: number = 1;
   pexam: number = 1;
+  pe: number = 1;
   public searchSelect = '0';
   public certificationSelected = '0';
   formSearch: FormGroup;
@@ -64,7 +83,7 @@ export class ExamenesComponent implements OnInit {
   userId: any;
   moduloTitle: any;
   respaldo: any;
-  pe: any;
+
   allDiagnostico: any;
   respaldo1: any;
   certificacionID: any;
@@ -106,7 +125,7 @@ export class ExamenesComponent implements OnInit {
             this.route.navigate(['/cmtemplate']);
           }
         });
-      } else if(localStorage.getItem('token') == null){
+      } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
       }
     }
@@ -216,12 +235,21 @@ export class ExamenesComponent implements OnInit {
         Swal.showLoading();
         switch (tab) {
           case 'asignature':
+            this.pdiag = 1;
+            this.pexam = 1;
+            this.pas = 1;
+            this.pquit = 1;
             //this.asingnature = 0;
             this.erase();
             this.startForm(1);
             this.users('asignature');
             break;
           case 'diagnostic':
+            this.pdiag = 1;
+            this.pexam = 1;
+            this.pas = 1;
+            this.pquit = 1;
+            this.psc = 1;
             this.questions = [];
             this.optionsProv = [];
             this.diagnostic = 0;
@@ -229,6 +257,11 @@ export class ExamenesComponent implements OnInit {
             this.certifications();
             break;
           case 'test':
+            this.editQuestion = 0;
+            this.pdiag = 1;
+            this.pexam = 1;
+            this.pas = 1;
+            this.pquit = 1;
             this.examModule = [];
             this.optionsProv = [];
             this.exam = 0;
@@ -241,7 +274,7 @@ export class ExamenesComponent implements OnInit {
 
   changeExam(id: any, certificacion?: any, name?: any, question?: any) {
     this.examModule = [];
-    console.log(id, certificacion,name,question);
+    console.log(id, certificacion, name, question);
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -258,6 +291,7 @@ export class ExamenesComponent implements OnInit {
           if (id == 2) {
             this.respaldo = certificacion;
           }
+        console.log(certificacion)
         switch (id) {
           case 0:
             this.onClickTab('test');
@@ -275,7 +309,7 @@ export class ExamenesComponent implements OnInit {
           case 2:
             this.cloneOption = 0;
             this.certificacionID = certificacion;
-            console.log(id, certificacion, this.respaldo);
+            console.log(id, certificacion, this.respaldo, this.certificacionID);
             this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 console.log(data);
@@ -301,7 +335,7 @@ export class ExamenesComponent implements OnInit {
                     console.log(this.none)
                     //this.questions = data;
                     this.examModule = data.preguntas;
-                    console.log(data);
+                    console.log(data, data.preguntas);
                     console.log(question)
                   }
                 }
@@ -341,12 +375,12 @@ export class ExamenesComponent implements OnInit {
             this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 console.log(data)
-                for(const [key, value] of Object.entries(data)){
+                for (const [key, value] of Object.entries(data)) {
                   //console.log(value)
                   const info = [...[value]];
                   console.log(info)
-                  for(let i of info){
-                    for(const [key, value] of Object.entries(i)){
+                  for (let i of info) {
+                    for (const [key, value] of Object.entries(i)) {
                       //console.log(value.question)
                       if (value.idEval_question == question) {
                         console.log(value.question)
@@ -359,9 +393,91 @@ export class ExamenesComponent implements OnInit {
               });
             Swal.close();
             break;
+          case 7:
+            this.backAnswer = question;
+            this.editQuestion = 1;
+            console.log(certificacion, question, this.editQuestion)
+            this.get.questionInfo(question, localStorage.getItem('token')).subscribe(
+              (data: any) => {
+                this.startForm(2);
+                this.backDataAnswer =  data;
+                this.formAbiertas.controls['question'].setValue(data.question);
+                console.log(data);
+                if (data.respuestas) {
+                  this.exam = 5;
+                  console.log(data.respuestas)
+                  this.questionAnswers = data.respuestas;
+                  console.log(this.questionAnswers)
+                } else {
+                  this.exam = 4;
+                }
+                Swal.close();
+              }
+            );
+            break;
         }
       }
     });
+  }
+
+  editAnswers(id: any, chance: number, question:any, option?: any, correct?: any, img?: any) {
+    console.log(id, option, correct, img);
+    switch (chance) {
+      case 1:
+        this.backAnswer = id;
+        this.backQuestion = question;
+        this.formModalEdit.controls['option'].setValue(option);
+        console.log(this.formModalEdit.value)
+        this.selectedOption = correct;
+        console.log(this.selectedOption);
+        if (img != '') {
+          this.onImage = 1;
+          console.log('esta vacio')
+        } else {
+          console.log('no esta vacio')
+          this.onImage = 0;
+        }
+        break;
+      case 2:
+          Swal.fire({
+            title: 'Cargando...',
+            html: 'Espera un momento por favor',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+              console.log(this.formModalEdit.value, this.selectedOption, this.onImage, this.image, this.backAnswer);
+              if (this.formModalEdit.value.option == '' || this.formModalEdit.value.option == null) {
+                Swal.fire({
+                  title: '¡Error!',
+                  text: 'Debes ingresar una opción.',
+                  icon: 'error',
+                  confirmButtonColor: '#015287',
+                });
+              } else {
+                this.questionAnswers.map((item: any) => {
+                  console.log(item)
+                  if (item.idEval_option == this.backAnswer) {
+                    item.option = this.formModalEdit.value.option;
+                    item.is_correct = this.selectedOption.toString();
+                    item.img = this.image;
+                  }
+                  console.log(item);
+                  
+                });
+                console.log(this.questionAnswers);
+                Swal.fire({
+                  title: '¡Modificado con exito!',
+                  text: 'La opción ha sido modificada con exito.',
+                  icon: 'success',
+                  confirmButtonColor: '#015287',
+                });
+              }
+            }
+          });
+
+    }
+
   }
 
   updateExamenes(ID?: any) {
@@ -415,7 +531,7 @@ export class ExamenesComponent implements OnInit {
           console.log(this.searchArray, this.length)
         }
         Swal.close();
-        }
+      }
     );
   }
 
@@ -494,7 +610,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   changeDiagnostic(id: any, diagnostico?: any, question?: any) {
-    console.log(id, diagnostico,question)
+    console.log(id, diagnostico, question)
     //this.question = question;
     //console.log(this.question)
     if (this.backupDiagnostic == '') this.backupDiagnostic = diagnostico;
@@ -560,15 +676,15 @@ export class ExamenesComponent implements OnInit {
         this.startForm(2);
         break;
       case 4:
-          this.diagnostic = 4;
-          this.startForm(2);
-          console.log(this.question)
-          this.questions.forEach(element => {
-            if(element.idPregunta == question){
-              console.log(element)
-              this.formAbiertas.controls['question'].setValue(element.pregunta);
-            }
-          });
+        this.diagnostic = 4;
+        this.startForm(2);
+        console.log(this.question)
+        this.questions.forEach(element => {
+          if (element.idPregunta == question) {
+            console.log(element)
+            this.formAbiertas.controls['question'].setValue(element.pregunta);
+          }
+        });
         break;
     }
   }
@@ -926,8 +1042,11 @@ export class ExamenesComponent implements OnInit {
   }
 
   didModify() {
-    console.log(this.text1);
+    console.log(this.text1, this.formSearch.value.filter, this.formSearch.value.search);
 
+    if(this.formSearch.value.filter == ''){
+      this.formSearch.controls['filter'].setValue('nombre');
+    }
     if (this.text1 != '') {
       if (this.text1.length > 1) {
         this.formSearch.controls['search'].setValue(this.text1);
@@ -937,7 +1056,7 @@ export class ExamenesComponent implements OnInit {
         this.searchArray = [];
         this.length = 0;
       }
-    }
+    } 
 
 
   }
@@ -1028,46 +1147,46 @@ export class ExamenesComponent implements OnInit {
         confirmButtonColor: '#015287',
       });
     } else {
-    //console.log(this.groupSelected, this.chief);
-    let curso = new FormData();
-    curso.append('idCurso', this.certificationSelected);
-    /*if(this.objUsers.length == 0){
-      group.append('usuario[]', this.chief);
-    } else {*/
-    this.objUsers.forEach(element => {
-      console.log(element)
-      curso.append('idUser[]', element);
-    });
-    //}
-    console.log(this.objUsers);
-    //let group = new FormData();
-    //group.append('usuario[]', this.objUsers);
+      //console.log(this.groupSelected, this.chief);
+      let curso = new FormData();
+      curso.append('idCurso', this.certificationSelected);
+      /*if(this.objUsers.length == 0){
+        group.append('usuario[]', this.chief);
+      } else {*/
+      this.objUsers.forEach(element => {
+        console.log(element)
+        curso.append('idUser[]', element);
+      });
+      //}
+      console.log(this.objUsers);
+      //let group = new FormData();
+      //group.append('usuario[]', this.objUsers);
 
-    //group.append('usuario[]', this.groupSelected);
-    console.log(curso.getAll('usuario[]'), curso.get, this.certificationSelected);
-    this.session.asignarCurso(curso, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        //console.log(data);
-        Swal.fire({
-          title: '¡Agregado con exito!',
-          text: 'El usuario ha sido agregado al grupo.',
-          icon: 'success',
-          confirmButtonColor: '#015287',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.onClickTab('asignature')
-            /*this.objUsers = [];
-            this.view = 0;
-            this.chief = 0;
-            this.name = '';
-            //console.log(this.chief, this.view);
-            this.users('modify');
-            this.groups();
-            this.startForm(4);*/
-          }
-        });
-      }
-    );
+      //group.append('usuario[]', this.groupSelected);
+      console.log(curso.getAll('usuario[]'), curso.get, this.certificationSelected);
+      this.session.asignarCurso(curso, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          //console.log(data);
+          Swal.fire({
+            title: '¡Agregado con exito!',
+            text: 'El usuario ha sido agregado al grupo.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.onClickTab('asignature')
+              /*this.objUsers = [];
+              this.view = 0;
+              this.chief = 0;
+              this.name = '';
+              //console.log(this.chief, this.view);
+              this.users('modify');
+              this.groups();
+              this.startForm(4);*/
+            }
+          });
+        }
+      );
     }
   }
 
@@ -1089,6 +1208,72 @@ export class ExamenesComponent implements OnInit {
     this.pdiag = 1;
     this.psc = 1;
     //console.log(this.chief, this.view);
+  }
+
+  addEditExam(){
+    console.log(this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
+    let img = this.onImage != 0 ? this.image : '';
+    if (this.selectedOption == 2) {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tienes que seleccionar si la opción es la respuesta correcta o incorrecta a tu pregunta.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else if (this.options == '') {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tienes que completar la información de la opción anterior para poder agregar una nueva.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+      this.questionAnswers.push({
+          //idEval_option: this.optionsProv.length + 1,
+          idEval_option: '',
+          idEval_question: this.backAnswer,
+          option: this.options,
+          is_correct: this.selectedOption,
+          idModule: this.certificacionID,
+          img: img,
+          
+      });
+
+      //console.log(this.optionsProv)
+      this.options = '';
+      this.selectedOption = 2;
+      this.image = '';
+      this.onImage = 0;
+      console.log(this.questionAnswers)
+    }
+  }
+
+  public updateQuestion(type:any){
+    console.log(this.backDataAnswer, this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
+    this.json.idEval_question = this.backDataAnswer.idEval_question;
+    this.json.pregunta = this.formAbiertas.value.question;
+    this.json.is_active = 1;
+    if(type == 'open'){
+      this.json.respuestas = this.questionAnswers
+    }
+
+    this.session.updatePregunta(this.json, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Modificado con exito!',
+          text: 'La pregunta ha sido modificada con exito.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.changeExam(2, this.certificacionID);
+          }
+        });
+      }
+    );
+
+    console.log(this.json);
   }
 
   public cloneOpcionExam() {
@@ -1292,7 +1477,7 @@ export class ExamenesComponent implements OnInit {
     //console.log(opcion)
     /*for(var i=0;i<opcion.length;i++)
     {
-      opcion[i].addEventListener("click", function($event)
+      opcion[i].dventListener("click", function($event)
       {
         //n++;
         var removeid= document.getElementById(this.id);

@@ -11,7 +11,7 @@
                             <h1 class="text2 txt-blue" *ngIf="this.finalizado == 1">{{this.nameTopic}}: Finalizado</h1>
                             <hr class="w-100">
                             <div class="ratio ratio-16x9 mt-5">
-                                <iframe [src]="this.video" title="YouTube video" allowfullscreen></iframe>
+                                <iframe id="urlIframe" nombre="urlIframe" border="none" frameborder="1" [src]="this.chanceTow" allowfullscreen></iframe>
                             </div>
                         </div>
                         <!--<div class="col-2 col-lg-1 offset-8 offset-lg-10">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>-->
-            <div class="card color p-3 mt-5">
+            <!--<div class="card color p-3 mt-5">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
@@ -53,29 +53,29 @@
                     </div>
                     <div class="row text-center" *ngIf="this.finalizado == 1">
 
-                        <div class="col-4">
-                            <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                            <label class="text8 txt-blue">Terminado</label>
+                        <div class="col-4" *ngIf="this.medalla">
+                            <img src="{{this.helpers.domain+'/media/temas/' + this.medalla}}" class="mx-auto d-block w-75" alt="">
+                            <!--<label class="text8 txt-blue">Terminado</label>
                         </div>
-                        <div class="col-4">
+                        <!--<div class="col-4">
                             <img src="assets/img/medallaavance.svg" class=" mx-auto d-block w-75" alt="">
                             <label class="text8 txt-blue">Perfecto</label>
-                        </div>
+                        </div>-->
                         <!--<div class="col-4">
                                 <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
                                 <label class="text8 txt-blue">Tiempo</label>
                             </div>-->
-                        <div class="col-4">
+                        <!--<div class="col-4">
                             <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
                             <label class="text8 txt-blue">Tiempo</label>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="col-12 mt-5">
                 <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
                     (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                    *ngIf="this.finalizado == 1">Regresar a temas</button>
+                   >Regresar a temas</button>
             </div>
         </div>
     </div>

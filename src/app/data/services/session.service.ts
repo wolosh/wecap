@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Observable, catchError } from 'rxjs';
+import Swal from 'sweetalert2';
 
 
 @Injectable({
@@ -18,6 +19,8 @@ export class SessionService {
   curso: boolean = false;
   userName = '';
   idUser: number;
+  cursos = 0;
+  public idCertification: number;
 
   constructor(private http: HttpClient, public route: Router) { }
 
@@ -36,7 +39,19 @@ export class SessionService {
       //password: password
     ).pipe(
       catchError((err) => {
-        console.log(err);
+        console.log(err, err.error.error);
+        Swal.fire({
+          title: 'Error',
+          html: err.error.error,
+          icon: 'error',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          confirmButtonColor: '#015287',
+          didOpen: () => {
+            Swal.hideLoading();
+            Swal.getConfirmButton();
+          }
+        });
         return err;
       })
     );
@@ -193,12 +208,24 @@ export class SessionService {
 
     return this.http.post(`${this.API}register`, form, {
       headers,
-    }).pipe(
+    });/*.pipe(
       catchError((err) => {
-        //console.log(err);
+        console.log(err, err.error.message);
+        Swal.fire({
+          title: 'Error',
+          html: err.error.message,
+          icon: 'error',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          confirmButtonColor: '#015287',
+          didOpen: () => {
+            Swal.hideLoading();
+            Swal.getConfirmButton();
+          } 
+        });
         return err;
-      })
-    );
+      })*/
+    
   }
 
   public deleteUser(idUser, token) {
@@ -395,7 +422,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        //console.log(err);
+        console.log(err);
         return err;
       })
     );
@@ -646,6 +673,25 @@ export class SessionService {
       })
     );
   }
+
+  public updatePregunta(form, token) {
+    //console.log(form)
+    //console.log(form,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}updatePregunta`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  
 
 }
 

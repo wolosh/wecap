@@ -244,7 +244,11 @@ export class UsuariosComponent implements OnInit {
             }
           });
         }
-      );
+      ),
+      (error: any) => {
+        console.log(error);
+        this.helpers.showError(error);
+      };
     } else {
       Swal.fire({
         title: '¡Error!',

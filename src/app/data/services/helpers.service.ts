@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { Data, Router } from '@angular/router';
 import { Buffer } from 'buffer';
 import { SessionService } from 'src/app/data/services/session.service';
-import { interval } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 
 @Injectable({
@@ -18,6 +18,7 @@ export class HelpersService {
   //public domain ='https://ci.alsainacademy.wecap.mx/'
 
   type:any;
+  public cuenta = '';
   name:any;
   section = '';
   idModuleBackUp:any;
@@ -28,7 +29,7 @@ export class HelpersService {
   public finalizados = [] as any;
   public conferencias = false;
 
-  constructor(private route: Router, public session:SessionService, ) { }
+  constructor(private route: Router, public session:SessionService) { }
 
   public getName(){
     return localStorage.getItem('userName');
@@ -41,6 +42,41 @@ export class HelpersService {
       left: 0,
       behavior: 'smooth',
     });
+  }
+
+  public showError(error: any, redirect?: any) {
+    let errorMessage = '';
+    if (error instanceof HttpErrorResponse) {
+      // Get client-side error
+      /* console.log(error); */
+      errorMessage = error.error.message.error;
+      //si el error es un array de errores
+    } else {
+      // Get server-side error
+      errorMessage = `${error.error.message.error}`;
+    }
+    //si redirect existe se redirige a la pagina que le pasemos cuando presionamos ok del swalalert
+    if (redirect) {
+      return Swal.fire({
+        title: 'Error',
+        text: errorMessage,
+        icon: 'error',
+        confirmButtonText: 'Ok',
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.route.navigate([redirect]);
+        }
+      });
+    } else {
+      //si no existe se muestra el mensaje de error
+      return Swal.fire({
+        title: 'Error',
+        text: errorMessage,
+        icon: 'error',
+        confirmButtonText: 'Ok',
+      });
+    }
   }
 
   //función para cerrar la sesión del usuario
@@ -57,6 +93,7 @@ export class HelpersService {
           //cerramos la sesion
           this.pauseTimer(this.interval);
           this.type = 0;
+          localStorage.removeItem('userName');
           localStorage.clear();
           localStorage.removeItem('token');
           this.session.curso = false;

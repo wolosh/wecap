@@ -156,7 +156,7 @@ export class SeccionComponent implements OnInit {
     this.get.getTemas(this.idModule, localStorage.getItem('token')).subscribe((data: any) => {
       //console.log(data)
       this.temasArr = data;
-      //console.log(this.temasArr)
+      console.log(this.temasArr)
       Swal.close();
     });
   }
@@ -171,6 +171,15 @@ export class SeccionComponent implements OnInit {
         Swal.close();
       }
     );
+  }
+
+  modulosSeccion(id: any, name: any) {
+    console.log(this.idModule,id, name)
+    this.helpers.idModuleBackUp = id;
+    this.helpers.nameModuleBackUp = name;
+    this.route.navigate(['/cmtemplate']);
+    this.session.curso = true;
+    this.session.cursos = 2;
   }
 
   goToTheme(idTopic:any, name:any){

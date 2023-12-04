@@ -111,7 +111,7 @@ export class GetService {
       headers
     });
   }
-  //llamada para traer modulos de un curso
+  //llamada para traer la información de un modulo en especifico
   getinfoModulo(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -363,6 +363,20 @@ export class GetService {
     }).pipe(
       catchError((err) => {
         console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public questionInfo(id, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.get(`${this.session.API}pregunta/${id}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
         return err;
       })
     );

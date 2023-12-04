@@ -10,7 +10,7 @@ import { Data, Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   constructor(public session: SessionService, public helpers: HelpersService, private route: Router) { }
-  name: string;
+  public name: string;
   type: string;
 
   ngOnInit(): void {

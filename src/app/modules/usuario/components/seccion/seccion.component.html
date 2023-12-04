@@ -13,7 +13,7 @@
                     <div class="row row-cols-2 row-cols-md-2 row-cols-xl-3 g-5 mt-1 modulo">
                         <div class="col" *ngFor="let tema of this.temasArr; let i = index">
                             <div class="card corpo">
-                                <img src="{{tema.icon_gold}}" class="img-fluid" alt="">
+                                <img src="{{this.helpers.domain+'/media/temas/' + tema.icon}}" class="img-fluid" alt="">
                                 <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
                                 <div class="transbox2 d-flex justify-content-center align-items-center">
                                     <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="goToTheme(tema.idTopic, tema.title)">{{tema.title}}</a>
@@ -115,6 +115,11 @@
                         </div>-->
                     </div>
                 </div>
+            </div>
+            <div class="col-12 mt-5">
+                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
+                    (click)="this.modulosSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
+                   >Regresar a Módulos</button>
             </div>
             <div class="row">
                 <div class="col-12">

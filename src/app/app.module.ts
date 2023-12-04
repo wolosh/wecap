@@ -13,6 +13,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +31,7 @@ import { MatInputModule } from '@angular/material/input';
     NgxPaginationModule,
     MatFormFieldModule,
     MatTableModule,
-    MatInputModule
+    MatInputModule, 
   ],
   exports: [RouterModule],
   providers: [],

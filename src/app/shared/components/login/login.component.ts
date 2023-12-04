@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
             console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
             localStorage.setItem('token', data['token']);
             localStorage.setItem('userName', data['full_name']);
+            console.log(localStorage.getItem('userName'))
             if(data['is_admin'] == 0){
               localStorage.setItem('type', '4');
             } else {
@@ -75,7 +76,7 @@ export class LoginComponent implements OnInit {
               //console.log(localStorage.getItem('userName'))
             }
           }, (e: any) => {
-            console.log(e);
+            console.log(e.error);
             Swal.fire({
               icon: 'error',
               title: 'Ups',

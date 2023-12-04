@@ -359,10 +359,10 @@
                       (opcional)</label>
                     <input type="text" class="input3" formControlName="score">
                   </div>
-                  <div class="col-12 col-lg-5">
+                  <!--<div class="col-12 col-lg-5">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Url del video (opcional)</label>
                     <input type="text" class="input3" formControlName="url_video">
-                  </div>
+                  </div>-->
                 </div>
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4">
@@ -374,9 +374,9 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgIconoDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/' +
+                      <img *ngIf="this.imgIconoDos != '' && this.icon == 1" class="imgPreview" src="{{this.helpers.domain+'/media/' +
                     this.imgIconoDos}}" alt="imgIcono" />
-                      <img *ngIf="this.imgIconoDos != '' && this.change == 1" class="imgPreview"
+                      <img *ngIf="this.imgIconoDos != '' && this.icon == 2" class="imgPreview"
                         src="{{this.imgIconoDos}}" alt="imgIcono" />
                     </div>
 
@@ -396,9 +396,9 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTerminaDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/' +
+                      <img *ngIf="this.imgTerminaDos != '' && this.terminar == 1" class="imgPreview" src="{{this.helpers.domain+'/media/' +
                     this.imgTerminaDos}}" alt="imgIcono" />
-                      <img *ngIf="this.imgTerminaDos != '' && this.change == 1" class="imgPreview"
+                      <img *ngIf="this.imgTerminaDos != '' && this.terminar == 2" class="imgPreview"
                         src="{{this.imgTerminaDos}}" alt="imgIcono" />
                     </div>
                     <!--<img *ngIf="this.imgTerminaDos != ''" class="imgPreview" src="{{ this.imgTerminaDos }}" alt="imgTermina" />
@@ -425,14 +425,16 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgScoreDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/' +
+                      <img *ngIf="this.imgScoreDos != '' && this.score == 1" class="imgPreview" src="{{this.helpers.domain+'/media/' +
                     this.imgScoreDos}}" alt="imgIcono" />
-                      <img *ngIf="this.imgScoreDos != '' && this.change == 1" class="imgPreview"
+                      <img *ngIf="this.imgScoreDos != '' && this.score == 2" class="imgPreview"
                         src="{{this.imgScoreDos}}" alt="imgIcono" />
                     </div>
                     <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore"-->
-                    <input type="file" class="input3" id="medallap" (change)="fileScore($event)"
+                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallap" (change)="fileScore($event)"
                       accept="image/png,image/jpeg,image/jpg">
+                      <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
+                      (change)="fileScore($event, 'update')" accept="image/png,image/jpeg,image/jpg">
                   </div>
                   <div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo
@@ -444,13 +446,15 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTiempoDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/' +
+                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 1" class="imgPreview" src="{{this.helpers.domain+'/media/' +
                     this.imgTiempoDos}}" alt="imgIcono" />
-                      <img *ngIf="this.imgTiempoDos != '' && this.change == 1" class="imgPreview"
+                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 2" class="imgPreview"
                         src="{{this.imgTiempoDos}}" alt="imgIcono" />
                     </div>
                     <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
-                    <input type="file" class="input3" id="medallapt" (change)="fileTiempo($event)"
+                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallapt" (change)="fileTiempo($event)"
+                      accept="image/png,image/jpeg,image/jpg">
+                      <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallapt" (change)="fileTiempo($event, 'update')"
                       accept="image/png,image/jpeg,image/jpg">
                   </div>
                 </div>
@@ -552,7 +556,7 @@
                       <img *ngIf="this.imgTemaDos != ''" class="imgPreview" src="{{this.imgTemaDos}}" alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTemaDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/temas/' +
+                      <img *ngIf="this.imgTemaDos != '' && this.change == 2" class="imgPreview" src="{{this.helpers.domain+'/media/temas/' +
                     this.imgTemaDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgTemaDos != '' && this.change == 1" class="imgPreview"
                         src="{{this.imgTemaDos}}" alt="imgIcono" />
@@ -571,7 +575,7 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTemaVDos != '' && this.change == 2" class="imgPreview" src="{{this. helpers.domain+'/media/temas/' +
+                      <img *ngIf="this.imgTemaVDos != '' && this.change == 2" class="imgPreview" src="{{this.helpers.domain+'/media/temas/' +
                     this.imgTemaVDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgTemaDos != '' && this.change == 1" class="imgPreview"
                         src="{{this.imgTemaVDos}}" alt="imgIcono" />
@@ -590,9 +594,7 @@
                     <input type="text" class="input3" formControlName="url_subtitulos">
                   </div>
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (video de nuestro servidor,
-                      YouTube,
-                      vimeo)</label>
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (YouTube, vimeo, PDF o Power Point)</label>
                     <input type="text" class="input3" formControlName="url_video">
                   </div>
                 </div>
@@ -761,7 +763,7 @@
                 <div class="col-12 col-lg-6">
                   <ul class="list-group">
                     <li class="list-group-item"
-                      *ngFor="let user of searchArray | paginate: { itemsPerPage: 6, currentPage: pgm }">
+                      *ngFor="let user of searchArray | paginate: { id: 'first', itemsPerPage: 6, currentPage: pgm }">
                       <input class="form-check-input me-1 float-end" type="checkbox" value="{{user.idUser}}"
                         id="firstCheckbox" (change)="changeValue($event)">
                       <label class="text13 txt-blue" for="firstCheckbox">{{user.full_name}} </label>
@@ -778,7 +780,7 @@
                 </div>
                 <div class="row mt-2">
                   <div class="col-12 col-lg-6">
-                    <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pgm = $event"
+                    <pagination-controls id="first" class="w-100 d-flex justify-content-center" (pageChange)="pgm = $event"
                       previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                   </div>
                 </div>

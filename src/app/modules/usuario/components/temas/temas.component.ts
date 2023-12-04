@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component, OnInit, ElementRef,
+  HostListener,
+  ViewChild
+} from '@angular/core';
 import { Data, Router } from '@angular/router';
 import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
@@ -16,18 +20,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TemasComponent implements OnInit {
 
+  @ViewChild('playerContainer') playerContainer: ElementRef;
+
+  //id del quid
+
   temasArr: any;
   finalizado = 0;
   arrFiles: any;
   nameFiles: any;
-  video: any;
+  public video: any;
   allConferencias: any;
   startDate = '';
   nameTopic = '';
   idTopic: any;
+  medalla: any;
+  chanceTow: any;
 
 
-  constructor(private activeRoute: ActivatedRoute, private dom:DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { 
+  constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
       console.log(params);
       this.idTopic = params['idTopic'];
@@ -95,18 +105,38 @@ export class TemasComponent implements OnInit {
     }
   }*/
 
-  tema(id:any) {
+  tema(id: any) {
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
+      this.helpers.nameTopicBackUp = data.title;
       this.nameTopic = data.title;
       console.log(this.nameTopic)
       this.temasArr = data;
       console.log(this.temasArr)
-      this.video = this.dom.bypassSecurityTrustResourceUrl(data.url_video);
+      this.medalla = data.icon_gold;
+      if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
+        let regExp  = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
+        let match = data.url_video.match(regExp);
+        console.log(match, match[0], match[1])
+        //let youID = (match.length && match[2].length == 11) ? match[1] : "" //asignamos video url embed
+        //console.log(youID)
+        this.video = "https://www.youtube.com/embed/" + match[1];
+        console.log(this.video)
+        this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
+        this.swalClosed();
+      } else if(data.url_video.includes('vimeo') ){
+        let regExp = /https: \/\/ (www\.)?vimeo.com\/ (\d+) ($|\/)/;
+        let match = data.url_video.match(regExp);
+        console.log(match, match[0], match[1])
+        this.video = "https://player.vimeo.com/video/"+match[1]+"?byline=08portrait=0"
+        console.log(this.video)
+        this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
+        this.swalClosed();
+      }
       let date = new Date();
       this.startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-      Swal.close();
+      
     });
     /*this.get.getTemas(localStorage.getItem('idModule'), localStorage.getItem('token')).subscribe((data: any) => {
       ////console.log(data)
@@ -117,13 +147,27 @@ export class TemasComponent implements OnInit {
     });*/
   }
 
-  getTemas(){
+  getembenurl(video: any)
+  {
+    this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(video);
+    //return this.dom.bypassSecurityTrustResourceUrl(this.video);
+  }
+
+  swalClosed(){
+    setTimeout(() => {
+      Swal.close();
+     }, 8000);
+  }
+  
+ 
+
+  getTemas() {
     console.log(localStorage.getItem('idModulo'), localStorage.getItem('token'))
     this.get.getTemas(localStorage.getItem('idModulo'), localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
-      for(let mod of data){
+      for (let mod of data) {
         console.log(mod)
-        if(mod.idModule == this.idTopic){
+        if (mod.idModule == this.idTopic) {
           this.nameTopic = mod.title;
         }
       }
@@ -134,16 +178,16 @@ export class TemasComponent implements OnInit {
   }
 
   temaFinalizado(idTopic: any) {
-    console.log(idTopic)
+    console.log(idTopic, 'finalizado')
     let tema = new FormData();
     let date = new Date();
 
     console.log(date)
 
-    tema.append('idTema', idTopic);
+    tema.append('idTema', this.idTopic);
     tema.append('inicio', this.startDate);
     tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
-    
+
 
     console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
 
@@ -156,7 +200,7 @@ export class TemasComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          this.route.navigate(['/seccion']);
+          this.route.navigate(['/seccion', this.idTopic]);
           //console.log(result)
           /*if (result.isConfirmed) {
             this.temasSeccion(localStorage.getItem('idModule'), localStorage.getItem('nameModule'));
@@ -192,9 +236,10 @@ export class TemasComponent implements OnInit {
   }
 
   public temasSeccion(id: any, name: any) {
+    console.log(this.idTopic,id, name)
     this.helpers.idModuleBackUp = id;
     this.helpers.nameModuleBackUp = name;
-    this.route.navigate(['/seccion']);
+    this.route.navigate(['/seccion', this.idTopic]);
     this.session.curso = true;
   }
 
@@ -210,7 +255,7 @@ export class TemasComponent implements OnInit {
     );
   }
 
-  conferencias(id:any) {
+  conferencias(id: any) {
     this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data)
@@ -220,12 +265,12 @@ export class TemasComponent implements OnInit {
     );
   }
 
-  checkTheme(id:any){
+  checkTheme(id: any) {
     console.log(id)
     this.get.checkTheme(id, localStorage.getItem('token')).subscribe(
-      (data:any) => {
+      (data: any) => {
         console.log(data)
-        if(data.finalizado == true){
+        if (data.finalizado == true) {
           this.finalizado = 1;
           this.helpers.nameTopicBackUp = this.nameTopic + ' - Finalizado'
           console.log(this.helpers.nameTopicBackUp)
@@ -233,7 +278,7 @@ export class TemasComponent implements OnInit {
           this.finalizado = 0;
           this.helpers.nameTopicBackUp = this.nameTopic
         }
-        this.getTemas();
+        this.tema(id);
       }
     );
   }
