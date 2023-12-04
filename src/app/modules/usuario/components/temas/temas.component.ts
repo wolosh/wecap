@@ -126,9 +126,9 @@ export class TemasComponent implements OnInit {
         this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
         this.swalClosed();
       } else if(data.url_video.includes('vimeo') ){
-        let regExp = /https: \/\/ (www\.)?vimeo.com\/ (\d+) ($|\/)/;
+        let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:vimeo\.com)\/(?:watch\?v=)?(.+)/;
         let match = data.url_video.match(regExp);
-        console.log(match, match[0], match[1])
+        console.log(match)
         this.video = "https://player.vimeo.com/video/"+match[1]+"?byline=08portrait=0"
         console.log(this.video)
         this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);

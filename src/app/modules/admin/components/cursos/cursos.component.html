@@ -210,7 +210,7 @@
             </div>
             <!--label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label-->
             <hr class="w-100">
-            <div class="table-responsive" *ngIf="this.allModules.length != 0">
+            <div class="table-responsive" *ngIf=" this.allModulesLength != 0">
               <table class="table striped w-100">
                 <thead>
                   <tr>
@@ -374,7 +374,7 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgIconoDos != '' && this.icon == 1" class="imgPreview" src="{{this.helpers.domain+'/media/' +
+                      <img *ngIf="this.imgIconoDos != '' && this.icon == 1" class="imgPreview" src="{{this.helpers.domain+'media/cursos/' +
                     this.imgIconoDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgIconoDos != '' && this.icon == 2" class="imgPreview"
                         src="{{this.imgIconoDos}}" alt="imgIcono" />
@@ -396,7 +396,7 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTerminaDos != '' && this.terminar == 1" class="imgPreview" src="{{this.helpers.domain+'/media/' +
+                      <img *ngIf="this.imgTerminaDos != '' && this.terminar == 1" class="imgPreview" src="{{this.helpers.domain+'media/cursos/' +
                     this.imgTerminaDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgTerminaDos != '' && this.terminar == 2" class="imgPreview"
                         src="{{this.imgTerminaDos}}" alt="imgIcono" />
@@ -425,7 +425,7 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgScoreDos != '' && this.score == 1" class="imgPreview" src="{{this.helpers.domain+'/media/' +
+                      <img *ngIf="this.imgScoreDos != '' && this.score == 1" class="imgPreview" src="{{this.helpers.domain+'media/cursos/' +
                     this.imgScoreDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgScoreDos != '' && this.score == 2" class="imgPreview"
                         src="{{this.imgScoreDos}}" alt="imgIcono" />
@@ -446,7 +446,7 @@
                         alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 1" class="imgPreview" src="{{this.helpers.domain+'/media/' +
+                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 1" class="imgPreview" src="{{this.helpers.domain+'media/cursos/' +
                     this.imgTiempoDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 2" class="imgPreview"
                         src="{{this.imgTiempoDos}}" alt="imgIcono" />

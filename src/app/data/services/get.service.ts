@@ -241,7 +241,12 @@ export class GetService {
     });
     return this.http.get(this.session.API + 'getTema/' + id, {
       headers
-    });
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
   }
 
   getInfoExamen(id: any, token) {

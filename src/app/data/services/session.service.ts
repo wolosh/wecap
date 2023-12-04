@@ -78,7 +78,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        //console.log(err);
+        console.log(err);
         if(err.status == 401) {
         this.redirect();
         }
@@ -112,7 +112,7 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        //console.log(err);
+        console.log(err);
         return err;
       })
     );

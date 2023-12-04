@@ -106,6 +106,7 @@ export class CursosComponent implements OnInit {
   terminar: number = 0;
   score: number = 0;
   tiempo: number = 0;
+  allModulesLength: any;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -346,7 +347,7 @@ export class CursosComponent implements OnInit {
         send.append('title', this.formNewCurso.value.title);
         send.append('description', this.formNewCurso.value.description);
         if (this.image != undefined) {
-          //console.log(this.image)
+          console.log(this.image)
           send.append('img', this.image, this.image.name);
         } else {
           Swal.fire({
@@ -365,6 +366,7 @@ export class CursosComponent implements OnInit {
         send.append('default_active_days', this.formNewCurso.value.default_active_days);
         send.append('hasExam', this.exam);
 
+        console.log(send.getAll(''),send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get, send.getAll('img'));
         console.log( send.getAll('img'))
         //console.log( send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get);
         this.session.newCurso(send, localStorage.getItem('token')).subscribe(
@@ -389,7 +391,7 @@ export class CursosComponent implements OnInit {
         );
         break;
       case 'edit':
-        //console.log(this.image)
+        console.log(this.formEdit)
         this.formData.append('title', this.formEdit.value.title);
         this.formData.append('description', this.formEdit.value.description);
         this.formData.append('hasExam', this.exam);
@@ -510,7 +512,7 @@ export class CursosComponent implements OnInit {
             this.formEdit.controls['default_active_days'].setValue(item.default_active_days);
             this.bf = item.img;
             this.exam = parseInt(item.hasExam);
-            //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
+            console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
         break;
@@ -586,6 +588,7 @@ export class CursosComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.allModules = data;
+        this.allModulesLength = data.length;
         //console.log(this.allModules)
         Swal.close();
       },
