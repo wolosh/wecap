@@ -285,7 +285,7 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         this.certificaciones = data;
         this.countCert = this.certificaciones.length;
-        //console.log(this.certificaciones);
+        console.log(this.certificaciones);
         Swal.close();
       },
       (error: any) => {
@@ -365,6 +365,7 @@ export class CursosComponent implements OnInit {
         send.append('default_active_days', this.formNewCurso.value.default_active_days);
         send.append('hasExam', this.exam);
 
+        console.log( send.getAll('img'))
         //console.log( send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get);
         this.session.newCurso(send, localStorage.getItem('token')).subscribe(
           (data: any) => {
@@ -398,7 +399,7 @@ export class CursosComponent implements OnInit {
         } else {
           this.formData.append('img', this.image);
         }
-        //console.log(this.formData.getAll('image'), this.formData.getAll('title'), this.formData.getAll('description'));
+        //console.log(this.formData.getAll('img'));
         this.session.editCourse(id, this.formData, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);}
@@ -497,7 +498,7 @@ export class CursosComponent implements OnInit {
         this.cview1 = 1;
         for (let item of this.certificaciones) {
           if (item.title == name) {
-            //console.log(item.idCertification)
+            //console.log(item.img)
             this.idCertification = item.idCertification;
             this.modules(item.idCertification);
             this.diploma(item.idCertification);
@@ -1113,10 +1114,10 @@ export class CursosComponent implements OnInit {
   }
   fileTermina(event, act?: any) {
     if (act) {
-      
+
         this.terminar = 2;
       this.imgTerminaDos = this.imgIconoDos;
-      
+
     }
     console.log(event.target.files)
     this.imgTermina = event.target.files[0]
@@ -1135,7 +1136,7 @@ export class CursosComponent implements OnInit {
     if (change) {
       this.score = 2;
     this.imgScoreDos = this.imgIconoDos;
-    
+
   }
     console.log(event.target.files)
     this.imgScore = event.target.files[0]
@@ -1153,7 +1154,7 @@ export class CursosComponent implements OnInit {
     if (act) {
       this.tiempo = 2;
     this.imgScoreDos = this.imgIconoDos;
-    
+
   }
     this.imgTiempo = event.target.files[0]
     if (event.target.files.length > 0) {
@@ -1227,7 +1228,7 @@ export class CursosComponent implements OnInit {
       modulo.append('icon', this.imgIcono, this.imgIcono.name);
 
       modulo.append('color_style', this.formModulo.value.color);
-      if(this.formModulo.value.url_video != '') { 
+      if(this.formModulo.value.url_video != '') {
         modulo.append('url_video', this.formModulo.value.url_video);
     } else {
         modulo.append('url_video', '');
@@ -1420,9 +1421,9 @@ export class CursosComponent implements OnInit {
     tema.append('description', this.formTemas.value.description);
     tema.append('order_number', '1');
     tema.append('is_active', this.formTemas.value.status);
-    if(this.imgTema != undefined){ 
+    if(this.imgTema != undefined){
       tema.append('icon', this.imgTema, this.imgTema.name);
-      
+
     } else {
       tema.append('icon', this.imgTemaDos);
     }

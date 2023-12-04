@@ -202,6 +202,7 @@ hr{
     border: none !important;
     border-radius: 32px !important;
     overflow: hidden;
+    aspect-ratio: 1/1;
 }
 .corpo{
     width: 100%;
@@ -216,16 +217,29 @@ hr{
 }
 .home .card-img{
     width: 95% !important;
+    border-radius: 32px !important;
+    height: 100%;
     transition:all 0.25s ease-in-out;
+}
+.home .card-img-overlay{
+  padding: 0 !important;
 }
 .home .card:hover .card-img{
     transform: scale(1.1);
 }
+.slidemodulo{aspect-ratio: 1/1;}
+.slidemodulo .item{
+  height: 100%;
+  border-radius: 32px;
+}
+.slidemodulo .item img{
+  border-radius: 32px;
+}
 .card-img-overlay .blue{
     position: relative;
-    width: 110%;
+    width: 100%;
     min-height: 150px;
-    left: -5%;
+    /*left: -5%;*/
     background-color: rgb(1, 82, 135, .9);
     padding: 5%;
 }
@@ -820,7 +834,7 @@ td{
 }
 .cuadro{
     width: 100%;
-    height: 100%; 
+    height: 100%;
     padding: 3%;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     color: #fff;

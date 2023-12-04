@@ -19,12 +19,12 @@
                 <!--<img src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">-->
                 <img *ngIf="certificacion.img == ''" src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">
                 <img *ngIf="certificacion.img != ''" src="{{this.helpers.domain+'/media/' +
-                certificacion.img}}" class="card-img mx-auto d-block" alt="...">
-                <div class="card-img-overlay d-flex justify-content-center align-items-center">
-                    <div class="row">
+                certificacion.img}}" class="card-img mx-auto" alt="...">
+                <div class="card-img-overlay ">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col-12">
-                            <h5 class="card-title mx-auto d-block d-flex align-items-center">{{certificacion.title}}</h5>
-                            <div class="blue d-flex align-items-center">
+                            <h5 class="card-title mx-auto d-block d-flex align-items-center justify-content-center">{{certificacion.title}}</h5>
+                            <div class="blue d-flex align-items-center justify-content-center">
                                 <div class="row">
                                     <div class="col-12">
                                         <p class="card-text">{{certificacion.description}}
@@ -71,14 +71,14 @@
           [showIndicators]="showIndicator"
           [interval]="0"
           [noWrap]="noWrap">
-        <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3">
-            <img src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide" style="display: block; width: 100%;">
+        <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
+            <img src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide" style="display: block; width: 100%;" class="h-100">
             <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
                 <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
             <div class="carousel-caption">
                 <button type="button" class="card-title w-100 border-0" (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
                 <!--<button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100 border-0" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>-->
-                
+
                 <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                     <div class="row">
                         <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="..."></div>
