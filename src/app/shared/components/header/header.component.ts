@@ -15,8 +15,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.name = localStorage.getItem('userName');
-    console.log(this.name)
+    //this.helpers.getName();
+    //console.log(this.name)
     //this.type = localStorage.getItem('type');
     //console.log(this.type)
   }
@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit {
       element.classList.remove('bg-white');
     }
   }
-
  goTo(vista:any){
   switch(vista){
     case 1:
@@ -45,5 +44,4 @@ export class HeaderComponent implements OnInit {
     break;
   }
  }
-
 }

@@ -30,6 +30,11 @@ export class HelpersService {
 
   constructor(private route: Router, public session:SessionService, ) { }
 
+  public getName(){
+    return localStorage.getItem('userName');
+    //console.log(this.name)
+  }
+
   goTop(){
     window.scroll({
       top: 0,
@@ -53,11 +58,11 @@ export class HelpersService {
           this.pauseTimer(this.interval);
           this.type = 0;
           localStorage.clear();
+          localStorage.removeItem('token');
           this.session.curso = false;
           this.conferencias = false;
           //redireccionamos a la pagina de inicio despues de 7 segundos
           this.route.navigate(['/']);
-          //console.log(localStorage)
         }, 900);
       },
     });
@@ -67,7 +72,7 @@ export class HelpersService {
     this.route.navigate(['']);
   }
 
-  
+
 
 
   /*public dataUrlToBlob(dataUrl: string): Blob {
@@ -117,11 +122,11 @@ export class HelpersService {
     const length = binaryString.length;
     const arrayBuffer = new ArrayBuffer(length);
     const uint8Array = new Uint8Array(arrayBuffer);
-  
+
     for (let i = 0; i < length; i++) {
       uint8Array[i] = binaryString.charCodeAt(i);
     }
-  
+
     return arrayBuffer;
   }*/
   /*public base64ToFile(base64Data: string, fileName: string, mimeType: string): File {
@@ -132,11 +137,11 @@ export class HelpersService {
     try {
       // Lee el archivo de imagen como un búfer (buffer)
       const buffer = fs.readFileSync(imagePath);
-  
+
       // Convierte el búfer en una cadena base64
       const base64Data = buffer.toString('base64');
       const base64String = `data:image/jpeg;base64,${base64Data}`; // Reemplaza 'jpeg' con el tipo de imagen apropiado
-  
+
       return base64String;
     } catch (error) {
       console.error(`Error al convertir la imagen en base64: ${error}`);

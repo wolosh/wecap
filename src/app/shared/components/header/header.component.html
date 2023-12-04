@@ -70,7 +70,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        {{this.name}}
+                        {{this.helpers.getName()}}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end text-lg-end" aria-labelledby="navbarDropdown">
                         <li (click)="this.helpers.logout()"><a class="dropdown-item bg-grey rounded-bottom">Salir</a>
@@ -143,7 +143,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            {{this.name}}
+                            {{this.helpers.getName()}}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end text-lg-end" aria-labelledby="navbarDropdown">
                             <li><a class="text-white dropdown-item bg-blue rounded-top" (click)="goTo(2)">Perfil</a></li>
@@ -156,7 +156,7 @@
         <div *ngIf="this.session.curso === true">
             <h1 class="text1 text-white d-block mb-0" *ngIf="this.helpers.nameModuleBackUp != ''">Módulo {{this.helpers.nameModuleBackUp}}</h1>
             <h1 class="text1 text-white d-block mb-0" *ngIf="this.helpers.nameTopicBackUp != ''">Tema: {{this.helpers.nameTopicBackUp}}</h1>
-        
+
         </div>
     </div>
 </header>

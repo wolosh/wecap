@@ -67,10 +67,12 @@ export class LoginComponent implements OnInit {
             //console.log(localStorage.getItem('token'), localStorage.getItem('userName'), localStorage.getItem('idUser') );
             if (data['is_admin'] == 0) {
               this.router.navigate(['/cmtemplate']);
+              //console.log(localStorage.getItem('userName'))
 
             } else if (data['is_admin'] == 1) {
               this.router.navigate(['/cursos']);
               console.log(this.helpers.cursos)
+              //console.log(localStorage.getItem('userName'))
             }
           }, (e: any) => {
             console.log(e);
