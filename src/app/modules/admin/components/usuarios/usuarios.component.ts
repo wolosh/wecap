@@ -56,7 +56,7 @@ export class UsuariosComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          console.log(result)
+          //console.log(result)
           if (result.isConfirmed) {
             this.route.navigate(['/cmtemplate']);
           }
@@ -182,11 +182,11 @@ export class UsuariosComponent implements OnInit {
   }
 
   validarEmail() {
-    console.log(this.formUser.value.email);
+    //console.log(this.formUser.value.email);
     if (this.formUser.value.email != '') {
       this.get.validEmail(this.formUser.value.email, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           if (data.valid == false) {
             Swal.fire({
               title: '¡Error!',
@@ -215,7 +215,7 @@ export class UsuariosComponent implements OnInit {
     //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
     let form = new FormData();
     if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.password != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != ''){
-      console.log('esta correcto');
+      //console.log('esta correcto');
       form.set('email', this.formUser.value.email);
       form.set('password', this.formUser.value.password);
       form.set('confirm_password', this.formUser.value.password);
@@ -232,7 +232,7 @@ export class UsuariosComponent implements OnInit {
 
       this.session.registrarUser(form, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           Swal.fire({
             title: '¡Agregado con exito!',
             text: 'El usuario ha sido modificado.',
@@ -246,7 +246,7 @@ export class UsuariosComponent implements OnInit {
         }
       ),
       (error: any) => {
-        console.log(error);
+        //console.log(error);
         this.helpers.showError(error);
       };
     } else {
@@ -309,7 +309,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarios = [];
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.usuarios = data.users;
         //console.log(this.usuarios)
         Swal.close();

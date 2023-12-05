@@ -1,1 +1,5 @@
-
+.navbar-brand {
+    position: absolute; 
+    top: 1; 
+    left: 0;
+ }

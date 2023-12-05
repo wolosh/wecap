@@ -17,7 +17,7 @@ export class HelpersService {
 //public domain ='https://ci.americargo.wecap.mx/'
   //public domain ='https://ci.alsainacademy.wecap.mx/'
 
-  type:any;
+  type: any = '0';
   public cuenta = '';
   name:any;
   section = '';

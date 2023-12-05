@@ -97,7 +97,7 @@ export class CursosModulosComponent implements OnInit {
     ////console.log(view, id);
     if(id){
       this.session.idCertification = id;
-      console.log(this.session.idCertification);
+      //console.log(this.session.idCertification);
     }
     Swal.fire({
       title: 'Cargando...',
@@ -138,7 +138,7 @@ export class CursosModulosComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.modulesCertifications = data;
-        console.log(this.modulesCertifications);
+        //console.log(this.modulesCertifications);
         this.files(id);
       }
     );

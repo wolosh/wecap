@@ -274,6 +274,7 @@ export class ExamenesComponent implements OnInit {
 
   changeExam(id: any, certificacion?: any, name?: any, question?: any) {
     this.examModule = [];
+    this.questionAnswers = [];
     //console.log(id, certificacion, name, question);
     Swal.fire({
       title: 'Cargando...',
@@ -324,7 +325,7 @@ export class ExamenesComponent implements OnInit {
                   this.none = 0;
                   //console.log(this.none)
                 } else {
-                  //console.log(data);
+                  console.log(data);
                   if (data.preguntas.length == 0) {
                     //console.log('no tiene preguntas')
                     this.none = 1;
@@ -687,6 +688,16 @@ export class ExamenesComponent implements OnInit {
         });
         break;
     }
+  }
+
+  removeEditQuestion(option:any){
+    console.log(this.questionAnswers, option);
+    this.questionAnswers.forEach(element => {
+      if(element.idEval_option == option){
+        this.questionAnswers.splice(this.questionAnswers.indexOf(element), 1);
+      }
+    });
+    console.log(this.questionAnswers);
   }
 
   removeQuestion(id: any, action: any, type?: any) {
@@ -1256,6 +1267,7 @@ export class ExamenesComponent implements OnInit {
     if(type == 'open'){
       this.json.respuestas = this.questionAnswers
     }
+    console.log(this.json)
 
     this.session.updatePregunta(this.json, localStorage.getItem('token')).subscribe(
       (data: any) => {
