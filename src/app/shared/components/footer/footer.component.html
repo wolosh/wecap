@@ -1,6 +1,6 @@
-<footer *ngIf="this.helpers.type == '1' || this.helpers.type == '4'">
+<footer>
     <div class="container-lg pt-3 pb-3">
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end" *ngIf="this.helpers.type == '4'">
             <div class="">
               <a href="{{this.facebook}}" target="_blank">
                 <img src="assets/img/face.svg" alt="" width="20" height="20">

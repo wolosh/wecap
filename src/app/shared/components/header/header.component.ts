@@ -9,7 +9,6 @@ import { Data, Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  imgHeader: any;
   url: any;
   constructor(public session: SessionService, public helpers: HelpersService, private route: Router) { }
   public name: string;
