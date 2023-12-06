@@ -26,13 +26,13 @@ export class SessionService {
 
   constructor(private http: HttpClient, public route: Router) { 
     if (this.domainPrueba.includes('americargo')) {
-      this.API = 'https://ci.americargo.wecap.mx/'
+      this.API = 'https://ci.americargo.wecap.mx/api/'
       console.log(this.API)
       } else if (this.domainPrueba.includes('alsainacademy')) {
-        this.API = 'https://ci.alsainacademy.wecap.mx/'
+        this.API = 'https://ci.alsainacademy.wecap.mx/api/'
         console.log(this.API)
       } else {
-        this.API = 'https://ci.wecap.mx/'
+        this.API = 'https://ci.wecap.mx/api/'
         console.log(this.API)
       }
   }
