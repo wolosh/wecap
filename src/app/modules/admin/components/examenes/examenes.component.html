@@ -707,16 +707,24 @@
                                 <label class="text3 txt-blue2">Selecciona el módulo</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                                
                                 <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeExam(0)">
                                     <i class="fas fa-reply"></i>
                                 </button>
+                                <!--<button *ngIf="this.modLength == 0" class="boton bg-blue p-1 p-md-2" (click)="goCourses()">
+                                    
+                                    Ir a cursos
+                                </button>-->
                             </div>
                         </div>
                         <!--label class="text3 txt-blue2 mt-3">Selecciona el módulo</label>
                         <button class="boton bg-blue mx-auto d-block w-100 p-2"
                             (click)="changeExam(0)">Cancelar</button-->
                         <hr class="w-100">
-                        <div class="table-responsive">
+                        <div class="table-responsive" *ngIf="this.modLength == 0">
+                            Aún no cuentas con un modulos en este curso.
+                        </div>
+                        <div class="table-responsive" *ngIf="this.modLength != 0">
                             <table class="table striped w-100">
                                 <thead>
                                     <tr>

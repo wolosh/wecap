@@ -7,6 +7,7 @@ import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
 import { Buffer } from 'buffer';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-cursos',
@@ -110,15 +111,17 @@ export class CursosComponent implements OnInit {
   imgHeaderDos: any;
   imgHeader: any;
   header: any;
+  isOrderChange: boolean;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('type'))
     this.helpers.goTop();
     Swal.close();
     if (localStorage.getItem('type') == '1') {
-
+      console.log(localStorage.getItem('type'))
       //console.log(this.searchArray)
       //console.log(localStorage.getItem('name'));
       this.helpers.type = localStorage.getItem('type');
@@ -129,8 +132,9 @@ export class CursosComponent implements OnInit {
       this.startForm(1);
       //console.log(this.view)
     } else {
-      if (localStorage.getItem('type') == '4') {
-        Swal.fire({
+      
+        console.log(localStorage.getItem('type'))
+        /*Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
           icon: 'error',
@@ -138,16 +142,58 @@ export class CursosComponent implements OnInit {
         }).then((result) => {
           //console.log(result)
           if (result.isConfirmed) {
-            this.route.navigate(['/cmtemplate']);
+            this.route.navigate(['/']);
           }
-        });
-      } else if (localStorage.getItem('token') == null) {
-        this.route.navigate(['/']);
+        });*/
       }
+    } 
+
+
+    public drop(event: CdkDragDrop<any>, type:any) {
+      console.log(type)
+      if(type == 'modules'){
+      moveItemInArray(this.allModules, event.previousIndex, event.currentIndex);
+      } else {
+      moveItemInArray(this.alltemas, event.previousIndex, event.currentIndex);
+      console.log(this.alltemas); 
+      }
+      this.isOrderChange = true;
     }
-  }
 
-
+    public updateOrder(type:any) {
+      console.log(type, this.idCertification)
+      let json = {} as any;
+      let newOrder = '';
+      if(type == 'modules'){
+       
+        json.id_certification = this.idCertification;
+        //se recorre el arreglo formar un string con los ids de los cursos separados por comas
+        this.allModules.map((value: any, key: any) => {
+          newOrder += value.idModule + ',';
+        });
+        //se elimina la ultima coma
+        newOrder = newOrder.slice(0, -1);
+        json['module_order'] = newOrder;
+        console.log(json);
+      } else {
+      json.id_module = this.idModulo;
+      //se recorre el arreglo formar un string con los ids de los cursos separados por comas
+      this.alltemas.map((value: any, key: any) => {
+        newOrder += value.idTopic + ',';
+      });
+      //se elimina la ultima coma
+      newOrder = newOrder.slice(0, -1);
+      json['topic_order'] = newOrder;
+      console.log(json);
+    }
+      //this.helpers.loader();
+      /*this.register
+        .editCourse(json, this.helpers.getToken())
+        .subscribe((data: any) => {
+          this.getInfo();
+        });*/
+      this.isOrderChange = false;
+    }
 
   onClickTab(tab: string) {
     //console.log(this.p, this.pm, this.pg);
@@ -229,7 +275,7 @@ export class CursosComponent implements OnInit {
       this.formEdit = this.formBuilder.group({
         title: [''],
         description: [''],
-        //img: [''],
+        img: [''],
         default_active_days: [''],
         //hasExam: [''],
       });
@@ -238,7 +284,9 @@ export class CursosComponent implements OnInit {
         cursoID: [''],
         encargado: [''],
         puesto: [''],
+        firma: [''],
         activado: [''],
+        logo: [''],
       });
     } else if (id == 3) {
       this.formNewMat = this.formBuilder.group({
@@ -363,18 +411,18 @@ export class CursosComponent implements OnInit {
           send.delete('description');
           send.delete('img');
           send.delete('default_active_days');
-          send.delete('hasExam');
+          send.delete('secuencial');
         }
         //console.log( send.getAll('img'),  send.getAll('title'),  send.getAll('description'));
         send.append('default_active_days', this.formNewCurso.value.default_active_days);
-        send.append('hasExam', this.exam);
+        send.append('secuencial', this.exam);
 
-        console.log(send.getAll(''),send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get, send.getAll('img'));
+        console.log(send.getAll(''),send.getAll('secuencial'),  send.getAll('default_active_days'),  send.get, send.getAll('img'));
         console.log( send.getAll('img'))
         ////console.log( send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get);
         this.session.newCurso(send, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            //console.log(data);
+            console.log(data);
             Swal.fire({
               title: '¡Creado con exito!',
               text: 'El curso ha sido creado.',
@@ -397,26 +445,31 @@ export class CursosComponent implements OnInit {
         //console.log(this.formEdit)
         this.formData.append('title', this.formEdit.value.title);
         this.formData.append('description', this.formEdit.value.description);
-        this.formData.append('hasExam', this.exam);
+        this.formData.append('secuencial', this.exam);
         this.formData.append('default_active_days', this.formEdit.value.default_active_days);
         if (this.image != undefined) {
           this.formData.append('img', this.image, this.image.name);
         } else {
-          this.formData.append('img', this.image);
+          this.formData.append('img', this.formEdit.value.img);
         }
         ////console.log(this.formData.getAll('img'));
+        console.log(this.formData.getAll('title'), this.formData.getAll('description'), this.formData.getAll('img'), this.formData.getAll('default_active_days'), this.formData.getAll('secuencial'), this.formData.get);
         this.session.editCourse(id, this.formData, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            ////console.log(data);}
+            console.log(data);
             Swal.fire({
               title: '¡Actualizado con exito!',
-              text: 'El curso ha actualizado creado.',
+              text: 'El curso se ha actualizado.',
               icon: 'success',
               confirmButtonColor: '#015287',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.changeViewCourses('editc', this.formEdit.value.title)
+              }
             });
-            this.certifications();
-          }
-        );
+           
+            //this.certifications();
+          });
         break;
     }
   }
@@ -504,6 +557,7 @@ export class CursosComponent implements OnInit {
         for (let item of this.certificaciones) {
           if (item.title == name) {
             //console.log(item.img)
+            console.log(item)
             this.idCertification = item.idCertification;
             this.modules(item.idCertification);
             this.diploma(item.idCertification);
@@ -513,8 +567,9 @@ export class CursosComponent implements OnInit {
             this.formEdit.controls['title'].setValue(item.title);
             this.formEdit.controls['description'].setValue(item.description);
             this.formEdit.controls['default_active_days'].setValue(item.default_active_days);
+            this.formEdit.controls['img'].setValue(item.img);
             this.bf = item.img;
-            this.exam = parseInt(item.hasExam);
+            this.exam = parseInt(item.secuencial);
             //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
@@ -814,17 +869,21 @@ export class CursosComponent implements OnInit {
     //console.log(id);
     this.get.getDiploma(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         if (data != null) {
           this.formDiploma.controls['cursoID'].setValue(data.idCertification);
           this.formDiploma.controls['encargado'].setValue(data.encargado);
           this.formDiploma.controls['puesto'].setValue(data.puesto);
           this.formDiploma.controls['activado'].setValue(data.activado);
+          this.formDiploma.controls['firma'].setValue(data.firma);
+        this.formDiploma.controls['logo'].setValue(data.logo);
           if (data.activado == 1)
             this.hasDiploma = true;
         } else {
           this.hasDiploma = false;
         }
+        
+        console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
       },
       (error: any) => {
         this.helpers.logout();
@@ -883,19 +942,19 @@ export class CursosComponent implements OnInit {
 
   //salva la configuración de los diplomas
   saveDiploma() {
-    //console.log(this.formDiploma.value, this.hasDiploma);
-    //console.log(this.logo);
-    //console.log(this.firma, this.idCertification);
+    console.log(this.formDiploma.value, this.hasDiploma);
+    console.log(this.logo);
+    console.log(this.firma, this.idCertification);
     let diploma = new FormData();
 
-    diploma.append('cursoId', this.idCertification);
+    diploma.append('cursoID', this.idCertification);
     diploma.append('encargado', this.formDiploma.value.encargado);
     diploma.append('puesto', this.formDiploma.value.puesto);
 
     if (this.firma != undefined) {
-      diploma.append('img', this.firma, this.firma.name);
+      diploma.append('firma', this.firma, this.firma.name);
     } else {
-      diploma.append('img', this.firma);
+      diploma.append('firma', this.formDiploma.value.firma);
     }
 
     if (this.hasDiploma == true) {
@@ -907,10 +966,10 @@ export class CursosComponent implements OnInit {
     if (this.logo != undefined) {
       diploma.append('logo', this.logo, this.logo.name);
     } else {
-      diploma.append('logo', this.logo);
+      diploma.append('logo', this.formDiploma.value.logo);
     }
 
-    //console.log(diploma.getAll('cursoId'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('img'), diploma.getAll('activado'), diploma.getAll('logo'), diploma.get);
+    console.log(diploma.getAll('cursoId'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('img'), diploma.getAll('activado'), diploma.getAll('logo'), diploma.get);
     //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
     this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -920,8 +979,12 @@ export class CursosComponent implements OnInit {
           text: 'El diploma ha sido actualizado.',
           icon: 'success',
           confirmButtonColor: '#015287',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.changeViewCourses('editc')
+          }
         });
-        this.certifications();
+        
       }
     );
   }

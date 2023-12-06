@@ -42,6 +42,7 @@ export class ExamenesComponent implements OnInit {
     img: new FormControl('', Validators.required),
   });
 
+  modLength = 0;
   backAnswer: any;
   backDataAnswer: any;
   backQuestion: any;
@@ -106,6 +107,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('type'))
     this.helpers.goTop();
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
@@ -122,7 +124,7 @@ export class ExamenesComponent implements OnInit {
         }).then((result) => {
           //console.log(result)
           if (result.isConfirmed) {
-            this.route.navigate(['/cmtemplate']);
+            this.route.navigate(['/']);
           }
         });
       } else if (localStorage.getItem('token') == null) {
@@ -272,6 +274,11 @@ export class ExamenesComponent implements OnInit {
     });
   }
 
+  goCourses(){
+    console.log(localStorage.getItem('type'))
+    this.route.navigate(['/cmtemplate']);
+  }
+
   changeExam(id: any, certificacion?: any, name?: any, question?: any) {
     this.examModule = [];
     this.questionAnswers = [];
@@ -301,8 +308,10 @@ export class ExamenesComponent implements OnInit {
             //console.log(id, certificacion);
             this.get.getModules(this.respaldo1, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data);
+                console.log(data);
                 this.modules = data;
+                this.modLength = data.length;
+                console.log(this.modLength);
                 Swal.close();
               }
             );
@@ -321,7 +330,7 @@ export class ExamenesComponent implements OnInit {
                   this.examModule = data.preguntas;
                 }*/
                 if (data == null || data.message) {
-                  //console.log(data)
+                  console.log(data)
                   this.none = 0;
                   //console.log(this.none)
                 } else {
@@ -336,6 +345,8 @@ export class ExamenesComponent implements OnInit {
                     //console.log(this.none)
                     //this.questions = data;
                     this.examModule = data.preguntas;
+                    this.modLength = data.length;
+                console.log(this.modLength);
                     //console.log(data, data.preguntas);
                     //console.log(question)
                   }
