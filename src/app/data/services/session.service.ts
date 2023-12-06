@@ -11,9 +11,11 @@ import Swal from 'sweetalert2';
 export class SessionService {
 
   //API: string = 'http://35.92.150.230/api/'
-  API: string = 'https://ci.wecap.mx/api/'
+  //API: string = 'https://ci.wecap.mx/api/'
   //API: string = 'https://ci.americargo.wecap.mx/api/'
   //API: string = 'https://ci.alsainacademy.wecap.mx/api/'
+  API: string = '';
+  public domainPrueba = document.location.origin;
   
 
   curso: boolean = false;
@@ -22,7 +24,18 @@ export class SessionService {
   cursos = 0;
   public idCertification: number;
 
-  constructor(private http: HttpClient, public route: Router) { }
+  constructor(private http: HttpClient, public route: Router) { 
+    if (this.domainPrueba.includes('americargo')) {
+      this.API = 'https://ci.americargo.wecap.mx/'
+      console.log(this.API)
+      } else if (this.domainPrueba.includes('alsainacademy')) {
+        this.API = 'https://ci.alsainacademy.wecap.mx/'
+        console.log(this.API)
+      } else {
+        this.API = 'https://ci.wecap.mx/'
+        console.log(this.API)
+      }
+  }
 
   public redirect(){
     this.route.navigate(['']);

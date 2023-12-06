@@ -33,10 +33,10 @@ export class HelpersService {
   public conferencias = false;
 
   constructor(private route: Router, public session:SessionService) {
-    if (this.domainPrueba.search('americargo')) {
+    if (this.domainPrueba.includes('americargo')) {
       this.domain = 'https://ci.americargo.wecap.mx/'
       console.log(this.domain)
-      } else if (this.domainPrueba.search('alsainacademy')) {
+      } else if (this.domainPrueba.includes('alsainacademy')) {
         this.domain = 'https://ci.alsainacademy.wecap.mx/'
         console.log(this.domain)
       } else {
