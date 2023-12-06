@@ -13,9 +13,12 @@ export class HelpersService {
 
   cursos = 0;
   //public domain = 'http://35.92.150.230/';
-  public domain = 'https://ci.wecap.mx/';
-//public domain ='https://ci.americargo.wecap.mx/'
+  public domain = '';
+//public domainAmericargo ='https://ci.americargo.wecap.mx/'
   //public domain ='https://ci.alsainacademy.wecap.mx/'
+  public domainPrueba = document.location.origin;
+
+  
 
   type: any = '0';
   public cuenta = '';
@@ -29,7 +32,15 @@ export class HelpersService {
   public finalizados = [] as any;
   public conferencias = false;
 
-  constructor(private route: Router, public session:SessionService) { }
+  constructor(private route: Router, public session:SessionService) {
+    if (this.domainPrueba.search('americargo')) {
+      this.domain = 'https://ci.americargo.wecap.mx/'
+      } else if (this.domainPrueba.search('alsainacademy')) {
+        this.domain = 'https://ci.alsainacademy.wecap.mx/'
+      } else {
+        this.domain = 'https://ci.wecap.mx/'
+      }
+   }
 
   public getName(){
     return localStorage.getItem('userName');
@@ -43,6 +54,8 @@ export class HelpersService {
       behavior: 'smooth',
     });
   }
+
+ 
 
   public showError(error: any, redirect?: any) {
     let errorMessage = '';

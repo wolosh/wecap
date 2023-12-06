@@ -9,6 +9,7 @@ import { Buffer } from 'buffer';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
+
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
@@ -117,6 +118,7 @@ export class CursosComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
   ngOnInit(): void {
+    console.log(this.helpers.domainPrueba);
     console.log(localStorage.getItem('type'))
     this.helpers.goTop();
     Swal.close();
