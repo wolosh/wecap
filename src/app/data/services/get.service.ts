@@ -37,7 +37,7 @@ export class GetService {
       })
     );
   }
-  
+
 
   getUsers(token: any) {
     const headers = new HttpHeaders({
@@ -386,4 +386,35 @@ export class GetService {
       })
     );
   }
+
+  //llamada para traer size columnas de temas
+  getsizeCol(token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'temasSize',{
+      headers
+    });
+  }
+
+  //llamada para traer columnas de tema
+  getCols(id,token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.session.API}getColumnasFromTema/${id}`, {
+      headers
+    });
+  }
+
+  //llamada para traer columna de columnas
+  getCol(id,token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.session.API}getColumna/${id}`, {
+      headers
+    });
+  }
+
 }

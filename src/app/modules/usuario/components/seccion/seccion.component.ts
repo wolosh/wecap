@@ -55,8 +55,8 @@ export class SeccionComponent implements OnInit {
           }
 
           this.helpers.type = localStorage.getItem('type');
-          this.session.curso = true;
-          this.helpers.conferencias = true;
+          //this.session.curso = true;
+          //this.helpers.conferencias = true;
           //console.log(this.helpers.type, this.session.curso)
           ////console.log(localStorage.getItem('test'));
           /*if(localStorage.getItem('test') == 'true'){

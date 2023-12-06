@@ -16,15 +16,16 @@ export class SessionService {
   //API: string = 'https://ci.alsainacademy.wecap.mx/api/'
   API: string = '';
   public domainPrueba = document.location.origin;
-  
+
 
   curso: boolean = false;
+  archivos: boolean = false;
   userName = '';
   idUser: number;
   cursos = 0;
   public idCertification: number;
 
-  constructor(private http: HttpClient, public route: Router) { 
+  constructor(private http: HttpClient, public route: Router) {
     if (this.domainPrueba.includes('americargo')) {
       this.API = 'https://ci.americargo.wecap.mx/api/'
       console.log(this.API)
@@ -234,11 +235,11 @@ export class SessionService {
           didOpen: () => {
             Swal.hideLoading();
             Swal.getConfirmButton();
-          } 
+          }
         });
         return err;
       })*/
-    
+
   }
 
   public deleteUser(idUser, token) {
@@ -704,7 +705,33 @@ export class SessionService {
     );
   }
 
-  
+  public addCol(form, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}addColumna`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
+
+  public deleteCol( id, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.API}deleteColumna/${id}`, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        //console.log(err);
+        return err;
+      })
+    );
+  }
 
 }
 

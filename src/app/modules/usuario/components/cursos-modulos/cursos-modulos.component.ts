@@ -30,6 +30,11 @@ export class CursosModulosComponent implements OnInit {
   cursos = 1;
   certificationBackup: any;
   arrFiles: any;
+  facebook: any;
+  instagram: any;
+  twitter: any;
+  youtube: any;
+  archivos = false;
   constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
@@ -116,6 +121,9 @@ export class CursosModulosComponent implements OnInit {
             this.modules(id);
             localStorage.setItem('idCertification', id);
             //this.helpers.conferencias = true;
+
+            this.session.archivos = true;
+            this.helpers.conferencias = true;
             break;
         }
       }
@@ -158,7 +166,7 @@ export class CursosModulosComponent implements OnInit {
   verTemas(idModulo: any, nameMod: any){
     this.route.navigate(['/seccion', idModulo]).then(() => {
       this.helpers.conferencias = true;
-    });          
+    });
   }
 
   /*verTemas(idMod: any, nameMod: any) {
@@ -178,5 +186,4 @@ export class CursosModulosComponent implements OnInit {
       this.helpers.cursos = 2;
     }
   }
-
 }

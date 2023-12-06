@@ -1,17 +1,25 @@
-<footer>
+<footer *ngIf="this.helpers.type == '1' || this.helpers.type == '4'">
     <div class="container-lg pt-3 pb-3">
         <div class="d-flex justify-content-end">
             <div class="">
+              <a href="{{this.facebook}}" target="_blank">
                 <img src="assets/img/face.svg" alt="" width="20" height="20">
+              </a>
             </div>
             <div class="ms-3">
+              <a href="{{this.instagram}}" target="_blank">
                 <img src="assets/img/insta.svg" alt="" width="20" height="20">
+              </a>
             </div>
             <div class="ms-3">
+              <a href="{{this.twitter}}" target="_blank">
                 <img src="assets/img/twitter.svg" alt="" width="20" height="20">
+              </a>
             </div>
             <div class="ms-3">
+              <a href="{{this.youtube}}" target="_blank">
                 <img src="assets/img/youtube.svg" alt="" width="20" height="20">
+              </a>
             </div>
         </div>
     </div>

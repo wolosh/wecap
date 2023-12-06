@@ -197,11 +197,13 @@ hr{
 .w-85{
     width: 85% !important;
 }
-/*Card Home*/
 .card{
-    border: none !important;
-    border-radius: 32px !important;
-    overflow: hidden;
+  border: none !important;
+  border-radius: 32px !important;
+  overflow: hidden;
+}
+/*Card Home*/
+.home .card{
     aspect-ratio: 1/1;
 }
 .corpo{
@@ -822,8 +824,13 @@ td{
 }
 .imgPreview{
     display: block;
-    width: 50%;
-    aspect-ratio: 2/1;
+    width: 25%;
+    aspect-ratio: 1/1;
+}
+.imgPreviewCab{
+  display: block;
+  width: 50%;
+  aspect-ratio: 2/1;
 }
 .form-select{
     border: none;

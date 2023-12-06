@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import { Data, Router } from '@angular/router';
 import { GetService } from 'src/app/data/services/get.service';
@@ -16,7 +17,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./cursos.component.css']
 })
 export class CursosComponent implements OnInit {
-
+  public Editor: any = ClassicEditor;
   change: number = 0;
   isNewModule: number = 0;
   isNewTheme: number = 0;
@@ -51,6 +52,7 @@ export class CursosComponent implements OnInit {
   p: number = 1;
   pt: number = 1;
   pc: number = 1;
+  pct: number = 1;
   countCert: number = 0;
   pm: number = 1;
   pg: number = 1;
@@ -81,8 +83,9 @@ export class CursosComponent implements OnInit {
   formModulo: FormGroup;
   infoModule: any;
   imgicon: any;
-  viewTemasE: number;
+  viewTemasE: number = 0;
   formTemas: FormGroup;
+  formTemasCol: FormGroup;
   idTema: any;
   color: any;
   imgIconoblob: any;
@@ -113,6 +116,11 @@ export class CursosComponent implements OnInit {
   imgHeader: any;
   header: any;
   isOrderChange: boolean;
+  viewTemasCol: number = 0;
+  public colSelected = '0';
+  mostrar: any;
+  sizecolumna: any;
+  columnas: any;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -123,6 +131,8 @@ export class CursosComponent implements OnInit {
     console.log(localStorage.getItem('type'))
     this.helpers.goTop();
     Swal.close();
+    this.sizeColumna()
+    //this.getColumnas(1)
     if (localStorage.getItem('type') == '1') {
       console.log(localStorage.getItem('type'))
       //console.log(this.searchArray)
@@ -135,7 +145,7 @@ export class CursosComponent implements OnInit {
       this.startForm(1);
       //console.log(this.view)
     } else {
-      
+
         console.log(localStorage.getItem('type'))
         /*Swal.fire({
           title: '¡Error!',
@@ -149,7 +159,7 @@ export class CursosComponent implements OnInit {
           }
         });*/
       }
-    } 
+    }
 
 
     public drop(event: CdkDragDrop<any>, type:any) {
@@ -158,7 +168,7 @@ export class CursosComponent implements OnInit {
       moveItemInArray(this.allModules, event.previousIndex, event.currentIndex);
       } else {
       moveItemInArray(this.alltemas, event.previousIndex, event.currentIndex);
-      console.log(this.alltemas); 
+      console.log(this.alltemas);
       }
       this.isOrderChange = true;
     }
@@ -168,7 +178,7 @@ export class CursosComponent implements OnInit {
       let json = {} as any;
       let newOrder = '';
       if(type == 'modules'){
-       
+
         json.id_certification = this.idCertification;
         //se recorre el arreglo formar un string con los ids de los cursos separados por comas
         this.allModules.map((value: any, key: any) => {
@@ -323,6 +333,13 @@ export class CursosComponent implements OnInit {
         url_subtitulos: [''],
       });
     }
+    else if (id == 7) {
+      this.formTemasCol = this.formBuilder.group({
+        title: [''],
+        col: [''],
+        contenido: [''],
+      });
+    }
   }
 
   init(event: any) {
@@ -367,7 +384,10 @@ export class CursosComponent implements OnInit {
         }
         //console.log(this.formSearch.value, this.formSearch.value.filter);
         break;
-
+      case 'col':
+          this.formTemasCol.controls['col'].setValue(this.colSelected);
+          //console.log(this.formTemasCol.value.col)
+        break;
     }
 
   }
@@ -470,7 +490,7 @@ export class CursosComponent implements OnInit {
                 this.changeViewCourses('editc', this.formEdit.value.title)
               }
             });
-           
+
             //this.certifications();
           });
         break;
@@ -559,6 +579,7 @@ export class CursosComponent implements OnInit {
         this.cview1 = 1;
         for (let item of this.certificaciones) {
           if (item.title == name) {
+
             //console.log(item.img)
             console.log(item)
             this.idCertification = item.idCertification;
@@ -779,7 +800,7 @@ export class CursosComponent implements OnInit {
 
   //cambia la vista a Temas
   changeViewTemas(view: any, name?: any, tema?: any) {
-    //console.log(name)
+    //console.log(tema)
     switch (view) {
       case 'back':
         this.imgTema = '';
@@ -790,6 +811,7 @@ export class CursosComponent implements OnInit {
         this.isNewTheme = 0;
         this.viewTemasE = 2;
         this.viewE = 1;
+        this.viewTemasCol = 3;
         break;
       case 'editT':
         this.imgTemaDos = '';
@@ -829,6 +851,64 @@ export class CursosComponent implements OnInit {
         this.cview1 = 2;
         this.viewE = 1;
         this.startForm(6);
+        break;
+      case 'cols':
+        this.pct = 1;
+        this.viewTemasCol = 1;
+        this.viewTemasE = 3;
+        //onsole.log(this.idTema);
+        this.get.getCols(this.idTema,localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            //console.log(data);
+            this.columnas = data;
+          }
+        );
+        break;
+        case 'col':
+          this.viewTemasCol = 2;
+          this.startForm(7);
+          //console.log(this.idTema);
+          break;
+        case 'editC':
+          this.helpers.goTop();
+          this.viewTemasCol = 2;
+          this.startForm(7);
+          for (let item of this.columnas) {
+            //console.log(item.idTopic_content)
+            //console.log(tema)
+            if (item.idTopic_content == tema) {
+              //this.idColumna = item.idTopic_content;
+              //this.startForm(6);
+              //console.log(item.idTopic_content)
+              this.formTemasCol.controls['title'].setValue(item.column_title);
+              this.formTemasCol.controls['contenido'].setValue(item.content);
+              this.colSelected = item.column_size;
+              this.mostrar = parseInt(item.show_title);
+              //console.log(this.mostrar)
+            }
+          }
+          break;
+        case 'eliminar':
+          let json={
+            idTopic_content:tema
+          }
+          console.log(json)
+          this.session.deleteCol(json, localStorage.getItem('token')).subscribe(
+            (data: any) => {
+              console.log(data);
+              Swal.fire({
+                title: '¡Columna eliminada!',
+                text: 'La columna se elimino correctamente.',
+                icon: 'success',
+                confirmButtonColor: '#015287',
+              }).then((result) => {
+                //console.log(result)
+                if (result.isConfirmed) {
+                  this.onClickTab('files');
+                }
+              });
+            }
+          );
         break;
     }
   }
@@ -885,7 +965,7 @@ export class CursosComponent implements OnInit {
         } else {
           this.hasDiploma = false;
         }
-        
+
         console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
       },
       (error: any) => {
@@ -987,7 +1067,7 @@ export class CursosComponent implements OnInit {
             this.changeViewCourses('editc')
           }
         });
-        
+
       }
     );
   }
@@ -1631,5 +1711,85 @@ export class CursosComponent implements OnInit {
         })
       }
     });
+  }
+
+  onReady(eventData) {
+    eventData.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+      //console.log(btoa(loader.file));
+      //console.log(new UploadAdapter(loader));
+      //return new UploadAdapter(loader);
+    };
+  }
+
+   //trae los columnas de un modulo
+  sizeColumna() {
+    this.get.getsizeCol(localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data);
+        this.sizecolumna = data;
+      }
+    );
+  }
+
+  //trae los columnas de un tema
+ /* getColumnas(id: any) {
+    this.get.getCol(id,localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.columnas = data;
+      }
+    );
+  }
+  /*getColumnas(id: any) {
+    this.get.getCol(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data);
+        this.columnas = data;
+        //this.allModulesLength = data.length;
+        //console.log(this.allModules)
+        Swal.close();
+      },
+      (error: any) => {
+        this.helpers.logout();
+      }
+    );
+  }*/
+
+  radioMostrar(event) {
+    switch (event.target.value) {
+      case '0':
+        this.mostrar = '0';
+        //this.formData.append('hasExam', '0');
+        break;
+      case '1':
+        this.mostrar = '1';
+        //this.formData.append('hasExam', '1');
+        break;
+    }
+  }
+
+  addTemasCol() {
+    let temacol = {
+      idTopic: this.idTema,
+      content:this.formTemasCol.value.contenido,
+      column_size: this.formTemasCol.value.col,
+      column_title: this.formTemasCol.value.title,
+      show_title: this.mostrar
+    };
+    console.log(temacol)
+    this.session.addCol(temacol, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        //console.log(data);
+        Swal.fire({
+          title: '¡Actualizado con exito!',
+          text: 'El módulo ha sido actualizado.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        });
+        //this.modules(this.idCertification);
+        /*this.temas(this.idModulo);*/
+        this.changeViewTemas('cols', this.idTema)
+      }
+    );
   }
 }

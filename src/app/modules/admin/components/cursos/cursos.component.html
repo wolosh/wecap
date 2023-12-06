@@ -200,13 +200,17 @@
             </form>
 
             <!------Módulos--->
-            <label class="text3 txt-blue2 mt-3">Módulos</label>
-            <label class="text6 txt-gris mt-3 ms-2">Selecciona un módulo para conocer o editar sus detalles</label>
-            <div class="col-8 col-md-4 ">
-              <button class="boton bg-blue  p-1 p-md-2" (click)="changeViewModulo('add')">
-                <img src="assets/img/agregar.svg" alt="">
-                Añadir Módulo
-              </button>
+            <div class="row mt-3">
+              <div class="col-12 col-md-8">
+                <label class="text3 txt-blue2">Módulos</label>
+                <label class="text6 txt-gris ms-2">Selecciona un módulo para conocer o editar sus detalles</label>
+              </div>
+              <div class="col-12 col-md-4 d-flex justify-content-end">
+                <button class="boton bg-blue p-1 p-md-2" (click)="changeViewModulo('add')">
+                  <img class="me-2" src="assets/img/agregar.svg" alt="">
+                  Añadir Módulo
+                </button>
+              </div>
             </div>
             <!--label class="text6 txt-gris mt-3 ms-2">Arrastra para indicar el orden</label-->
             <hr class="w-100">
@@ -216,7 +220,7 @@
                 *ngIf="isOrderChange"
               >
                 <button
-                  class="btnSaveOrder boton5 bg-darkblue2"
+                  class="btnSaveOrder boton bg-blue mx-auto d-block w-100 p-2"
                   (click)="updateOrder('modules')"
                 >
                   Guardar Orden
@@ -227,6 +231,7 @@
               <table class="table striped w-100">
                 <thead>
                   <tr>
+                    <th scope="col"></th>
                     <th scope="col">Título</th>
                     <th scope="col">Editar</th>
                   </tr>
@@ -235,7 +240,7 @@
                 (cdkDropListDropped)="drop($event, 'modules')" id="modulos">
                   <tr *ngFor="let module of allModules | paginate: { id:'modules', itemsPerPage: 6, currentPage: p}">
                     <td class="text-center" cdkDrag>
-                      <i style='font-size:24px' class='fas'>&#xf7a4;</i>
+                      <i class="fas fa-grip-lines txt-blue"></i>
                     </td>
                     <th scope="row">{{module.title}}</th>
                     <td><button class="boton2"
@@ -404,16 +409,16 @@
                   </div>
                   <div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Cabecera</label>
-                    <img *ngIf="this.imgHeaderDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                    <img *ngIf="this.imgHeaderDos == ''" class="imgPreviewCab" src="assets/img/imgpreview.png"
                       alt="imgHeader" />
                     <div *ngIf="this.isNewModule == 1">
-                      <img *ngIf="this.imgHeaderDos != ''" class="imgPreview" src="{{this.imgHeaderDos}}"
+                      <img *ngIf="this.imgHeaderDos != ''" class="imgPreviewCab" src="{{this.imgHeaderDos}}"
                         alt="imgHeader" />
                     </div>
                     <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgHeaderDos != '' && this.header == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
+                      <img *ngIf="this.imgHeaderDos != '' && this.header == 1" class="imgPreviewCab" src="{{this.helpers.domain+'media/' +
                     this.imgHeaderDos}}" alt="imgHeader" />
-                      <img *ngIf="this.imgHeaderDos != '' && this.header == 2" class="imgPreview"
+                      <img *ngIf="this.imgHeaderDos != '' && this.header == 2" class="imgPreviewCab"
                         src="{{this.imgHeaderDos}}" alt="imgHeader" />
                     </div>
                     <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="header"
@@ -495,13 +500,17 @@
               </form>
               <div *ngIf="this.isNewModule == 2">
                 <!---Temas--->
-                <label class="text3 txt-blue2 mt-3">Temas</label>
-                <label class="text6 txt-gris mt-3 ms-2">Selecciona un tema para conocer o editar sus detalles</label>
-                <div class="col-8 col-md-4 ">
-                  <button class="boton bg-blue p-1 p-md-2" (click)="changeViewTemas('add')">
-                    <img src="assets/img/agregar.svg" alt="">
-                    Añadir Tema
-                  </button>
+                <div class="row mt-3">
+                  <div class="col-12 col-md-8">
+                    <label class="text3 txt-blue2">Temas</label>
+                    <label class="text6 txt-gris ms-2">Selecciona un tema para conocer o editar sus detalles</label>
+                  </div>
+                  <div class="col-12 col-md-4 d-flex justify-content-end">
+                    <button class="boton bg-blue p-1 p-md-2" (click)="changeViewTemas('add')">
+                      <img class="me-2" src="assets/img/agregar.svg" alt="">
+                      Añadir Tema
+                    </button>
+                  </div>
                 </div>
                 <hr class="w-100">
                 <div class="row">
@@ -510,7 +519,7 @@
                     *ngIf="isOrderChange"
                   >
                     <button
-                      class="btnSaveOrder boton5 bg-darkblue2"
+                      class="btnSaveOrder boton bg-blue mx-auto d-block w-100 p-2"
                       (click)="updateOrder('topic')"
                     >
                       Guardar Orden
@@ -521,6 +530,7 @@
                   <table class="table striped w-100">
                     <thead>
                       <tr>
+                        <th scope="col"></th>
                         <th scope="col">Título</th>
                         <th scope="col">Editar</th>
                       </tr>
@@ -529,7 +539,7 @@
                     (cdkDropListDropped)="drop($event, 'topic')">
                       <tr *ngFor="let tema of alltemas | paginate: { id:'firstTemas', itemsPerPage: 6, currentPage: pt}">
                         <td class="text-center" cdkDrag>
-                          <i style='font-size:24px' class='fas'>&#xf7a4;</i>
+                          <i class="fas fa-grip-lines txt-blue"></i>
                         </td>
                         <th scope="row">{{tema.title}}</th>
                         <td><button class="boton2"
@@ -560,13 +570,17 @@
                     <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 2">Editar Tema</label>
                     <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 1">Añadir Tema</label>
                   </div>
-                  <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                  <div class="col-6 col-md-3 col-lg-2 offset-lg-2">
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeViewTemas('cols', this.idTema)">
+                      Ver columnas</button>
+                  </div>
+                  <div class="col-6 offset-6 col-lg-2 offset-lg-0">
                     <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('back')">
                       <i class="fas fa-reply"></i>
                     </button>
                   </div>
-                </div>
 
+                </div>
                 <hr class="w-100">
                 <div class="row mt-3 mb-3 d-flex align-items-center">
                   <div class="col-12 col-lg-3">
@@ -603,10 +617,10 @@
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema</label>
                     <img *ngIf="this.imgTemaDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgIcono" />
-                    <div *ngIf="this.isNewModule == 1">
+                    <div *ngIf="this.isNewTheme == 1">
                       <img *ngIf="this.imgTemaDos != ''" class="imgPreview" src="{{this.imgTemaDos}}" alt="imgIcono" />
                     </div>
-                    <div *ngIf="this.isNewModule == 2">
+                    <div *ngIf="this.isNewTheme == 2">
                       <img *ngIf="this.imgTemaDos != '' && this.change == 2" class="imgPreview" src="{{this.helpers.domain+'/media/temas/' +
                     this.imgTemaDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgTemaDos != '' && this.change == 1" class="imgPreview"
@@ -621,11 +635,11 @@
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
                     <img *ngIf="this.imgTemaVDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgIcono" />
-                    <div *ngIf="this.isNewModule == 1">
+                    <div *ngIf="this.isNewTheme == 1">
                       <img *ngIf="this.imgTemaVDos != ''" class="imgPreview" src="{{this.imgTemaVDos}}"
                         alt="imgIcono" />
                     </div>
-                    <div *ngIf="this.isNewModule == 2">
+                    <div *ngIf="this.isNewTheme == 2">
                       <img *ngIf="this.imgTemaVDos != '' && this.change == 2" class="imgPreview" src="{{this.helpers.domain+'/media/temas/' +
                     this.imgTemaVDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgTemaDos != '' && this.change == 1" class="imgPreview"
@@ -648,6 +662,93 @@
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (YouTube, vimeo, PDF o Power Point)</label>
                     <input type="text" class="input3" formControlName="url_video">
                   </div>
+                </div>
+              </form>
+            </div>
+            <div *ngIf="viewTemasCol == 1">
+              <div class="row mt-3">
+                <div class="col-12 col-md-8">
+                  <label class="text3 txt-blue2">Columnas</label>
+                  <label class="text6 txt-gris ms-2">Selecciona una columna para conocer o editar sus detalles</label>
+                </div>
+                <div class="col-12 col-md-4 col-lg-2 offset-lg-2 d-flex justify-content-end">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeViewTemas('col', this.idTema)">
+                    <img class="me-2" src="assets/img/agregar.svg" alt="">Agregar columnas</button>
+                </div>
+              </div>
+              <hr class="w-100">
+              <div class="table-responsive" *ngIf="this.alltemas.length != 0">
+                <table class="table striped w-100">
+                  <thead>
+                    <tr>
+                      <th scope="col">Título</th>
+                      <th scope="col">Editar</th>
+                      <th scope="col">Eliminar</th>
+                    </tr>
+                  </thead>
+                  <tbody id="temas">
+                    <tr *ngFor="let columna of columnas | paginate: { itemsPerPage: 6, currentPage: pct}">
+                      <th scope="row">{{columna.column_title}}</th>
+                      <td><button class="boton2"
+                          (click)="changeViewTemas('editC', '', columna.idTopic_content)">Editar</button></td>
+                      <td><button class="boton2"
+                          (click)="changeViewTemas('eliminar', '', columna.idTopic_content)">Eliminar</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row" *ngIf="this.columnas.length != 0">
+                <div class="col-12">
+                  <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pct = $event"
+                    previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="viewTemasCol == 2">
+              <form [formGroup]="formTemasCol">
+                <div  class="row d-flex align-items-center">
+                  <div class="col-12 col-lg">
+                    <label for="exampleInputEmail1" class="text13 txt-blue">Contenido</label>
+                  </div>
+                  <div class="col-6 col-md-3 col-lg-2 offset-lg-6">
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addTemasCol()">Guardar columna</button>
+                  </div>
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Titulo de columna</label>
+                  <input type="text" class="input3" formControlName="title">
+                </div>
+                <div>
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Mostrar titulo de columna</label>
+                </div>
+                <div class="form-check form-check-inline mb-3">
+                  <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
+                  <input class="form-check-input ms-3" type="radio" [(ngModel)]="mostrar"
+                  [ngModelOptions]="{standalone: true}" (change)="radioMostrar($event)"
+                    name="inlineRadioOptions" id="inlineRadio1" [value]="1">
+                    <!--input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                    [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
+                    name="inlineRadioOptions" id="inlineRadio1" [value]="1"-->
+                </div>
+                <div class="form-check form-check-inline mb-3">
+                  <label class="text13 txt-blue float-start" for="inlineRadio2">No</label>
+                  <input class="form-check-input ms-3" type="radio" [(ngModel)]="mostrar"
+                  [ngModelOptions]="{standalone: true}"(change)="radioMostrar($event)"
+                    name="inlineRadioOptions" id="inlineRadio2" value="0">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Tamaño columna</label>
+                </div>
+                <div class="dropdown mb-3">
+                  <select class="botondrop dropdown-toggle" [(ngModel)]="colSelected"
+                  (change)="changeOption('col')" [ngModelOptions]="{standalone: true}">
+                  <option value="0" hidden>12/12</option>
+                  <option *ngFor="let col of sizecolumna" [value]="col.id">{{col.descripcion}}</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Texto</label>
+                  <ckeditor [editor]="Editor" data=""  (ready)="onReady($event)" formControlName="contenido"></ckeditor>
                 </div>
               </form>
             </div>
