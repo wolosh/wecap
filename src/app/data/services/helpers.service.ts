@@ -35,10 +35,13 @@ export class HelpersService {
   constructor(private route: Router, public session:SessionService) {
     if (this.domainPrueba.search('americargo')) {
       this.domain = 'https://ci.americargo.wecap.mx/'
+      console.log(this.domain)
       } else if (this.domainPrueba.search('alsainacademy')) {
         this.domain = 'https://ci.alsainacademy.wecap.mx/'
+        console.log(this.domain)
       } else {
         this.domain = 'https://ci.wecap.mx/'
+        console.log(this.domain)
       }
    }
 
