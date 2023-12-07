@@ -12,6 +12,7 @@ export class FooterComponent implements OnInit {
   instagram: any;
   twitter: any;
   youtube: any;
+  tiktok: any;
 
   constructor(private get: GetService,public helpers: HelpersService,) { }
 
@@ -26,6 +27,7 @@ export class FooterComponent implements OnInit {
         this.facebook=data.red_facebook;
         this.instagram=data.red_instagram;
         this.twitter=data.red_twitter;
+        this.tiktok=data.tiktok;
         this.youtube=data.red_youtube;
         //this.logo=
       }

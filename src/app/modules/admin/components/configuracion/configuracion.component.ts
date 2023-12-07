@@ -65,6 +65,7 @@ export class ConfiguracionComponent implements OnInit {
       facebook: ['', [Validators.required]],
       instagram: ['', [Validators.required]],
       twitter: ['', [Validators.required]],
+      tiktok: ['', [Validators.required]],
       youtube: ['', [Validators.required]],
       host: ['', [Validators.required]],
       username: ['', [Validators.required]],
@@ -89,6 +90,7 @@ export class ConfiguracionComponent implements OnInit {
           facebook: data.red_facebook,
           instagram: data.red_instagram,
           twitter: data.red_twitter,
+          tiktok: data.red_tiktok,
           youtube: data.red_youtube,
           host: data.host,
           username: data.username,
@@ -242,6 +244,7 @@ export class ConfiguracionComponent implements OnInit {
     configuracion.append('red_facebook', this.formConfiguracion.controls['facebook'].value);
     configuracion.append('red_instagram', this.formConfiguracion.controls['instagram'].value);
     configuracion.append('red_twitter', this.formConfiguracion.controls['twitter'].value);
+    configuracion.append('red_tiktok', this.formConfiguracion.controls['tiktok'].value);
     configuracion.append('red_youtube', this.formConfiguracion.controls['youtube'].value);
     configuracion.append('host', this.formConfiguracion.controls['host'].value);
     configuracion.append('username', this.formConfiguracion.controls['username'].value);

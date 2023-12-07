@@ -40,6 +40,40 @@ export type ChartAvances = {
   responsive: ApexResponsive[];
 };
 
+export type ChartAvance = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+  colors: string[];
+  legend: ApexLegend;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
+};
+/*export type ChartCalificacion = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+  colors: string[];
+  legend: ApexLegend;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
+};
+export type ChartTiempo = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+  colors: string[];
+  legend: ApexLegend;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
+};*/
+
 export type chartPromedios = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -245,16 +279,79 @@ export class EstadisticasComponent implements OnInit {
 
   /*estadCurso(id: any) {
     //console.log(id)
-   
+
   }*/
 
   estadModulo(id: any) {
     //console.log(id)
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
+        this.avance =  data.promedioAvance;
+        this.calificacion =  data.promedioCalificacion;
+        this.tiempo =  data.promedioTiempo;
         //this.allModules = data;
         //console.log(this.allModules)
+        this.chartUsuarios = {
+          series: [this.usuarios.hombres, this.usuarios.mujeres, this.usuarios.otro],
+          chart: {
+            type: "donut"
+          },
+          colors: [
+            '#015287',
+            '#A6DAFC',
+            '#707070',
+          ],
+          title: {
+            text: "Numero de usuarios",
+            align: 'center',
+            style: {
+              fontSize:  '18px',
+              fontFamily:  'Helvetica-Bold',
+              color:  '#015287'
+            },
+          },
+          dataLabels: {
+            //offseY: 30,
+            style: {
+              fontSize:  '16px',
+              fontFamily:  'Helvetica-Bold',
+              colors: ['#FFF']
+            },
+            dropShadow: {
+                enabled: false
+            }
+          },
+          plotOptions: {
+            pie: {
+              customScale: 0.8,
+            }
+          },
+          labels: ["Hombres", "Mujeres",  "Otros"],
+          legend: {
+            position: 'bottom',
+            fontSize: '16px',
+            fontFamily: 'Helvetica-Bold',
+            labels: {
+              colors: ['#015287']
+            },
+            markers: {
+              width: 25,
+              height: 25,
+              radius: 5,
+            },
+          },
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+              }
+            }
+          ]
+        };
       }
     );
   }
