@@ -27,7 +27,7 @@ export class FooterComponent implements OnInit {
         this.facebook=data.red_facebook;
         this.instagram=data.red_instagram;
         this.twitter=data.red_twitter;
-        this.tiktok=data.tiktok;
+        this.tiktok=data.red_tiktok;
         this.youtube=data.red_youtube;
         //this.logo=
       }

@@ -76,8 +76,7 @@ export class ConfiguracionComponent implements OnInit {
   getConfiguration() {
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data, data.colorText);
-
+        console.log(data)
         this.formConfiguracion.patchValue({
           colorText: data.colorText,
           txt_sesionUsuario: data.txt_sesionUsuario,
@@ -244,14 +243,14 @@ export class ConfiguracionComponent implements OnInit {
     configuracion.append('red_facebook', this.formConfiguracion.controls['facebook'].value);
     configuracion.append('red_instagram', this.formConfiguracion.controls['instagram'].value);
     configuracion.append('red_twitter', this.formConfiguracion.controls['twitter'].value);
-    configuracion.append('red_tiktok', this.formConfiguracion.controls['tiktok'].value);
     configuracion.append('red_youtube', this.formConfiguracion.controls['youtube'].value);
+    configuracion.append('red_tiktok', this.formConfiguracion.controls['tiktok'].value);
     configuracion.append('host', this.formConfiguracion.controls['host'].value);
     configuracion.append('username', this.formConfiguracion.controls['username'].value);
     configuracion.append('password', this.formConfiguracion.controls['contraseña'].value);
 
     //console.log(configuracion.getAll('logo'), configuracion.getAll('fondo'), configuracion.getAll('certificado'));
-
+    //console.log(configuracion.getAll('red_tiktok'))
     this.session.updateConfiguration(configuracion, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);

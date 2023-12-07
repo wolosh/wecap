@@ -98,6 +98,7 @@ export class ExamenesComponent implements OnInit {
   onImage = 0;
   error = 0;
   question: any;
+  title: any;
   //examQuestion = [] as any;
 
 
@@ -476,7 +477,7 @@ export class ExamenesComponent implements OnInit {
                     item.img = this.image;
                   }
                   //console.log(item);
-                  
+
                 });
                 //console.log(this.questionAnswers);
                 Swal.fire({
@@ -555,7 +556,6 @@ export class ExamenesComponent implements OnInit {
         //console.log(data);
         this.certificaciones = data;
         //this.countCert = this.certificaciones.length;
-        //console.log(this.certificaciones);
         Swal.close();
       },
       (error: any) => {
@@ -1079,7 +1079,7 @@ export class ExamenesComponent implements OnInit {
         this.searchArray = [];
         this.length = 0;
       }
-    } 
+    }
 
 
   }
@@ -1170,6 +1170,13 @@ export class ExamenesComponent implements OnInit {
         confirmButtonColor: '#015287',
       });
     } else {
+      console.log(this.certificaciones)
+      for (let item of this.certificaciones) {
+        if (item.idCertification == this.certificationSelected) {
+          this.title = item.title;
+
+        }
+      }
       //console.log(this.groupSelected, this.chief);
       let curso = new FormData();
       curso.append('idCurso', this.certificationSelected);
@@ -1259,7 +1266,7 @@ export class ExamenesComponent implements OnInit {
           is_correct: this.selectedOption,
           idModule: this.certificacionID,
           img: img,
-          
+
       });
 
       //console.log(this.optionsProv)

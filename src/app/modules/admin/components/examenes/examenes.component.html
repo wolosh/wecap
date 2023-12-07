@@ -100,9 +100,8 @@
                                 *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
                         </div>
                         <!---Certificaciones-->
-                        <div *ngIf="showLength != 0">
-
-                          <label class="text13 txt-blue mt-4 mb-2">Certificación:{{certificationSelected}}</label>
+                        <div *ngIf="this.certificationSelected != '0'">
+                          <label class="text13 txt-blue mt-4 mb-2">Certificación:{{this.title}}</label>
                           <ul class="list-group">
                             <li class="list-group-item" *ngFor="let user of searchArray | paginate: {id: 'firstAsg', itemsPerPage: 6, currentPage: psc }">
                                 <input class="form-check-input me-1" type="checkbox"
