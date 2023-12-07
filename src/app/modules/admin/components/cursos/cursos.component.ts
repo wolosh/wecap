@@ -121,6 +121,9 @@ export class CursosComponent implements OnInit {
   mostrar: any;
   sizecolumna: any;
   columnas: any;
+  isEditCol: number = 0;
+  idTopicC: any;
+  idTemaC: any;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -829,6 +832,7 @@ export class CursosComponent implements OnInit {
         this.imgTemaVDos = '';
         this.helpers.goTop();
         this.isNewTheme = 0;
+        this.isEditCol = 0;
         this.viewTemasE = 2;
         this.viewE = 1;
         this.viewTemasCol = 3;
@@ -839,12 +843,14 @@ export class CursosComponent implements OnInit {
         this.helpers.goTop();
         this.isNewTheme = 2;
         this.viewTemasE = 1;
+        this.viewTemasCol = 0;
         this.cview1 = 2;
         this.viewE = 1;
         this.startForm(6);
         for (let item of this.alltemas) {
-          //console.log(item)
-          if (item.title == tema) {
+          console.log(this.alltemas)
+          console.log(tema)
+          if (item.title == tema || item.idTopic == tema) {
             this.idTema = item.idTopic;
             //this.startForm(6);
             //console.log(item.title)
@@ -887,19 +893,24 @@ export class CursosComponent implements OnInit {
         case 'col':
           this.viewTemasCol = 2;
           this.startForm(7);
+          this.isEditCol = 2;
           //console.log(this.idTema);
           break;
         case 'editC':
           this.helpers.goTop();
           this.viewTemasCol = 2;
+          this.isEditCol = 1;
           this.startForm(7);
           for (let item of this.columnas) {
+            console.log(name, tema)
             //console.log(item.idTopic_content)
-            //console.log(tema)
+            //console.log(this.columnas)
             if (item.idTopic_content == tema) {
               //this.idColumna = item.idTopic_content;
               //this.startForm(6);
               //console.log(item.idTopic_content)
+              this.idTemaC = tema
+              this.idTopicC = name
               this.formTemasCol.controls['title'].setValue(item.column_title);
               this.formTemasCol.controls['contenido'].setValue(item.content);
               this.colSelected = item.column_size;
@@ -909,11 +920,9 @@ export class CursosComponent implements OnInit {
           }
           break;
         case 'eliminar':
-          let json={
-            idTopic_content:tema
-          }
-          console.log(json)
-          this.session.deleteCol(json, localStorage.getItem('token')).subscribe(
+            let id=tema
+          //console.log(json)
+          this.session.deleteCol(id, localStorage.getItem('token')).subscribe(
             (data: any) => {
               console.log(data);
               Swal.fire({
@@ -924,7 +933,7 @@ export class CursosComponent implements OnInit {
               }).then((result) => {
                 //console.log(result)
                 if (result.isConfirmed) {
-                  this.onClickTab('files');
+                  this.changeViewTemas('cols', this.idTema);
                 }
               });
             }
@@ -1750,31 +1759,6 @@ export class CursosComponent implements OnInit {
       }
     );
   }
-
-  //trae los columnas de un tema
- /* getColumnas(id: any) {
-    this.get.getCol(id,localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.columnas = data;
-      }
-    );
-  }
-  /*getColumnas(id: any) {
-    this.get.getCol(id, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        //console.log(data);
-        this.columnas = data;
-        //this.allModulesLength = data.length;
-        //console.log(this.allModules)
-        Swal.close();
-      },
-      (error: any) => {
-        this.helpers.logout();
-      }
-    );
-  }*/
-
   radioMostrar(event) {
     switch (event.target.value) {
       case '0':
@@ -1809,6 +1793,34 @@ export class CursosComponent implements OnInit {
         //this.modules(this.idCertification);
         /*this.temas(this.idModulo);*/
         this.changeViewTemas('cols', this.idTema)
+      }
+    );
+  }
+
+  saveCol() {
+    let temaCol = {
+      idTopic_content: this.idTemaC,
+      idTopic: this.idTopicC,
+      content:this.formTemasCol.value.contenido,
+      column_size: this.formTemasCol.value.col,
+      column_title: this.formTemasCol.value.title,
+      show_title: this.mostrar
+    }
+    console.log(temaCol)
+    this.session.updateCol(temaCol, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Actualizado con exito!',
+          text: 'El módulo ha sido actualizado.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          //console.log(result)
+          if (result.isConfirmed) {
+            this.changeViewTemas('cols', this.idTema);
+          }
+        });
       }
     );
   }

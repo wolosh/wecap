@@ -99,6 +99,25 @@
                             <label class="text7 txt-gris d-block"
                                 *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
                         </div>
+                        <!---Certificaciones-->
+                        <div *ngIf="showLength != 0">
+
+                          <label class="text13 txt-blue mt-4 mb-2">Certificación:{{certificationSelected}}</label>
+                          <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let user of searchArray | paginate: {id: 'firstAsg', itemsPerPage: 6, currentPage: psc }">
+                                <input class="form-check-input me-1" type="checkbox"
+                                    value="{{user.idUser}}" id="firstCheckbox" (change)="changeValue($event)">
+                                <label class="text13 txt-blue" for="firstCheckbox">{{user.full_name}}</label>
+                                <ul class="list-group">
+                                  <li class="list-group-item" *ngFor="let user of searchArray | paginate: {id: 'firstAsg', itemsPerPage: 6, currentPage: psc }">
+                                      <input class="form-check-input me-1" type="checkbox"
+                                          value="{{user.idUser}}" id="firstCheckbox" (change)="changeValue($event)">
+                                      <label class="text13 txt-blue" for="firstCheckbox">{{user.full_name}}</label>
+                                  </li>
+                                </ul>
+                            </li>
+                          </ul>
+                        </div>
                         <!--</form-->
                         <label class="text3 txt-blue2 mt-3">Ver asignaciones</label>
                         <label class="text6 txt-gris mt-3 ms-2">Curso por usuario</label>
@@ -707,12 +726,12 @@
                                 <label class="text3 txt-blue2">Selecciona el módulo</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                                
+
                                 <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeExam(0)">
                                     <i class="fas fa-reply"></i>
                                 </button>
                                 <!--<button *ngIf="this.modLength == 0" class="boton bg-blue p-1 p-md-2" (click)="goCourses()">
-                                    
+
                                     Ir a cursos
                                 </button>-->
                             </div>
