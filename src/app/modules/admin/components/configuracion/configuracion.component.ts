@@ -250,7 +250,7 @@ export class ConfiguracionComponent implements OnInit {
     configuracion.append('password', this.formConfiguracion.controls['contraseña'].value);
 
     //console.log(configuracion.getAll('logo'), configuracion.getAll('fondo'), configuracion.getAll('certificado'));
-    //console.log(configuracion.getAll('red_tiktok'))
+    console.log(configuracion.getAll('logo'))
     this.session.updateConfiguration(configuracion, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);

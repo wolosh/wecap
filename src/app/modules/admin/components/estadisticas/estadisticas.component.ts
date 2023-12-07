@@ -92,6 +92,7 @@ export class EstadisticasComponent implements OnInit {
   pusers: number = 1;
   pcursos: number = 1;
   coursesArr: any;
+  cursos2: any;
 
   @ViewChild("chart") chart: ChartComponent;
   public chartUsuarios: Partial<ChartUsuarios> | any;
@@ -103,6 +104,7 @@ export class EstadisticasComponent implements OnInit {
   calificacion: any;
   tiempo: any;
   intentos: any;
+  certificaciones: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {}
@@ -111,7 +113,7 @@ export class EstadisticasComponent implements OnInit {
     this.helpers.goTop();
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
-      //this.users();
+      this.certifications();
       this.estadisticasCurso();
       this.estadGlobales();
       //this.estadCurso(1);
@@ -276,17 +278,41 @@ export class EstadisticasComponent implements OnInit {
 
     });
   }
+  certifications() {
+    //this.certificaciones = [];
+    let json={}
+    this.get.getCertifications(localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.certificaciones = data;
+        for (let item of this.certificaciones){
+          this.cursos2.push({iduser:data.idCertification,name:data.title})
+          console.log(this.cursos2)
+          let id=item.idCertification;
+          this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
+            (data: any) => {
+              console.log(data);
+
+            }
+          )
+        }
+      }
+    );
+  }
 
   /*estadCurso(id: any) {
-    //console.log(id)
-
+    this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    )
   }*/
 
   estadModulo(id: any) {
     //console.log(id)
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.avance =  data.promedioAvance;
         this.calificacion =  data.promedioCalificacion;
         this.tiempo =  data.promedioTiempo;

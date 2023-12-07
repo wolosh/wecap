@@ -1,55 +1,51 @@
 <div class="page-content container-lg pt-5">
-    <div class="row pt-3">
-        <div class="col-12 col-md-6 col-lg-8">
-            <div class="card color p-3 p-md-5 mb-5">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <h1 class="text2 txt-blue" *ngIf="this.finalizado == 0">{{this.nameModule}}</h1>
-                            <h1 class="text2 txt-blue" *ngIf="this.finalizado == 1">{{this.nameModule}}: Finalizado</h1>
-                            <hr class="w-100">
-                        </div>
-                    </div>
-                    <div class="row row-cols-2 row-cols-md-2 row-cols-xl-3 g-5 mt-1 modulo" >
-                        <div *ngIf="this.helpers.view == 1">
-                            <div class="col" *ngFor="let tema of this.temasArr; let i = index">
-                                <div>
-                                <div class="card corpo" *ngIf="tema.finalizado == '1'">
-                                    <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid opacity" alt="">
-                                    <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
-                                    <div class="transbox2 d-flex justify-content-center align-items-center">
-                                        <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="goToTheme(tema.idTopic, tema.title)">{{tema.title}}</a>
-                                    </div>
-                                </div>
-                                <div class="card corpo" *ngIf="tema.finalizado == '0'">
-                                    <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid" alt="">
-                                    <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
-                                    <div class="transbox2 d-flex justify-content-center align-items-center">
-                                        <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="goToTheme(tema.idTopic, tema.title)">{{tema.title}}</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div *ngIf="this.helpers.view != 1">
-                            <div class="col" *ngFor="let tema of this.temasArr; let i = index">
-                                <div>
-                                <div class="card corpo" *ngIf="tema.finalizado == '1'">
-                                    <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid opacity" alt="">
-                                    <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
-                                    <div class="transbox2 d-flex justify-content-center align-items-center">
-                                        <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="themeUniversal(tema.idTopic, tema.title)">{{tema.title}}</a>
-                                    </div>
-                                </div>
-                                <div class="card corpo" *ngIf="tema.finalizado != '0'">
-                                    <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid" alt="">
-                                    <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
-                                    <div class="transbox2 d-flex justify-content-center align-items-center">
-                                        <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="themeUniversal(tema.idTopic, tema.title)">{{tema.title}}</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
+  <div class="row pt-3">
+    <div class="col-12 col-md-6 col-lg-8">
+      <div class="card color p-3 p-md-5 mb-5">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="text2 txt-blue" *ngIf="this.finalizado == 0">{{this.nameModule}}</h1>
+              <h1 class="text2 txt-blue" *ngIf="this.finalizado == 1">{{this.nameModule}}: Finalizado</h1>
+              <hr class="w-100">
+            </div>
+          </div>
+          <div class="row row-cols-2 row-cols-md-2 row-cols-xl-3 g-5 mt-1 modulo" *ngIf="this.helpers.view == 1">
+            <div class="col" *ngFor="let tema of this.temasArr; let i = index">
+              <div class="card corpo" *ngIf="tema.finalizado == '1'">
+                <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid opacity" alt="">
+                <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
+                <div class="transbox2 d-flex justify-content-center align-items-center">
+                  <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="goToTheme(tema.idTopic, tema.title)">{{tema.title}}</a>
+                </div>
+              </div>
+              <div class="card corpo" *ngIf="tema.finalizado == '0'">
+                <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid" alt="">
+                <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
+                <div class="transbox2 d-flex justify-content-center align-items-center">
+                  <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="goToTheme(tema.idTopic, tema.title)">{{tema.title}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row row-cols-2 row-cols-md-2 row-cols-xl-3 g-5 mt-1 modulo" *ngIf="this.helpers.view != 1">
+            <div class="col" *ngFor="let tema of this.temasArr; let i = index">
+              <div class="card corpo" *ngIf="tema.finalizado == '1'">
+                <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid opacity" alt="">
+                <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
+                <div class="transbox2 d-flex justify-content-center align-items-center">
+                  <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="themeUniversal(tema.idTopic, tema.title)">{{tema.title}}</a>
+                </div>
+              </div>
+              <div class="card corpo" *ngIf="tema.finalizado != '0'">
+                <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid" alt="">
+                <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
+                <div class="transbox2 d-flex justify-content-center align-items-center">
+                  <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="themeUniversal(tema.idTopic, tema.title)">{{tema.title}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
                         <!--<div class="col">
                             <div class="card corpo">
                                 <img src="assets/img/corpo2.svg" class="card-img" alt="">
@@ -98,69 +94,52 @@
                                 </div>
                             </div>
                         </div>-->
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-4">
-            <!--<div class="card color p-3 mb-5">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <label class="text3 txt-blue">Avance de medalla</label>
-                            <hr class="w-100">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <label class="text4 txt-blue text-center">Aquí se mostrara tu avance de medalla una vez que comiences a cursar los temas.</label>
-                            <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-25" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-            <div class="card color p-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <label class="text3 txt-blue">Medallas del módulo</label>
-                            <hr class="w-100">
-                        </div>
-                    </div>
-                    <div class="row text-center" *ngIf="this.showMedallas == false">
-                        <label class="text9 txt-blue">Aquí se mostraran tus medallas una vez que termines el módulo.</label>
-                    </div>
-                    <div class="row text-center" *ngIf="this.showMedallas == true">
-                        <!--<div class="col-4">
-                            <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
-                            <label class="text8 txt-blue">Terminado</label>
-                        </div>-->
-                        <div class="col-4">
-                            <img src="assets/img/medallaavance.svg" class=" mx-auto d-block w-75" alt="">
-                            <label class="text8 txt-blue">Perfecto</label>
-                        </div>
-                        <!--<div class="col-4">
-                            <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
-                            <label class="text8 txt-blue">Tiempo</label>
-                        </div>-->
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 mt-5">
-                <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                    (click)="this.modulosSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                   >Regresar a Módulos</button>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <button type="button" class="boton3 mx-auto d-block mt-5 mb-5" data-bs-toggle="modal"
-                    data-bs-target="#crear" *ngIf="this.test == false && this.showModal == false">Evaluación</button>
-                    <button ype="button" class="boton3 mx-auto d-block mt-5 mb-5" (click)="evaluacion()" *ngIf="this.test == false && this.showModal == true">Evaluación</button>
-                    <button type="button" class="boton3 mx-auto d-block mt-5 mb-5" (click)="evaluacion()" *ngIf="this.test == true">Evaluación</button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card color p-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <label class="text3 txt-blue">Medallas del módulo</label>
+              <hr class="w-100">
+            </div>
+          </div>
+          <div class="row text-center" *ngIf="this.showMedallas == false">
+            <label class="text9 txt-blue">Aquí se mostraran tus medallas una vez que termines el módulo.</label>
+          </div>
+          <div class="row text-center" *ngIf="this.showMedallas == true">
+            <!--<div class="col-4">
+              <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
+              <label class="text8 txt-blue">Terminado</label>
+            </div>-->
+            <div class="col-4">
+              <img src="assets/img/medallaavance.svg" class=" mx-auto d-block w-75" alt="">
+              <label class="text8 txt-blue">Perfecto</label>
+            </div>
+            <!--<div class="col-4">
+              <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
+              <label class="text8 txt-blue">Tiempo</label>
+            </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-5">
+      <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
+        (click)="this.modulosSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
+        >Regresar a Módulos</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="boton3 mx-auto d-block mt-5 mb-5" data-bs-toggle="modal"
+        data-bs-target="#crear" *ngIf="this.test == false && this.showModal == false">Evaluación</button>
+      <button ype="button" class="boton3 mx-auto d-block mt-5 mb-5" (click)="evaluacion()" *ngIf="this.test == false && this.showModal == true">Evaluación</button>
+      <button type="button" class="boton3 mx-auto d-block mt-5 mb-5" (click)="evaluacion()" *ngIf="this.test == true">Evaluación</button>
+    </div>
+  </div>
 </div>
 
 

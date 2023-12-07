@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Data, Router } from '@angular/router';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
+import { GetService } from 'src/app/data/services/get.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,14 +15,19 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup;
   togglePassword: boolean; //Fin CheckBox para mostrar contraseña
+  logo: string;
 
-  constructor(private formBuilder: FormBuilder, private session: SessionService, private router: Router, private helpers: HelpersService) { }
+  constructor(private get: GetService,private formBuilder: FormBuilder, private session: SessionService, private router: Router, public helpers: HelpersService) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
     this.startForm();
+    //this.logo = localStorage.getItem('logo');
   }
 
+  getLogo(){
+    return localStorage.getItem('logo');
+  }
   startForm(): void {
     //Metodo para inicializar el formulario
     this.formLogin = this.formBuilder.group({
@@ -29,7 +35,6 @@ export class LoginComponent implements OnInit {
       password: [''],
     });
   }
-
   //CheckBox para mostrar contraseña
   showPassword(event) {
     if (event.target.checked) {

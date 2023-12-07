@@ -1170,14 +1170,7 @@ export class ExamenesComponent implements OnInit {
         confirmButtonColor: '#015287',
       });
     } else {
-      console.log(this.certificaciones)
-      for (let item of this.certificaciones) {
-        if (item.idCertification == this.certificationSelected) {
-          this.title = item.title;
-
-        }
-      }
-      //console.log(this.groupSelected, this.chief);
+      //console.log(this.certificationSelected);
       let curso = new FormData();
       curso.append('idCurso', this.certificationSelected);
       /*if(this.objUsers.length == 0){
@@ -1278,6 +1271,9 @@ export class ExamenesComponent implements OnInit {
     }
   }
 
+  public cursoSelected(){
+
+  }
   public updateQuestion(type:any){
     //console.log(this.backDataAnswer, this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     this.json.idEval_question = this.backDataAnswer.idEval_question;

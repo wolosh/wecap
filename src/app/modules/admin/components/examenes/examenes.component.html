@@ -87,7 +87,7 @@
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                               </ul>-->
                             <select class="botondrop dropdown-toggle" [(ngModel)]="certificationSelected"
-                                [ngModelOptions]="{standalone: true}">
+                            (ngModelChange)="cursoSelected()" [ngModelOptions]="{standalone: true}">
                                 <option value="0" hidden>Curso</option>
                                 <option *ngFor="let c of certificaciones" [value]="c.idCertification">{{c.title}}
                                 </option>

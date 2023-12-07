@@ -13,10 +13,10 @@ export class HelpersService {
 
   cursos = 0;
   //public domain = 'http://35.92.150.230/';
-  public domain = 'https://ci.wecap.mx/';
+  //public domain = 'https://ci.wecap.mx/';
   //public domainAmericargo ='https://ci.americargo.wecap.mx/'
   //public domain ='https://ci.alsainacademy.wecap.mx/'
-  //public domain = '';
+  public domain = '';
   public domainPrueba = document.location.origin;
 
 
@@ -35,7 +35,7 @@ export class HelpersService {
   view: number = 0;
 
   constructor(private route: Router, public session:SessionService) {
-    /*if (this.domainPrueba.includes('americargo')) {
+    if (this.domainPrueba.includes('americargo')) {
       this.domain = 'https://ci.americargo.wecap.mx/'
       console.log(this.domain)
       } else if (this.domainPrueba.includes('alsainacademy')) {
@@ -44,7 +44,7 @@ export class HelpersService {
       } else {
         this.domain = 'https://ci.wecap.mx/'
         console.log(this.domain)
-      }*/
+      }
    }
 
   public getName(){
@@ -129,6 +129,7 @@ export class HelpersService {
           localStorage.removeItem('token');
           this.session.curso = false;
           this.conferencias = false;
+          this.session.configuracion();
           //redireccionamos a la pagina de inicio despues de 7 segundos
           this.route.navigate(['/']);
         }, 900);

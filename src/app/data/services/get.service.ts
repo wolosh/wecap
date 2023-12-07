@@ -225,11 +225,10 @@ export class GetService {
     })
   }
 
-  getConfiguration(token: any) {
+  getConfiguration(token?: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-
     return this.http.get(`${this.session.API}config`, {
       headers,
     })

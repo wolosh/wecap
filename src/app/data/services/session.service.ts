@@ -11,10 +11,10 @@ import Swal from 'sweetalert2';
 export class SessionService {
 
   //API: string = 'http://35.92.150.230/api/'
-  API: string = 'https://ci.wecap.mx/api/'
+  //API: string = 'https://ci.wecap.mx/api/'
   //API: string = 'https://ci.americargo.wecap.mx/api/'
   //API: string = 'https://ci.alsainacademy.wecap.mx/api/'
-  //API: string = '';
+  API: string = '';
   public domainPrueba = document.location.origin;
 
 
@@ -24,9 +24,10 @@ export class SessionService {
   idUser: number;
   cursos = 0;
   public idCertification: number;
+  logo: string;
 
   constructor(private http: HttpClient, public route: Router) {
-    /*if (this.domainPrueba.includes('americargo')) {
+    if (this.domainPrueba.includes('americargo')) {
       this.API = 'https://ci.americargo.wecap.mx/api/'
       console.log(this.API)
       } else if (this.domainPrueba.includes('alsainacademy')) {
@@ -35,11 +36,28 @@ export class SessionService {
       } else {
         this.API = 'https://ci.wecap.mx/api/'
         console.log(this.API)
-      }*/
+        this.configuracion();
+      }
   }
 
   public redirect(){
     this.route.navigate(['']);
+  }
+
+  configuracion(){
+    this.getConfiguration().subscribe(
+      (data: any) => {
+        localStorage.setItem('logo', data['logo']);
+      }
+    );
+  }
+  getConfiguration(token?: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.API}config`, {
+      headers,
+    })
   }
 
   //login

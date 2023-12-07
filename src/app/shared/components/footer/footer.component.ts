@@ -23,7 +23,7 @@ export class FooterComponent implements OnInit {
   configuration() {
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data)
+        //console.log(data)
         this.facebook=data.red_facebook;
         this.instagram=data.red_instagram;
         this.twitter=data.red_twitter;
