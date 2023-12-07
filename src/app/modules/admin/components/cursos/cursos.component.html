@@ -94,8 +94,18 @@
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default
-                  (opcional)</label>
-                <input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">
+                </label>
+                <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
+                <div class="row mt-2">
+                  <div class="col-6">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
+                    <input class="input4" type="date" formControlName="default_active_days_start">
+                  </div>
+                  <div class="col-6">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Final</label>
+                    <input class="input4" type="date" formControlName="default_active_days_end">
+                  </div>
+                </div>
               </div>
               <div class="form-check form-check-inline ps-0">
                 <label class="text13 txt-blue float-start" for="inlineRadio1">Visualización secuencial</label>
@@ -166,7 +176,17 @@
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default
                   (opcional)</label>
-                <input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">
+                <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
+                <div class="row mt-2">
+                  <div class="col-6">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
+                    <input class="input4" type="date" formControlName="default_active_days_start">
+                  </div>
+                  <div class="col-6">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Final</label>
+                    <input class="input4" type="date" formControlName="default_active_days_end">
+                  </div>
+                </div>
               </div>
               <div class="form-check form-check-inline ps-0">
                 <label class="text13 txt-blue float-start" for="inlineRadio1">Visualización secuencial</label>
@@ -217,12 +237,8 @@
             <div class="row">
               <div
                 class="col-4 col-md-3 col-lg-4 col-xl-3 col-xxl-2 offset-lg-8 offset-xl-9 offset-xxl-10 mt-3 mt-md-0 mt-1 d-flex justify-content-end"
-                *ngIf="isOrderChange"
-              >
-                <button
-                  class="btnSaveOrder boton bg-blue mx-auto d-block w-100 p-2"
-                  (click)="updateOrder('modules')"
-                >
+                *ngIf="isOrderChange">
+                <button class="btnSaveOrder boton bg-blue mx-auto d-block w-100 p-2" (click)="updateOrder('modules')">
                   Guardar Orden
                 </button>
               </div>
@@ -236,8 +252,7 @@
                     <th scope="col">Editar</th>
                   </tr>
                 </thead>
-                <tbody cdkDropList
-                (cdkDropListDropped)="drop($event, 'modules')" id="modulos">
+                <tbody cdkDropList (cdkDropListDropped)="drop($event, 'modules')" id="modulos">
                   <tr *ngFor="let module of allModules | paginate: { id:'modules', itemsPerPage: 6, currentPage: p}">
                     <td class="text-center" cdkDrag>
                       <i class="fas fa-grip-lines txt-blue"></i>
@@ -466,9 +481,9 @@
                         src="{{this.imgScoreDos}}" alt="imgIcono" />
                     </div>
                     <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore"-->
-                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallap" (change)="fileScore($event)"
-                      accept="image/png,image/jpeg,image/jpg">
-                      <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
+                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallap"
+                      (change)="fileScore($event)" accept="image/png,image/jpeg,image/jpg">
+                    <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
                       (change)="fileScore($event, 'update')" accept="image/png,image/jpeg,image/jpg">
                   </div>
                   <div class="col-12 col-lg-4">
@@ -487,10 +502,10 @@
                         src="{{this.imgTiempoDos}}" alt="imgIcono" />
                     </div>
                     <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
-                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallapt" (change)="fileTiempo($event)"
-                      accept="image/png,image/jpeg,image/jpg">
-                      <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallapt" (change)="fileTiempo($event, 'update')"
-                      accept="image/png,image/jpeg,image/jpg">
+                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallapt"
+                      (change)="fileTiempo($event)" accept="image/png,image/jpeg,image/jpg">
+                    <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallapt"
+                      (change)="fileTiempo($event, 'update')" accept="image/png,image/jpeg,image/jpg">
                   </div>
                   <div class="col-6 col-lg-2">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
@@ -516,12 +531,8 @@
                 <div class="row">
                   <div
                     class="col-4 col-md-3 col-lg-4 col-xl-3 col-xxl-2 offset-lg-8 offset-xl-9 offset-xxl-10 mt-3 mt-md-0 mt-1 d-flex justify-content-end"
-                    *ngIf="isOrderChange"
-                  >
-                    <button
-                      class="btnSaveOrder boton bg-blue mx-auto d-block w-100 p-2"
-                      (click)="updateOrder('topic')"
-                    >
+                    *ngIf="isOrderChange">
+                    <button class="btnSaveOrder boton bg-blue mx-auto d-block w-100 p-2" (click)="updateOrder('topic')">
                       Guardar Orden
                     </button>
                   </div>
@@ -535,9 +546,9 @@
                         <th scope="col">Editar</th>
                       </tr>
                     </thead>
-                    <tbody id="temas"  cdkDropList
-                    (cdkDropListDropped)="drop($event, 'topic')">
-                      <tr *ngFor="let tema of alltemas | paginate: { id:'firstTemas', itemsPerPage: 6, currentPage: pt}">
+                    <tbody id="temas" cdkDropList (cdkDropListDropped)="drop($event, 'topic')">
+                      <tr
+                        *ngFor="let tema of alltemas | paginate: { id:'firstTemas', itemsPerPage: 6, currentPage: pt}">
                         <td class="text-center" cdkDrag>
                           <i class="fas fa-grip-lines txt-blue"></i>
                         </td>
@@ -550,8 +561,8 @@
                 </div>
                 <div class="row" *ngIf="this.alltemas.length != 0">
                   <div class="col-12">
-                    <pagination-controls id="firstTemas" class="w-100 d-flex justify-content-center" (pageChange)="pt = $event"
-                      previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                    <pagination-controls id="firstTemas" class="w-100 d-flex justify-content-center"
+                      (pageChange)="pt = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                   </div>
                 </div>
                 <div class="row" *ngIf="this.alltemas.length == 0">
@@ -571,7 +582,8 @@
                     <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 1">Añadir Tema</label>
                   </div>
                   <div class="col-6 col-md-3 col-lg-2 offset-lg-2">
-                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeViewTemas('cols', this.idTema)">
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                      (click)="changeViewTemas('cols', this.idTema)">
                       Ver columnas</button>
                   </div>
                   <div class="col-6 offset-6 col-lg-2 offset-lg-0">
@@ -645,12 +657,12 @@
                       <img *ngIf="this.imgTemaDos != '' && this.change == 1" class="imgPreview"
                         src="{{this.imgTemaVDos}}" alt="imgIcono" />
                     </div>-->
-                    <!--<img *ngIf="this.imgTemaVDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                  <!--<img *ngIf="this.imgTemaVDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgTemaV" />
                     <img *ngIf="this.imgTemaVDos != ''" class="imgPreview" src="{{ this.imgTemaVDos }}"
                       alt="imgTemaV" />-->
-                    <!--img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV"-->
-                    <!--<input type="file" class="input3" id="medallapt" (change)="fileTemaV($event)">
+                  <!--img class="imgPreview" [src]="imgTemaV || 'assets/img/imgpreview.png'" alt="imgTemaV"-->
+                  <!--<input type="file" class="input3" id="medallapt" (change)="fileTemaV($event)">
                   </div>-->
                 </div>
                 <div class="row mt-3 mb-3">
@@ -659,7 +671,8 @@
                     <input type="text" class="input3" formControlName="url_subtitulos">
                   </div>
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (YouTube, vimeo, PDF o Power Point)</label>
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (YouTube, vimeo, PDF o Power
+                      Point)</label>
                     <input type="text" class="input3" formControlName="url_video">
                   </div>
                 </div>
@@ -672,7 +685,8 @@
                   <label class="text6 txt-gris ms-2">Selecciona una columna para conocer o editar sus detalles</label>
                 </div>
                 <div class="col-12 col-md-4 col-lg-2 offset-lg-2 d-flex justify-content-end">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeViewTemas('col', this.idTema)">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    (click)="changeViewTemas('col', this.idTema)">
                     <img class="me-2" src="assets/img/agregar.svg" alt="">Agregar columnas</button>
                 </div>
               </div>
@@ -706,12 +720,13 @@
             </div>
             <div *ngIf="viewTemasCol == 2">
               <form [formGroup]="formTemasCol">
-                <div  class="row d-flex align-items-center">
+                <div class="row d-flex align-items-center">
                   <div class="col-12 col-lg">
                     <label for="exampleInputEmail1" class="text13 txt-blue">Contenido</label>
                   </div>
                   <div class="col-6 col-md-3 col-lg-2 offset-lg-6">
-                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addTemasCol()">Guardar columna</button>
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addTemasCol()">Guardar
+                      columna</button>
                   </div>
                 </div>
                 <div class="mb-3 mt-3">
@@ -724,31 +739,31 @@
                 <div class="form-check form-check-inline mb-3">
                   <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="mostrar"
-                  [ngModelOptions]="{standalone: true}" (change)="radioMostrar($event)"
-                    name="inlineRadioOptions" id="inlineRadio1" [value]="1">
-                    <!--input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                    [ngModelOptions]="{standalone: true}" (change)="radioMostrar($event)" name="inlineRadioOptions"
+                    id="inlineRadio1" [value]="1">
+                  <!--input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
                     [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
                     name="inlineRadioOptions" id="inlineRadio1" [value]="1"-->
                 </div>
                 <div class="form-check form-check-inline mb-3">
                   <label class="text13 txt-blue float-start" for="inlineRadio2">No</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="mostrar"
-                  [ngModelOptions]="{standalone: true}"(change)="radioMostrar($event)"
-                    name="inlineRadioOptions" id="inlineRadio2" value="0">
+                    [ngModelOptions]="{standalone: true}" (change)="radioMostrar($event)" name="inlineRadioOptions"
+                    id="inlineRadio2" value="0">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Tamaño columna</label>
                 </div>
                 <div class="dropdown mb-3">
-                  <select class="botondrop dropdown-toggle" [(ngModel)]="colSelected"
-                  (change)="changeOption('col')" [ngModelOptions]="{standalone: true}">
-                  <option value="0" hidden>12/12</option>
-                  <option *ngFor="let col of sizecolumna" [value]="col.id">{{col.descripcion}}</option>
+                  <select class="botondrop dropdown-toggle" [(ngModel)]="colSelected" (change)="changeOption('col')"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="0" hidden>12/12</option>
+                    <option *ngFor="let col of sizecolumna" [value]="col.id">{{col.descripcion}}</option>
                   </select>
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Texto</label>
-                  <ckeditor [editor]="Editor" data=""  (ready)="onReady($event)" formControlName="contenido"></ckeditor>
+                  <ckeditor [editor]="Editor" data="" (ready)="onReady($event)" formControlName="contenido"></ckeditor>
                 </div>
               </form>
             </div>
@@ -932,8 +947,8 @@
                 </div>
                 <div class="row mt-2">
                   <div class="col-12 col-lg-6">
-                    <pagination-controls id="first" class="w-100 d-flex justify-content-center" (pageChange)="pgm = $event"
-                      previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                    <pagination-controls id="first" class="w-100 d-flex justify-content-center"
+                      (pageChange)="pgm = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                   </div>
                 </div>
               </div>

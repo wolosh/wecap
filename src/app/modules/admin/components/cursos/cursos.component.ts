@@ -198,6 +198,23 @@ export class CursosComponent implements OnInit {
       newOrder = newOrder.slice(0, -1);
       json['topic_order'] = newOrder;
       console.log(json);
+      this.helpers.loader();
+      this.session.orderTopic(json, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          Swal.close();
+          Swal.fire({
+            title: '¡Actualizado!',
+            text: 'El orden ha sido actualizado.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.changeViewModulo('editm', this.idModulo)
+            }
+          })
+        }
+      );
     }
       //this.helpers.loader();
       /*this.register
@@ -281,7 +298,8 @@ export class CursosComponent implements OnInit {
         title: [''],
         description: [''],
         //img: [''],
-        default_active_days: [''],
+        default_active_days_start: [''],
+        default_active_days_end: [''],
         //hasExam: [''],
       });
     } else if (id == 2) {
@@ -289,7 +307,9 @@ export class CursosComponent implements OnInit {
         title: [''],
         description: [''],
         img: [''],
-        default_active_days: [''],
+        //default_active_days: [''],
+        default_active_days_start: [''],
+        default_active_days_end: [''],
         //hasExam: [''],
       });
 
@@ -415,7 +435,7 @@ export class CursosComponent implements OnInit {
   //Crear nuevo curso
   saveCourse(kind: any, id?: any) {
     let send = new FormData();
-    //console.log(this.formNewCurso.value, this.image, this.exam)
+    console.log(this.formNewCurso.value, this.image, this.exam, this.formEdit.value)
     switch (kind) {
       case 'create':
         send.append('title', this.formNewCurso.value.title);
@@ -465,7 +485,7 @@ export class CursosComponent implements OnInit {
         );
         break;
       case 'edit':
-        //console.log(this.formEdit)
+        console.log(this.formEdit)
         this.formData.append('title', this.formEdit.value.title);
         this.formData.append('description', this.formEdit.value.description);
         this.formData.append('secuencial', this.exam);

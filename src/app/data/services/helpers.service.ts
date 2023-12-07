@@ -14,9 +14,9 @@ export class HelpersService {
   cursos = 0;
   //public domain = 'http://35.92.150.230/';
   //public domain = 'https://ci.wecap.mx/';
-  public domain = '';
   //public domainAmericargo ='https://ci.americargo.wecap.mx/'
   //public domain ='https://ci.alsainacademy.wecap.mx/'
+  public domain = '';
   public domainPrueba = document.location.origin;
 
 
@@ -94,6 +94,19 @@ export class HelpersService {
         confirmButtonText: 'Ok',
       });
     }
+  }
+
+  public loader() {
+    //se muestra el loader
+    Swal.fire({
+      title: 'Espere por favor',
+      text: 'Cargando...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        //y se agrega una animación de carga
+        Swal.showLoading();
+      },
+    });
   }
 
   //función para cerrar la sesión del usuario
