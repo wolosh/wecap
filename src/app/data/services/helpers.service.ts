@@ -32,7 +32,7 @@ export class HelpersService {
   interval:any;
   public finalizados = [] as any;
   public conferencias = false;
-  view: number = 0;
+  view: any;
 
   constructor(private route: Router, public session:SessionService) {
     if (this.domainPrueba.includes('americargo')) {

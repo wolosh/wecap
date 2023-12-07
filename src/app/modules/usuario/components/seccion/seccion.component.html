@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-          <div class="row row-cols-2 row-cols-md-2 row-cols-xl-3 g-5 mt-1 modulo" *ngIf="this.helpers.view != 1">
+          <div class="row row-cols-2 row-cols-md-2 row-cols-xl-3 g-5 mt-1 modulo" *ngIf="this.helpers.view == 0">
             <div class="col" *ngFor="let tema of this.temasArr; let i = index">
               <div class="card corpo" *ngIf="tema.finalizado == '1'">
                 <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid opacity" alt="">

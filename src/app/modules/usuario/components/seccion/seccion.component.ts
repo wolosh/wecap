@@ -39,6 +39,7 @@ export class SeccionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     //console.log(localStorage.getItem('idCertification'));
     if (localStorage.getItem('type') == '4') {
       this.helpers.view = parseInt(localStorage.getItem('view'));
@@ -202,8 +203,11 @@ export class SeccionComponent implements OnInit {
       console.log(element.idTopic, index)
       if (element.idTopic == idTopic) {
         c = index;
-        console.log(c)
-        if(this.temasArr[c - 1] > 0){
+        console.log(c, (c-1))
+        if(c == 0){
+          console.log('es el primero')
+          this.themeUniversal(idTopic, name);
+        } else {
           if (this.temasArr[c - 1].finalizado == '1') {
             console.log('es el otro')
             this.themeUniversal(idTopic, name);
@@ -215,10 +219,7 @@ export class SeccionComponent implements OnInit {
               confirmButtonColor: '#015287',
             })
           }
-        } else {
-          console.log('es el primero')
-          this.themeUniversal(idTopic, name);
-        }
+        } 
         /*if(this.temasArr[c - 1] == 0){
           console.log('es el primero')
          this.themeUniversal(idTopic, name);
