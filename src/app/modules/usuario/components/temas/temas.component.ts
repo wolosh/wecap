@@ -35,12 +35,14 @@ export class TemasComponent implements OnInit {
   idTopic: any;
   medalla: any;
   chanceTow: any;
+  idModule: string;
 
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
       console.log(params);
       this.idTopic = params['idTopic'];
+      this.idModule = localStorage.getItem('idModule');
       console.log(this.idTopic)
     });
   }
@@ -236,10 +238,10 @@ export class TemasComponent implements OnInit {
   }
 
   public temasSeccion(id: any, name: any) {
-    console.log(this.idTopic,id, name)
-    this.helpers.idModuleBackUp = id;
-    this.helpers.nameModuleBackUp = name;
-    this.route.navigate(['/seccion', this.idTopic]);
+    console.log(this.idModule,id, name)
+    //his.helpers.idModuleBackUp = this.idModule;
+    //this.helpers.nameModuleBackUp = name;
+    this.route.navigate(['/seccion', id]);
     this.session.curso = true;
   }
 

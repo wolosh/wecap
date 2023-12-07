@@ -118,6 +118,14 @@ export class CursosModulosComponent implements OnInit {
             break;
           case 2:
             this.cursos = 2;
+            this.certificaciones.forEach(element => {
+              console.log(element.idCertification, id);
+              if(element.idCertification == id){
+                this.helpers.view = element.secuencial;
+                localStorage.setItem('view', element.secuencial);
+              }
+              console.log(this.helpers.view, localStorage.getItem('view'))
+            });
             this.modules(id);
             localStorage.setItem('idCertification', id);
             //this.helpers.conferencias = true;
@@ -144,7 +152,7 @@ export class CursosModulosComponent implements OnInit {
   modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.modulesCertifications = data;
         //console.log(this.modulesCertifications);
         this.files(id);

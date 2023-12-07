@@ -28,17 +28,21 @@ export class SeccionComponent implements OnInit {
   showModal = false;
   imgHeader: any;
 
-  constructor( private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
+  constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
-      //console.log(params);
+      console.log(params);
       this.idModule = params['idModule'];
-      //console.log(this.idModule)
+      this.helpers.idModuleBackUp = this.idModule;
+      console.log(this.idModule)
+      console.log(this.helpers.idModuleBackUp)
     });
-   }
+  }
 
   ngOnInit(): void {
     //console.log(localStorage.getItem('idCertification'));
     if (localStorage.getItem('type') == '4') {
+      this.helpers.view = parseInt(localStorage.getItem('view'));
+      console.log(this.helpers.view)
       this.helpers.goTop();
       Swal.fire({
         title: 'Cargando',
@@ -99,24 +103,24 @@ export class SeccionComponent implements OnInit {
   checkFinalizado() {
     this.get.checkModule(this.idModule, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
-        if(data.finalizado == true){
+        console.log(data);
+        if (data.finalizado == true) {
           this.finalizado = 1;
           this.helpers.nameModuleBackUp = this.nameModule + ' - Finalizado'
         } else {
           this.finalizado = 0;
-          this.helpers.nameModuleBackUp  = this.nameModule
+          this.helpers.nameModuleBackUp = this.nameModule
         }
         //console.log(data);
       }
     );
   }
 
-  getMedallas(id:any){
+  getMedallas(id: any) {
     this.get.medallas(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
-        if(data.length > 0){
+        if (data.length > 0) {
           this.showMedallas = true;
         } else {
           this.showMedallas = false;
@@ -126,13 +130,13 @@ export class SeccionComponent implements OnInit {
     );
   }
 
-  getModules(id:any) {
+  getModules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
-        for(let mod of data){
+        for (let mod of data) {
           //console.log(mod)
-          if(mod.idModule == this.idModule){
+          if (mod.idModule == this.idModule) {
             this.nameModule = mod.title;
             localStorage.setItem('imgHeader', mod.imgHeader);
             localStorage.setItem('idModulo', mod.idModule);
@@ -163,7 +167,7 @@ export class SeccionComponent implements OnInit {
     });
   }
 
-  files(){
+  files() {
     this.get.getFiles(localStorage.getItem('idCertification'), localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
@@ -176,7 +180,7 @@ export class SeccionComponent implements OnInit {
   }
 
   modulosSeccion(id: any, name: any) {
-    console.log(this.idModule,id, name)
+    console.log(this.idModule, id, name)
     this.helpers.idModuleBackUp = id;
     this.helpers.nameModuleBackUp = name;
     this.route.navigate(['/cmtemplate']);
@@ -184,19 +188,66 @@ export class SeccionComponent implements OnInit {
     this.session.cursos = 2;
   }
 
-  goToTheme(idTopic:any, name:any){
-    //console.log(id);
-    this.route.navigate(['/temas', idTopic]).then(() => {
+  themeUniversal(id: any, name: any) {
+    this.route.navigate(['/temas', id]).then(() => {
       //this.helpers.conferencias = true;
     });
+  }
+
+  goToTheme(idTopic: any, name: any) {
+    console.log(idTopic, this.temasArr);
+    let c;
+    console.log(c)
+    this.temasArr.forEach((element, index) => {
+      console.log(element.idTopic, index)
+      if (element.idTopic == idTopic) {
+        c = index;
+        console.log(c)
+        if(this.temasArr[c - 1] > 0){
+          if (this.temasArr[c - 1].finalizado == '1') {
+            console.log('es el otro')
+            this.themeUniversal(idTopic, name);
+          } else {
+            Swal.fire({
+              title: '¡Error!',
+              text: 'Aún no has finalizado el tema anterior, continua con el tema o regresa mas tarde.',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            })
+          }
+        } else {
+          console.log('es el primero')
+          this.themeUniversal(idTopic, name);
+        }
+        /*if(this.temasArr[c - 1] == 0){
+          console.log('es el primero')
+         this.themeUniversal(idTopic, name);
+        } else {
+        if (this.temasArr[c - 1].finalizado == '1') {
+          console.log('es el otro')
+          this.themeUniversal(idTopic, name);
+        } else {
+          Swal.fire({
+            title: '¡Error!',
+            text: 'Aún no has finalizado el tema anterior, continua con el tema o regresa mas tarde.',
+            icon: 'error',
+            confirmButtonColor: '#015287',
+          })
+        }
+      }*/
+      }
+    });
+    /*this.route.navigate(['/temas', idTopic]).then(() => {
+      //this.helpers.conferencias = true;
+    });*/
     //localStorage.setItem('idTopic', id);
     //localStorage.setItem('nameTopic', name);
     //console.log(localStorage.getItem('idTopic'), localStorage.getItem('nameTopic'));
     //this.route.navigate(['/temas']);
   }
 
-  evaluacion(){
-    if(this.showModal == true){
+  evaluacion() {
+    if (this.showModal == true) {
       Swal.fire({
         title: '¡Error!',
         text: 'Aún no tienes asignado un exámen para este modulo, continua con los temas o regresa mas tarde.',
@@ -204,15 +255,15 @@ export class SeccionComponent implements OnInit {
         confirmButtonColor: '#015287',
       })
     } else {
-    this.route.navigate(['/test', this.idExamBackUp]).then(() => {
-      this.helpers.conferencias = true;
-      localStorage.setItem('idModule', this.helpers.idModuleBackUp);
-    localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
-    });
-  }
+      this.route.navigate(['/test', this.idExamBackUp]).then(() => {
+        this.helpers.conferencias = true;
+        localStorage.setItem('idModule', this.helpers.idModuleBackUp);
+        localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
+      });
+    }
   }
 
-  conferencias(id:any) {
+  conferencias(id: any) {
     this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data)
@@ -228,25 +279,25 @@ export class SeccionComponent implements OnInit {
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
-        if(data.message == 'No se encontro examen para el modulo indicado'){
+        if (data.message == 'No se encontro examen para el modulo indicado') {
           this.test = false;
           this.showModal = true;
         } else {
 
-        this.idExamBackUp = data.idExamen;
-        //console.log(this.idExamBackUp)
-        this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
-          (data: any) => {
-            //console.log(data.calificacion);
-            if(parseInt(data.calificacion) > 0){
-              this.test = true;
-            } else {
-              this.test = false;
+          this.idExamBackUp = data.idExamen;
+          //console.log(this.idExamBackUp)
+          this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
+            (data: any) => {
+              //console.log(data.calificacion);
+              if (parseInt(data.calificacion) > 0) {
+                this.test = true;
+              } else {
+                this.test = false;
+              }
+              ////console.log(parseInt(data.calificacion));
+              //console.log(this.test)
             }
-            ////console.log(parseInt(data.calificacion));
-            //console.log(this.test)
-          }
-        );
+          );
         }
 
       }

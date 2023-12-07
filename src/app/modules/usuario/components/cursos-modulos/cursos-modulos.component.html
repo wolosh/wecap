@@ -72,7 +72,9 @@
           [interval]="0"
           [noWrap]="noWrap">
         <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
-            <img src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide" style="display: block; width: 100%;" class="h-100">
+            <img *ngIf="this.helpers.view == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide" style="display: block; width: 100%;" class="h-100">
+            <img src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity" style="display: block; width: 100%;" class="h-100">
+            
             <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
                 <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
             <div class="carousel-caption">
