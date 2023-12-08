@@ -23,7 +23,7 @@
                 MENU
             </button>
             <a class="navbar-brand ms-lg-3 me-0 order-3 order-lg-1" href="#">
-                <img src="assets/img/logo.svg" alt="" width="100">
+                <img src="{{this.helpers.domain+'media/'+ this.getLogo()}}" alt="" width="100">
             </a>
             <div class="collapse navbar-collapse order-5 order-lg-2" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
@@ -107,7 +107,7 @@
                 </button>
                 <a class="navbar-brand ms-lg-3 me-0 order-3 order-lg-1" [routerLink]="['/cmtemplate']">
                     <!--<img src="{{this.helpers.domain+'media/logo.png}}" alt="" width="100">-->
-                    <img src="assets/img/LOGO_AMERICARGO_slid.png" alt="" width="100">
+                    <img src="{{this.helpers.domain+'media/'+ this.getLogo()}}" alt="" width="100">
                     <!--<img src="assets/img/logo.svg" alt="" width="100">-->
                 </a>
                 <div class="collapse navbar-collapse order-5 order-lg-2" id="navbarSupportedContent">

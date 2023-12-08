@@ -59,6 +59,7 @@ export class ExamenesComponent implements OnInit {
   pas: number = 1;
   pquit: number = 1;
   psc: number = 1;
+  pca: number = 1;
   pdiag: number = 1;
   pexam: number = 1;
   pe: number = 1;
@@ -99,6 +100,12 @@ export class ExamenesComponent implements OnInit {
   error = 0;
   question: any;
   title: any;
+  titleC: any;
+  allModules: any;
+  idModulo: any;
+  alltemas: any;
+  idModuloT: any;
+  idTema: any;
   //examQuestion = [] as any;
 
 
@@ -1272,8 +1279,48 @@ export class ExamenesComponent implements OnInit {
   }
 
   public cursoSelected(){
+    if (this.certificationSelected != '') {
+      //console.log(this.certificationSelected);
+      for (let item of this.certificaciones) {
+        if (item.idCertification == this.certificationSelected){
+          this.titleC = item.title;
+          this.get.getModules(item.idCertification, localStorage.getItem('token')).subscribe(
+            (data: any) => {
+              this.allModules = data;
+              //console.log(this.allModules);
+              for (let item of this.allModules) {
+                this.idModulo = item.idModule;
+                //console.log(this.idModulo);
+                this.get.getTemas(this.idModulo, localStorage.getItem('token')).subscribe(
+                  (data: any) => {
+                    this.alltemas = data;
+                    //console.log(this.alltemas.idModule)
+                    for (let item of this.alltemas) {
+                      this.idModuloT = item.idModule;
+                      this.idTema = item.idTopic;
+                      //console.log(this.idModulo)
+                      if (this.idModulo == this.idModuloT){
+                        console.log(item)
+                      }
+                    }
 
+                  },
+                  (error: any) => {
+                    this.helpers.logout();
+                  }
+                );
+              }
+              Swal.close();
+            },
+            (error: any) => {
+              this.helpers.logout();
+            }
+          );
+        }
+      }
+    }
   }
+
   public updateQuestion(type:any){
     //console.log(this.backDataAnswer, this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     this.json.idEval_question = this.backDataAnswer.idEval_question;

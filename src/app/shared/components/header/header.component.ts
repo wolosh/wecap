@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
       element.classList.remove('bg-white');
     }
   }
+
  goTo(vista:any){
   switch(vista){
     case 1:
@@ -41,8 +42,10 @@ export class HeaderComponent implements OnInit {
     break;
   }
  }
-
- getImage(){
-  return localStorage.getItem('imgHeader');
- }
+  getLogo(){
+    return localStorage.getItem('logo');
+  }
+  getImage(){
+    return localStorage.getItem('imgHeader');
+  }
 }

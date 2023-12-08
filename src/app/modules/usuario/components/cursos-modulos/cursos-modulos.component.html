@@ -74,7 +74,7 @@
         <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
             <img *ngIf="this.helpers.view == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide" style="display: block; width: 100%;" class="h-100">
             <img src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity" style="display: block; width: 100%;" class="h-100">
-            
+
             <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
                 <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
             <div class="carousel-caption">
@@ -83,9 +83,8 @@
 
                 <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                     <div class="row">
-                        <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="..."></div>
-                        <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block opacity-50" alt="..."></div>
-                        <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block opacity-50" alt="..."></div>
+                        <!--div class="col"><img src="{{this.helpers.domain+'/media/'+ this.medalla}}" class="mx-auto d-block" alt="medalla"></div-->
+                        <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="medalla"></div>
                     </div>
                 </div>
             </div>

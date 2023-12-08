@@ -35,6 +35,11 @@ export class CursosModulosComponent implements OnInit {
   twitter: any;
   youtube: any;
   archivos = false;
+  finalizado: any;
+  idModulo: any;
+  medallas: any;
+  tipo: any;
+  medalla: any;
   constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
@@ -119,12 +124,12 @@ export class CursosModulosComponent implements OnInit {
           case 2:
             this.cursos = 2;
             this.certificaciones.forEach(element => {
-              console.log(element.idCertification, id);
+              //console.log(element.idCertification, id);
               if(element.idCertification == id){
                 this.helpers.view = element.secuencial;
                 localStorage.setItem('view', element.secuencial);
               }
-              console.log(this.helpers.view, localStorage.getItem('view'))
+              //console.log(this.helpers.view, localStorage.getItem('view'))
             });
             this.modules(id);
             localStorage.setItem('idCertification', id);
@@ -154,11 +159,60 @@ export class CursosModulosComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.modulesCertifications = data;
-        //console.log(this.modulesCertifications);
+        //console.log(this.modulesCertifications.finalizado);
+        for (let item of this.modulesCertifications) {
+          this.finalizado = item.finalizado
+          this.idModulo = item.idModule;
+          this.get.medallas(this.idModulo, localStorage.getItem('token')).subscribe(
+            (data: any) => {
+              this.medallas=data;
+              for (let item of this.medallas) {
+                this.tipo = item.tipo
+                /*if(this.tipo == 'medal_perfect' ){
+                  this.medalla == item.img
+
+                } else if(this.tipo == 'medal_perfect' ){
+                  this.medalla == item.img
+                }
+                else if(this.tipo == 'medal_perfect' ){
+                  this.medalla == item.img
+                }*/
+              }
+
+              /*if(this.finalizado == '1' ){
+
+          }*/
+              /*if (data.length > 0) {
+                this.showMedallas = true;
+              } else {
+                this.showMedallas = false;
+              }*/
+
+            }
+          );
+          //console.log(this.finalizado)
+          /*if(this.finalizado == '1' ){
+
+          }*/
+        }
         this.files(id);
       }
     );
   }
+
+  /*getMedallas(id: any) {
+    this.get.medallas(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        /*if (data.length > 0) {
+          this.showMedallas = true;
+        } else {
+          this.showMedallas = false;
+        }
+
+      }
+    );
+  }*/
 
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(

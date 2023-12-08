@@ -36,6 +36,8 @@ export class TemasComponent implements OnInit {
   medalla: any;
   chanceTow: any;
   idModule: string;
+  comentario: string;
+  like: string;
 
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
@@ -48,6 +50,9 @@ export class TemasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //this.session.configuracion();
+    this.comentario = localStorage.getItem('isComentario');
+    this.like = localStorage.getItem('isLike');
     this.helpers.goTop();
     if (localStorage.getItem('type') == '4') {
       Swal.fire({
@@ -138,7 +143,7 @@ export class TemasComponent implements OnInit {
       }
       let date = new Date();
       this.startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-      
+
     });
     /*this.get.getTemas(localStorage.getItem('idModule'), localStorage.getItem('token')).subscribe((data: any) => {
       ////console.log(data)
@@ -160,8 +165,8 @@ export class TemasComponent implements OnInit {
       Swal.close();
      }, 8000);
   }
-  
- 
+
+
 
   getTemas() {
     console.log(localStorage.getItem('idModulo'), localStorage.getItem('token'))

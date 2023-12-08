@@ -64,13 +64,14 @@
                         <label class="text13 txt-blue mt-5 mb-3 d-block">Módulos</label>
                         <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Me gusta y no me gusta en videos</label>
                         <div class="form-check form-check-inline mb-3">
-                            <label class="text10 txt-gris2" for="inlineRadio1">Activado</label>
-                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" [ngModelOptions]="{standalone: true}" [(ngModel)]="like" value="1" (change)="changeActive($event, 'like')">
+                            <label class="text10 txt-gris2" for="inlineRadio">Activado</label>
+                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio" [ngModelOptions]="{standalone: true}" [(ngModel)]="like" value="1"
+                            (change)="changeActive($event, 'like')">
                         </div>
                         <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Comentarios en videos</label>
                         <div class="form-check form-check-inline mb-3">
                             <label class="text10 txt-gris2" for="inlineRadio1">Activado</label>
-                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions2" id="inlineRadio2" [ngModelOptions]="{standalone: true}" [(ngModel)]="coment" value="1" (change)="changeActive($event, 'comentario')">
+                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions2" id="inlineRadio1" [ngModelOptions]="{standalone: true}" [(ngModel)]="coment" value="1" (change)="changeActive($event, 'comentario')">
                         </div>
                         <div>
                             <label class="text13 txt-blue mt-5 mb-3">Redes sociales: (URL completa)</label>

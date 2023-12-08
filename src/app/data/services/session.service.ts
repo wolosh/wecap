@@ -48,6 +48,8 @@ export class SessionService {
     this.getConfiguration().subscribe(
       (data: any) => {
         localStorage.setItem('logo', data['logo']);
+        localStorage.setItem('isComentario', data['isComentario']);
+        localStorage.setItem('isLike', data['isLike']);
       }
     );
   }

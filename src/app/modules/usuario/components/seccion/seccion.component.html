@@ -125,19 +125,19 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-12 mt-5">
-      <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-        (click)="this.modulosSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-        >Regresar a Módulos</button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <button type="button" class="boton3 mx-auto d-block mt-5 mb-5" data-bs-toggle="modal"
-        data-bs-target="#crear" *ngIf="this.test == false && this.showModal == false">Evaluación</button>
-      <button ype="button" class="boton3 mx-auto d-block mt-5 mb-5" (click)="evaluacion()" *ngIf="this.test == false && this.showModal == true">Evaluación</button>
-      <button type="button" class="boton3 mx-auto d-block mt-5 mb-5" (click)="evaluacion()" *ngIf="this.test == true">Evaluación</button>
+      <div class="row">
+        <div class="col-12">
+          <button type="button" class="boton3 mx-auto d-block mt-5 mb-3" data-bs-toggle="modal"
+            data-bs-target="#crear" *ngIf="this.test == false && this.showModal == false">Evaluación</button>
+          <button ype="button" class="boton3 mx-auto d-block mt-5 mb-3" (click)="evaluacion()" *ngIf="this.test == false && this.showModal == true">Evaluación</button>
+          <button type="button" class="boton3 mx-auto d-block mt-5 mb-3" (click)="evaluacion()" *ngIf="this.test == true">Evaluación</button>
+        </div>
+        <div class="col-12">
+          <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
+            (click)="this.modulosSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
+            >Regresar a Módulos</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

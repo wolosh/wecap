@@ -73,6 +73,7 @@ export class ConfiguracionComponent implements OnInit {
     });
   }
 
+
   getConfiguration() {
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -95,16 +96,14 @@ export class ConfiguracionComponent implements OnInit {
           username: data.username,
           contraseña: data.password,
         });
-        //console.log(this.formConfiguracion.value);
-
+        //console.log(data.isLike);
+        if (data.isLike == '1') this.like = true;
+        if (data.isComentario == '1') this.coment = true;
         var a = document.getElementsByClassName("bg-change");
         if (data.boton1Color1 != '' && data.boton1Color2 != '') {
           a.item(0).setAttribute("style", "background-color: " + data.boton1Color2);
           //a.item(1).setAttribute("style", "color: " + data.boton1Color1);
         }
-
-        if (data.isLike == '1') this.like = true;
-        if (data.isComentario == '1') this.coment = true;
       }
     );
   }
@@ -220,9 +219,7 @@ export class ConfiguracionComponent implements OnInit {
 
   saveConfiguration(){
     let configuracion = new FormData();
-
     //console.log(this.formConfiguracion.value, this.logo, this.fondo, this.certificado);
-
     if(this.logo != undefined){
       configuracion.append('logo', this.logo, 'logo');
     }
@@ -248,9 +245,8 @@ export class ConfiguracionComponent implements OnInit {
     configuracion.append('host', this.formConfiguracion.controls['host'].value);
     configuracion.append('username', this.formConfiguracion.controls['username'].value);
     configuracion.append('password', this.formConfiguracion.controls['contraseña'].value);
-
     //console.log(configuracion.getAll('logo'), configuracion.getAll('fondo'), configuracion.getAll('certificado'));
-    console.log(configuracion.getAll('logo'))
+    console.log(configuracion.getAll('isLike'),configuracion.getAll('isComentario'))
     this.session.updateConfiguration(configuracion, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
@@ -261,6 +257,7 @@ export class ConfiguracionComponent implements OnInit {
           confirmButtonColor: '#015287',
         });
         this.getConfiguration();
+        window.location.reload();
       }, (error: any) => {
         //console.log(error);
         Swal.fire({
