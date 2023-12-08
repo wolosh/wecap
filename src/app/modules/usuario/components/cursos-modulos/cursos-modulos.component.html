@@ -5,8 +5,7 @@
             <h1 class="text txt-blue" *ngIf="this.cursos == 2">Módulos</h1>
         </div>
         <div class="col-6 col-lg-1" *ngIf="this.cursos == 2">
-            <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
-                (click)="changeViewCourses(1)">
+            <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50" (click)="changeViewCourses(1)">
                 <i class="fas fa-reply"></i>
             </button>
         </div>
@@ -17,13 +16,15 @@
         <div class="col" *ngFor="let certificacion of this.certificaciones">
             <div class="card h-100">
                 <!--<img src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">-->
-                <img *ngIf="certificacion.img == ''" src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">
+                <img *ngIf="certificacion.img == ''" src="assets/img/alsain.svg" class="card-img mx-auto d-block"
+                    alt="...">
                 <img *ngIf="certificacion.img != ''" src="{{this.helpers.domain+'media/cursos/' +
                 certificacion.img}}" class="card-img mx-auto" alt="...">
                 <div class="card-img-overlay ">
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col-12">
-                            <h5 class="card-title mx-auto d-block d-flex align-items-center justify-content-center">{{certificacion.title}}</h5>
+                            <h5 class="card-title mx-auto d-block d-flex align-items-center justify-content-center">
+                                {{certificacion.title}}</h5>
                             <div class="blue d-flex align-items-center justify-content-center">
                                 <div class="row">
                                     <div class="col-12">
@@ -31,7 +32,8 @@
                                         </p>
                                     </div>
                                     <div class="col-12 mt-3">
-                                        <button type="button" class="boton mx-auto d-block" (click)="changeViewCourses(2, certificacion.idCertification)">Comenzar</button>
+                                        <button type="button" class="boton mx-auto d-block"
+                                            (click)="changeViewCourses(2, certificacion.idCertification)">Comenzar</button>
                                     </div>
                                 </div>
                             </div>
@@ -66,30 +68,64 @@
         </div>-->
     </div>
     <!--Parte modulos-->
-    <carousel *ngIf="this.cursos == 2" [itemsPerSlide]="itemsPerSlide"
-          [singleSlideOffset]="singleSlideOffset"
-          [showIndicators]="showIndicator"
-          [interval]="0"
-          [noWrap]="noWrap">
-        <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
-            <img *ngIf="this.helpers.view == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide" style="display: block; width: 100%;" class="h-100">
-            <img src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity" style="display: block; width: 100%;" class="h-100">
+    <div *ngIf="this.cursos == 2">
 
-            <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
-                <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
-            <div class="carousel-caption">
-                <button type="button" class="card-title w-100 border-0" (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
-                <!--<button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100 border-0" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>-->
+        <carousel  *ngIf="this.helpers.view == 1" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
+            [showIndicators]="showIndicator" [interval]="0" [noWrap]="noWrap">
+            <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
+                <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity"
+                    style="display: block; width: 100%;" class="h-100 opacity">
+                    <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity"
+                    style="display: block; width: 100%;" class="h-100">
 
-                <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
-                    <div class="row">
-                        <!--div class="col"><img src="{{this.helpers.domain+'/media/'+ this.medalla}}" class="mx-auto d-block" alt="medalla"></div-->
-                        <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="medalla"></div>
+                <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
+          <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
+                <div class="carousel-caption">
+                    <button type="button" class="card-title w-100 border-0"
+                        (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
+                    <!--<button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100 border-0" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>-->
+
+                    <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
+                        <div class="row">
+                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="..."></div>
+                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block opacity-50"
+                                    alt="..."></div>
+                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block opacity-50"
+                                    alt="..."></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </slide>
-    </carousel>
+            </slide>
+        </carousel>
+        <carousel *ngIf="this.helpers.view == 0" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
+            [showIndicators]="showIndicator" [interval]="0" [noWrap]="noWrap">
+            <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
+                <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity"
+                    style="display: block; width: 100%;" class="h-100 opacity">
+                    <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity"
+                    style="display: block; width: 100%;" class="h-100">
+
+                <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
+          <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
+                <div class="carousel-caption">
+                    <button type="button" class="card-title w-100 border-0"
+                        (click)=" moduleUniversal(slide.idModule, slide.title)">{{slide.title}}</button>
+                    <!--<button *ngIf="slide.idModule != '2'" type="button" class="card-title w-100 border-0" disabled (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>-->
+
+                    <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
+                        <div class="row">
+                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="..."></div>
+                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block opacity-50"
+                                    alt="..."></div>
+                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block opacity-50"
+                                    alt="..."></div>
+                        </div>
+                    </div>
+                </div>
+            </slide>
+        </carousel>
+    </div>
+    
 </div>
 
 
@@ -169,7 +205,8 @@
                                 <label class="text10 txt-blue d-block">Introducción: Promocional</label>
                                 <label class="text9 txt-blue d-block">15 de Octubre</label>
                                 <label class="text9 txt-blue d-block">Bases para módulo Promocional.</label>
-                                <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank" class="boton2 ps-0">Link</a>
+                                <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank"
+                                    class="boton2 ps-0">Link</a>
                             </div>
                         </div>
                     </div>
@@ -185,7 +222,8 @@
                                     <label class="text10 txt-blue d-block">Seguimiento</label>
                                     <label class="text9 txt-blue d-block">31 de Octubre</label>
                                     <label class="text9 txt-blue d-block">Dudas y sugerencias</label>
-                                    <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank" class="boton2 ps-0">Link</a>
+                                    <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank"
+                                        class="boton2 ps-0">Link</a>
                                 </div>
                             </div>
                         </div>
@@ -207,48 +245,58 @@
                 <p class="text7 txt-gris mb-3">Preguntas Frecuentes</p>
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item border-0 mb-3">
-                      <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <img src="assets/img/question.svg" class="me-2" alt="...">
-                            <label class="text10 txt-blue">¿Cómo hago mi examen?</label>
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador te asigne un examen,
-                                una vez asignado tienes que ver todos los videos del modulo,
-                                una vez terminado podras contestar el examen.
-                            </p>
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <img src="assets/img/question.svg" class="me-2" alt="...">
+                                <label class="text10 txt-blue">¿Cómo hago mi examen?</label>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body ms-4">
+                                <p class="text11 txt-blue lh-1">Para hacer el examen es importante que un administrador
+                                    te asigne un examen,
+                                    una vez asignado tienes que ver todos los videos del modulo,
+                                    una vez terminado podras contestar el examen.
+                                </p>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="accordion-item border-0 mb-3">
-                      <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <img src="assets/img/question.svg" class="me-2" alt="...">
-                            <label class="text10 txt-blue">¿Cuántos puntos necesito para pasar?</label>
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha certificación.
-                            </p>
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <img src="assets/img/question.svg" class="me-2" alt="...">
+                                <label class="text10 txt-blue">¿Cuántos puntos necesito para pasar?</label>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body ms-4">
+                                <p class="text11 txt-blue lh-1">Para aprobar una certificación, se necesita una
+                                    puntuación mayor a 70 en la evaluación de cada modulo que contenga dicha
+                                    certificación.
+                                </p>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="accordion-item border-0 mb-3">
-                      <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <img src="assets/img/question.svg" class="me-2" alt="...">
-                            <label class="text10 txt-blue">¿Cuánto tiempo tengo para responder la prueba?</label>
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div class="accordion-body ms-4">
-                            <p class="text11 txt-blue lh-1">El tiempo asignado para cada prueba, te será informado por el sistema al momento de iniciar la evaluación.
-                            </p>
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <img src="assets/img/question.svg" class="me-2" alt="...">
+                                <label class="text10 txt-blue">¿Cuánto tiempo tengo para responder la prueba?</label>
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body ms-4">
+                                <p class="text11 txt-blue lh-1">El tiempo asignado para cada prueba, te será informado
+                                    por el sistema al momento de iniciar la evaluación.
+                                </p>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <!--<div class="accordion-item border-0 mb-3">
                         <h2 class="accordion-header" id="headingFour">

@@ -43,6 +43,7 @@ export class CursosModulosComponent implements OnInit {
   constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
+    console.log(this.helpers.view);
     /*if(localStorage.getItem('token') == null){
       window.location.href = '/login';
     } else if(localStorage.getItem('type') == '0'){
@@ -225,11 +226,49 @@ export class CursosModulosComponent implements OnInit {
     );
   }
 
-  verTemas(idModulo: any, nameMod: any){
-    this.route.navigate(['/seccion', idModulo]).then(() => {
+  moduleUniversal(id: any, name: any) {
+    this.route.navigate(['/seccion', id]).then(() => {
       this.helpers.conferencias = true;
     });
   }
+
+  verTemas(idModulo: any, nameMod: any){
+    console.log(this.helpers.view)
+    console.log(idModulo, this.modulesCertifications);
+    let c;
+    this.modulesCertifications.forEach((element, index) => {
+      console.log(element, element.idModule, index)
+      if (element.idModule == idModulo) {
+        c = index;
+        console.log(c, (c-1))
+        if(c == 0){
+          console.log('es el primero')
+          this. moduleUniversal(idModulo, nameMod);
+          console.log(c)
+        } else {
+          console.log(c)
+          if (this.modulesCertifications[c - 1].finalizado == '1') {
+            console.log('es el otro', this.modulesCertifications[c - 1])
+            this. moduleUniversal(idModulo, nameMod);
+          } else {
+            console.log(c)
+            Swal.fire({
+              title: '¡Error!',
+              text: 'Aún no has finalizado el módulo anterior, continua con el módulo o regresa mas tarde.',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            })
+          }
+        } 
+      }
+    });
+
+    /*this.route.navigate(['/seccion', idModulo]).then(() => {
+      this.helpers.conferencias = true;
+    });*/
+  }
+
+
 
   /*verTemas(idMod: any, nameMod: any) {
     localStorage.setItem('idModule', idMod);

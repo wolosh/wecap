@@ -132,6 +132,7 @@ export class CursosComponent implements OnInit {
     console.log(this.helpers.domainPrueba);
     console.log(this.helpers.domain);
     console.log(localStorage.getItem('type'))
+    console.log(this.helpers.view);
     this.helpers.goTop();
     Swal.close();
     this.sizeColumna()
@@ -191,6 +192,24 @@ export class CursosComponent implements OnInit {
         newOrder = newOrder.slice(0, -1);
         json['module_order'] = newOrder;
         console.log(json);
+        this.helpers.loader();
+        this.session.orderModule(json, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            console.log(data);
+            Swal.close();
+            Swal.fire({
+              title: '¡Actualizado!',
+              text: 'El orden ha sido actualizado.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                //this.changeViewModulo('editm', this.idModulo)
+                this.changeViewCourses('editc')
+              }
+            })
+          }
+        );
       } else {
       json.id_module = this.idModulo;
       //se recorre el arreglo formar un string con los ids de los cursos separados por comas
