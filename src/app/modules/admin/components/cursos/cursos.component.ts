@@ -124,6 +124,7 @@ export class CursosComponent implements OnInit {
   isEditCol: number = 0;
   idTopicC: any;
   idTemaC: any;
+  allModulesL: any;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -322,6 +323,7 @@ export class CursosComponent implements OnInit {
         //img: [''],
         default_active_days_start: [''],
         default_active_days_end: [''],
+
         //hasExam: [''],
       });
     } else if (id == 2) {
@@ -392,7 +394,7 @@ export class CursosComponent implements OnInit {
     }
   }
 
-  certifications() {
+  certifications(name?:any) {
     this.certificaciones = [];
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -400,6 +402,9 @@ export class CursosComponent implements OnInit {
         this.certificaciones = data;
         this.countCert = this.certificaciones.length;
         console.log(this.certificaciones);
+        if(name){
+          this.changeViewCourses('editc', name)
+        }
         Swal.close();
       },
       (error: any) => {
@@ -457,7 +462,7 @@ export class CursosComponent implements OnInit {
   //Crear nuevo curso
   saveCourse(kind: any, id?: any) {
     let send = new FormData();
-    console.log(this.formNewCurso.value, this.image, this.exam, this.formEdit.value)
+    console.log(this.formNewCurso.value, this.image, this.exam)
     switch (kind) {
       case 'create':
         send.append('title', this.formNewCurso.value.title);
@@ -475,14 +480,17 @@ export class CursosComponent implements OnInit {
           send.delete('title');
           send.delete('description');
           send.delete('img');
-          send.delete('default_active_days');
+          send.delete('inicio');
+          send.delete('fin');
           send.delete('secuencial');
         }
         //console.log( send.getAll('img'),  send.getAll('title'),  send.getAll('description'));
-        send.append('default_active_days', this.formNewCurso.value.default_active_days);
+        send.append('inicio', this.formNewCurso.value.default_active_days_start);
+        send.append('fin', this.formNewCurso.value.default_active_days_end);
         send.append('secuencial', this.exam);
 
-        console.log(send.getAll(''),send.getAll('secuencial'),  send.getAll('default_active_days'),  send.get, send.getAll('img'));
+        console.log(send.getAll('inicio'), send.getAll('fin'))
+        console.log(send.getAll(''),send.getAll('secuencial'),  send.getAll('inicio'), send.getAll('fin'), send.get, send.getAll('img'));
         console.log( send.getAll('img'))
         ////console.log( send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get);
         this.session.newCurso(send, localStorage.getItem('token')).subscribe(
@@ -495,7 +503,7 @@ export class CursosComponent implements OnInit {
               confirmButtonColor: '#015287',
             }).then((result) => {
               if (result.isConfirmed) {
-                this.certifications();
+                this.onClickTab('courses');
                 this.formNewCurso.value.title = '';
                 this.formNewCurso.value.description = '';
                 this.exam = '';
@@ -511,13 +519,15 @@ export class CursosComponent implements OnInit {
         this.formData.append('title', this.formEdit.value.title);
         this.formData.append('description', this.formEdit.value.description);
         this.formData.append('secuencial', this.exam);
-        this.formData.append('default_active_days', this.formEdit.value.default_active_days);
+        this.formData.append('inicio', this.formEdit.value.default_active_days_start);
+        this.formData.append('fin', this.formEdit.value.default_active_days_end);
         if (this.image != undefined) {
           this.formData.append('img', this.image, this.image.name);
         } else {
           this.formData.append('img', this.formEdit.value.img);
         }
         ////console.log(this.formData.getAll('img'));
+        console.log(this.formData.getAll('inicio'), this.formData.getAll('fin'))
         console.log(this.formData.getAll('title'), this.formData.getAll('description'), this.formData.getAll('img'), this.formData.getAll('default_active_days'), this.formData.getAll('secuencial'), this.formData.get);
         this.session.editCourse(id, this.formData, localStorage.getItem('token')).subscribe(
           (data: any) => {
@@ -529,7 +539,8 @@ export class CursosComponent implements OnInit {
               confirmButtonColor: '#015287',
             }).then((result) => {
               if (result.isConfirmed) {
-                this.changeViewCourses('editc', this.formEdit.value.title)
+                this.certifications(this.formEdit.value.title);
+                //this.changeViewCourses('editc', this.formEdit.value.title)
               }
             });
 
@@ -609,6 +620,7 @@ export class CursosComponent implements OnInit {
   //cambia la vista de cursos
   changeViewCourses(view: any, name?: any, id?: any) {
     //console.log(view, name, id);
+    
     switch (view) {
       case 'back':
         this.pt = 1;
@@ -619,20 +631,22 @@ export class CursosComponent implements OnInit {
         this.pt = 1;
         this.p = 1;
         this.cview1 = 1;
+        this.startForm(2);
         for (let item of this.certificaciones) {
           if (item.title == name) {
-
-            //console.log(item.img)
+            console.log(item)
             console.log(item)
             this.idCertification = item.idCertification;
             this.modules(item.idCertification);
             this.diploma(item.idCertification);
             this.course = item.title;
             this.active = item.is_active;
-            this.startForm(2);
+            
             this.formEdit.controls['title'].setValue(item.title);
             this.formEdit.controls['description'].setValue(item.description);
-            this.formEdit.controls['default_active_days'].setValue(item.default_active_days);
+            this.formEdit.controls['default_active_days_start'].setValue(item.inicio);
+            console.log(this.formEdit.controls['default_active_days_start'].value, item.inicio)
+            this.formEdit.controls['default_active_days_end'].setValue(item.fin);
             this.formEdit.controls['img'].setValue(item.img);
             this.bf = item.img;
             this.exam = parseInt(item.secuencial);
@@ -711,6 +725,7 @@ export class CursosComponent implements OnInit {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
+        this.allModulesL = data.length
         this.allModules = data;
         this.allModulesLength = data.length;
         //console.log(this.allModules)

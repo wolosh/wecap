@@ -243,7 +243,7 @@
                 </button>
               </div>
             </div>
-            <div class="table-responsive" *ngIf=" this.allModulesLength != 0">
+            <div class="table-responsive" *ngIf=" this.allModulesL != 0">
               <table class="table striped w-100">
                 <thead>
                   <tr>
@@ -264,13 +264,13 @@
                 </tbody>
               </table>
             </div>
-            <div class="row" *ngIf="this.allModules.length != 0">
+            <div class="row" *ngIf="this.allModulesL != 0">
               <div class="col-12">
                 <pagination-controls id="modules" class="w-100 d-flex justify-content-center" (pageChange)="p = $event"
                   previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
               </div>
             </div>
-            <div class="row" *ngIf="this.allModules.length == 0">
+            <div class="row" *ngIf="this.allModulesL == 0">
               <div class="col-12">
                 <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas módulos para este curso en el sistema.</label>
               </div>

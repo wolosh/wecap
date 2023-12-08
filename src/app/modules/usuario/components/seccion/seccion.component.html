@@ -37,7 +37,7 @@
                   <a style="cursor: pointer" class="text8 text-white text-center text-decoration-none" (click)="themeUniversal(tema.idTopic, tema.title)">{{tema.title}}</a>
                 </div>
               </div>
-              <div class="card corpo" *ngIf="tema.finalizado != '0'">
+              <div class="card corpo" *ngIf="tema.finalizado == '0'">
                 <img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class="img-fluid" alt="">
                 <!--<img src="assets/img/f2.jpg" class="img-fluid" alt="">-->
                 <div class="transbox2 d-flex justify-content-center align-items-center">
