@@ -113,8 +113,8 @@ export class EstadisticasComponent implements OnInit {
     this.helpers.goTop();
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
-      this.certifications();
-      this.estadisticasCurso();
+      //this.certifications();
+      this.estadisticasCurso(1);
       this.estadGlobales();
       //this.estadCurso(1);
       this.estadModulo(1);
@@ -126,22 +126,6 @@ export class EstadisticasComponent implements OnInit {
       //console.log(data)
       this.usersArr = data.users;
       //console.log(this.usersArr)
-    });
-  }
-
-  estadisticasCurso(){
-    this.get.getEstadisticas(localStorage.getItem('token')).subscribe((data: any) => {
-      //console.log(data)
-      this.coursesArr =  data.records;
-      for (let curso of this.coursesArr ) {
-        this.get.getEstadCurso(curso, localStorage.getItem('token')).subscribe(
-          (data: any) => {
-            //console.log(data);
-            //this.allModules = data;
-            //console.log(this.allModules)
-          }
-        );
-      }
     });
   }
 
@@ -278,7 +262,7 @@ export class EstadisticasComponent implements OnInit {
 
     });
   }
-  certifications() {
+  /*certifications() {
     //this.certificaciones = [];
     let json={}
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
@@ -298,7 +282,7 @@ export class EstadisticasComponent implements OnInit {
         }
       }
     );
-  }
+  }*/
 
   /*estadCurso(id: any) {
     this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
@@ -307,18 +291,27 @@ export class EstadisticasComponent implements OnInit {
       }
     )
   }*/
+  estadisticasCurso(id:any){
+    this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+            //this.allModules = data;
+            //console.log(this.allModules)
+      }
+    )
+  }
 
   estadModulo(id: any) {
     //console.log(id)
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.avance =  data.promedioAvance;
         this.calificacion =  data.promedioCalificacion;
         this.tiempo =  data.promedioTiempo;
         //this.allModules = data;
         //console.log(this.allModules)
-        this.chartUsuarios = {
+        /*this.chartUsuarios = {
           series: [this.usuarios.hombres, this.usuarios.mujeres, this.usuarios.otro],
           chart: {
             type: "donut"
@@ -377,7 +370,7 @@ export class EstadisticasComponent implements OnInit {
               }
             }
           ]
-        };
+        };*/
       }
     );
   }

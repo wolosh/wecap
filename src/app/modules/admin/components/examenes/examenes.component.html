@@ -100,7 +100,7 @@
                                 *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
                         </div>
                         <!---Certificaciones-->
-                        <div *ngIf="this.certificationSelected != '0'">
+                        <!--div *ngIf="this.certificationSelected != '0'">
                           <label class="text13 txt-blue mt-4 mb-2">Certificación:<span class="txt-gris ms-2">{{this.titleC}}</span></label>
                           <ul class="list-group">
                             <li class="list-group-item" *ngFor="let modulo of this.allModules | paginate: {id: 'firstAsg', itemsPerPage: 6, currentPage: pca }">
@@ -113,13 +113,13 @@
                                           value="{{tema.idTopic}}" id="firstCheckbox" (change)="changeValue($event)">
                                       <label class="text13 txt-blue" for="firstCheckbox">{{tema.title}}</label>
                                   </li>
-                                </ul-->
+                                </ul>
                             </li>
                           </ul>
                           <pagination-controls id="" class="mt-3 w-100 d-flex justify-content-center"
                             (pageChange)="pca = $event" previousLabel="Anterior"
                             nextLabel="Siguiente"></pagination-controls>
-                        </div>
+                        </div-->
                         <!--</form-->
                         <label class="text3 txt-blue2 mt-3">Ver asignaciones</label>
                         <label class="text6 txt-gris mt-3 ms-2">Curso por usuario</label>
