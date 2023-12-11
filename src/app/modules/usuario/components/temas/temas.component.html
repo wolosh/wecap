@@ -1,5 +1,3 @@
-
-
 <div class="page-content container-lg top">
     <div class="row pt-3">
         <div class="col-12 col-md-6 col-lg-8">
@@ -11,14 +9,15 @@
                             <h1 class="text2 txt-blue" *ngIf="this.finalizado == 1">{{this.nameTopic}}: Finalizado</h1>
                             <hr class="w-100">
                             <div class="ratio ratio-16x9 mt-5">
-                                <iframe id="urlIframe" nombre="urlIframe" border="none" frameborder="1" [src]="this.chanceTow" allowfullscreen></iframe>
+                                <iframe id="urlIframe" nombre="urlIframe" border="none" frameborder="1"
+                                    [src]="this.chanceTow" allowfullscreen></iframe>
                             </div>
                         </div>
                         <div class="col-2 col-lg-1 offset-8 offset-lg-10" *ngIf="this.like == '1'">
-                          <img src="assets/img/like.svg" class="w-100" alt="">
+                            <img src="assets/img/like.svg" class="w-100" alt="">
                         </div>
                         <div class="col-2 col-lg-1" *ngIf="this.like == '1'">
-                          <img src="assets/img/deslike.svg" class="w-100" alt="">
+                            <img src="assets/img/deslike.svg" class="w-100" alt="">
                         </div>
                     </div>
                 </div>
@@ -61,11 +60,11 @@
                             <img src="assets/img/medallaavance.svg" class=" mx-auto d-block w-75" alt="">
                             <label class="text8 txt-blue">Perfecto</label>
                         </div>-->
-                        <!--<div class="col-4">
+            <!--<div class="col-4">
                                 <img src="assets/img/medallaavance.svg" class="opacity-50 mx-auto d-block w-75" alt="">
                                 <label class="text8 txt-blue">Tiempo</label>
                             </div>-->
-                        <!--<div class="col-4">
+            <!--<div class="col-4">
                             <img src="assets/img/medallaavance.svg" class="mx-auto d-block w-75" alt="">
                             <label class="text8 txt-blue">Tiempo</label>
                         </div>
@@ -74,25 +73,48 @@
             </div>-->
             <div class="col-12 mt-5">
                 <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                    (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)"
-                   >Regresar a temas</button>
+                    (click)="this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameModuleBackUp)">Regresar a
+                    temas</button>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-12 mt-5">
             <div class="card color p-5 mb-5">
-                <div class="card-body" *ngIf="this.temasArr">
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="text4 txt-blue">{{this.temasArr.title}}
+                <div class="card-body temas">
+                    <div class=" row txt-blue">
+                        <div [ngClass]="col.column_size" *ngFor="let col of this.cols; let i = index">
+                            <!--<div class="col-12 col-md-1">
+                                <div class="vr h-100 d-none d-md-block"></div>
+                                
+                            </div>-->
+                            <p class="text4" *ngIf="col.show_title != '0'">{{col.column_title}}
                             </p>
+                            <div  [innerHtml]='col.content' >
+
+                            </div>
                         </div>
                     </div>
+                    <!--<div *ngFor="let col of this.cols | slice:1; let i = index">
+                        <p class="text4" *ngIf=" $any(col)?.show_title != '0'">{{ $any(col)?.column_title}}
+                        </p>
+                        <div [ngClass]=" $any(col)?.column_size " [innerHtml]=' $any(col)?.content'>
+
+                        </div>
+                    </div>-->
+
+
+
+                    <!--<div class="row">
+                        <div class="col-12">
+                            <p class="text4 txt-blue ">{{this.temasArr.title}}
+                            </p>
+                        </div>
+                    </div>-->
                     <div class="row">
-                        <div class="col-12 col-md-7 col-lg-8">
+                        <!--<div class="col-12 col-md-7 col-lg-8">
                             <!--<h1 class="text4 txt-blue">Valley</h1>-->
-                            <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
+                        <!--<h1 class="text4 txt-blue">CAMPEONATO MILLONARIO
                                 </h1>
                                 <h1 class="text4 txt-blue">CAMPEONATO CHARRO
                                     FUTURITY 2019
@@ -105,9 +127,9 @@
                                 <h1 class="text4 txt-blue">
                                     ¿Quiénes somos?
                                 </h1>-->
-                            <p class="text9 txt-blue">
-                                {{this.temasArr.description}}
-                                <!--<br>
+                        <!--<p class="text9 txt-blue">
+                                {{this.temasArr.description}}-->
+                        <!--<br>
                                     <br>
                                     El área de niñas está inspirado en los aposentos de la princesa persa, donde se
                                     originan los cuentos de “Las mil y una noches™”. Antes de comenzar la lectura, y
@@ -122,12 +144,12 @@
                                     <br>
                                     <br>
                                     <img src="assets/img/mm1.jpg" class="w-100" alt="">-->
-                            </p>
+                        <!--</p>
                             <br>
                             <br>
 
 
-                        </div>
+                        </div>-->
                         <div class="col-12 mt-5" *ngIf="this.finalizado == 0">
                             <button type="button" class="boton3 mx-auto d-block mt-5 p-0 ps-4 pe-4"
                                 (click)="temaFinalizado(this.helpers.idTopicBackUp)">Finalizar</button>
@@ -142,24 +164,25 @@
         </div>
     </div>
     <div class="row" *ngIf="this.comentario == '1'">
-      <div class="col-12 col-lg-8 offset-lg-2">
-        <div class="card color p-5 mb-5">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
-                <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
-                                    alt="">
-              </div>
-              <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
-                <input type="text" class="input2 w-100" placeholder="Comentar...">
-              </div>
-              <div class="col-12">
-                <button type="button" class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
-              </div>
+        <div class="col-12 col-lg-8 offset-lg-2">
+            <div class="card color p-5 mb-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4 col-md-3 col-lg-2 mb-5 mb-md-0">
+                            <img src="assets/img/perfil.svg" class="w-100 h-100 rounded-circle border-blue border-1"
+                                alt="">
+                        </div>
+                        <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center">
+                            <input type="text" class="input2 w-100" placeholder="Comentar...">
+                        </div>
+                        <div class="col-12">
+                            <button type="button"
+                                class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4">Comentar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
 
@@ -224,32 +247,32 @@
 </div>
 <!-- Modal Conferncias-->
 <div class="modal fade" id="conferencias" tabindex="-1" aria-labelledby="conferencias" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <h5 class="modal-title mb-3" id="exampleModalLabel">Conferencias</h5>
-              <p class="text7 txt-gris mb-3">Aquí podras ver las conferencias programadas para esta certificación.</p>
-              <div class="card color rounded-4 mb-3" *ngFor="let conferencia of this.allConferencias">
-                  <div class="card-body">
-                      <div class="d-flex">
-                          <div class="me-3 mt-1">
-                              <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
-                          </div>
-                          <div>
-                              <label class="text10 txt-blue d-block">{{conferencia.titulo}}</label>
-                              <label class="text9 txt-blue d-block">{{conferencia.fecha}}</label>
-                              <label class="text9 txt-blue d-block">{{conferencia.descripcion}}</label>
-                              <a href="{{conferencia.link}}" target="_blank" class="boton2 ps-0">Link</a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="modal-title mb-3" id="exampleModalLabel">Conferencias</h5>
+                <p class="text7 txt-gris mb-3">Aquí podras ver las conferencias programadas para esta certificación.</p>
+                <div class="card color rounded-4 mb-3" *ngFor="let conferencia of this.allConferencias">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 mt-1">
+                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
+                            </div>
+                            <div>
+                                <label class="text10 txt-blue d-block">{{conferencia.titulo}}</label>
+                                <label class="text9 txt-blue d-block">{{conferencia.fecha}}</label>
+                                <label class="text9 txt-blue d-block">{{conferencia.descripcion}}</label>
+                                <a href="{{conferencia.link}}" target="_blank" class="boton2 ps-0">Link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Modal Ayuda-->
 <div class="modal fade" id="ayuda" tabindex="-1" aria-labelledby="ayuda" aria-hidden="true">

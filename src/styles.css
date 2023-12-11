@@ -273,6 +273,20 @@ hr{
     width: 5rem;
     height: 5rem;
 }
+.temas a img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.temas a{
+    font-size:.9rem;
+    color: #015287;
+    text-decoration: none;
+}
+.temas h2, .temas h3{
+    font-size:1.2rem;
+    color: #015287;
+}
 /*Botones*/
 .boton{
     font-size: 1rem !important;

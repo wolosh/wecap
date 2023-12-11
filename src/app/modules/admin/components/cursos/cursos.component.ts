@@ -118,6 +118,7 @@ export class CursosComponent implements OnInit {
   isOrderChange: boolean;
   viewTemasCol: number = 0;
   public colSelected = '0';
+  public colFinal:any;
   mostrar: any;
   sizecolumna: any;
   columnas: any;
@@ -125,6 +126,7 @@ export class CursosComponent implements OnInit {
   idTopicC: any;
   idTemaC: any;
   allModulesL: any;
+  columnText: any;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -433,7 +435,7 @@ export class CursosComponent implements OnInit {
         break;
       case 'col':
           this.formTemasCol.controls['col'].setValue(this.colSelected);
-          //console.log(this.formTemasCol.value.col)
+          console.log(this.formTemasCol.value.col)
         break;
     }
 
@@ -788,7 +790,7 @@ export class CursosComponent implements OnInit {
             this.startForm(5);
             this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data)
+                console.log(data)
                 this.idModulo = data.idModule;
                 this.temas(this.idModulo);
                 this.formModulo.controls['title'].setValue(data.title);
@@ -845,7 +847,7 @@ export class CursosComponent implements OnInit {
   temas(id: any) {
     this.get.getTemas(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.alltemas = data;
         //console.log(this.alltemas)
       },
@@ -913,14 +915,17 @@ export class CursosComponent implements OnInit {
         this.startForm(6);
         break;
       case 'cols':
+        this.helpers.loader();
         this.pct = 1;
         this.viewTemasCol = 1;
         this.viewTemasE = 3;
         //onsole.log(this.idTema);
+        
         this.get.getCols(this.idTema,localStorage.getItem('token')).subscribe(
           (data: any) => {
-            //console.log(data);
+            console.log(data);
             this.columnas = data;
+            Swal.close();
           }
         );
         break;
@@ -931,11 +936,14 @@ export class CursosComponent implements OnInit {
           //console.log(this.idTema);
           break;
         case 'editC':
+          this.helpers.loader();
           this.helpers.goTop();
           this.viewTemasCol = 2;
           this.isEditCol = 1;
+          this.sizeColumna
           this.startForm(7);
           for (let item of this.columnas) {
+            console.log(item)
             console.log(name, tema)
             //console.log(item.idTopic_content)
             //console.log(this.columnas)
@@ -943,13 +951,42 @@ export class CursosComponent implements OnInit {
               //this.idColumna = item.idTopic_content;
               //this.startForm(6);
               //console.log(item.idTopic_content)
+              this.columnText = item;
               this.idTemaC = tema
               this.idTopicC = name
               this.formTemasCol.controls['title'].setValue(item.column_title);
               this.formTemasCol.controls['contenido'].setValue(item.content);
-              this.colSelected = item.column_size;
+              this.formTemasCol.controls['col'].setValue(item.column_size);
+              this.colFinal = item.content
+              if(item.column_size.includes('1')){
+                this.colSelected = '1'
+              } if(item.column_size.includes('2')){
+                this.colSelected = '2'
+              } if(item.column_size.includes('3')){
+                this.colSelected = '3'
+              } if(item.column_size.includes('4')){
+                this.colSelected = '4'
+              } if(item.column_size.includes('5')){
+                this.colSelected = '5'
+              } if(item.column_size.includes('6')){
+                this.colSelected = '6'
+              } if(item.column_size.includes('7')){
+                this.colSelected = '7'
+              } if(item.column_size.includes('8')){
+                this.colSelected = '8'
+              } if(item.column_size.includes('9')){
+                this.colSelected = '9'
+              } if(item.column_size.includes('10')){
+                this.colSelected = '10'
+              } if(item.column_size.includes('11')){
+                this.colSelected = '11'
+              } if(item.column_size.includes('12')){
+                this.colSelected = '12'
+              }
+              //this.colSelected = item.column_size;
               this.mostrar = parseInt(item.show_title);
               //console.log(this.mostrar)
+              Swal.close();
             }
           }
           break;
@@ -1657,7 +1694,7 @@ export class CursosComponent implements OnInit {
   }
 
   saveTemas() {
-    //console.log(this.imgTema, this.imgTemaV)
+    console.log(this.imgTema, this.imgTemaV)
     /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
     this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
@@ -1667,9 +1704,8 @@ export class CursosComponent implements OnInit {
     tema.append('description', this.formTemas.value.description);
     tema.append('order_number', '1');
     tema.append('is_active', this.formTemas.value.status);
-    if(this.imgTema != undefined){
+    if(this.imgTema != undefined || this.imgTema != ''){
       tema.append('icon', this.imgTema, this.imgTema.name);
-
     } else {
       tema.append('icon', this.imgTemaDos);
     }
@@ -1778,7 +1814,7 @@ export class CursosComponent implements OnInit {
 
   onReady(eventData) {
     eventData.plugins.get('FileRepository').createUploadAdapter = function (loader) {
-      //console.log(btoa(loader.file));
+      console.log(btoa(loader.file));
       //console.log(new UploadAdapter(loader));
       //return new UploadAdapter(loader);
     };
@@ -1788,7 +1824,7 @@ export class CursosComponent implements OnInit {
   sizeColumna() {
     this.get.getsizeCol(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.sizecolumna = data;
       }
     );
@@ -1832,6 +1868,7 @@ export class CursosComponent implements OnInit {
   }
 
   saveCol() {
+    console.log(this.formTemasCol.value.contenido, this.colFinal)
     let temaCol = {
       idTopic_content: this.idTemaC,
       idTopic: this.idTopicC,
@@ -1846,7 +1883,7 @@ export class CursosComponent implements OnInit {
         console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
-          text: 'El módulo ha sido actualizado.',
+          text: 'La columna ha sido actualizado.',
           icon: 'success',
           confirmButtonColor: '#015287',
         }).then((result) => {

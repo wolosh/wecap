@@ -38,6 +38,7 @@ export class TemasComponent implements OnInit {
   idModule: string;
   comentario: string;
   like: string;
+  cols: any;
 
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
@@ -112,6 +113,14 @@ export class TemasComponent implements OnInit {
     }
   }*/
 
+  colsFromTopic(id){
+    console.log(id);
+    this.get.getCols(id, localStorage.getItem('token')).subscribe((data: any) => {
+      console.log(data)
+      this.cols = data;
+    });
+  }
+
   tema(id: any) {
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
@@ -122,6 +131,7 @@ export class TemasComponent implements OnInit {
       this.temasArr = data;
       console.log(this.temasArr)
       this.medalla = data.icon_gold;
+      this.colsFromTopic(data.idTopic);
       if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
         let regExp  = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
         let match = data.url_video.match(regExp);
@@ -163,7 +173,7 @@ export class TemasComponent implements OnInit {
   swalClosed(){
     setTimeout(() => {
       Swal.close();
-     }, 8000);
+     }, 6000);
   }
 
 
