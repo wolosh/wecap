@@ -39,6 +39,8 @@ export class TemasComponent implements OnInit {
   comentario: string;
   like: string;
   cols: any;
+  userLike: boolean;
+  showLike: any;
 
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
@@ -125,6 +127,14 @@ export class TemasComponent implements OnInit {
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
+      if(data.like != null){
+        this.userLike = true;
+        console.log(data.like.tipo);
+        this.showLike = data.like.tipo;
+        console.log(this.showLike, this.userLike);
+      } else {
+        this.userLike = false;
+      }
       this.helpers.nameTopicBackUp = data.title;
       this.nameTopic = data.title;
       console.log(this.nameTopic)
@@ -132,6 +142,7 @@ export class TemasComponent implements OnInit {
       console.log(this.temasArr)
       this.medalla = data.icon_gold;
       this.colsFromTopic(data.idTopic);
+      this.idTopic = data.idTopic;
       if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
         let regExp  = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
         let match = data.url_video.match(regExp);
@@ -258,6 +269,28 @@ export class TemasComponent implements OnInit {
     //this.helpers.nameModuleBackUp = name;
     this.route.navigate(['/seccion', id]);
     this.session.curso = true;
+  }
+
+  temasLike(id: any, like: any) {
+    console.log(id, like)
+    if(like == 1){
+      this.showLike = 1;
+    } else {
+      this.showLike = 2;
+    }
+    let json = {
+      "idTopic": id,
+      "tipo": like
+    }
+
+    console.log(json)
+
+    this.session.topicLike(json, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.userLike = true;
+      }
+    );
   }
 
   files() {

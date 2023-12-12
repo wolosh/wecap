@@ -799,5 +799,22 @@ export class SessionService {
     );
   }
 
+  public topicLike(form, token) {
+    //console.log(form)
+    //console.log(idUser,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}temaLike`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
 }
 

@@ -436,6 +436,9 @@ hr{
     color: #A6DAFC;
 }
 /*Background*/
+.bg-blue-less{
+    background-color: #F2FAFF !important;
+}
 .bg-blue{
     background-color: #015287 !important;
 }
