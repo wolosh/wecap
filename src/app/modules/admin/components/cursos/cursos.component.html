@@ -769,7 +769,8 @@
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Texto</label>
-                  <ckeditor [editor]="Editor" data="" (ready)="onReady($event)" formControlName="contenido"></ckeditor>
+                  <ckeditor [editor]="Editor" [data]="data" [(ngModel)]="colFinal" (ready)="onReady($event)" formControlName="contenido"></ckeditor>
+                  
                 </div>
                 <!--<div class="mb-3" [innerHtml]='this.columnText.content'>
                   

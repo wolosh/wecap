@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import { Data, Router } from '@angular/router';
 import { GetService } from 'src/app/data/services/get.service';
@@ -18,6 +18,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class CursosComponent implements OnInit {
   public Editor: any = ClassicEditor;
+  data: any;
   change: number = 0;
   isNewModule: number = 0;
   isNewTheme: number = 0;
@@ -957,7 +958,8 @@ export class CursosComponent implements OnInit {
               this.formTemasCol.controls['title'].setValue(item.column_title);
               this.formTemasCol.controls['contenido'].setValue(item.content);
               this.formTemasCol.controls['col'].setValue(item.column_size);
-              this.colFinal = item.content
+              this.colFinal = item.content;
+              this.data = item.content;
               if(item.column_size.includes('1')){
                 this.colSelected = '1'
               } if(item.column_size.includes('2')){
@@ -1814,7 +1816,7 @@ export class CursosComponent implements OnInit {
 
   onReady(eventData) {
     eventData.plugins.get('FileRepository').createUploadAdapter = function (loader) {
-      console.log(btoa(loader.file));
+      //console.log(btoa(loader.file));
       //console.log(new UploadAdapter(loader));
       //return new UploadAdapter(loader);
     };
@@ -1868,11 +1870,14 @@ export class CursosComponent implements OnInit {
   }
 
   saveCol() {
-    console.log(this.formTemasCol.value.contenido, this.colFinal)
+    console.log(this.formTemasCol.value.contenido, this.data, this.colFinal)
+    console.log(this.colFinal)
+    this.data = this.colFinal
+    console.log(this.data)
     let temaCol = {
       idTopic_content: this.idTemaC,
       idTopic: this.idTopicC,
-      content:this.formTemasCol.value.contenido,
+      content:this.data,
       column_size: this.formTemasCol.value.col,
       column_title: this.formTemasCol.value.title,
       show_title: this.mostrar
@@ -1883,7 +1888,7 @@ export class CursosComponent implements OnInit {
         console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
-          text: 'La columna ha sido actualizado.',
+          text: 'La columna ha sido actualizada.',
           icon: 'success',
           confirmButtonColor: '#015287',
         }).then((result) => {
