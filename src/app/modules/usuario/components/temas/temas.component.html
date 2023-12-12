@@ -14,19 +14,36 @@
                             </div>
                         </div>
                         <div *ngIf="this.like == '1'">
-                            <div class="col-2 col-lg-1 offset-8 offset-lg-10" *ngIf="this.userLike == false">
-                                <!--<img src="assets/img/like.svg" class="w-100" alt="">-->
-                                <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2"
-                                    (click)="temasLike(this.idTopic, 1)">
-                                    <img class="me-2" src="assets/img/like.svg" alt=""></button>
-
-                                <!--div class="col-2 col-lg-1">
-                                    <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2">
-                                        <img class="me-2" src="assets/img/deslike.svg" alt=""></button>
-                                </div>-->
+                          <div class="row" *ngIf="this.userLike == true">
+                            <div class="col-2 col-lg-1 offset-8 offset-lg-10">
+                              <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2"
+                                  (click)="temasLike(this.idTopic, 1)">
+                                  <img class="me-2" src="assets/img/like.svg" alt=""></button>
                             </div>
-                            <div class="col-2 col-lg-1 " *ngIf="this.userLike == false">
-                                <!--<img src="assets/img/like.svg" class="w-100" alt="">-->
+                            <div class="col-2 col-lg-1">
+                              <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2"
+                                  (click)="temasLike(this.idTopic, 1)">
+                                  <img class="me-2" src="assets/img/deslike.svg" alt=""></button>
+                            </div>
+                          </div>
+                          <div class="row" *ngIf="this.userLike == false">
+                            <div class="col-2 col-lg-1 offset-8 offset-lg-10">
+                              <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2"
+                                  (click)="temasLike(this.idTopic, 1)">
+                                  <img *ngIf="this.showLike == '1'" class="me-2" src="assets/img/like.svg" alt="">
+                                  <img *ngIf="this.showLike != '1'" class="me-2 opacity" src="assets/img/like.svg"
+                                      alt="">
+                              </button>
+                            </div>
+                            <div class="col-2 col-lg-1">
+                              <!--<img src="assets/img/like.svg" class="w-100" alt="">-->
+                              <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2"
+                                  (click)="temasLike(this.idTopic, 2)">
+                                  <img class="me-2" src="assets/img/deslike.svg" alt=""></button>
+                            </div>
+                          </div>
+
+                            <!--div class="col-2 col-lg-1 " *ngIf="this.userLike == false">
                                 <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2"
                                     (click)="temasLike(this.idTopic, 2)">
                                     <img class="me-2" src="assets/img/deslike.svg" alt=""></button>
@@ -48,7 +65,7 @@
                                     <div class="col-2 col-lg-1">
                                         <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2">
                                         <img class="me-2" src="assets/img/deslike.svg" alt=""></button>
-                                    </div>-->
+                                    </div>
                             </div>
                             <div class="col-2 col-lg-1 " *ngIf="this.userLike == true">
                                 <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2"
@@ -64,10 +81,9 @@
                                     <div class="col-2 col-lg-1">
                                         <button class="boton bg-blue-less mx-auto d-block w-100 p-1 p-md-2">
                                         <img class="me-2" src="assets/img/deslike.svg" alt=""></button>
-                                    </div>-->
-                            </div>
+                                    </div>
+                            </div-->
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -135,7 +151,7 @@
                     <div [ngClass]="col.column_size" *ngFor="let col of this.cols; let i = index">
                         <!--<div class="col-12 col-md-1">
                                 <div class="vr h-100 d-none d-md-block"></div>
-                                
+
                             </div>-->
                         <p class="text4" *ngIf="col.show_title != '0'">{{col.column_title}}
                         </p>

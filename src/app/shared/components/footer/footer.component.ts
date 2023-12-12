@@ -13,6 +13,11 @@ export class FooterComponent implements OnInit {
   twitter: any;
   youtube: any;
   tiktok: any;
+  logof: number = 0;
+  logoi: number = 0;
+  logotw: number = 0;
+  logot: number = 0;
+  logoy: number = 0;
 
   constructor(private get: GetService,public helpers: HelpersService,) { }
 
@@ -30,6 +35,19 @@ export class FooterComponent implements OnInit {
         this.tiktok=data.red_tiktok;
         this.youtube=data.red_youtube;
         //this.logo=
+        console.log(this.tiktok,this.facebook,this.instagram,this.twitter,this.youtube)
+        if(this.facebook ===""){
+          this.logof = 1
+        }else if(this.instagram ===""){
+          this.logoi = 1
+        }else if( this.twitter ===""){
+          this.logotw = 1
+        }else if(this.tiktok ==="") {
+          this.logot = 1
+        }else if(this.youtube ===""){
+          this.logoy = 1
+        }
+        console.log(this.logof,this.logoi,this.logotw,this.logot,this.logoy)
       }
     );
   }

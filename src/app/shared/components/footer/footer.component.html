@@ -1,27 +1,27 @@
 <footer>
     <div class="container-lg pt-3 pb-3">
         <div class="d-flex justify-content-end" *ngIf="this.helpers.type == '4'">
-            <div class="">
+            <div class="" *ngIf="this.logof == 0">
               <a href="{{this.facebook}}" target="_blank">
                 <img src="assets/img/face.svg" alt="" width="20" height="20">
               </a>
             </div>
-            <div class="ms-3">
+            <div class="ms-3" *ngIf="this.logoi == 0">
               <a href="{{this.instagram}}" target="_blank">
                 <img src="assets/img/insta.svg" alt="" width="20" height="20">
               </a>
             </div>
-            <div class="ms-3">
+            <div class="ms-3" *ngIf="this.logotw == 0">
               <a href="{{this.twitter}}" target="_blank">
                 <img src="assets/img/twitter.svg" alt="" width="20" height="20">
               </a>
             </div>
-            <div class="ms-3">
+            <div class="ms-3" *ngIf="this.logot == 0">
               <a href="{{this.tiktok}}" target="_blank">
                 <img src="assets/img/tiktok.svg" alt="" width="20" height="20">
               </a>
             </div>
-            <div class="ms-3">
+            <div class="ms-3" *ngIf="this.logoy == 0">
               <a href="{{this.youtube}}" target="_blank">
                 <img src="assets/img/youtube.svg" alt="" width="20" height="20">
               </a>
