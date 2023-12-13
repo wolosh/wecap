@@ -1,3 +1,13 @@
 .opacity{
     filter: grayscale(100%);
 }
+
+.not-active { 
+    pointer-events: none; 
+    cursor: default; 
+} 
+
+.textoComent{
+    font-family: 'Helvetica-Bold';
+    font-size:1.1rem
+}

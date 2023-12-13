@@ -41,6 +41,8 @@ export class TemasComponent implements OnInit {
   cols: any;
   userLike: boolean;
   showLike: any;
+  coment = '';
+  comentArr: any;
 
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
@@ -54,6 +56,8 @@ export class TemasComponent implements OnInit {
 
   ngOnInit(): void {
     //this.session.configuracion();
+    this.helpers.name = localStorage.getItem('userName');
+    console.log(this.helpers.name)
     this.comentario = localStorage.getItem('isComentario');
     this.like = localStorage.getItem('isLike');
     this.helpers.goTop();
@@ -142,6 +146,7 @@ export class TemasComponent implements OnInit {
       console.log(this.temasArr)
       this.medalla = data.icon_gold;
       this.colsFromTopic(data.idTopic);
+      this.getComentarios(data.idTopic);
       this.idTopic = data.idTopic;
       if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
         let regExp  = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
@@ -329,6 +334,48 @@ export class TemasComponent implements OnInit {
           this.helpers.nameTopicBackUp = this.nameTopic
         }
         this.tema(id);
+      }
+    );
+  }
+
+  saveComent(){
+    console.log(this.coment)
+
+    let json = {
+      "idTopic": parseInt(this.idTopic),
+      "comentario": this.coment
+    }
+    console.log(json);
+
+    this.session.addComentario(json, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Comentario agregado!',
+          text: '¡Tu comentario ha sido agregado!',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          //console.log(result)
+          if (result.isConfirmed) {
+            this.getComentarios(this.idTopic);
+                this.coment = '';
+                //this.tema(this.idTopic);
+              
+            //this.tema(this.idTopic);
+          }
+        });
+      }
+    );
+  }
+
+  getComentarios(id: any) {
+    this.get.getComentarios(this.idTopic, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        //this.tema(this.idTopic);
+        this.comentArr = data;
+        console.log(this.comentArr)
       }
     );
   }

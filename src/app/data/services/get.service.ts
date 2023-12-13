@@ -416,4 +416,13 @@ export class GetService {
     });
   }
 
+  getComentarios(id,token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.session.API}getComentarios/${id}`, {
+      headers
+    });
+  }
+
 }
