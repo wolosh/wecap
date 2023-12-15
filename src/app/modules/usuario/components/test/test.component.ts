@@ -48,6 +48,7 @@ export class TestComponent implements OnInit {
   score: any;
   count: number = 0;
   answersBackup = [] as any;
+  tiempo: number;
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -184,10 +185,15 @@ export class TestComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.idExamBackUp = data.idExamen;
-        this.timeLeft = (data.duracion * data.preguntas.length);
+        //this.tiempo = data.duracion * 60;
+        let segundos = (data.duracion * 60)* data.preguntas.length;
+        console.log(data.preguntas.length)
+        this.timeLeft = segundos;
+        
+        console.log(segundos)
         this.nameExam = data.title;
         this.questionsExam = data.preguntas;
-        console.log(this.nameExam, this.questionsExam, this.timeLeft)
+        console.log(this.nameExam, this.questionsExam, this.timeLeft, segundos)
         this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);
