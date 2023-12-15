@@ -18,6 +18,7 @@ export class FooterComponent implements OnInit {
   logotw: number = 0;
   logot: number = 0;
   logoy: number = 0;
+  socialMedia: any;
 
   constructor(private get: GetService,public helpers: HelpersService,) { }
 
@@ -28,25 +29,29 @@ export class FooterComponent implements OnInit {
   configuration() {
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data)
-        this.facebook=data.red_facebook;
+        console.log(data)
+        this.socialMedia = data;
+        if(data.red_facebook == '')this.logof = 1
+        if(data.red_instagram == '')this.logoi = 1
+        if( data.red_twitter ==='')this.logotw = 1
+        if(data.red_tiktok ==='') this.logot = 1
+        if(data.red_youtube ==='') this.logoy = 1
+        console.log(this.logof,this.logoi,this.logotw,this.logot,this.logoy)
+        /*this.facebook=data.red_facebook;
         this.instagram=data.red_instagram;
         this.twitter=data.red_twitter;
         this.tiktok=data.red_tiktok;
-        this.youtube=data.red_youtube;
+        this.youtube=data.red_youtube;*/
         //this.logo=
+        console.log(this.youtube)
         console.log(this.tiktok,this.facebook,this.instagram,this.twitter,this.youtube)
-        if(this.facebook ===""){
-          this.logof = 1
-        }else if(this.instagram ===""){
-          this.logoi = 1
-        }else if( this.twitter ===""){
-          this.logotw = 1
-        }else if(this.tiktok ==="") {
-          this.logot = 1
-        }else if(this.youtube ===""){
-          this.logoy = 1
-        }
+       
+        /*if(this.facebook == '')this.logof = 1
+        if(this.instagram == '')this.logoi = 1
+        if( this.twitter ==='')this.logotw = 1
+        if(this.tiktok ==='') this.logot = 1
+       if(this.youtube ==='') this.logoy = 1*/
+       
         console.log(this.logof,this.logoi,this.logotw,this.logot,this.logoy)
       }
     );

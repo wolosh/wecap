@@ -114,10 +114,11 @@ export class EstadisticasComponent implements OnInit {
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
       //this.certifications();
-      this.estadisticasCurso(1);
+      //this.estadisticasCurso(1);
       this.estadGlobales();
+      this.estadisticas();
       //this.estadCurso(1);
-      this.estadModulo(1);
+      //this.estadModulo(1);
     }
   }
 
@@ -291,6 +292,19 @@ export class EstadisticasComponent implements OnInit {
       }
     )
   }*/
+  
+  estadisticas(){
+    this.get.getEstadGenerales(localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.certificaciones = data;
+        console.log(this.certificaciones)
+      }, (error: any) => {
+        this.helpers.logout();
+      }
+    );
+  }
+  
   estadisticasCurso(id:any){
     this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
       (data: any) => {

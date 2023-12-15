@@ -85,6 +85,7 @@ export class ExamenesComponent implements OnInit {
   userId: any;
   moduloTitle: any;
   respaldo: any;
+  allThemes: boolean = false;
 
   allDiagnostico: any;
   respaldo1: any;
@@ -106,6 +107,9 @@ export class ExamenesComponent implements OnInit {
   alltemas: any;
   idModuloT: any;
   idTema: any;
+  showModulesThemes = [] as any;
+  public selectedThemes: any = [];
+  public backThemes: any = [];
   //examQuestion = [] as any;
 
 
@@ -283,7 +287,7 @@ export class ExamenesComponent implements OnInit {
     });
   }
 
-  goCourses(){
+  goCourses() {
     console.log(localStorage.getItem('type'))
     this.route.navigate(['/cmtemplate']);
   }
@@ -355,7 +359,7 @@ export class ExamenesComponent implements OnInit {
                     //this.questions = data;
                     this.examModule = data.preguntas;
                     this.modLength = data.length;
-                console.log(this.modLength);
+                    console.log(this.modLength);
                     //console.log(data, data.preguntas);
                     //console.log(question)
                   }
@@ -421,7 +425,7 @@ export class ExamenesComponent implements OnInit {
             this.get.questionInfo(question, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 this.startForm(2);
-                this.backDataAnswer =  data;
+                this.backDataAnswer = data;
                 this.formAbiertas.controls['question'].setValue(data.question);
                 //console.log(data);
                 if (data.respuestas) {
@@ -441,7 +445,7 @@ export class ExamenesComponent implements OnInit {
     });
   }
 
-  editAnswers(id: any, chance: number, question:any, option?: any, correct?: any, img?: any) {
+  editAnswers(id: any, chance: number, question: any, option?: any, correct?: any, img?: any) {
     //console.log(id, option, correct, img);
     switch (chance) {
       case 1:
@@ -460,42 +464,42 @@ export class ExamenesComponent implements OnInit {
         }
         break;
       case 2:
-          Swal.fire({
-            title: 'Cargando...',
-            html: 'Espera un momento por favor',
-            allowEscapeKey: false,
-            allowOutsideClick: false,
-            didOpen: () => {
-              Swal.showLoading();
-              //console.log(this.formModalEdit.value, this.selectedOption, this.onImage, this.image, this.backAnswer);
-              if (this.formModalEdit.value.option == '' || this.formModalEdit.value.option == null) {
-                Swal.fire({
-                  title: '¡Error!',
-                  text: 'Debes ingresar una opción.',
-                  icon: 'error',
-                  confirmButtonColor: '#015287',
-                });
-              } else {
-                this.questionAnswers.map((item: any) => {
-                  //console.log(item)
-                  if (item.idEval_option == this.backAnswer) {
-                    item.option = this.formModalEdit.value.option;
-                    item.is_correct = this.selectedOption.toString();
-                    item.img = this.image;
-                  }
-                  //console.log(item);
+        Swal.fire({
+          title: 'Cargando...',
+          html: 'Espera un momento por favor',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+            //console.log(this.formModalEdit.value, this.selectedOption, this.onImage, this.image, this.backAnswer);
+            if (this.formModalEdit.value.option == '' || this.formModalEdit.value.option == null) {
+              Swal.fire({
+                title: '¡Error!',
+                text: 'Debes ingresar una opción.',
+                icon: 'error',
+                confirmButtonColor: '#015287',
+              });
+            } else {
+              this.questionAnswers.map((item: any) => {
+                //console.log(item)
+                if (item.idEval_option == this.backAnswer) {
+                  item.option = this.formModalEdit.value.option;
+                  item.is_correct = this.selectedOption.toString();
+                  item.img = this.image;
+                }
+                //console.log(item);
 
-                });
-                //console.log(this.questionAnswers);
-                Swal.fire({
-                  title: '¡Modificado con exito!',
-                  text: 'La opción ha sido modificada con exito.',
-                  icon: 'success',
-                  confirmButtonColor: '#015287',
-                });
-              }
+              });
+              //console.log(this.questionAnswers);
+              Swal.fire({
+                title: '¡Modificado con exito!',
+                text: 'La opción ha sido modificada con exito.',
+                icon: 'success',
+                confirmButtonColor: '#015287',
+              });
             }
-          });
+          }
+        });
 
     }
 
@@ -592,7 +596,7 @@ export class ExamenesComponent implements OnInit {
             Swal.showLoading();
             this.get.getUserCourses(user, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data, data.length);
+                console.log(data, data.length);
                 this.userCourses = data;
                 this.userCL = data.length;
                 Swal.close();
@@ -709,10 +713,10 @@ export class ExamenesComponent implements OnInit {
     }
   }
 
-  removeEditQuestion(option:any){
+  removeEditQuestion(option: any) {
     console.log(this.questionAnswers, option);
     this.questionAnswers.forEach(element => {
-      if(element.idEval_option == option){
+      if (element.idEval_option == option) {
         this.questionAnswers.splice(this.questionAnswers.indexOf(element), 1);
       }
     });
@@ -1074,7 +1078,7 @@ export class ExamenesComponent implements OnInit {
   didModify() {
     //console.log(this.text1, this.formSearch.value.filter, this.formSearch.value.search);
 
-    if(this.formSearch.value.filter == ''){
+    if (this.formSearch.value.filter == '') {
       this.formSearch.controls['filter'].setValue('nombre');
     }
     if (this.text1 != '') {
@@ -1126,6 +1130,100 @@ export class ExamenesComponent implements OnInit {
     }
   }
 
+
+
+  changeCertificacion(event: any, kind: any, mod?:any) {
+    console.log(event.target.value, kind, this.allThemes, mod);
+    let json = {
+      idModule: event.target.value,
+      title: '',
+      temas: []
+    }
+    switch (kind) {
+      case 'module':
+        this.showModulesThemes.forEach(element => {
+          if (element.idModule == event.target.value) {
+            json.title = element.title;
+            console.log(element, json);
+            if (event.target.checked) {
+
+              for (let theme of element.temas) {
+                console.log(theme)
+                Object.keys(json).forEach(key => {
+                  console.log(key)
+
+                })
+                this.selectedThemes.push(theme.idTopic);
+                json.temas.push(theme.idTopic);
+              }
+              //json.temas.push(this.selectedThemes);
+              this.backThemes.push(json);
+              console.log(json);
+              console.log(this.backThemes);
+              console.log(this.selectedThemes);
+
+            } else {
+              this.backThemes.forEach(element => {
+                if (element.idModule == event.target.value) {
+                  this.backThemes.splice(this.backThemes.indexOf(element), 1);
+                  console.log(element.temas)
+                  element.temas.forEach(element => {
+                    this.selectedThemes.forEach(element2 => {
+                      if (element == element2) {
+                        this.selectedThemes.splice(this.selectedThemes.indexOf(element2), 1);
+                      }
+                    });
+                  });
+                }
+              });
+              console.log(this.backThemes);
+              //this.selectedThemes = [];
+            }
+          }
+        });
+        break;
+      case 'tema':
+        if (this.selectedThemes.includes(event.target.value)) {
+          this.selectedThemes.splice(this.selectedThemes.indexOf(event.target.value), 1);
+          for(let obj of this.backThemes){
+            if(obj.idModule == mod){
+              obj.temas.splice(obj.temas.indexOf(event.target.value), 1);
+            }
+          }
+          console.group(this.selectedThemes, this.backThemes);
+        } else {
+          this.selectedThemes.push(event.target.value);
+          this.backThemes.forEach(element => {
+            if(element.idModule == mod){
+              element.temas.push(event.target.value);
+            }
+          })
+          console.group(this.selectedThemes, this.backThemes);
+        }
+    }
+    console.log(this.selectedThemes);
+    /*if(kind == 'module'){
+      this.selectedThemes = [];
+      
+      this.showModulesThemes.forEach(element => {
+        if(element.idModule == event.target.value){
+          console.log(element);
+          if(!this.allThemes){
+            
+            for(let theme of element.temas){
+              this.selectedThemes.push(theme.idTema);
+            } 
+            
+          } else {
+            this.selectedThemes = [];
+          }
+        }
+      });
+    } else if()*/
+  }
+
+
+
   changeValue(event: any) {
     //console.log(event.target.value);
     if (event.target.checked) {
@@ -1165,6 +1263,44 @@ export class ExamenesComponent implements OnInit {
       });
     }*/
     //console.log(this.showArr);
+  }
+
+  asignarCerti(){
+    console.log(this.backThemes, this.objUsers, this.certificationSelected)
+    if(this.objUsers.length == 0){
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Selecciona al menos un usuario.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else if(this.backThemes.length == 0){
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Selecciona al menos un curso con un módulo y sus temas.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+
+    
+    let json = {
+      idUser: this.objUsers,
+      modules: []
+    }
+    let certificacion = { 
+      idCertification: this.certificationSelected,
+      idModule: '',
+      temas: []
+    }
+    for(let element of this.backThemes){
+      console.log(element)
+      json.modules.push({idCertificacion: this.certificationSelected, idModule: element.idModule, temas: element.temas});
+    };
+    console.log(json);
+  }
+
+   
   }
 
   asignarCertificacion() {
@@ -1240,7 +1376,7 @@ export class ExamenesComponent implements OnInit {
     //console.log(this.chief, this.view);
   }
 
-  addEditExam(){
+  addEditExam() {
     //console.log(this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     let img = this.onImage != 0 ? this.image : '';
     if (this.selectedOption == 2) {
@@ -1259,13 +1395,13 @@ export class ExamenesComponent implements OnInit {
       });
     } else {
       this.questionAnswers.push({
-          //idEval_option: this.optionsProv.length + 1,
-          idEval_option: '',
-          idEval_question: this.backAnswer,
-          option: this.options,
-          is_correct: this.selectedOption,
-          idModule: this.certificacionID,
-          img: img,
+        //idEval_option: this.optionsProv.length + 1,
+        idEval_option: '',
+        idEval_question: this.backAnswer,
+        option: this.options,
+        is_correct: this.selectedOption,
+        idModule: this.certificacionID,
+        img: img,
 
       });
 
@@ -1278,27 +1414,42 @@ export class ExamenesComponent implements OnInit {
     }
   }
 
-  public cursoSelected(){
+  public cursoSelected() {
+    this.selectedThemes = [];
+    this.backThemes = [];
     if (this.certificationSelected != '') {
       //console.log(this.certificationSelected);
+      this.helpers.loader();
       for (let item of this.certificaciones) {
-        if (item.idCertification == this.certificationSelected){
+        if (item.idCertification == this.certificationSelected) {
           this.titleC = item.title;
           this.get.getModules(item.idCertification, localStorage.getItem('token')).subscribe(
             (data: any) => {
-              this.allModules = data;
-              //console.log(this.allModules);
-              for (let item of this.allModules) {
+              /*this.allModules = data;
+              console.log(this.allModules);*/
+              for (let item of data) {
+                console.log(item)
+
+                this.get.getinfoModulo(item.idModule, localStorage.getItem('token')).subscribe(
+                  (data: any) => {
+                    console.log(data)
+                    this.showModulesThemes.push(data);
+                    console.log(this.showModulesThemes)
+                  }
+                );
+              }
+              Swal.close();
+              /*for (let item of this.allModules) {
                 this.idModulo = item.idModule;
-                //console.log(this.idModulo);
+                console.log(this.idModulo);
                 this.get.getTemas(this.idModulo, localStorage.getItem('token')).subscribe(
                   (data: any) => {
                     this.alltemas = data;
-                    //console.log(this.alltemas.idModule)
+                    console.log(this.alltemas.idModule)
                     for (let item of this.alltemas) {
                       this.idModuloT = item.idModule;
                       this.idTema = item.idTopic;
-                      //console.log(this.idModulo)
+                      console.log(this.idModulo)
                       if (this.idModulo == this.idModuloT){
                         console.log(item)
                       }
@@ -1309,7 +1460,7 @@ export class ExamenesComponent implements OnInit {
                     this.helpers.logout();
                   }
                 );
-              }
+              }*/
               Swal.close();
             },
             (error: any) => {
@@ -1321,12 +1472,12 @@ export class ExamenesComponent implements OnInit {
     }
   }
 
-  public updateQuestion(type:any){
+  public updateQuestion(type: any) {
     //console.log(this.backDataAnswer, this.certificacionID, this.backAnswer, this.cloneOption, this.formAbiertas.value.question, this.options, this.selectedOption);
     this.json.idEval_question = this.backDataAnswer.idEval_question;
     this.json.pregunta = this.formAbiertas.value.question;
     this.json.is_active = 1;
-    if(type == 'open'){
+    if (type == 'open') {
       this.json.respuestas = this.questionAnswers
     }
     console.log(this.json)

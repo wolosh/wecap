@@ -65,6 +65,7 @@ export class CursosModulosComponent implements OnInit {
           this.certifications();
           this.helpers.cursos = 1;
           this.session.curso = false;
+          console.log(this.session.cursos)
           if(this.session.cursos == 1){
             this.changeViewCourses(1);
           } else if(this.session.cursos == 2){
@@ -123,8 +124,10 @@ export class CursosModulosComponent implements OnInit {
             this.certifications();
             break;
           case 2:
+            console.log(this.certificaciones)
+            this.certifications(id);
             this.cursos = 2;
-            this.certificaciones.forEach(element => {
+            /*this.certificaciones.forEach(element => {
               //console.log(element.idCertification, id);
               if(element.idCertification == id){
                 this.helpers.view = element.secuencial;
@@ -138,18 +141,34 @@ export class CursosModulosComponent implements OnInit {
 
             this.session.archivos = true;
             this.helpers.conferencias = true;
-            break;
+            break;*/
         }
       }
     });
   }
 
-  certifications() {
+  certifications(recharge?:any) {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
         this.certificaciones = data;
         ////console.log(this.certificaciones);
+        if(recharge){
+          this.certificaciones.forEach(element => {
+            //console.log(element.idCertification, id);
+            if(element.idCertification == recharge){
+              this.helpers.view = element.secuencial;
+              localStorage.setItem('view', element.secuencial);
+            }
+            //console.log(this.helpers.view, localStorage.getItem('view'))
+          });
+          this.modules(recharge);
+          localStorage.setItem('idCertification', recharge);
+          //this.helpers.conferencias = true;
+
+          this.session.archivos = true;
+          this.helpers.conferencias = true;
+        }
         Swal.close();
       }
     );

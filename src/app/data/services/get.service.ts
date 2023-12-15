@@ -425,4 +425,14 @@ export class GetService {
     });
   }
 
+  //Estadisticas Modulo
+  getEstadGenerales(token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'estadisticas', {
+      headers,
+    })
+  }
+
 }

@@ -114,6 +114,7 @@
                               </div>
                         </div>
                     </div>
+                    <div>
                     <label class="text3 txt-blue2 mt-3">Cursos</label>
                     <hr class="w-100">
                     <table id="estdcurso" class="table data est striped dt-responsive nowrap" style="width:100%">
@@ -133,15 +134,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let curso of certificaciones | paginate: { itemsPerPage: 6, currentPage: pcursos}">
+                            <tr *ngFor="let curso of certificaciones |paginate: { id: 'estaCur', itemsPerPage: 6, currentPage: pcursos}">
                                 <td><input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"></td>
                                 <th scope="row">{{curso.idCertification}}</th>
                                 <th scope="row">{{curso.title}}</th>
                                 <td>{{curso.promedio}}</td>
-                                <td>{{curso.intentos}}</td>
-                                <td>{{curso.examenTiempo}}</td>
-                                <td>{{curso.temasTiempo}}</td>
-                                <td>{{curso.moduloTiempo}}</td>
+                                <td>{{curso.promedioIntentos}}</td>
+                                <td>{{curso.diagnostico.calificacionPromedioInicio}}</td>
+                                <td>{{curso.diagnostico.calificacionPromedioFinal}}</td>
+                                <td>{{curso.diagnostico.porcentajeMejorado}}</td>
                                 <!--td *ngIf="curso.promediosDiagnostico.promedioInit != 'N/A'">{{curso.promediosDiagnostico.promedioInit}}%</td>
                                 <td *ngIf="curso.promediosDiagnostico.promedioInit == 'N/A'">{{curso.promediosDiagnostico.promedioInit}}</td>
                                 <td *ngIf="curso.promediosDiagnostico.promedioFinal != 'N/A'">{{curso.promediosDiagnostico.promedioFinal}}%</td>
@@ -152,10 +153,11 @@
                     </table>
                     <div class="row mt-2">
                         <div class="col-12">
-                          <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pcursos = $event" previousLabel="Anterior"
+                          <pagination-controls id="estaCur" class="w-100 d-flex justify-content-center" (pageChange)="pcursos = $event" previousLabel="Anterior"
                           nextLabel="Siguiente"></pagination-controls>
                         </div>
                     </div>
+                </div>
                     <!--div class="row mt-5 mb-5">
                         <div class="col-12">
                             <div class="chart-container">
