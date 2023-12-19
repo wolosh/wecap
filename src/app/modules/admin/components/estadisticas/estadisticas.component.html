@@ -3,16 +3,18 @@
         <div class="col-12">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Estadisticas</button>
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                        type="button" role="tab" aria-controls="nav-home" aria-selected="true"   (click)="changeViewEstadisticas('generales')">Estadisticas</button>
                 </div>
-              </nav>
-              <div class="tab-content mb-5" id="nav-tabContent">
+            </nav>
+            <div class="tab-content mb-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <label class="text3 txt-blue2 mt-3">Globales</label>
-                    <!--label class="text6 txt-gris mt-3 ms-2">Usuarios/Análisis</label-->
-                    <hr class="w-100">
-                    <!--Tabla--->
-                    <!--table id="globales" class="table data striped dt-responsive nowrap" style="width:100%">
+                    <div *ngIf="this.estadisticaView == 0">
+                        <label class="text3 txt-blue2 mt-3">Globales</label>
+                        <!--label class="text6 txt-gris mt-3 ms-2">Usuarios/Análisis</label-->
+                        <hr class="w-100">
+                        <!--Tabla--->
+                        <!--table id="globales" class="table data striped dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -53,112 +55,320 @@
                           nextLabel="Siguiente"></pagination-controls>
                         </div>
                     </div-->
-                    <!--Grafica--->
-                    <div class="row mt-5">
-                        <div class="col-12 col-lg-3">
-                            <div class="cuadro bg-blue text12">
-                                <i class="fas fa-graduation-cap fa-xs"></i>
-                                {{this.cursos}}
-                                <span class="text13 d-block">Numero de cursos creados</span>
+                        <!--Grafica--->
+                        <div class="row mt-5">
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue text12">
+                                    <i class="fas fa-graduation-cap fa-xs"></i>
+                                    {{this.cursos}}
+                                    <span class="text13 d-block">Numero de cursos creados</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue3 text12">
+                                    <i class="fas fa-award fa-xs"></i>
+                                    {{this.calificacion}}
+                                    <span class="text13 d-block">Promedio de calificación</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue4 text12">
+                                    <i class="far fa-clock fa-xs"></i>
+                                    {{this.tiempo}}
+                                    <span class="text13 d-block">Promedio de minutos en la plataforma</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-grey text12">
+                                    <i class="fas fa-tasks fa-xs"></i>
+                                    {{this.intentos}}
+                                    <span class="text13 d-block">Promedio de intentos en exámenes</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-3">
-                            <div class="cuadro bg-blue3 text12">
-                                <i class="fas fa-award fa-xs"></i>
-                                {{this.calificacion}}
-                                <span class="text13 d-block">Promedio de calificación</span>
+                        <div class="row mt-5">
+                            <div class="col-12 col-lg-6">
+                                <div style="text-align:center">
+                                    <apx-chart [series]="chartUsuarios.series" [chart]="chartUsuarios.chart"
+                                        [title]="chartUsuarios.title" [labels]="chartUsuarios.labels"
+                                        [colors]="chartUsuarios.colors" [legend]="chartUsuarios.legend"
+                                        [dataLabels]="chartUsuarios.dataLabels"
+                                        [plotOptions]="chartUsuarios.plotOptions"></apx-chart>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-lg-3">
-                            <div class="cuadro bg-blue4 text12">
-                                <i class="far fa-clock fa-xs"></i>
-                                {{this.tiempo}}
-                                <span class="text13 d-block">Promedio de tiempo en la plataforma</span>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-3">
-                            <div class="cuadro bg-grey text12">
-                                <i class="fas fa-tasks fa-xs"></i>
-                                {{this.intentos}}
-                                <span class="text13 d-block">Promedio de intentos en exámenes</span>
+                            <div class="col-12 col-lg-6">
+                                <div style="text-align:center">
+                                    <apx-chart [series]="chartAvances.series" [chart]="chartAvances.chart"
+                                        [title]="chartAvances.title" [labels]="chartAvances.labels"
+                                        [colors]="chartAvances.colors" [legend]="chartAvances.legend"
+                                        [dataLabels]="chartAvances.dataLabels"
+                                        [plotOptions]="chartAvances.plotOptions"></apx-chart>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col-12 col-lg-6">
-                          <div style="text-align:center">
-                            <apx-chart
-                              [series]="chartUsuarios.series"
-                              [chart]="chartUsuarios.chart"
-                              [title]="chartUsuarios.title"
-                              [labels]="chartUsuarios.labels"
-                              [colors]="chartUsuarios.colors"
-                              [legend]="chartUsuarios.legend"
-                              [dataLabels]="chartUsuarios.dataLabels"
-                              [plotOptions]="chartUsuarios.plotOptions"
-                            ></apx-chart>
-                          </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div style="text-align:center">
-                                <apx-chart
-                                  [series]="chartAvances.series"
-                                  [chart]="chartAvances.chart"
-                                  [title]="chartAvances.title"
-                                  [labels]="chartAvances.labels"
-                                  [colors]="chartAvances.colors"
-                                  [legend]="chartAvances.legend"
-                                  [dataLabels]="chartAvances.dataLabels"
-                                  [plotOptions]="chartAvances.plotOptions"
-                                ></apx-chart>
-                              </div>
-                        </div>
-                    </div>
-                    <div>
-                    <label class="text3 txt-blue2 mt-3">Cursos</label>
-                    <hr class="w-100">
-                    <table id="estdcurso" class="table data est striped dt-responsive nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>Curso Nombre</th>
-                                <th>Promedio examen</th>
-                                <th>Promedio Intentos</th>
-                                <th>Promedio tiempo en examenes</th>
-                                <th>Promedio tiempo en temas</th>
-                                <th>Promedio tiempo en módulos</th>
-                                <th>Promedio diagnóstico inicial</th>
-                                <th>Promedio diagnóstico final</th>
-                                <th>Porcentaje incremento de aprendizaje</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let curso of certificaciones |paginate: { id: 'estaCur', itemsPerPage: 6, currentPage: pcursos}">
-                                <td><input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"></td>
-                                <th scope="row">{{curso.idCertification}}</th>
-                                <th scope="row">{{curso.title}}</th>
-                                <td>{{curso.promedio}}</td>
-                                <td>{{curso.promedioIntentos}}</td>
-                                <td>{{curso.diagnostico.calificacionPromedioInicio}}</td>
-                                <td>{{curso.diagnostico.calificacionPromedioFinal}}</td>
-                                <td>{{curso.diagnostico.porcentajeMejorado}}</td>
-                                <!--td *ngIf="curso.promediosDiagnostico.promedioInit != 'N/A'">{{curso.promediosDiagnostico.promedioInit}}%</td>
+                    <div *ngIf="this.estadisticaView == 0">
+                        <label class="text3 txt-blue2 mt-3">Cursos</label>
+                        <hr class="w-100">
+                        <table id="estdcurso" class="table data est striped dt-responsive nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <!--<th></th>-->
+                                    <th>ID</th>
+                                    <th>Curso</th>
+                                    <th>No. Módulos</th>
+                                    <th>No. Usuarios</th>
+                                    <th>Promedio Calificación</th>
+                                    <!--<th>Promedio de Avance</th>-->
+                                    <th>Promedio de intentos para aprobar</th>
+                                    <th></th>
+                                    <!--<th>Promedio tiempo en temas</th>
+                                    <th>Promedio tiempo en módulos</th>
+                                    <th>Promedio diagnóstico inicial</th>-->
+                                    <!--<th>Promedio diagnóstico final</th>
+                                    <th>Porcentaje incremento de aprendizaje</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let curso of certificaciones |paginate: { id: 'estaCur', itemsPerPage: 6, currentPage: pcursos}">
+                                    <!--<td><input class="form-check-input ms-3" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio1" value="option1"></td>--->
+                                    <th scope="row">{{curso.idCurso}}</th>
+                                    <th scope="row">
+                                        {{curso.title}}
+                                    </th>
+                                    <td>{{curso.modulos}}</td>
+                                    <td>{{curso.usuarios}}</td>
+                                    <td>{{curso.promedioCalificacion}}</td>
+                                    <!--<td>{{curso.promedioAvance}}%</td>-->
+                                    <td>{{curso.promedioIntentos}}</td>
+                                    <th scope="row"><button type="button" class="boton42"
+                                            (click)="changeViewEstadisticas('modulos', curso.idCurso, curso.title)">
+                                            Ver mas
+                                        </button></th>
+                                    <!--<td>{{curso.diagnostico.calificacionPromedioFinal}}</td>
+                                    <td>{{curso.diagnostico.porcentajeMejorado}}</td>-->
+                                    <!--td *ngIf="curso.promediosDiagnostico.promedioInit != 'N/A'">{{curso.promediosDiagnostico.promedioInit}}%</td>
                                 <td *ngIf="curso.promediosDiagnostico.promedioInit == 'N/A'">{{curso.promediosDiagnostico.promedioInit}}</td>
                                 <td *ngIf="curso.promediosDiagnostico.promedioFinal != 'N/A'">{{curso.promediosDiagnostico.promedioFinal}}%</td>
                                 <td *ngIf="curso.promediosDiagnostico.promedioFinal == 'N/A'">{{curso.promediosDiagnostico.promedioFinal}}</td>
                                 <td>%</td-->
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                          <pagination-controls id="estaCur" class="w-100 d-flex justify-content-center" (pageChange)="pcursos = $event" previousLabel="Anterior"
-                          nextLabel="Siguiente"></pagination-controls>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <pagination-controls id="estaCur" class="w-100 d-flex justify-content-center"
+                                    (pageChange)="pcursos = $event" previousLabel="Anterior"
+                                    nextLabel="Siguiente"></pagination-controls>
+                            </div>
                         </div>
                     </div>
-                </div>
-                    <!--div class="row mt-5 mb-5">
+                    <!----VISTA DENTRO DE CURSOS-->
+                    <div *ngIf="this.estadisticaView == 1">
+                        <div class="row mt-3 mb-3 d-flex align-items-center">
+                            <div class="col-lg-6 ">
+                                <label class="text3 txt-blue2 mt-3">Curso:</label>
+                                <label class="text6 txt-gris mt-3 ms-2">{{this.cursoName}}</label>
+                            </div>
+                            <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                                <button class="boton rounded-pill bg-blue aspect1-1 float-end"
+                                    (click)="changeViewEstadisticas('generales')">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!--label class="text6 txt-gris mt-3 ms-2">Usuarios/Análisis</label-->
+                        <hr class="w-100">
+                        <!--Tabla--->
+                        <!--Grafica--->
+                        <div class="row mt-5">
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue text12">
+                                    <i class="fas fa-brain fa-xs"></i>
+                                    {{this.modules}}
+                                    <span class="text13 d-block">Módulos creados</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue3 text12">
+                                    <i class="fas fa-regular fa-user fa-xs"></i>
+                                    {{this.usuariosmod}}
+                                    <span class="text13 d-block">Número de Usuarios</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue4 text12">
+                                    <i class="fas fa-star fa-xs"></i>
+                                    {{this.calificacion}}
+                                    <span class="text13 d-block">Promedio de Calificación</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-grey text12">
+                                    <i class="fas fa-tasks fa-xs"></i>
+                                    {{this.incremento}}
+                                    <span class="text13 d-block">Promedio de intentos para aprobar</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-12 col-lg-6">
+                                <div style="text-align:center">
+                                    <apx-chart [series]="chartCurso.series" [chart]="chartCurso.chart"
+                                        [xaxis]="chartCurso.xaxis" [title]="chartCurso.title"
+                                        [labels]="chartCurso.labels" [colors]="chartCurso.colors"
+                                        [legend]="chartCurso.legend" [dataLabels]="chartCurso.dataLabels"
+                                        [plotOptions]="chartCurso.plotOptions"></apx-chart>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div style="text-align:center">
+                                    <apx-chart [series]="chartMedallas.series" [chart]="chartMedallas.chart"
+                                        [title]="chartMedallas.title" [labels]="chartMedallas.labels"
+                                        [colors]="chartMedallas.colors" [legend]="chartMedallas.legend"
+                                        [dataLabels]="chartMedallas.dataLabels"
+                                        [plotOptions]="chartMedallas.plotOptions"></apx-chart>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <label class="text6 txt-gris mt-3 ms-2">Diagnostico</label>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue text12">
+                                    <i class="fas fa-hourglass-start fa-xs"></i>
+                                    {{this.calificacionInicial}}
+                                    <span class="text13 d-block">Promedio de calificación inicial</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue3 text12">
+                                    <i class="fas fa-hourglass-end fa-xs"></i>
+                                    {{this.calificacionFinal}}
+                                    <span class="text13 d-block">Promedio de calificación final</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="cuadro bg-blue4 text12">
+                                    <i class="fas fa-star fa-xs"></i>
+                                    {{this.incremento}}%
+                                    <span class="text13 d-block">Porcentaje en Mejora de Aprendizaje</span>
+                                </div>
+                            </div>
+                            <!--<div class="col-12 col-lg-3">
+                                <div class="cuadro bg-grey text12">
+                                    <i class="fas fa-tasks fa-xs"></i>
+                                    {{this.incremento}}
+                                    <span class="text13 d-block">Promedio de intentos para aprobar</span>
+                                </div>
+                            </div>-->
+                        </div>
+                        <div>
+                            <label class="text3 txt-blue2 mt-3">Módulos</label>
+                            <hr class="w-100">
+                            <table id="estdcurso" class="table data est striped dt-responsive nowrap"
+                                style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <!--<th></th>-->
+                                        <th>ID</th>
+                                        <th>Curso</th>
+                                        <th>Promedio en Calificación</th>
+                                        <th>Promedio de Avance</th>
+                                        <th>Promedio minutos en Módulo</th>
+
+                                        <!--<th>Promedio de Avance</th>-->
+                                        <!--<th>Promedio de intentos para aprobar</th>-->
+                                        <th></th>
+                                        <!--<th>Promedio tiempo en temas</th>
+                                    <th>Promedio tiempo en módulos</th>
+                                    <th>Promedio diagnóstico inicial</th>-->
+                                        <!--<th>Promedio diagnóstico final</th>
+                                    <th>Porcentaje incremento de aprendizaje</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let modulo of modulos |paginate: { id: 'estaMod', itemsPerPage: 6, currentPage: pcursos}">
+                                        <!--<td><input class="form-check-input ms-3" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio1" value="option1"></td>--->
+                                        <th scope="row">{{modulo.idModule}}</th>
+                                        <th scope="row">
+                                            {{modulo.title}}
+                                        </th>
+                                        <td>{{modulo.promedioCalificacion}}</td>
+                                        <td>{{modulo.promedioAvance}}%</td>
+                                        <td>{{modulo.promedioTiempo}}</td>
+                                        <!--<td>{{curso.promedioAvance}}%</td>-->
+                                        <!--<td>{{modulo.promedioIntentos}}</td>-->
+                                        <th scope="row"><button type="button" class="boton42"
+                                                (click)="changeViewEstadisticas('moduloInfo', modulo.idModule, modulo.title)">
+                                                Ver mas
+                                            </button></th>
+                                        <!--<td>{{curso.diagnostico.calificacionPromedioFinal}}</td>
+                                    <td>{{curso.diagnostico.porcentajeMejorado}}</td>-->
+                                        <!--td *ngIf="curso.promediosDiagnostico.promedioInit != 'N/A'">{{curso.promediosDiagnostico.promedioInit}}%</td>
+                                <td *ngIf="curso.promediosDiagnostico.promedioInit == 'N/A'">{{curso.promediosDiagnostico.promedioInit}}</td>
+                                <td *ngIf="curso.promediosDiagnostico.promedioFinal != 'N/A'">{{curso.promediosDiagnostico.promedioFinal}}%</td>
+                                <td *ngIf="curso.promediosDiagnostico.promedioFinal == 'N/A'">{{curso.promediosDiagnostico.promedioFinal}}</td>
+                                <td>%</td-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <pagination-controls id="estaMod" class="w-100 d-flex justify-content-center"
+                                        (pageChange)="pcursos = $event" previousLabel="Anterior"
+                                        nextLabel="Siguiente"></pagination-controls>
+                                </div>
+                            </div>
+                            <div class="row mt-5" *ngIf="this.showModule == 1">
+                                <div class="row mt-3 mb-3 d-flex align-items-center">
+                                    <div class="col-lg-6 ">
+                                        <label class="text3 txt-blue2 mt-3">Módulo:</label>
+                                        <label class="text6 txt-gris mt-3 ms-2">{{this.moduleName}}</label>
+                                    </div>
+                                    <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                                        <button type="button" class="boton bg-blue w-auto p-2 ps-3 pe-3 float-end" (click)="changeViewEstadisticas('close')"
+                                        >
+                                        Cerrar
+                                    </button>
+                                    </div>
+                                </div>
+                                <!--<label class="text6 txt-gris mt-3 ms-2">Diagnostico</label>-->
+                                <div class="col-12 col-lg-3">
+                                    <div class="cuadro bg-blue text12">
+                                        <i class="fas fa-list-ol fa-xs"></i>
+                                        {{this.caliMod}}
+                                        <span class="text13 d-block">Promedio en calificación</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <div class="cuadro bg-blue3 text12">
+                                        <i class="fas fa-spinner fa-xs"></i>
+                                        {{this.avanceMod}}%
+                                        <span class="text13 d-block">Promedio de avance</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <div class="cuadro bg-blue4 text12">
+                                        <i class="far fa-clock fa-xs"></i>
+                                        {{this.tiempoMod}} min
+                                        <span class="text13 d-block">Promedio de minutos en el Módulo</span>
+                                    </div>
+                                </div>
+                                <!--<div class="col-12 col-lg-3">
+                                <div class="cuadro bg-grey text12">
+                                    <i class="fas fa-tasks fa-xs"></i>
+                                    {{this.incremento}}
+                                    <span class="text13 d-block">Promedio de intentos para aprobar</span>
+                                </div>
+                            </div>-->
+                            </div>
+                        </div>
+                        <!--div class="row mt-5 mb-5">
                         <div class="col-12">
                             <div class="chart-container">
                                 <canvas id="grafprogreso"></canvas>
@@ -177,12 +387,12 @@
                             </div>
                         </div>
                     </div-->
-                    <!--div class="row">
+                        <!--div class="row">
                         <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                             <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Descargar excel</button>
                         </div>
                     </div-->
-                    <!--label class="text3 txt-blue2 mt-3">Modulos</label>
+                        <!--label class="text3 txt-blue2 mt-3">Modulos</label>
                     <hr class="w-100">
                     <!--div class="row mt-5">
                       <div class="col-12 col-lg-4">
@@ -228,7 +438,7 @@
                           </div>
                     </div>
                   </div-->
-                    <!--table id="diagnostico" class="table data striped dt-responsive nowrap" style="width:100%">
+                        <!--table id="diagnostico" class="table data striped dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Curso Nombre</th>
@@ -264,8 +474,8 @@
                             </tr>
                         </tbody>
                     </table>-->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

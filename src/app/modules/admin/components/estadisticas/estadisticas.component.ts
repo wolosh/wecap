@@ -51,6 +51,29 @@ export type ChartAvance = {
   plotOptions: ApexPlotOptions;
   responsive: ApexResponsive[];
 };
+
+export type ChartCurso = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+  colors: string[];
+  legend: ApexLegend;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
+};
+export type ChartMedallas = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+  colors: string[];
+  legend: ApexLegend;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
+};
 /*export type ChartCalificacion = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -93,11 +116,14 @@ export class EstadisticasComponent implements OnInit {
   pcursos: number = 1;
   coursesArr: any;
   cursos2: any;
+  estadisticaView: number = 0;
 
   @ViewChild("chart") chart: ChartComponent;
   public chartUsuarios: Partial<ChartUsuarios> | any;
   public chartAvances: Partial<ChartAvances> | any;
   public chartPromedios: Partial<any>;
+  public chartCurso: Partial<ChartCurso> | any;
+  public chartMedallas: Partial<ChartMedallas> | any;
   usuarios: any;
   avance: any;
   cursos: any;
@@ -105,6 +131,29 @@ export class EstadisticasComponent implements OnInit {
   tiempo: any;
   intentos: any;
   certificaciones: any;
+  certInfo: any;
+
+  modules: any;
+  incremento: any;
+  avanceCurso: any;
+  tiempoExamenes: any;
+  tiempoModulos: any;
+  tiempoTemas: any;
+  cursoName: any;
+  usuariosmod:any;
+  calificacionInicial: any;
+  calificacionFinal: any;
+  areas: any = [];
+  value: any = [];
+  medallaTerminar: any;
+  medallaScore: any;
+  medallaTiempo: any;
+  modulos: any;
+  showModule: number = 0;
+  moduleName: any;
+  caliMod: any;
+  tiempoMod: any;
+  avanceMod: any;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {}
@@ -120,6 +169,202 @@ export class EstadisticasComponent implements OnInit {
       //this.estadCurso(1);
       //this.estadModulo(1);
     }
+  }
+
+  changeViewEstadisticas(view:any, id?:any, name?:any){
+    console.log(view, id, name)
+    this.helpers.loader();
+    switch (view) {
+      case 'generales':
+        this.estadisticaView = 0;
+        this.estadGlobales();
+        this.areas = [];
+        this.value = [];
+        break;
+      case 'modulos':
+        //this.estadisticaView = 1;
+        //this.estadModulo(id);
+        this.cursoName = name;
+        console.log(id)
+        this.certificaciones.forEach((element: any) => {
+          if(element.idCurso == id){
+            console.log(element);
+            this.estaCurso(element);
+          }
+        });
+        this.estadisticaView = 1;
+        console.log(this.certInfo)
+        this.estadModulo(id);
+        break;
+      case 'moduloInfo':
+        this.showModule = 1;
+        console.log(this.modulos)
+        this.moduleName = name;
+        this.modulos.forEach((element: any) => {
+          if(element.idModule == id){
+            this.caliMod = element.promedioCalificacion;
+            this.avanceMod = element.promedioAvance;
+            this.tiempoMod = element.promedioTiempo;
+            Swal.close();
+          }
+          
+        });
+        break;
+      case 'close':
+        this.showModule = 0;
+        this.moduleName = '';
+        this.caliMod = '';
+        this.avanceMod = '';
+        this.tiempoMod = '';
+        Swal.close();
+        break;
+    }
+
+  }
+
+  estaCurso(element:any){
+    console.log(element);
+    this.modules = element.modulos;
+    this.usuariosmod = element.usuarios;
+    this.calificacionInicial = element.promedioCalificacion;
+    this.calificacionFinal = element.promedioCalificacion;
+    this.incremento = element.diagnostico.porcentajeMejorado;
+    //this.avanceCurso = element.promedioAvance;
+    this.medallaTerminar = element.promedioMedalla1;
+    this.medallaScore = element.promedioMedalla2;
+    this.medallaTiempo = element.promedioMedalla3;
+    console.log(element.promedioAvanceArea)
+
+    Object.keys(element.promedioAvanceArea).forEach((key) => {
+      console.log(key, element.promedioAvanceArea[key]);
+      console.log(key.replace(/_+/g,' '));
+      this.areas.push(key.replace(/_+/g,' '));
+      this.value.push(element.promedioAvanceArea[key]);
+      console.log(this.areas, this.value);
+    });
+    
+
+
+    this.chartMedallas = {
+      series: [this.medallaTerminar, this.medallaScore, this.medallaTiempo],
+      chart: {
+        type: "donut"
+      },
+      colors: [
+        '#015287',
+        '#A6DAFC',
+        '#707070',
+      ],
+      title: {
+        text: "Promedio de obtención de medallas",
+        align: 'center',
+        style: {
+          fontSize:  '18px',
+          fontFamily:  'Helvetica-Bold',
+          color:  '#015287'
+        },
+      },
+      dataLabels: {
+        //offseY: 30,
+        style: {
+          fontSize:  '16px',
+          fontFamily:  'Helvetica-Bold',
+          colors: ['#FFF']
+        },
+        dropShadow: {
+            enabled: false
+        }
+      },
+      plotOptions: {
+        pie: {
+          customScale: 0.8,
+        }
+      },
+      labels: ["Terminar", "Score Perfecto",  "Terminar a Tiempo"],
+      legend: {
+        position: 'bottom',
+        fontSize: '16px',
+        fontFamily: 'Helvetica-Bold',
+        labels: {
+          colors: ['#015287']
+        },
+        markers: {
+          width: 25,
+          height: 25,
+          radius: 5,
+        },
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+          }
+        }
+      ]
+    };
+
+    this.chartCurso = {
+      series: [
+        {
+          name: "Porcentaje de avance",
+          data: this.value
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "bar"
+      },colors: [
+        '#015287',
+        '#A6DAFC',
+        '#707070',
+      ],
+      title: {
+        text: "Progreso por Áreas",
+        align: 'center',
+        style: {
+          fontSize:  '18px',
+          fontFamily:  'Helvetica-Bold',
+          color:  '#015287'
+        },
+      },dataLabels: {
+        //offseY: 30,
+        style: {
+          fontSize:  '10px',
+          fontFamily:  'Helvetica-Bold',
+          colors: ['#FFF']
+        },
+        dropShadow: {
+            enabled: false
+        }
+      }, legend: {
+        position: 'bottom',
+        fontSize: '16px',
+        fontFamily: 'Helvetica-Bold',
+        labels: {
+          colors: ['#015287']
+        },
+        markers: {
+          width: 25,
+          height: 25,
+          radius: 5,
+        },
+      },
+      xaxis: {
+        categories: this.areas,
+      }, responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+          }
+        }
+      ]
+    };
   }
 
   users(){
@@ -260,7 +505,7 @@ export class EstadisticasComponent implements OnInit {
           }
         ]
       };
-
+      Swal.close();
     });
   }
   /*certifications() {
@@ -316,13 +561,17 @@ export class EstadisticasComponent implements OnInit {
   }
 
   estadModulo(id: any) {
-    //console.log(id)
+    console.log(id)
+  
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
-        this.avance =  data.promedioAvance;
-        this.calificacion =  data.promedioCalificacion;
-        this.tiempo =  data.promedioTiempo;
+        this.modulos = data;
+        console.log(this.modulos)
+        Swal.close();
+        //this.avance =  data.promedioAvance;
+        //this.calificacion =  data.promedioCalificacion;
+        //this.tiempo =  data.promedioTiempo;
         //this.allModules = data;
         //console.log(this.allModules)
         /*this.chartUsuarios = {
@@ -387,5 +636,6 @@ export class EstadisticasComponent implements OnInit {
         };*/
       }
     );
-  }
+    }
+  
 }

@@ -290,7 +290,7 @@ export class GetService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(this.session.API + 'estadisticasModulo/' + id, {
+    return this.http.get(this.session.API + 'getEstadisticasModulos/' + id, {
       headers,
     })
   }
