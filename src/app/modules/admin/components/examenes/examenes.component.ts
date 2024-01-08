@@ -121,6 +121,7 @@ export class ExamenesComponent implements OnInit {
   ngOnInit(): void {
     //console.log(this.helpers.domainPrueba);
     console.log(localStorage.getItem('type'))
+    this.helpers.loader();
     this.helpers.goTop();
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
@@ -586,7 +587,7 @@ export class ExamenesComponent implements OnInit {
         break;
       case 1:
         this.asignature = 1;
-        //console.log(user)
+        console.log(user)
         Swal.fire({
           title: 'Cargando...',
           html: 'Espera un momento por favor',
@@ -608,6 +609,7 @@ export class ExamenesComponent implements OnInit {
         });
         break;
       case 2:
+        console.log(user)
         this.asignature = 2;
         Swal.fire({
           title: 'Cargando...',
@@ -1298,7 +1300,23 @@ export class ExamenesComponent implements OnInit {
       json.modules.push({idCertificacion: this.certificationSelected, idModule: element.idModule, temas: element.temas});
     };
     console.log(json);
-  }
+
+    this.session.asignaTemas(json, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: '¡Agregado con exito!',
+          text: 'Curso(s) asignado(s).',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.onClickTab('asignature')
+          }
+        });
+      }
+    );
+    }
 
    
   }

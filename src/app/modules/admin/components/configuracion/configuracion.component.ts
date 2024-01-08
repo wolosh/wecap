@@ -29,7 +29,9 @@ export class ConfiguracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
+    
     if (localStorage.getItem('type') == '1') {
+      this.helpers.loader();
       this.helpers.type = localStorage.getItem('type');
       this.getConfiguration();
       this.startForm();
@@ -100,10 +102,11 @@ export class ConfiguracionComponent implements OnInit {
         if (data.isLike == '1') this.like = true;
         if (data.isComentario == '1') this.coment = true;
         var a = document.getElementsByClassName("bg-change");
-        if (data.boton1Color1 != '' && data.boton1Color2 != '') {
+        /*if (data.boton1Color1 != '' && data.boton1Color2 != '') {
           a.item(0).setAttribute("style", "background-color: " + data.boton1Color2);
           //a.item(1).setAttribute("style", "color: " + data.boton1Color1);
-        }
+        }*/
+        Swal.close();
       }
     );
   }

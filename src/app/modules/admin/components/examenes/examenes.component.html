@@ -233,7 +233,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let curso of userCourses ">
-                                    <th scope="row">1</th>
+                                    <th scope="row">{{curso.idCertification}}</th>
                                     <th scope="row">{{curso.title}}</th>
                                     <td>{{curso.creation_date}}</td>
                                     <td *ngIf="curso.score != null">{{curso.score}}</td>

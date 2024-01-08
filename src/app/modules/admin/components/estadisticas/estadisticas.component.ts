@@ -160,6 +160,7 @@ export class EstadisticasComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
+    this.helpers.loader();
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
       //this.certifications();
@@ -176,6 +177,7 @@ export class EstadisticasComponent implements OnInit {
     this.helpers.loader();
     switch (view) {
       case 'generales':
+        
         this.estadisticaView = 0;
         this.estadGlobales();
         this.areas = [];
@@ -506,6 +508,7 @@ export class EstadisticasComponent implements OnInit {
         ]
       };
       Swal.close();
+      this.helpers.goTop();
     });
   }
   /*certifications() {

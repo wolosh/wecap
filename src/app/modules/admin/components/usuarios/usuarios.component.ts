@@ -313,6 +313,9 @@ export class UsuariosComponent implements OnInit {
         this.usuarios = data.users;
         //console.log(this.usuarios)
         Swal.close();
+      },
+      (error: any) => {
+        this.helpers.logout();
       }
     );
   }

@@ -43,6 +43,7 @@ export class ConferenciasComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
+    this.helpers.loader();
     if (localStorage.getItem('type') == '1') {
 
       //console.log(this.searchArray)

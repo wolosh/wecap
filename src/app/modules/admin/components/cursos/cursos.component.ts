@@ -142,6 +142,7 @@ export class CursosComponent implements OnInit {
     this.sizeColumna()
     //this.getColumnas(1)
     if (localStorage.getItem('type') == '1') {
+      this.helpers.loader();
       console.log(localStorage.getItem('type'))
       //console.log(this.searchArray)
       //console.log(localStorage.getItem('name'));

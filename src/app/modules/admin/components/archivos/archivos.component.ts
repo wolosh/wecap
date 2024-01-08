@@ -38,6 +38,7 @@ export class ArchivosComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
+    this.helpers.loader();
     if (localStorage.getItem('type') == '1') {
       this.helpers.type = localStorage.getItem('type');
       //console.log(localStorage.getItem('token'));
