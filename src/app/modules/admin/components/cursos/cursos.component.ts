@@ -20,6 +20,7 @@ export class CursosComponent implements OnInit {
   public Editor: any = ClassicEditor;
   data: any;
   change: number = 0;
+  date: number = 0;
   isNewModule: number = 0;
   isNewTheme: number = 0;
   objUsers = [] as any;
@@ -55,6 +56,8 @@ export class CursosComponent implements OnInit {
   pc: number = 1;
   pct: number = 1;
   countCert: number = 0;
+  matCount: number = 0;
+  temasCount: number = 0;
   pm: number = 1;
   pg: number = 1;
   pgm: number = 1;
@@ -128,6 +131,7 @@ export class CursosComponent implements OnInit {
   idTemaC: any;
   allModulesL: any;
   columnText: any;
+  userCount: any;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -405,7 +409,7 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         this.certificaciones = data;
         this.countCert = this.certificaciones.length;
-        console.log(this.certificaciones);
+        console.log(this.certificaciones, this.countCert);
         if(name){
           this.changeViewCourses('editc', name)
         }
@@ -554,6 +558,19 @@ export class CursosComponent implements OnInit {
     }
   }
 
+  changeActive(event: any, kind: any) {
+    console.log(event, this.date);
+    if(kind == 'new'){
+    if(event.target.checked ){
+      this.date = 1;
+    } else {
+      this.date = 0;
+    }
+  } else {
+    console.log()
+  }
+  }
+
   allMaterias() {
     this.materias = [];
     this.get.getMaterias(localStorage.getItem('token')).subscribe(
@@ -561,6 +578,7 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         this.materias = data;
         //console.log(this.materias);
+        this.matCount = data.length;
         Swal.close();
       },
       (error: any) => {
@@ -590,6 +608,7 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         if (type == 'modify') {
           this.user = data.users;
+          this.userCount = data.users.length;
         } else if (type == 'show') {
           this.searchArray = data.users;
           this.length = data.users.length;
@@ -654,6 +673,13 @@ export class CursosComponent implements OnInit {
             this.formEdit.controls['img'].setValue(item.img);
             this.bf = item.img;
             this.exam = parseInt(item.secuencial);
+
+            console.log(item.inicio, item.fin)
+            if(item.inicio != '0000-00-00' && item.fin != '0000-00-00'){
+              this.date = 1;
+            } else {
+              this.date = 0;
+            }
             //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
@@ -767,6 +793,7 @@ export class CursosComponent implements OnInit {
             this.modules(this.idCertification);
             break;
           case 'editm':
+            
             this.icon = 1;
             this.header = 1;
             this.terminar = 1;
@@ -810,12 +837,13 @@ export class CursosComponent implements OnInit {
                 this.formModulo.controls['url_video'].setValue(data.url_video);
                 this.activeM = data.is_active;
                 Swal.close();
-
+                this.helpers.goTop();
                 // Codificar la URL a Base64
                 /*const base64Data = Buffer.from(this.imgIcono).toString("base64");
                 this.imgIcono = `data:image/jpeg;base64,${base64Data}`;
                 console.log(this.imgIcono);*/
               }
+              
             );
             break;
           case 'add':
@@ -851,6 +879,7 @@ export class CursosComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.alltemas = data;
+        this.temasCount = data.length;
         //console.log(this.alltemas)
       },
       (error: any) => {

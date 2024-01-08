@@ -35,6 +35,8 @@ export class ConferenciasComponent implements OnInit {
   dataSource: any;
   viewNew: number;
   backId: any;
+  confeCount: any;
+  confeCountInfo: any;
 
 
 
@@ -99,6 +101,7 @@ export class ConferenciasComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.allcursos = data;
+        this.confeCount = data.length;
         //console.log(this.allcursos);
         Swal.close();
       }
@@ -111,6 +114,7 @@ export class ConferenciasComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.allConferencias = data;
+        this.confeCountInfo = data.length;
         //console.log(this.allConferencias);
         Swal.close();
       }

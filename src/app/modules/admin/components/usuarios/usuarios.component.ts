@@ -25,6 +25,7 @@ export class UsuariosComponent implements OnInit {
   public typeSelected = '5';
   idOf: any;
   active: any;
+  usersCount: number = 0;
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router, private session: SessionService) { }
 
@@ -311,6 +312,7 @@ export class UsuariosComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.usuarios = data.users;
+        this.usersCount = data.users.length;
         //console.log(this.usuarios)
         Swal.close();
       },

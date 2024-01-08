@@ -50,7 +50,7 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let users of this.usuarios | paginate: { itemsPerPage: 8, currentPage: pu }">
+                                        *ngFor="let users of this.usuarios | paginate: { id: 'users', itemsPerPage: 8, currentPage: pu }">
                                         <th scope="row">{{users.idUser}}</th>
                                         <th scope="row"><button type="button" class="boton4"
                                                 (click)="changeViewUsers('edit', users.idUser)">{{users.full_name}}</button>
@@ -69,9 +69,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row" *ngIf="this.usuarios != 0">
+                        <div class="row" *ngIf="this.usersCount > 8">
                             <div class="col-12">
-                                <pagination-controls class="w-100 d-flex justify-content-center"
+                                <pagination-controls id="users" class="w-100 d-flex justify-content-center"
                                     (pageChange)="pu = $event" previousLabel="Anterior"
                                     nextLabel="Siguiente"></pagination-controls>
                             </div>

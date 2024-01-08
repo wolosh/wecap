@@ -46,7 +46,7 @@
                         </div>
                         <!--<label> Este texto aparecera en la ventana donde los usuarios descargaran los archivos.</label>--->
                         <div class="mb-3" *ngIf="showDescription == false">
-                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción (Este texto
+                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción (Aquí puedes agregar el texto
                                 aparecera en la ventana donde los usuarios descargaran los archivos).</label>
                             <p type="text" class="text19 text-dark mb-3">{{
                                 this.description
@@ -107,7 +107,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="this.filesArr.length > 6">
                                 <div class="col-12">
                                     <pagination-controls class="w-100 d-flex justify-content-center"
                                         (pageChange)="p = $event" previousLabel="Anterior"

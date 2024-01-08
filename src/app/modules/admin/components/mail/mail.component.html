@@ -34,7 +34,7 @@
                             </thead>
                             <tbody>
                                 <tr
-                                    *ngFor="let mails of this.mail | paginate: { itemsPerPage: 6, currentPage: p}; let i=index">
+                                    *ngFor="let mails of this.mail | paginate: { id: 'mail', itemsPerPage: 6, currentPage: p}; let i=index">
                                     <th scope="row"><button type="button" class="boton4"
                                             (click)="changeViewMail(1, 'editar', mails.id)">{{mails.asunto}}</button></th>
                                     <td>{{fecha[i]}}</td>
@@ -42,9 +42,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="row">
+                        <div class="row" *ngIf="this.mailCount > 6">
                             <div class="col-12">
-                                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                                <pagination-controls id="mail" class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
                                 nextLabel="Siguiente"></pagination-controls>
                             </div>
                         </div>

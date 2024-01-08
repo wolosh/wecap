@@ -157,7 +157,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="row mt-2">
+                        <div class="row mt-2" *ngIf="this.certiCount > 6">
                             <div class="col-12">
                                 <pagination-controls id="estaCur" class="w-100 d-flex justify-content-center"
                                     (pageChange)="pcursos = $event" previousLabel="Anterior"
@@ -317,7 +317,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="row mt-2">
+                            <div class="row mt-2" *ngIf="this.modCount > 6">
                                 <div class="col-12">
                                     <pagination-controls id="estaMod" class="w-100 d-flex justify-content-center"
                                         (pageChange)="pcursos = $event" previousLabel="Anterior"

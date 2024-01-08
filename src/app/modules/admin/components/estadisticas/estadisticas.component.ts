@@ -154,6 +154,8 @@ export class EstadisticasComponent implements OnInit {
   caliMod: any;
   tiempoMod: any;
   avanceMod: any;
+  certiCount: number = 0;
+  modCount: number = 0;
 
 
   constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {}
@@ -541,12 +543,14 @@ export class EstadisticasComponent implements OnInit {
     )
   }*/
   
+
   estadisticas(){
     this.get.getEstadGenerales(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
         this.certificaciones = data;
         console.log(this.certificaciones)
+        this.certiCount = data.length;
       }, (error: any) => {
         this.helpers.logout();
       }
@@ -570,6 +574,7 @@ export class EstadisticasComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.modulos = data;
+        this.modCount = data.length;
         console.log(this.modulos)
         Swal.close();
         //this.avance =  data.promedioAvance;

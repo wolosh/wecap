@@ -42,6 +42,7 @@ export class ExamenesComponent implements OnInit {
     img: new FormControl('', Validators.required),
   });
 
+  userCount: number = 0;
   modLength = 0;
   backAnswer: any;
   backDataAnswer: any;
@@ -62,6 +63,7 @@ export class ExamenesComponent implements OnInit {
   pca: number = 1;
   pdiag: number = 1;
   pexam: number = 1;
+  pexamEdit: number = 1;
   pe: number = 1;
   public searchSelect = '0';
   public certificationSelected = '0';
@@ -70,6 +72,7 @@ export class ExamenesComponent implements OnInit {
   public text1 = '';
   public dateSelected = '';
   n: number = 0;
+  nameUser = '';
   certificaciones: any;
   objUsers = [] as any;
   showArr = [] as any;
@@ -110,6 +113,9 @@ export class ExamenesComponent implements OnInit {
   showModulesThemes = [] as any;
   public selectedThemes: any = [];
   public backThemes: any = [];
+  countCert: any;
+  diagLength: any;
+  searchAdd: any;
   //examQuestion = [] as any;
 
 
@@ -253,6 +259,7 @@ export class ExamenesComponent implements OnInit {
           case 'asignature':
             this.pdiag = 1;
             this.pexam = 1;
+            this.pexamEdit = 1;
             this.pas = 1;
             this.pquit = 1;
             //this.asingnature = 0;
@@ -263,6 +270,7 @@ export class ExamenesComponent implements OnInit {
           case 'diagnostic':
             this.pdiag = 1;
             this.pexam = 1;
+            this.pexamEdit = 1;
             this.pas = 1;
             this.pquit = 1;
             this.psc = 1;
@@ -276,6 +284,7 @@ export class ExamenesComponent implements OnInit {
             this.editQuestion = 0;
             this.pdiag = 1;
             this.pexam = 1;
+            this.pexamEdit = 1;
             this.pas = 1;
             this.pquit = 1;
             this.examModule = [];
@@ -547,12 +556,14 @@ export class ExamenesComponent implements OnInit {
         //console.log(data);
         if (type == 'asignature') {
           this.usersArr = data.users;
+          this.userCount = data.users.length;
           this.pas = 1;
           //console.log(this.usersArr)
           Swal.close();
         } else if (type == 'show') {
           this.searchSelect = '';
           this.searchArray = data.users;
+          this.searchAdd = data.users.length;
           this.length = data.users.length;
           //console.log(this.searchArray, this.length)
         }
@@ -567,7 +578,7 @@ export class ExamenesComponent implements OnInit {
       (data: any) => {
         //console.log(data);
         this.certificaciones = data;
-        //this.countCert = this.certificaciones.length;
+        this.countCert = this.certificaciones.length;
         Swal.close();
       },
       (error: any) => {
@@ -595,6 +606,13 @@ export class ExamenesComponent implements OnInit {
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
+            this.usersArr.forEach(element => {
+              console.log(element, user)
+              if(element.idUser == user){
+                console.log(element);
+                this.nameUser = element.full_name;
+              }
+            })
             this.get.getUserCourses(user, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 console.log(data, data.length);
@@ -620,7 +638,7 @@ export class ExamenesComponent implements OnInit {
             Swal.showLoading();
             this.get.getUserCourses(user, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data, data.length);
+                console.log(data, data.length);
                 this.userCourses = data;
                 this.userAL = data.length;
                 Swal.close();
@@ -681,6 +699,7 @@ export class ExamenesComponent implements OnInit {
                     this.none = 2;
                     //this.questions = data;
                     this.questions = data.preguntas;
+                    this.diagLength = data.length;
                     //console.log(data);
                   }
                 }
@@ -1435,6 +1454,7 @@ export class ExamenesComponent implements OnInit {
   public cursoSelected() {
     this.selectedThemes = [];
     this.backThemes = [];
+    this.showModulesThemes = [];
     if (this.certificationSelected != '') {
       //console.log(this.certificationSelected);
       this.helpers.loader();

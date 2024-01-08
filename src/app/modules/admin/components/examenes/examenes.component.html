@@ -71,7 +71,7 @@
                                         </label>
                                     </li>
                                 </ul>
-                                <pagination-controls id="firstAsg" class="w-100 d-flex justify-content-center mt-2"
+                                <pagination-controls  *ngIf="this.searchAdd > 6" id="firstAsg" class="w-100 d-flex justify-content-center mt-2"
                                     (pageChange)="psc = $event" previousLabel="Anterior"
                                     nextLabel="Siguiente"></pagination-controls>
                             </div>
@@ -87,7 +87,7 @@
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                               </ul>-->
                             <select class="botondrop dropdown-toggle" [(ngModel)]="certificationSelected"
-                            (ngModelChange)="cursoSelected()" [ngModelOptions]="{standalone: true}">
+                                (ngModelChange)="cursoSelected()" [ngModelOptions]="{standalone: true}">
                                 <option value="0" hidden>Curso</option>
                                 <option *ngFor="let c of certificaciones" [value]="c.idCertification">{{c.title}}
                                 </option>
@@ -101,46 +101,50 @@
                         </div>
                         <!---Certificaciones-->
                         <div *ngIf="this.certificationSelected != '0'">
-                          <label class="text13 txt-blue mt-4 mb-2">Certificación:<span class="txt-gris ms-2">{{this.titleC}}</span></label>
-                          <ul class="list-group">
-                            <li class="list-group-item" *ngFor="let modulo of this.showModulesThemes | paginate: {id: 'firstModulesShow', itemsPerPage: 6, currentPage: pca }">
-                                <input class="form-check-input me-2" type="checkbox" name="{{modulo.title}}"
-                                    value="{{modulo.idModule}}" id="{{modulo.title}}" (change)="changeCertificacion($event, 'module')">
-                                <label class="text13 txt-blue" for="firstCheckbox">{{modulo.title}}</label>
-                                <ul class="list-group">
-                                    <li class="list-group-item" *ngFor="let themes of modulo.temas">
-                                        <input class="form-check-input me-2" type="checkbox"
-                                        [checked]="
+                            <label class="text13 txt-blue mt-4 mb-2">Certificación:<span
+                                    class="txt-gris ms-2">{{this.titleC}}</span></label>
+                            <ul class="list-group">
+                                <li class="list-group-item"
+                                    *ngFor="let modulo of this.showModulesThemes | paginate: {id: 'firstModulesShow', itemsPerPage: 6, currentPage: pca }">
+                                    <input class="form-check-input me-2" type="checkbox" name="{{modulo.title}}"
+                                        value="{{modulo.idModule}}" id="{{modulo.title}}"
+                                        (change)="changeCertificacion($event, 'module')">
+                                    <label class="text13 txt-blue" for="firstCheckbox">{{modulo.title}}</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" *ngFor="let themes of modulo.temas">
+                                            <input class="form-check-input me-2" type="checkbox" [checked]="
                                         selectedThemes.includes(themes.idTopic)
                                           ? true
                                           : false
-                                      " [value]="themes.idTopic" id="{{modulo.title}}" name="{{modulo.title}}" (change)="changeCertificacion($event, 'tema', modulo.idModule)">
-                                        <label class="text13 txt-blue" for="firstCheckbox">{{themes.title}}</label>
-                                        <!--ul class="list-group">
+                                      " [value]="themes.idTopic" id="{{modulo.title}}" name="{{modulo.title}}"
+                                                (change)="changeCertificacion($event, 'tema', modulo.idModule)">
+                                            <label class="text13 txt-blue" for="firstCheckbox">{{themes.title}}</label>
+                                            <!--ul class="list-group">
                                           <li class="list-group-item" *ngFor="let tema of alltemas">
                                               <input class="form-check-input me-1" type="checkbox"
                                                   value="{{tema.idTopic}}" id="firstCheckbox" (change)="changeValue($event)">
                                               <label class="text13 txt-blue" for="firstCheckbox">{{tema.title}}</label>
                                           </li>
                                         </ul-->
-                                    </li>
-                                  </ul>
-                                <!--ul class="list-group">
+                                        </li>
+                                    </ul>
+                                    <!--ul class="list-group">
                                   <li class="list-group-item" *ngFor="let tema of alltemas">
                                       <input class="form-check-input me-1" type="checkbox"
                                           value="{{tema.idTopic}}" id="firstCheckbox" (change)="changeValue($event)">
                                       <label class="text13 txt-blue" for="firstCheckbox">{{tema.title}}</label>
                                   </li>
                                 </ul-->
-                            </li>
-                          </ul>
-                          <pagination-controls id="firstModulesShow" class="mt-3 w-100 d-flex justify-content-center"
-                            (pageChange)="pca = $event" previousLabel="Anterior"
-                            nextLabel="Siguiente"></pagination-controls>
+                                </li>
+                            </ul>
+                            <pagination-controls id="firstModulesShow" class="mt-3 w-100 d-flex justify-content-center"
+                                (pageChange)="pca = $event" previousLabel="Anterior"
+                                nextLabel="Siguiente"></pagination-controls>
                         </div>
                         <!--</form-->
                         <label class="text3 txt-blue2 mt-3">Ver asignaciones</label>
-                        <label class="text6 txt-gris mt-3 ms-2">Curso por usuario</label>
+                        <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un usuario para conocer los
+                            cursos que se le han asignado.</label>
                         <hr class="w-100">
                         <!--Tabla--->
                         <div class="table-responsive">
@@ -167,15 +171,16 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-2" *ngIf="this.userCount > 6">
                             <div class="col-12">
                                 <pagination-controls id="twoAsg" class="w-100 d-flex justify-content-center"
                                     (pageChange)="pas = $event" previousLabel="Anterior"
                                     nextLabel="Siguiente"></pagination-controls>
                             </div>
                         </div>
-                        <label class="text3 txt-blue2 mt-3">Quitar/cambiar asignaciones</label>
-                        <label class="text6 txt-gris mt-3 ms-2">Selecciona un usuario</label>
+                        <label class="text3 txt-blue2 mt-3">Modificar/quitar asignaciones</label>
+                        <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un usuario para modificar o
+                            quitar sus cursos asignados.</label>
                         <hr class="w-100">
                         <!--Tabla--->
                         <table id="quitarasignacion" class="table data striped dt-responsive nowrap" style="width:100%">
@@ -194,7 +199,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="row mt-2">
+                        <div class="row mt-2" *ngIf="this.userCount > 6">
                             <div class="col-12">
                                 <pagination-controls id="threeAsg" class="w-100 d-flex justify-content-center"
                                     (pageChange)="pquit = $event" previousLabel="Anterior"
@@ -206,6 +211,7 @@
                         <div class="row mt-3 mb-3">
                             <div class="col-lg-6 ">
                                 <label class="text3 txt-blue2">Cursos de Usuario</label>
+                                <label class="text6 txt-gris mt-3 ms-2">{{this.nameUser}}</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
                                 <button class="boton rounded-pill bg-blue aspect1-1 float-end"
@@ -275,7 +281,9 @@
                     <div *ngIf="this.asignature == 2">
                         <div class="row mt-3 mb-3">
                             <div class="col-lg-6 ">
-                                <label class="text3 txt-blue2">Cursos activos</label>
+                                <label class="text3 txt-blue2 mt-3">Cursos activos</label>
+                                <label class="text6 txt-gris mt-3 ms-2">En esta ventana puedes modificar la fecha de
+                                    expiración del curso para el usuario o quitarlo de su lista de asignaciones.</label>
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
                                 <button class="boton rounded-pill bg-blue aspect1-1 float-end"
@@ -292,8 +300,12 @@
                             <div class="row" *ngFor="let curso of userCourses">
                                 <div class="col-12 col-md-8 order-3 order-md-1">
                                     <label class="text6 txt-blue mt-3 d-block">{{curso.title}}</label>
-                                    <label class="text9 txt-gris d-block mt-3">Fecha de expiración:
+                                    <label class="text9 txt-gris d-block mt-3" *ngIf="curso.finish_date != null">Fecha
+                                        de expiración:
                                         {{curso.finish_date}}</label>
+                                    <label class="text9 txt-gris d-block mt-3" *ngIf="curso.finish_date == null">Fecha
+                                        de expiración:
+                                        sin definir</label>
                                     <label class="text9 txt-gris d-block mt-3">Elige una nueva fecha de expiro
                                         (opcional)</label>
                                     <input class="input4 mt-3" type="date"
@@ -302,7 +314,7 @@
                                 </div>
                                 <div class="col-4 col-md-2 offset-4 offset-md-0 order-1 order-md-2">
                                     <button class="botondrop bg-grey2 p-1 w-100"
-                                        (click)="editCourse(curso.idCertification, 'editar')">Modificar</button>
+                                        (click)="editCourse(curso.idCertification, 'editar')">Modificar Fecha</button>
                                 </div>
                                 <div class="col-4 col-md-2 order-2 order-md-3">
                                     <button class="botondrop changeExExbg-grey2 p-1 w-100"
@@ -321,6 +333,7 @@
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <div *ngIf="this.diagnostic == 0">
                         <label class="text3 txt-blue2 mt-3">Diagnóstico</label>
+                        <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o editar su prueba diagnóstico</label>
                         <hr class="w-100">
                         <!--Tabla--->
                         <table id="diagnostico" class="table data striped dt-responsive nowrap" style="width:100%">
@@ -335,7 +348,7 @@
                             </thead>
                             <tbody>
                                 <tr
-                                    *ngFor="let c of this.certificaciones | paginate: { id: 'firstDiag', itemsPerPage: 5, currentPage: pdiag}">
+                                    *ngFor="let c of this.certificaciones | paginate: { id: 'firstDiag', itemsPerPage: 6, currentPage: pdiag}">
                                     <th scope="row">{{c.idCertification}}</th>
                                     <th scope="row"><button type="button" class="boton4"
                                             (click)="changeDiagnostic(1, c.idCertification)">{{c.title}}</button></th>
@@ -348,7 +361,7 @@
                             </tbody>
 
                         </table>
-                        <div class="row mt-2">
+                        <div class="row mt-2" *ngIf="this.countCert > 6">
                             <pagination-controls id="firstDiag" class="w-100 d-flex justify-content-center"
                                 (pageChange)="pdiag = $event" previousLabel="Anterior"
                                 nextLabel="Siguiente"></pagination-controls>
@@ -360,7 +373,7 @@
                         <!------Editor--->
                         <div class="row d-flex align-items-center">
                             <div class="col-6 col-md-4 col-lg-3">
-                                <label class="text3 txt-blue2 mt-3">Lista Diagnóstico</label>
+                                <label class="text3 txt-blue2 mt-3">Listado de Preguntas</label>
                             </div>
                             <div class="col-8 col-md-4 col-lg-3 offset-lg-5" *ngIf="this.none == 0">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" data-bs-toggle="crear"
@@ -427,7 +440,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf=" this.diagLength > 6">
                                 <div class="col-12">
                                     <pagination-controls id="secondDiag" class="w-100 d-flex justify-content-center"
                                         (pageChange)="pe = $event" previousLabel="Anterior"
@@ -707,6 +720,7 @@
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                     <div *ngIf="this.exam == 0">
                         <label class="text3 txt-blue2 mt-3">Examenes</label>
+                        <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso.</label>
                         <hr class="w-100">
                         <table id="examenes" class="table data striped dt-responsive nowrap" style="width:100%">
                             <thead>
@@ -732,7 +746,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="row mt-2">
+                        <div class="row mt-2" *ngIf="this.countCert > 6">
                             <div class="col-12">
                                 <pagination-controls id="firstExam" class="w-100 d-flex justify-content-center"
                                     (pageChange)="pexam = $event" previousLabel="Anterior"
@@ -743,7 +757,8 @@
                     <div *ngIf="this.exam == 1">
                         <div class="row mt-3 mb-3 d-flex align-items-center">
                             <div class="col-lg-6">
-                                <label class="text3 txt-blue2">Selecciona el módulo</label>
+                                <label class="text3 txt-blue2">Módulos</label>
+                                <label class="text6 txt-gris mt-3 ms-2">En esta ventana puedes editar la información del examen o ver los usuarios cursantes del módulo.</label>               
                             </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
 
@@ -768,21 +783,31 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Título</th>
-                                        <th>Editar examen</th>
-                                        <th>Ver cursantes</th>
+
+                                        <th>Cursantes</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let module of modules">
+                                    <tr *ngFor="let module of modules | paginate: { id:'examEdit', itemsPerPage: 6, currentPage: pexamEdit}">
                                         <td>{{module.title}}</td>
-                                        <td><button class="boton2 text-decoration-none"
-                                                (click)="changeExam(2, module.idModule, module.title)">Editar</button>
-                                        </td>
+
                                         <td><button class="boton2 text-decoration-none"
                                                 (click)="changeExam(3, module.idModule, module.title)">Ver</button></td>
+                                        <td><button class="boton2 text-decoration-none"
+                                                (click)="changeExam(2, module.idModule, module.title)">Editar
+                                                examen</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="row mt-2" *ngIf="this.countCert > 6">
+                                <div class="col-12">
+                                    <pagination-controls id="examEdit" class="w-100 d-flex justify-content-center"
+                                        (pageChange)="pexamEdit = $event" previousLabel="Anterior"
+                                        nextLabel="Siguiente"></pagination-controls>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="this.exam == 2">
@@ -874,7 +899,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="this.modLength > 6">
                                 <div class="col-12">
                                     <pagination-controls id="thirdExam" class="w-100 d-flex justify-content-center"
                                         (pageChange)="pe = $event" previousLabel="Anterior"
@@ -1049,7 +1074,8 @@
                                     (click)="updateQuestionsExam('close')">
                                     Guardar pregunta
                                 </button>
-                                <button  (click)="updateQuestion('open')" class="boton bg-blue w-100 p-1 p-md-2" *ngIf="this.editQuestion == 1">
+                                <button (click)="updateQuestion('open')" class="boton bg-blue w-100 p-1 p-md-2"
+                                    *ngIf="this.editQuestion == 1">
                                     Guardar cambios
                                 </button>
                             </div>
@@ -1157,7 +1183,8 @@
                                             </div>
                                             <div class="col-4 d-flex align-items-center" *ngIf="answer.img != ''">
                                                 <input type="file" class="file" name="avatar" title="Añadir una imagen"
-                                                    accept="image/png, image/jpeg" (change)="selectFile($event)" disabled/>Contiene imagen
+                                                    accept="image/png, image/jpeg" (change)="selectFile($event)"
+                                                    disabled />Contiene imagen
                                                 <!--<label *ngIf="this.onImage == 1">Imagen agregada</label>-->
                                             </div>
                                         </div>
@@ -1181,8 +1208,8 @@
                                         </div>
                                         <div class="col-3">
                                             <button class="boton bg-blue w-auto p-1 p-md-2 clone"
-                                                (click)="addEditExam()"><img src="assets/img/agregar.svg"
-                                                    alt="">Guardar opción</button>
+                                                (click)="addEditExam()"><img src="assets/img/agregar.svg" alt="">Guardar
+                                                opción</button>
                                         </div>
                                         <div class="col-3">
                                             <input class="input5" type="text" name="opcion" id="" value=""
@@ -1303,7 +1330,8 @@
                         todos los campos</label>
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Titulo del examen</label>
                     <input type="text" class="input3 w-100" formControlName="title">
-                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2">Duración por pregunta (en minutos)</label>
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2">Duración por pregunta (en
+                        minutos)</label>
                     <input type="text" class="input3  w-100" formControlName="duracion">
                     <div class="row mt-2">
                         <div class="col-6">
@@ -1341,10 +1369,12 @@
                         todos los campos</label>-->
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Opción</label>
                     <input type="text" class="input3 w-100" formControlName="option">
-                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2" *ngIf="this.onImage == 1">Editar imagen actual</label>
-                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2" *ngIf="this.onImage == 0">Agregar imagen</label>
-                    <input type="file" name="avatar" title="Añadir una imagen"
-                    accept="image/png, image/jpeg" (change)="selectFile($event)" />
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2" *ngIf="this.onImage == 1">Editar
+                        imagen actual</label>
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2" *ngIf="this.onImage == 0">Agregar
+                        imagen</label>
+                    <input type="file" name="avatar" title="Añadir una imagen" accept="image/png, image/jpeg"
+                        (change)="selectFile($event)" />
                     <!--<input type="text" class="input3  w-100" formControlName="duracion">-->
                     <div class="row mt-2">
                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Opción correcta</label>

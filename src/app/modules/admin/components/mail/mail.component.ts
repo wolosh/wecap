@@ -38,6 +38,7 @@ export class MailComponent implements OnInit {
   img: any;
   idMail: any;
   objEmails = [] as any;
+  mailCount: number = 0;
 
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService) { }
 
@@ -116,6 +117,7 @@ export class MailComponent implements OnInit {
         }
         //console.log(this.fecha);
         this.mail = data;
+        this.mailCount = data.length;
         Swal.close();
       }
     );

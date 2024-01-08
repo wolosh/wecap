@@ -19,7 +19,7 @@
           <!--VER CURSOS Y CREAR CURSO-->
           <div *ngIf="cview1 == 0">
             <label class="text3 txt-blue2 mt-3">Ver Cursos</label>
-            <label class="text6 txt-gris mt-3 ms-2">Selecciona un curso para conocer o editar sus detalles</label>
+            <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o editar sus detalles</label>
             <hr class="w-100">
             <div class="table-responsive" *ngIf="this.certificaciones != 0">
               <table class="table w-100">
@@ -32,7 +32,7 @@
                   </tr>
                 </thead>
                 <tbody id="cursos">
-                  <tr *ngFor="let certificacion of certificaciones | paginate: { itemsPerPage: 6, currentPage: pc}">
+                  <tr *ngFor="let certificacion of certificaciones | paginate: { id: 'cursos', itemsPerPage: 6, currentPage: pc}">
                     <th scope="row">
                       <button type="button" class="boton4" (click)="changeViewCourses('editc', certificacion.title)">
                         {{certificacion.title}}
@@ -47,13 +47,13 @@
                 </tbody>
               </table>
             </div>
-            <div class="row" *ngIf="this.certificaciones != 0">
+            <div class="row" *ngIf="this.countCert > 6">
               <div class="col-12">
-                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pc = $event"
+                <pagination-controls id="cursos" class="w-100 d-flex justify-content-center" (pageChange)="pc = $event"
                   previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
               </div>
             </div>
-            <div class="row" *ngIf="this.certificaciones == 0">
+            <div class="row" *ngIf="this.certificaciones == 0 && this.countCert > 6">
               <div class="col-12">
                 <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas con cursos en el sistema, desliza hacia abajo
                   para agregar.</label>
@@ -88,15 +88,17 @@
                   formControlName="description"></textarea>
               </div>
               <div class="mb-3">
-                <label for="formFile" class="text13 txt-blue mb-2">Fondo</label>
+                <label for="formFile" class="text13 txt-blue mb-2">Icon del Curso</label>
                 <input class="input3" type="file" id="formFile" (change)="selectFile($event, 'img')"
                   accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Seleccionar número de días activo por default (opcional)
                 </label>
+                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio" [ngModelOptions]="{standalone: true}" [(ngModel)]="date"
+                            (change)="changeActive($event, 'new')">
                 <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
-                <div class="row mt-2">
+                <div class="row mt-2" *ngIf ="this.date == 1">
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
                     <input class="input4" type="date" formControlName="default_active_days_start">
@@ -107,16 +109,20 @@
                   </div>
                 </div>
               </div>
-              <div class="form-check form-check-inline ps-0">
-                <label class="text13 txt-blue float-start" for="inlineRadio1">Visualización secuencial</label>
-                <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
-                  name="inlineRadioOptions" id="inlineRadio1" value="1">
+              <div>
+                <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio1">Orden de Visualización</label>
+                <div class="form-check form-check-inline ps-0">
+                  <label class="textGrey float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
+                  <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
+                    name="inlineRadioOptions" id="inlineRadio1" value="1">
+                </div>
+                <div class="form-check form-check-inline ps-0">
+                  <label class="text13 textGrey  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
+                  <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
+                    name="inlineRadioOptions" id="inlineRadio2" value="0">
+                </div>
               </div>
-              <div class="form-check form-check-inline ps-0">
-                <label class="text13 txt-blue float-start" for="inlineRadio2">Visualización libre</label>
-                <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
-                  name="inlineRadioOptions" id="inlineRadio2" value="0">
-              </div>
+              
               <div class="row">
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                   <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
@@ -169,16 +175,18 @@
                   formControlName="description"></textarea>
               </div>
               <div class="mb-3">
-                <label for="formFile" class="text13 txt-blue mb-2">Fondo (opcional)</label>
+                <label for="formFile" class="text13 txt-blue mb-2">Icon del Curso</label>
                 <input class="input3" type="file" id="formFile" (change)="selectFile($event, 'img')"
                   accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Número de días activo por default
-                  (opcional)</label>
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Seleccionar número de días activo por default (opcional)
+                </label>
+                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio" [ngModelOptions]="{standalone: true}" [(ngModel)]="date"
+                            (change)="changeActive($event, 'new')">
                 <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
-                <div class="row mt-2">
-                  <div class="col-6">
+                <div class="row mt-2" *ngIf="this.date == 1">
+                  <div class="col-6" >
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
                     <input class="input4" type="date" formControlName="default_active_days_start">
                   </div>
@@ -188,7 +196,22 @@
                   </div>
                 </div>
               </div>
-              <div class="form-check form-check-inline ps-0">
+              <div>
+                <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio1">Orden de Visualización</label>
+                <div class="form-check form-check-inline ps-0">
+                  <label class="textGrey float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
+                  <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
+                  id="inlineRadio1" [value]="1">
+                </div>
+                <div class="form-check form-check-inline ps-0">
+                  <label class="text13 textGrey  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
+                  <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
+                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
+                  id="inlineRadio2" [value]="0">
+                </div>
+              </div>
+              <!--<div class="form-check form-check-inline ps-0">
                 <label class="text13 txt-blue float-start" for="inlineRadio1">Visualización secuencial</label>
                 <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
                   [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
@@ -199,7 +222,7 @@
                 <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
                   [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
                   id="inlineRadio2" [value]="0">
-              </div>
+              </div>-->
               <!--<div class="row">
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="nuevoCurso()">Guardar</button>
@@ -208,13 +231,13 @@
               <div class="row">
                 <div class="col-lg-2 offset-lg-4 mt-3">
                   <button class="boton bg-blue mx-auto d-block w-100 p-2"
-                    (click)="saveCourse('edit', this.idCertification)">Editar</button>
+                    (click)="saveCourse('edit', this.idCertification)">Guardar cambios</button>
                 </div>
                 <div class="col-lg-3 mt-3">
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(0)"
-                    *ngIf="this.active == '1'">Desactivar certificación</button>
+                    *ngIf="this.active == '1'">Desactivar curso</button>
                   <button class="boton bg-grey2 mx-auto d-block w-100 p-2" (click)="statusCourses(1)"
-                    *ngIf="this.active == '0'">Activar certificación</button>
+                    *ngIf="this.active == '0'">Activar curso</button>
                 </div>
               </div>
             </form>
@@ -249,7 +272,7 @@
                   <tr>
                     <th scope="col"></th>
                     <th scope="col">Título</th>
-                    <th scope="col">Editar</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody cdkDropList (cdkDropListDropped)="drop($event, 'modules')" id="modulos">
@@ -264,7 +287,7 @@
                 </tbody>
               </table>
             </div>
-            <div class="row" *ngIf="this.allModulesL != 0">
+            <div class="row" *ngIf="this.allModulesL > 6">
               <div class="col-12">
                 <pagination-controls id="modules" class="w-100 d-flex justify-content-center" (pageChange)="p = $event"
                   previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
@@ -537,13 +560,13 @@
                     </button>
                   </div>
                 </div>
-                <div class="table-responsive" *ngIf="this.alltemas.length != 0">
+                <div class="table-responsive" *ngIf="this.temasCount != 0">
                   <table class="table striped w-100">
                     <thead>
                       <tr>
                         <th scope="col"></th>
                         <th scope="col">Título</th>
-                        <th scope="col">Editar</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody id="temas" cdkDropList (cdkDropListDropped)="drop($event, 'topic')">
@@ -559,13 +582,13 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="row" *ngIf="this.alltemas.length != 0">
+                <div class="row" *ngIf="this.temasCount > 6">
                   <div class="col-12">
                     <pagination-controls id="firstTemas" class="w-100 d-flex justify-content-center"
                       (pageChange)="pt = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                   </div>
                 </div>
-                <div class="row" *ngIf="this.alltemas.length == 0">
+                <div class="row" *ngIf="this.temasCount == 0">
                   <div class="col-12">
                     <label class="text6 txt-gris mt-3 ms-2">Aun no cuentas con temas para este curso en el
                       sistema.</label>
@@ -582,9 +605,9 @@
                     <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 1">Añadir Tema</label>
                   </div>
                   <div class="col-6 col-md-3 col-lg-2 offset-lg-2">
-                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    <button *ngIf="this.isNewTheme == 2" class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
                       (click)="changeViewTemas('cols', this.idTema)">
-                      Ver columnas</button>
+                      Editar contenido</button>
                   </div>
                   <div class="col-6 offset-6 col-lg-2 offset-lg-0">
                     <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('back')">
@@ -804,7 +827,7 @@
               </table>
             </div>
             <div class="row">
-              <div class="col-12">
+              <div class="col-12" *ngIf="this.matCount > 6">
                 <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pm = $event"
                   previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
               </div>
@@ -873,7 +896,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let user of user | paginate: { itemsPerPage: 6, currentPage: pg }">
+                  <tr *ngFor="let user of user | paginate: {id: 'grupo', itemsPerPage: 6, currentPage: pg }">
                     <th scope="row">
                       <button class="boton4" (click)="changeViewGroups(1, 'modiGroup', user.idUser, user.full_name)"
                         type="button">
@@ -888,9 +911,9 @@
 
               </table>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="this.userCount > 6">
               <div class="col-12">
-                <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="pg = $event"
+                <pagination-controls id="grupo" class="w-100 d-flex justify-content-center" (pageChange)="pg = $event"
                   previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
               </div>
             </div>
@@ -955,7 +978,7 @@
                     </li>-->
                   </ul>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-2" *ngIf="this.length > 6">
                   <div class="col-12 col-lg-6">
                     <pagination-controls id="first" class="w-100 d-flex justify-content-center"
                       (pageChange)="pgm = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>

@@ -10,9 +10,10 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                   <div *ngIf="viewConf == 0">
                     <label class="text3 txt-blue2 mt-3">Video Conferencias</label>
+                    <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o añadir sus conferencias</label>
                     <hr class="w-100">
                     <!--Tabla--->
-                    <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.allcursos != 0">Selecciona un curso para conocer o añadir sus conferencias</label>
+                    
                     <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.allcursos == 0">Aun no cuentas con cursos, por favor ve a la pantalla "Cursos" para añadir.</label>
                        
                     <table id="conferencia" class="table data striped dt-responsive nowrap" style="width:100%" *ngIf="this.allcursos != 0">
@@ -26,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let curso of allcursos | paginate: { itemsPerPage: 6, currentPage: p}">
+                            <tr *ngFor="let curso of allcursos | paginate: {id: 'confeCerti', itemsPerPage: 6, currentPage: p}">
                                 <th scope="row">{{curso.idCertification}}</th>
                                 <th scope="row"><button type="button" class="boton4" (click)="changeViewConferencias('verConf', curso.title, curso.idCertification)">{{curso.title}}</button></th>
                                 <td>{{curso.description}}</td>
@@ -36,9 +37,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="row" *ngIf="this.allcursos != 0">
+                    <div class="row" *ngIf="this.confeCount > 6">
                       <div class="col-12">
-                        <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                        <pagination-controls id="confeCerti" class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
                         nextLabel="Siguiente"></pagination-controls>
                       </div>
                     </div>
@@ -58,7 +59,8 @@
                         
                     </div>
                     <hr class="w-100">
-                    <div class="table-responsive">
+                    <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.allConferencias == 0">Aun no cuentas con conferencias, presiona "Añadir conferencia" para comenzar.</label>
+                    <div class="table-responsive" *ngIf="this.allConferencias != 0">
                         <table class="table w-100">
                           <thead>
                             <tr>
@@ -69,7 +71,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let conferencia of allConferencias | paginate: { itemsPerPage: 6, currentPage: p }">
+                            <tr *ngFor="let conferencia of allConferencias | paginate: {id: 'confe', itemsPerPage: 6, currentPage: p }">
                               <td>{{conferencia.titulo}}</td>
                               <td>{{conferencia.descripcion}}</td>
                               <td>{{conferencia.fecha}}</td>
@@ -78,9 +80,9 @@
                           </tbody>
                         </table>
                       </div>
-                      <div class="row">
+                      <div class="row" *ngIf="this.confeCountInfo > 6">
                         <div class="col-12">
-                          <pagination-controls class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
+                          <pagination-controls id="confe" class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
                           nextLabel="Siguiente"></pagination-controls>
                         </div>
                       </div>
