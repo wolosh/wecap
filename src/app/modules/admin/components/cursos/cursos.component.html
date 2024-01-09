@@ -93,12 +93,28 @@
                   accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Seleccionar número de días activo por default (opcional)
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo durante un periodo de tiempo 
                 </label>
-                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio" [ngModelOptions]="{standalone: true}" [(ngModel)]="date"
-                            (change)="changeActive($event, 'new')">
+                <div>
+                  <label class="text13 txt-gris2 float-start" for="inlineRadioSi">Si
+                  <input  class="form-check-input ms-3" type="radio" 
+                  name="inlineRadioOption" id="inlineRadioSi" 
+                            (change)="changeActive($event, 'new')" [value]="1" [(ngModel)]="date"
+                            [ngModelOptions]="{standalone: true}">
+                  </label>
+                            <label class="text13 txt-gris2 float-start" for="inlineRadioNo" >No
+                            <input  class="form-check-input ms-3" type="radio" 
+                            name="inlineRadioOption" id="inlineRadioNo" (change)="changeActive($event, 'new')" [value]="0" [(ngModel)]="date"
+                            [ngModelOptions]="{standalone: true}"
+                            > 
+                          </label>
+                </div>
+                
+                            
                 <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
                 <div class="row mt-2" *ngIf ="this.date == 1">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo 
+                  </label>
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
                     <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_start">
@@ -114,12 +130,14 @@
                 <div class="form-check form-check-inline ps-0">
                   <label class="text13 txt-gris2 float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
                   <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
-                    name="inlineRadioOptions" id="inlineRadio1" value="1">
+                    name="inlineRadioOptions" id="inlineRadio1" [value]="1" [(ngModel)]="exam"
+                    [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="form-check form-check-inline ps-0">
                   <label class="text13 txt-gris2  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
                   <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
-                    name="inlineRadioOptions" id="inlineRadio2" value="0">
+                    name="inlineRadioOptions" id="inlineRadio2" [value]="0" [(ngModel)]="exam"
+                    [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
               
@@ -180,13 +198,28 @@
                   accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Seleccionar número de días activo por default (opcional)
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo durante un periodo de tiempo 
                 </label>
-                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio" [ngModelOptions]="{standalone: true}" [(ngModel)]="date"
-                            (change)="changeActive($event, 'new')">
+                <div class="form-check form-check-inline ps-0">
+                  <label class="text13 txt-gris2 float-start" for="inlineRadioSi">Si</label>
+                  <input class="form-check-input ms-3" type="radio" [(ngModel)]="date"
+                  [ngModelOptions]="{standalone: true}"  (change)="changeActive($event, 'new')" name="inlineRadioOption"
+                  id="inlineRadioSi" [value]="1">
+                </div>
+                <div class="form-check form-check-inline ps-0">
+                  <label class="text13 txt-gris2 float-start" for="inlineRadioNo">No</label>
+                  <input class="form-check-input ms-3" type="radio" [(ngModel)]="date"
+                  [ngModelOptions]="{standalone: true}"  (change)="changeActive($event, 'new')" name="inlineRadioOption"
+                  id="inlineRadioNo" [value]="0">
+                </div>
+                
+                
+                            
                 <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
-                <div class="row mt-2" *ngIf="this.date == 1">
-                  <div class="col-6" >
+                <div class="row mt-2" *ngIf ="this.date == 1">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo 
+                  </label>
+                  <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
                     <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_start">
                   </div>
@@ -196,6 +229,22 @@
                   </div>
                 </div>
               </div>
+              <!--<div class="mb-3">
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Seleccionar número de días activo por default (opcional)
+                </label>
+                <input class="form-check-input ms-3" type="checkbox" name="inlineRadioOptions" id="inlineRadio" [ngModelOptions]="{standalone: true}" [(ngModel)]="date"
+                            (change)="changeActive($event, 'new')">
+                 <div class="row mt-2" *ngIf="this.date == 1">
+                  <div class="col-6" >
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
+                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_start">
+                  </div>
+                  <div class="col-6">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Final</label>
+                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_end">
+                  </div>
+                </div>
+              </div>-->
               <div>
                 <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio1">Orden de Visualización</label>
                 <div class="form-check form-check-inline ps-0">
@@ -396,13 +445,14 @@
                     formControlName="descripcion"></textarea>
                 </div>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 txt-blue float-start" for="inlineRadio1">Con examen</label>
+                  <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio">Deseas habilitar un examen en este módulo                  </label>
+                  <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
                     [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
                     name="inlineRadioOptions" id="inlineRadio1" [value]="1">
                 </div>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 txt-blue float-start" for="inlineRadio2">Sin examen</label>
+                  <label class="text13 txt-blue float-start" for="inlineRadio2">No</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
                     [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
                     name="inlineRadioOptions" id="inlineRadio2" [value]="0">

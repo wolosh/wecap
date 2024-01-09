@@ -49,8 +49,6 @@ export class TemasComponent implements OnInit {
     this.activeRoute.params.subscribe((params) => {
       console.log(params);
       this.idTopic = params['idTopic'];
-      this.idModule = localStorage.getItem('idModule');
-      console.log(this.idTopic)
     });
   }
 
@@ -61,6 +59,9 @@ export class TemasComponent implements OnInit {
     this.comentario = localStorage.getItem('isComentario');
     this.like = localStorage.getItem('isLike');
     this.helpers.goTop();
+    console.log(this.helpers.idModuleBackUp, localStorage.getItem('idModule'))
+    this.idModule = localStorage.getItem('idModule');
+    console.log(this.idModule)
     if (localStorage.getItem('type') == '4') {
       Swal.fire({
         title: 'Cargando',
@@ -189,7 +190,7 @@ export class TemasComponent implements OnInit {
   swalClosed(){
     setTimeout(() => {
       Swal.close();
-     }, 6000);
+     }, 4000);
   }
 
 
@@ -233,7 +234,7 @@ export class TemasComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          this.route.navigate(['/seccion', this.idTopic]);
+          this.route.navigate(['/seccion', this.idModule]);
           //console.log(result)
           /*if (result.isConfirmed) {
             this.temasSeccion(localStorage.getItem('idModule'), localStorage.getItem('nameModule'));
@@ -272,7 +273,7 @@ export class TemasComponent implements OnInit {
     console.log(this.idModule,id, name)
     //his.helpers.idModuleBackUp = this.idModule;
     //this.helpers.nameModuleBackUp = name;
-    this.route.navigate(['/seccion', id]);
+    this.route.navigate(['/seccion', this.idModule]);
     this.session.curso = true;
   }
 

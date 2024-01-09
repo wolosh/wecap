@@ -33,6 +33,7 @@ export class SeccionComponent implements OnInit {
       console.log(params);
       this.idModule = params['idModule'];
       this.helpers.idModuleBackUp = this.idModule;
+      localStorage.setItem('idModule', this.idModule);
       console.log(this.idModule)
       console.log(this.helpers.idModuleBackUp)
     });
@@ -43,7 +44,7 @@ export class SeccionComponent implements OnInit {
     //console.log(localStorage.getItem('idCertification'));
     if (localStorage.getItem('type') == '4') {
       this.helpers.view = parseInt(localStorage.getItem('view'));
-      console.log(this.helpers.view)
+      console.log(this.helpers.view, localStorage.getItem('idModule'))
       this.helpers.goTop();
       Swal.fire({
         title: 'Cargando',

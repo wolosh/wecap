@@ -416,7 +416,7 @@ export class ConfiguracionComponent implements OnInit {
     let configuracion = new FormData();
     //console.log(this.formConfiguracion.value, this.logo, this.fondo, this.certificado);
     if(this.logo != undefined){
-      configuracion.append('logo', this.logo, 'logo');
+      configuracion.append('logo', this.logo, 'logo.png');
     }
     if(this.fondo != undefined){
       configuracion.append('fondo', this.fondo, this.fondo.name);
