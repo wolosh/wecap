@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-6" *ngIf="viewEdit == 0">
                                 <button class="boton bg-blue w-auto p-2 ps-3 pe-3 float-end" (click)="changeViewArchivos('añadir')">
-                                    <img src="assets/img/agregar.svg" alt="">
+                                    <img src="assets/img/agregar.svg" alt="agregar">
                                     Agregar Archivo
                                 </button>
                             </div>
@@ -83,12 +83,12 @@
                                 </div>-->
                             </div>
                             <div class="table-responsive">
-                                <table id="conferencia" class="table data striped dt-responsive nowrap"
+                                <table id="conferencia" class="table striped dt-responsive nowrap"
                                     style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Url</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Url</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
@@ -149,7 +149,7 @@
                                         aria-describedby="emailHelp" formControlName="url">
                                 </div>
                             </div>-->
-                                <div class="col-10 col-lg-3 d-flex align-items-end mt-3 order-4 order-md-3">
+                                <div class="col-10 col-lg-4 d-flex align-items-end mt-3 order-4 order-md-3">
                                     <input class="input3" type="file" id="formFile"
                                         accept=".pdf, .docx, .pptx, .rar, .txt, .zip, .xls"
                                         (change)="selectFiles($event, 'archivo')">
@@ -271,7 +271,7 @@
                               </div>
                               <div class="col-5 col-md-3 col-lg-2 offset-7 offset-md-4">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeViewMultimedia('añadir')">
-                                    <img src="assets/img/agregar.svg" alt="">
+                                    <img src="assets/img/agregar.svg" alt="subir">
                                     Subir multimedia
                                 </button>
                               </div>
@@ -293,7 +293,7 @@
                                         <td>{{media.date}}</td>
                                         <td [innerHTML]="media.type_html"></td>
                                         <td><button class="boton2 d-inline-flex remove"><img
-                                            src="assets/img/close.svg" alt="" (click)="removeMedia(media.name)"></button></td>
+                                            src="assets/img/close.svg" alt="remove" (click)="removeMedia(media.name)"></button></td>
                                     </tr>
                                 </tbody>
                             </table>

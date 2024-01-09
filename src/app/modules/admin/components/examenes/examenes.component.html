@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-md-3 col-lg-2">
-                                <button class="botondrop bg-grey2 p-1" (click)="searchUsers('show')">Mostrar
+                                <button class="botondrop bg-grey2 ps-2 pe-2" (click)="searchUsers('show')">Mostrar
                                     todos</button>
                             </div>
                             <div class="col-4 col-md-3 col-lg-2 offset-xl-2 offset-lg-0 offset-md-9 mt-lg-0">
@@ -118,7 +118,7 @@
                                           : false
                                       " [value]="themes.idTopic" id="{{modulo.title}}" name="{{modulo.title}}"
                                                 (change)="changeCertificacion($event, 'tema', modulo.idModule)">
-                                            <label class="text13 txt-blue" for="firstCheckbox">{{themes.title}}</label>
+                                            <label class="text7 txt-gris2" for="firstCheckbox">{{themes.title}}</label>
                                             <!--ul class="list-group">
                                           <li class="list-group-item" *ngFor="let tema of alltemas">
                                               <input class="form-check-input me-1" type="checkbox"
@@ -313,11 +313,11 @@
                                         [(ngModel)]="dateSelected" [ngModelOptions]="{standalone: true}" />
                                 </div>
                                 <div class="col-4 col-md-2 offset-4 offset-md-0 order-1 order-md-2">
-                                    <button class="botondrop bg-grey2 p-1 w-100"
+                                    <button class="botondrop bg-grey2 ps-2 pe-2 w-100"
                                         (click)="editCourse(curso.idCertification, 'editar')">Modificar Fecha</button>
                                 </div>
                                 <div class="col-4 col-md-2 order-2 order-md-3">
-                                    <button class="botondrop changeExExbg-grey2 p-1 w-100"
+                                    <button class="botondrop changeExExbg-grey2 ps-2 pe-2 w-100"
                                         (click)="editCourse(curso.idCertification, 'quitar')">Quitar</button>
                                 </div>
                             </div>
@@ -378,19 +378,19 @@
                             <div class="col-8 col-md-4 col-lg-3 offset-lg-5" *ngIf="this.none == 0">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" data-bs-toggle="crear"
                                     data-bs-target="#exampleModal" (click)="createDiagnostic(this.backupDiagnostic)">
-                                    <img src="assets/img/agregar.svg" alt="">
+                                    <img src="assets/img/agregar.svg" alt="crear">
                                     Crear
                                 </button>
                             </div>
                             <div class="col-8 col-md-4 col-lg-3 offset-lg-1" *ngIf=" this.none != 0">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeDiagnostic(2)">
-                                    <img src="assets/img/agregar.svg" alt="">
+                                    <img src="assets/img/agregar.svg" alt="agregar">
                                     Agregar pregunta abierta
                                 </button>
                             </div>
                             <div class="col-8 col-md-4 col-lg-4" *ngIf=" this.none != 0">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeDiagnostic(3)">
-                                    <img src="assets/img/agregar.svg" alt="">
+                                    <img src="assets/img/agregar.svg" alt="agregar">
                                     Agregar pregunta opciones multiples
                                 </button>
                             </div>
@@ -674,7 +674,7 @@
                                             </div>
                                             <button class="boton2 remove" title="Eliminar opción"
                                                 (click)="removeQuestion(option.idOpcion, 'option', 'new')"><img
-                                                    src="assets/img/quitarpreg.svg" alt=""></button>
+                                                    src="assets/img/quitarpreg.svg" alt="remove"></button>
                                         </div>
                                     </div>
                                 </div>
@@ -696,7 +696,7 @@
                                     </div>
                                     <div class="col-3">
                                         <button class="boton bg-blue w-auto p-1 p-md-2 clone"
-                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt="">Guardar
+                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt="guardar">Guardar
                                             opción</button>
                                     </div>
                                     <div class="col-3">
@@ -783,7 +783,6 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Título</th>
-
                                         <th>Cursantes</th>
                                         <th></th>
                                     </tr>
@@ -821,7 +820,7 @@
                             <div *ngIf="this.none == 0" class="col-8 col-md-4 col-lg-3 offset-lg-4">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" data-bs-toggle="modal"
                                     data-bs-target="#crear">
-                                    <img src="assets/img/agregar.svg" alt="">
+                                    <img src="assets/img/agregar.svg" alt="crear">
                                     Crear
                                 </button>
                             </div>
@@ -833,7 +832,7 @@
                             </div>-->
                             <div class="col-8 col-md-4 col-lg-4" *ngIf="this.none == 1 || this.none == 2">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(5)">
-                                    <img src="assets/img/agregar.svg" alt="">
+                                    <img src="assets/img/agregar.svg" alt="agregar">
                                     Agregar pregunta opciones multiples
                                 </button>
                             </div>
@@ -1120,7 +1119,7 @@
                                             <div class="col-4 d-flex align-items-center">
                                                 <button class="boton2 remove" title="Eliminar opción"
                                                     (click)="removeQuestion(option.idOpcion, 'option', 'new')"><img
-                                                        src="assets/img/quitarpreg.svg" alt=""></button>
+                                                        src="assets/img/quitarpreg.svg" alt="remove"></button>
                                             </div>
                                         </div>
                                     </div>
@@ -1144,7 +1143,7 @@
                                         <div class="col-3">
                                             <button class="boton bg-blue w-auto p-1 p-md-2 clone"
                                                 (click)="cloneOpcionExam()"><img src="assets/img/agregar.svg"
-                                                    alt="">Guardar opción</button>
+                                                    alt="guardar">Guardar opción</button>
                                         </div>
                                         <div class="col-3">
                                             <input class="input5" type="text" name="opcion" id="" value=""
@@ -1175,7 +1174,7 @@
                                             <div class="col-4 d-flex align-items-center">
                                                 <button class="boton2 remove" title="Eliminar opción"
                                                     (click)="removeEditQuestion(answer.idEval_option)"><img
-                                                        src="assets/img/quitarpreg.svg" alt=""></button>
+                                                        src="assets/img/quitarpreg.svg" alt="quitar"></button>
                                                 <button class="boton2 remove" title="Editar opción"
                                                     (click)="editAnswers(answer.idEval_option,  1, answer.idEval_question,                                                    answer.option, answer.is_correct, answer.img)"
                                                     data-bs-toggle="modal" data-bs-target="#editar">Editar

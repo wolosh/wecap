@@ -1,15 +1,15 @@
 <div class="container-lg page-content d-flex align-items-center justify-content-center ">
   <div class="row">
     <div class="col-12">
-      <form class="" [formGroup]="formLogin">
+      <form class="login" [formGroup]="formLogin">
         <img src="{{this.helpers.domain+'media/'+ this.getLogo()}}" alt="logo" class="img-fluid mx-auto d-block mb-5">
-        <h1 class="text txt-blue">Inicia sesión</h1>
+        <h1 class="text txt-blue text-center">Inicia sesión</h1>
         <hr class="w-100">
         <div class="form-group mt-5 mb-4">
-          <input type="email" class="input2" id="inputEmail4" name="email" placeholder="Email" required formControlName="email"/>
+          <input type="email" class="input2 w-100" id="inputEmail4" name="email" placeholder="Email" required formControlName="email"/>
         </div>
         <div class="form-group mb-2">
-          <input type="password" class="input2" id="inputPassword4" [type]="togglePassword ? 'text' : 'password'"
+          <input type="password" class="input2 w-100" id="inputPassword4" [type]="togglePassword ? 'text' : 'password'"
             name="password" placeholder="Contraseña" required formControlName="password"
             (keyup.enter)="normalLogin()"/>
         </div>
