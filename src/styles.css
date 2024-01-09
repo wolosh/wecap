@@ -429,7 +429,7 @@ hr{
     font-size:.8rem
 }
 .text9{
-    font-size:.7rem
+    font-size:.7rem !important
 }
 .text10{
     font-family: 'Helvetica-Bold';
@@ -910,5 +910,33 @@ td{
     color: #fff;
     text-align: center;
     border-radius: 20px;
+}
+ /*-------Input de imagen--------------------------*/
+ .profile-container {
+    width: 50%;
+    height: auto;
+    position: relative;
+}
+.profileImage {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.profile-container input[type="file"] {
+    opacity: 0;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+.modal-body.p-5{
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    padding-bottom: 0 !important;
 }
 

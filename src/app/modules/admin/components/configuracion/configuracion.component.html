@@ -18,14 +18,14 @@
                             <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
                             <div >
                               <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png"
-                      alt="imgTermina" />
-                      <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/' +
-                      this.logoBack}}" alt="imgIcono" />
+                                alt="imgTermina" />
+                              <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/' +
+                                this.logoBack}}" alt="imgIcono" />
                             </div>
 
-                            <button class="boton bg-blue p-1 p-md-2" data-bs-toggle="modal"
+                            <button class="boton bg-blue p-2 ps-4 pe-4" data-bs-toggle="modal"
                             data-bs-target="#modalfoto">Seleccionar imagen</button>
-                            <label class="text10 txt-gris2" for="inlineRadio">{{this.logoName}}</label>
+                            <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.logoName}}</label>
                         </div>
                         <!--div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Fondo (1920*1280)</label>
@@ -140,7 +140,7 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-sm modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <button
@@ -151,12 +151,12 @@
           (click)="cancelUpload()"
         ></button>
       </div>
-      <div class="modal-body">
-        <h5 class="modal-title text-blue mt-3 mb-3 text-center">
+      <div class="modal-body p-5">
+        <h5 class="modal-title text-blue mt-3 mb-2 text-center lh-1">
           Agrega el logo de tu marca
         </h5>
-        <p>Límite de 50KB</p>
-        <div class="row mt-4 mb-2">
+        <p class="text6 txt-gris2 text-center">Límite de 50KB</p>
+        <div class="row mt-2 mb-2">
           <div class="col-12">
             <div class="form-group">
               <div
@@ -166,7 +166,7 @@
                 <img
                   id="profileImage"
                   class="profileImage mx-auto"
-                  src="/assets/img/arrastraperfil.png"
+                  src="assets/img/arrastraperfil.png"
                 />
                 <input
                   class="imageUpload"
@@ -178,8 +178,8 @@
             </div>
           </div>
           <image-cropper
-          [resizeToWidth]="200"
-              [resizeToHeight]="100"
+            [resizeToWidth]="200"
+            [resizeToHeight]="100"
             [imageChangedEvent]="imageChangedEvent"
             [maintainAspectRatio]="true"
             [aspectRatio]="200 / 100"
@@ -191,30 +191,30 @@
           ></image-cropper>
         </div>
         <div
-          class="d-flex justify-content-center"
+          class="d-flex justify-content-center mt-3 mb-2"
           *ngIf="this.imageChangedEvent != ''"
         >
-          <div class="me-2">
-            <button type="button" class="boton5" (click)="resetImage()">
+          <div class="me-3">
+            <button type="button" class="text9 rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 text-nowrap h-100" (click)="resetImage()">
               Ajustar automáticamente
             </button>
           </div>
           <div class="me-2">
-            <button type="button" class="boton5 zoom" (click)="zoomIn()">
-              <img class="mx-auto" src="/assets/img/zoom.png" />
+            <button type="button" class="rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 zoom h-100" (click)="zoomIn()">
+              <img class="mx-auto w-75" src="/assets/img/zoom.png" />
             </button>
           </div>
           <div class="">
-            <button type="button" class="boton5 zoom" (click)="zoomOut()">
-              <img class="mx-auto" src="/assets/img/zoom2.png" />
+            <button type="button" class="rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 zoom h-100" (click)="zoomOut()">
+              <img class="mx-auto w-75" src="/assets/img/zoom2.png" />
             </button>
           </div>
         </div>
       </div>
-      <div class="modal-footer d-block pb-5">
+      <div class="modal-footer d-block pb-5 pt-0">
         <button
           type="button"
-          class="boton5 d-block mx-auto w-25 mb-2"
+          class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2"
           data-bs-dismiss="modal"
           (click)="cargarImagen()"
         >
@@ -222,7 +222,7 @@
         </button>
         <button
           type="button"
-          class="boton7 d-block mx-auto text-gris text-center w-25"
+          class="boton bg-grey2 mx-auto d-block w-50 p-1 p-md-2 mt-3"
           data-bs-dismiss="modal"
           (click)="cancelUpload()"
         >
