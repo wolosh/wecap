@@ -856,6 +856,7 @@ export class CursosComponent implements OnInit {
                 this.formModulo.controls['duracion'].setValue(data.max_time);
                 this.formModulo.controls['score'].setValue(data.min_score);
                 this.exam = parseInt(data.hasExam);
+                console.log(this.exam, data.hasExam)
                 this.imgIconoDos = data.icon;
                 this.imgHeaderDos = data.imgHeader;///Checar
                 this.imgTerminaDos = data.medal_finish;
