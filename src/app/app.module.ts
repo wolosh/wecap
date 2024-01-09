@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
     MatFormFieldModule,
     MatTableModule,
     MatInputModule, 
+    ImageCropperModule
   ],
   exports: [RouterModule],
   providers: [],

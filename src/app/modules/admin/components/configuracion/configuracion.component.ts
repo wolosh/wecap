@@ -5,7 +5,7 @@ import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
-import { config } from 'rxjs';
+import { ImageCroppedEvent, ImageTransform, LoadedImage } from 'ngx-image-cropper';
 
 
 @Component({
@@ -22,8 +22,20 @@ export class ConfiguracionComponent implements OnInit {
   like = false;
   coment = false;
   logo: any;
+  logoName = 'Ningun archivo seleccionado';
+  logoBack = '';
   fondo: any;
   certificado: any;
+
+   //variables para actualizar imagen
+  //guarda la imagen en el evento
+  imageChangedEvent: any = '';
+  //mostrar la imagen en el cropper
+  croppedImage: any = '';
+  //mostrar el cropper
+  showCropper = false;
+  scale = 1;
+  transform: ImageTransform = {};
 
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private session: SessionService, private formBuilder: FormBuilder) { }
 
@@ -32,6 +44,7 @@ export class ConfiguracionComponent implements OnInit {
     
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
+      this.helpers.goTop();
       this.helpers.type = localStorage.getItem('type');
       this.getConfiguration();
       this.startForm();
@@ -53,6 +66,182 @@ export class ConfiguracionComponent implements OnInit {
       }
     }
   }
+
+  //función que cancela la carga de la imagen
+  cancelUpload() {
+    //limpiamos el crop
+    this.cleanCropped();
+    //cerramos el crop
+    this.showCropper = false;
+  }
+
+  //funcion para subir la imagen al servidor
+  cargarImagen() {
+    console.log(this.croppedImage);
+    //declara imageBlob que llama a la función dataUrlBlob y le pasa la imagen con base64
+    //let imageBlob = this.helpers.dataUrlToBlob(this.croppedImage);
+    let imageBlob = this.croppedImage;
+    //declara el archivo que se va a subir
+    let imageFile = new File([imageBlob], 'img', { type: 'image/png' });
+    //declaramos un arreglo de archivos
+    const fileArray: File[] = [];
+    //agregamos el archivo al arreglo
+    fileArray.push(imageFile);
+    //mostramos una modal de carga
+    /*Swal.fire({
+      title: 'Subiendo imagen',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });*/
+    //llamamos la función uploadFile que se encuentra en el servicio y le pasamos el arreglo de archivos
+    this.uploadFile(fileArray as unknown as FileList);
+    //limpiamos el crop
+    this.cleanCropped();
+    //cerramos el crop
+    this.showCropper = false;
+  }
+
+  //función para limpiar el cropped
+  cleanCropped() {
+    //limpiamos la imagen del crop
+    this.croppedImage = '';
+    //limpiamos la imagen del evento
+    this.imageChangedEvent = '';
+  }
+
+  //Evento para cargar la imagen del talento
+  fileChangeEvent(event: any): void {
+    console.log(event);
+    //si el archivo es diferente de vacio
+    if (event.target.files.length > 0) {
+      //muestra el loader
+      /*Swal.fire({
+        title: 'Cargando imagen',
+        text: 'Espere por favor',
+        allowOutsideClick: false,
+        didOpen: () => {
+          //se llama el loader
+          Swal.showLoading();
+          //canbiamos a verdadero para que se muestre el cropper
+          this.showCropper = true;
+          //asgnamos la imagen que viene en el evento al imageChangedEvent
+          this.imageChangedEvent = event;
+        },
+      });*/
+        //canbiamos a verdadero para que se muestre el cropper
+        this.showCropper = true;
+        //asgnamos la imagen que viene en el evento al imageChangedEvent
+        this.imageChangedEvent = event;
+    }
+  }
+
+
+
+  //función para actualizar formato de la imagen
+  imageCropped(event: ImageCroppedEvent) {
+    console.log(event, event.base64);
+    //Cuanda la imagen se recorta se le da formato base64
+    this.croppedImage = event.blob;
+    console.log(this.croppedImage);
+  }
+
+  //función que carga la imagen
+  imageLoaded() {
+    //cerramos la ventana 
+    Swal.close();
+  }
+
+  //función para falla en carga de imagen 
+  loadImageFailed() {
+    //mostramos el error 
+    Swal.fire({
+      title: 'Error',
+      text: 'No se pudo cargar la imagen',
+      icon: 'error',
+      confirmButtonText: 'Ok',
+    });
+  }
+
+  //función para restablecer imagen 
+  resetImage() {
+    //el valor de this.scale se le asigna 1
+    this.scale = 1;
+    //en transform se limpia
+    this.transform = {};
+  }
+
+  //Función que llama profilePic de la api
+  public uploadFile(files: FileList) {
+    //si la longuitud de el arreglo de archivos es mayor a 0
+    if (files.length === 0) {
+      //se regresa
+      return;
+    }
+    //si no es vacio se declara el archivo
+    const fileToUpload = files[0];
+    console.log(fileToUpload, fileToUpload.size);
+
+    if(fileToUpload.size > 52428){
+      Swal.fire({
+        title: '¡Error!',
+        text: 'La imagen no debe pesar más de 500 kb.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+      
+   } else {
+    Swal.close();
+    this.logo = fileToUpload;
+    this.logoName = 'Imagen cargada correctamente';
+    console.log(this.logo, this.logoName)
+    
+    Swal.fire({
+      title: '¡Éxito!',
+      text: 'Se ha cargado la imagen.',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+      confirmButtonColor: '#015287',
+    });
+   }
+    //se llama el servicio
+    /*this.session
+      .profilePic(localStorage.getItem('token'), fileToUpload)
+      .subscribe(
+        (response: any) => {
+          //manda llamar info talento para recargar datos
+          this.getInfoTalento();
+        },
+        (error: any) => {
+          //si fracasa manda mensaje de error
+          this.helpers.showError(error);
+        }
+      );*/
+  }
+
+  //funcion para aumentar zoom a la imagen 
+  zoomIn() {
+    //al valor de this.scale se suma 0.1
+    this.scale += 0.1;
+    //en transform se le asigna el valor de this.scale para aumentar el zoom
+    this.transform = {
+      ...this.transform,
+      scale: this.scale,
+    };
+  }
+
+  //función para disminuir zoom de la imagen 
+  zoomOut() {
+    //al valor de this.scale se le resta 0.1
+    this.scale -= 0.1;
+    //en transform se le asigna el valor de this.scale para disminuir el zoom
+    this.transform = {
+      ...this.transform,
+      scale: this.scale,
+    };
+  }
+
 
   startForm() {
     this.formConfiguracion = this.formBuilder.group({
@@ -77,6 +266,7 @@ export class ConfiguracionComponent implements OnInit {
 
 
   getConfiguration() {
+    
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data)
@@ -98,6 +288,7 @@ export class ConfiguracionComponent implements OnInit {
           username: data.username,
           contraseña: data.password,
         });
+        this.logoBack = data.logo;
         //console.log(data.isLike);
         if (data.isLike == '1') this.like = true;
         if (data.isComentario == '1') this.coment = true;
@@ -106,6 +297,7 @@ export class ConfiguracionComponent implements OnInit {
           a.item(0).setAttribute("style", "background-color: " + data.boton1Color2);
           //a.item(1).setAttribute("style", "color: " + data.boton1Color1);
         }*/
+        this.helpers.goTop();
         Swal.close();
       }
     );
@@ -258,9 +450,12 @@ export class ConfiguracionComponent implements OnInit {
           text: 'Se ha actualizado la configuración.',
           icon: 'success',
           confirmButtonColor: '#015287',
+          didClose: () => {
+            window.location.reload();
+          }
         });
-        this.getConfiguration();
-        window.location.reload();
+        
+        
       }, (error: any) => {
         //console.log(error);
         Swal.fire({

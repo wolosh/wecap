@@ -1,0 +1,23 @@
+
+.btn-group-vertical .boton{
+    border-bottom: 1px solid#E7ECEF;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.btn-group-vertical .boton:last-child{
+    border-bottom: 0;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.btn-group-vertical .boton .text19{
+    color: #787878;
+}
+.btn-group-vertical .boton.activo{
+    background: #E1EEFF;
+    border: 1px solid #2460AB;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.btn-group-vertical .boton.activo .text19{
+    color: #2460AB;
+}

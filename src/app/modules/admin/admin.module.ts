@@ -19,6 +19,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
@@ -60,6 +61,7 @@ const routes: Routes = [
     MatTableModule,
     MatInputModule,
     DragDropModule,
+    ImageCropperModule
   ],
   exports: [RouterModule, ArchivosComponent, ExamenesComponent, EstadisticasComponent, ConferenciasComponent, MailComponent, UsuariosComponent, ConfiguracionComponent]
 })
