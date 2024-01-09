@@ -719,26 +719,40 @@ td{
     border-top-right-radius: 20px !important;
     border-bottom-left-radius: 20px !important;
     border-bottom-right-radius: 20px !important;
+    z-index: 1;
+    position: relative;
 }
 .nav-tabs{
     border-bottom: none !important;
 }
 .nav-tabs .nav-link.active{
+    /*background-color: #F2FAFF;
+    background-image: url('../src/assets/img/tabactive.png');
+    background-size: 100%;
+    background-position: left;
+    background-repeat: no-repeat;*/
     background-color: #015287 !important;
     color: #fff !important;
     border: none !important;
-    box-shadow: none;
 }
 .nav-tabs .nav-link{
     background-color: #F2FAFF !important;
     color: #015287 !important;
+    /*background-image: url('../src/assets/img/tab.png');*/
     border: none !important;
+    border-radius: 0;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 40px !important;
+    border-top-left-radius: 30px !important;
+    border-top-right-radius: 30px !important;
     width: 20%;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    padding: 0;
 }
+/*.nav-tabs .nav-link{
+    position: relative;
+    left: -25px;
+    /*z-index: -1;
+}*/
 .table thead{
     font-family: 'Helvetica-Bold';
     font-size: 1.3rem;
@@ -897,3 +911,4 @@ td{
     text-align: center;
     border-radius: 20px;
 }
+

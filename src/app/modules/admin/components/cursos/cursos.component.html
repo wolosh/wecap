@@ -101,23 +101,23 @@
                 <div class="row mt-2" *ngIf ="this.date == 1">
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
-                    <input class="input4 w-auto" type="date" formControlName="default_active_days_start">
+                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_start">
                   </div>
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Final</label>
-                    <input class="input4 w-auto" type="date" formControlName="default_active_days_end">
+                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_end">
                   </div>
                 </div>
               </div>
               <div>
                 <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio1">Orden de Visualización</label>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="textGrey float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
+                  <label class="text13 txt-gris2 float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
                   <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
                     name="inlineRadioOptions" id="inlineRadio1" value="1">
                 </div>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 textGrey  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
+                  <label class="text13 txt-gris2  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
                   <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
                     name="inlineRadioOptions" id="inlineRadio2" value="0">
                 </div>
@@ -188,24 +188,24 @@
                 <div class="row mt-2" *ngIf="this.date == 1">
                   <div class="col-6" >
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
-                    <input class="input4 w-auto" type="date" formControlName="default_active_days_start">
+                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_start">
                   </div>
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Final</label>
-                    <input class="input4 w-auto" type="date" formControlName="default_active_days_end">
+                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_end">
                   </div>
                 </div>
               </div>
               <div>
                 <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio1">Orden de Visualización</label>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="textGrey float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
+                  <label class="text13 txt-gris2 float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
                   [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
                   id="inlineRadio1" [value]="1">
                 </div>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 textGrey  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
+                  <label class="text13 txt-gris2  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
                   [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
                   id="inlineRadio2" [value]="0">
@@ -243,13 +243,13 @@
             </form>
 
             <!------Módulos--->
-            <div class="row mt-3">
+            <div class="row mt-5">
               <div class="col-12 col-md-8">
                 <label class="text3 txt-blue2">Módulos</label>
                 <label class="text6 txt-gris ms-2">Selecciona un módulo para conocer o editar sus detalles</label>
               </div>
               <div class="col-12 col-md-4 d-flex justify-content-end">
-                <button class="boton bg-blue" (click)="changeViewModulo('add')">
+                <button class="boton bg-blue ps-4 pe-4" (click)="changeViewModulo('add')">
                   <img class="me-2" src="assets/img/agregar.svg" alt="agregar">
                   Añadir Módulo
                 </button>
@@ -544,7 +544,7 @@
                     <label class="text6 txt-gris ms-2">Selecciona un tema para conocer o editar sus detalles</label>
                   </div>
                   <div class="col-12 col-md-4 d-flex justify-content-end">
-                    <button class="boton bg-blue" (click)="changeViewTemas('add')">
+                    <button class="boton bg-blue ps-4 pe-4" (click)="changeViewTemas('add')">
                       <img class="me-2" src="assets/img/agregar.svg" alt="agregar">
                       Añadir Tema
                     </button>
@@ -867,7 +867,7 @@
                 <li><a class="dropdown-item" href="#">Another action</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>-->
-                <select class="botondrop dropdown-toggle" [(ngModel)]="teacherSelected"
+                <select class="botondrop dropdown-toggle p-2" [(ngModel)]="teacherSelected"
                   (change)="changeOption('teacher')" [ngModelOptions]="{standalone: true}">
                   <option value="0" hidden>Profesor</option>
                   <option *ngFor="let teacher of teachers" [value]="teacher.idUser">{{teacher.full_name}}</option>
@@ -996,7 +996,7 @@
                   <li><a class="dropdown-item" href="#">Another action</a></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>-->
-                <select class="botondrop dropdown-toggle" [(ngModel)]="groupSelected"
+                <select class="botondrop p-2 dropdown-toggle" [(ngModel)]="groupSelected"
                   [ngModelOptions]="{standalone: true}">
                   <option value="0" hidden>Grupo</option>
                   <option *ngFor="let g of group" [value]="g.id">{{g.nombre_grupo}}</option>
