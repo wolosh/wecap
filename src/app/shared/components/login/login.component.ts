@@ -26,8 +26,9 @@ export class LoginComponent implements OnInit {
   }
 
   getLogo(){
-    return localStorage.getItem('logo');
+    return this.helpers.domain + 'media/logo.png'
   }
+
   startForm(): void {
     //Metodo para inicializar el formulario
     this.formLogin = this.formBuilder.group({

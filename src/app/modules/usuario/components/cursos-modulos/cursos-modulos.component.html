@@ -141,15 +141,16 @@
             </div>
             <div class="modal-body">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Archivos</h5>
-                <p class="text7 txt-gris mb-3">Aquí sube imagenes o pdf para que tus usuarios puedan descargar.</p>
-                <div class="card color rounded-4 mb-3">
+                <p class="text7 txt-gris mb-3">{{this.description}}</p>
+                <div class="card color rounded-4 mb-3" *ngFor="let file of this.arrFiles">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="me-3 mt-1">
                                 <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
                             </div>
                             <div>
-                                <label class="text9 txt-blue d-block">Personalización de tu sistema</label>
+                                <label class="text9 txt-blue d-block">{{file.name}}</label>
+                                <a href="{{file.url}}" target="_blank">Descargar</a>
                                 <button type="button" class="boton2 ps-0">Descargar</button>
                             </div>
                         </div>

@@ -40,6 +40,7 @@ export class CursosModulosComponent implements OnInit {
   medallas: any;
   tipo: any;
   medalla: any;
+  description = '';
   constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
@@ -63,6 +64,7 @@ export class CursosModulosComponent implements OnInit {
           this.helpers.type = localStorage.getItem('type');
           this.profile();
           this.certifications();
+          this.getFiles();
           this.helpers.cursos = 1;
           this.session.curso = false;
           console.log(this.session.cursos)
@@ -174,6 +176,14 @@ export class CursosModulosComponent implements OnInit {
     );
   }
 
+  getFiles(){
+    this.get.getMedia(localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    );
+  }
+
   modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -237,8 +247,9 @@ export class CursosModulosComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        ////console.log(data);
-        this.arrFiles = data.files;
+        console.log(data);
+        this.description = data.files.description
+        this.arrFiles = data.files.files;
         //////console.log(this.arrFiles);
         Swal.close();
       }

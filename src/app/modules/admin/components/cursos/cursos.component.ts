@@ -1019,6 +1019,7 @@ export class CursosComponent implements OnInit {
               this.formTemasCol.controls['contenido'].setValue(item.content);
               this.formTemasCol.controls['col'].setValue(item.column_size);
               this.colFinal = item.content;
+              console.log(item.content)
               this.data = item.content;
               if(item.column_size.includes('1')){
                 this.colSelected = '1'
@@ -1908,6 +1909,7 @@ export class CursosComponent implements OnInit {
   }
 
   addTemasCol() {
+    console.log(this.formTemasCol.value.contenido, this.colFinal, this.data)
     let temacol = {
       idTopic: this.idTema,
       content:this.formTemasCol.value.contenido,

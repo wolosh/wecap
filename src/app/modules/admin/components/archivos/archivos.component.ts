@@ -111,6 +111,7 @@ export class ArchivosComponent implements OnInit {
     //console.log(event.target.files[0])
     if (type == 'archivo') {
       this.file = event.target.files[0];
+      console.log(this.file);
     } else if (type == 'media') {
       this.file = event.target.files[0];
     }
@@ -435,7 +436,8 @@ export class ArchivosComponent implements OnInit {
       });
     } else {
       if (this.file != undefined) {
-        files.append('file', this.file, this.formArchivos.controls['name'].value);
+      
+        files.append('file', this.file, this.file.name);
       } else {
         Swal.fire({
           title: '¡Error!',
@@ -449,7 +451,7 @@ export class ArchivosComponent implements OnInit {
     this.session.uploadFile( files, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
-        //console.log(data);
+        console.log(data);
         if (data.code == '200') {
           Swal.fire({
             title: '¡Actualizado!',
