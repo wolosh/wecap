@@ -959,7 +959,7 @@ export class CursosComponent implements OnInit {
             this.imgTemaDos = item.icon;
             this.imgTemaVDos = item.icon_gold;
             this.active = item.is_active;
-            //console.log(this.active)
+            console.log(this.active, this.imgTemaDos, this.imgTemaVDos)
           }
         }
         break;
@@ -1760,7 +1760,7 @@ export class CursosComponent implements OnInit {
   }
 
   saveTemas() {
-    console.log(this.imgTema, this.imgTemaV)
+    console.log(this.imgTema, this.imgTemaV, this.imgTemaDos, this.imgTemaVDos)
     /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
     this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
@@ -1782,7 +1782,7 @@ export class CursosComponent implements OnInit {
     } else {
       tema.append('icon_gold', this.imgTemaVDos);
     }
-    //console.log(tema.getAll('icon'), tema.getAll('icon_gold'))
+    console.log(tema.getAll('icon'), tema.getAll('icon_gold'))
     /*console.log(modulo.getAll)
     console.log(modulo.get)
     console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
@@ -1923,13 +1923,21 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
-          text: 'El módulo ha sido actualizado.',
+          text: 'La columna se añadio.',
           icon: 'success',
           confirmButtonColor: '#015287',
+        }).then((result) => {
+          //console.log(result)
+          if (result.isConfirmed) {
+            this.formTemasCol.reset();
+            this.mostrar = '0';
+            this.changeViewTemas('cols', this.idTema);
+
+          }
         });
         //this.modules(this.idCertification);
         /*this.temas(this.idModulo);*/
-        this.changeViewTemas('cols', this.idTema)
+        
       }
     );
   }

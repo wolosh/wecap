@@ -279,13 +279,40 @@
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" *ngIf="this.arrFiles == 0">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Archivos</h5>
-                <p class="text7 txt-gris mb-3">Estos recursos son brindados con el
-                    fin de
-                    que puedas guiar tu
-                    aprendizaje de la mano de los mismos.</p>
-                <div class="card color rounded-4 mb-3" *ngFor="let file of this.nameFiles">
+                <p class="text7 txt-gris mb-3">Aun no se han agregado recursos.</p>
+                <!--<div class="card color rounded-4 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 mt-1">
+                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
+                            </div>
+                            <div>
+                                <label class="text9 txt-blue d-block">Coporativo Wecap 2022</label>
+                                <button type="button" class="boton2 ps-0">Descargar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card color rounded-4 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 mt-1">
+                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
+                            </div>
+                            <div>
+                                <label class="text9 txt-blue d-block">Formatos para Iconos</label>
+                                <button type="button" class="boton2 ps-0">Descargar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div class="modal-body" *ngIf="this.arrFiles != 0">
+                <h5 class="modal-title mb-3" id="exampleModalLabel">Archivos</h5>
+                <p class="text7 txt-gris mb-3">{{this.description}}</p>
+                <div class="card color rounded-4 mb-3" *ngFor="let file of this.arrFiles">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="me-3 mt-1">
@@ -293,8 +320,8 @@
                             </div>
                             <div>
                                 <label class="text9 txt-blue d-block">{{file.name}}</label>
-                                <a href="{{file.url}}" target="_blank" download="plantilla_usuarios.csv"
-                                    class="boton2 ps-0">Descargar</a>
+                                <a href="{{file.url}}" target="_blank" class="boton2 ps-0">Descargar</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -336,7 +363,7 @@
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" *ngIf="this.allConferencias != 0">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Conferencias</h5>
                 <p class="text7 txt-gris mb-3">Aquí podras ver las conferencias programadas para esta certificación.</p>
                 <div class="card color rounded-4 mb-3" *ngFor="let conferencia of this.allConferencias">
@@ -348,12 +375,36 @@
                             <div>
                                 <label class="text10 txt-blue d-block">{{conferencia.titulo}}</label>
                                 <label class="text9 txt-blue d-block">{{conferencia.fecha}}</label>
-                                <label class="text9 txt-blue d-block">{{conferencia.descripcion}}</label>
-                                <a href="{{conferencia.link}}" target="_blank" class="boton2 ps-0">Link</a>
+                                <!---<label class="text9 txt-blue d-block">Bases para módulo Promocional.</label>-->
+                                <a href="{{conferencia.link}}" target="_blank"
+                                    class="boton2 ps-0">Link</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--<div class="card color rounded-4 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 mt-1">
+                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
+                            </div>
+                            <div>
+                                <div>
+                                    <label class="text10 txt-blue d-block">Seguimiento</label>
+                                    <label class="text9 txt-blue d-block">31 de Octubre</label>
+                                    <label class="text9 txt-blue d-block">Dudas y sugerencias</label>
+                                    <a href="https://meet.google.com/dnh-ugxh-bcg" target="_blank"
+                                        class="boton2 ps-0">Link</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div class="modal-body" *ngIf="this.allConferencias == 0">
+                <h5 class="modal-title mb-3" id="exampleModalLabel">Conferencias</h5>
+                <p class="text7 txt-gris mb-3">Aun no hay conferencias programadas para esta certificación.</p>
+                
             </div>
         </div>
     </div>

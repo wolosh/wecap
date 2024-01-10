@@ -25,6 +25,8 @@ export class PerfilUsuarioComponent implements OnInit {
   temasArr: any;
   temas: number;
   visto: any;
+  description = '';
+  arrFiles: any;
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
@@ -35,6 +37,8 @@ export class PerfilUsuarioComponent implements OnInit {
     this.id = localStorage.getItem('id');
     this.perfil(this.id)
     this.certifications()
+    this.files(localStorage.getItem('idCertification'))
+    this.getConferencias(localStorage.getItem('idCertification'));
   }
 
   certifications() {
@@ -65,6 +69,28 @@ export class PerfilUsuarioComponent implements OnInit {
         //console.log(data.full_name);
         this.allPerfil = data;
         //console.log()
+      }
+    );
+  }
+
+  getConferencias(idModulo: any) {
+    this.get.getConferencias(idModulo, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.helpers.conferencias = true;
+        this.allConferencias = data;
+      }
+    );
+  }
+
+  files(id: any) {
+    this.get.getFiles(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.description = data.files.description
+        this.arrFiles = data.files.files;
+        //////console.log(this.arrFiles);
+        Swal.close();
       }
     );
   }

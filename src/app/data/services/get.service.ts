@@ -130,6 +130,16 @@ export class GetService {
     });
   }
 
+ getConferenciasCurso(id: any, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(this.session.API + 'getConferenciasCurso/' + id, {
+      headers
+    });
+  }
+ 
+
   //trae el diploma de la base de datos
   getDiploma(id: any, token) {
     const headers = new HttpHeaders({

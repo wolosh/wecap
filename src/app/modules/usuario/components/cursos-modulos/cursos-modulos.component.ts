@@ -41,6 +41,7 @@ export class CursosModulosComponent implements OnInit {
   tipo: any;
   medalla: any;
   description = '';
+  allConferencias: any;
   constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
@@ -226,6 +227,7 @@ export class CursosModulosComponent implements OnInit {
           }*/
         }
         this.files(id);
+        this.getConferencias(localStorage.getItem('idCertification'));
       }
     );
   }
@@ -296,6 +298,16 @@ export class CursosModulosComponent implements OnInit {
     /*this.route.navigate(['/seccion', idModulo]).then(() => {
       this.helpers.conferencias = true;
     });*/
+  }
+
+  getConferencias(idModulo: any) {
+    this.get.getConferencias(idModulo, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.helpers.conferencias = true;
+        this.allConferencias = data;
+      }
+    );
   }
 
 

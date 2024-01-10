@@ -43,6 +43,7 @@ export class TemasComponent implements OnInit {
   showLike: any;
   coment = '';
   comentArr: any;
+  description = '';
 
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
@@ -79,12 +80,14 @@ export class TemasComponent implements OnInit {
           //console.log(localStorage.getItem('type'), localStorage.getItem('finalizados'));
           this.helpers.type = localStorage.getItem('type');
           this.session.curso = true
+          this.getConferencias(localStorage.getItem('idCertification'));
           //console.log(this.helpers.nameTopicBackUp, this.helpers.idTopicBackUp)
           //this.checkFinalizado(localStorage.getItem('finalizados'));
           //this.getTemas();
           this.checkTheme(this.idTopic);
           this.tema(this.idTopic);
           this.conferencias(localStorage.getItem('idCertification'))
+          this.files(localStorage.getItem('idCertification'))
         }
       });
     } else {
@@ -127,6 +130,8 @@ export class TemasComponent implements OnInit {
       this.cols = data;
     });
   }
+
+  
 
   tema(id: any) {
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
@@ -299,13 +304,23 @@ export class TemasComponent implements OnInit {
     );
   }
 
-  files() {
-    this.get.getFiles(localStorage.getItem('idCertification'), localStorage.getItem('token')).subscribe(
+  getConferencias(idModulo: any) {
+    this.get.getConferencias(idModulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
-        this.arrFiles = data.files;
-        this.nameFiles = data.files.files;
-        //console.log(this.arrFiles, this.nameFiles);
+        console.log(data);
+        this.helpers.conferencias = true;
+        this.allConferencias = data;
+      }
+    );
+  }
+
+  files(id: any) {
+    this.get.getFiles(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.description = data.files.description
+        this.arrFiles = data.files.files;
+        //////console.log(this.arrFiles);
         Swal.close();
       }
     );
@@ -317,6 +332,7 @@ export class TemasComponent implements OnInit {
         console.log(data)
         this.allConferencias = data;
         console.log(this.allConferencias)
+        
       }
     );
   }

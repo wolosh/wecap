@@ -53,6 +53,7 @@ export class SeccionComponent implements OnInit {
         allowOutsideClick: false,
         showConfirmButton: false,
         didOpen: () => {
+          this.getConferencias(localStorage.getItem('idCertification'));
           Swal.showLoading();
           this.helpers.nameTopicBackUp = '';
           if (this.helpers.nameModuleBackUp == undefined || this.helpers.idModuleBackUp == undefined || this.helpers.nameModuleBackUp == '') {
@@ -114,6 +115,16 @@ export class SeccionComponent implements OnInit {
           this.helpers.nameModuleBackUp = this.nameModule
         }
         //console.log(data);
+      }
+    );
+  }
+
+  getConferencias(idModulo: any) {
+    this.get.getConferencias(idModulo, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.helpers.conferencias = true;
+        this.allConferencias = data;
       }
     );
   }
