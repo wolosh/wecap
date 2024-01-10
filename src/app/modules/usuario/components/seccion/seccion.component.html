@@ -102,12 +102,12 @@
         <div class="card-body">
           <div class="row">
             <div class="col-12">
-              <label class="text3 txt-blue">Medallas del módulo</label>
+              <label class="text3 txt-blue">Reconocimientos del módulo</label>
               <hr class="w-100">
             </div>
           </div>
           <div class="row text-center" *ngIf="this.showMedallas == false">
-            <label class="text9 txt-blue">Aquí se mostraran tus medallas una vez que termines el módulo.</label>
+            <label class="text9 txt-blue">Aquí se mostraran tus reconocimientos una vez que termines el módulo.</label>
           </div>
           <div class="row text-center" *ngIf="this.showMedallas == true">
             <!--<div class="col-4">
@@ -163,56 +163,30 @@
 </div>
 <!-- Modal Archivos-->
 <div class="modal fade" id="archivos" tabindex="-1" aria-labelledby="archivos" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5 class="modal-title mb-3" id="exampleModalLabel">Archivos</h5>
-                <p class="text7 txt-gris mb-3">Estos recursos son brindados con el fin de que puedas guiar tu aprendizaje de la mano de los mismos.</p>
-                <div class="card color rounded-4 mb-3" *ngFor="let file of this.nameFiles">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="me-3 mt-1">
-                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
-                            </div>
-                            <div>
-                                <label class="text9 txt-blue d-block">{{file.name}}</label>
-                                <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiH09Wy7YGCAxWyhu4BHeurAggQFnoECAoQAQ&url=https%3A%2F%2Fdialnet.unirioja.es%2Fdescarga%2Farticulo%2F8746976.pdf&usg=AOvVaw3nZVGjYzc5OmgMh7psRl83&opi=89978449" target="_blank" download="plantilla_usuarios.csv" class="boton2 ps-0">Descargar</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--<div class="card color rounded-4 mb-3">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="me-3 mt-1">
-                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
-                            </div>
-                            <div>
-                                <label class="text9 txt-blue d-block">Coporativo Wecap 2022</label>
-                                <button type="button" class="boton2 ps-0">Descargar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card color rounded-4 mb-3">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="me-3 mt-1">
-                                <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
-                            </div>
-                            <div>
-                                <label class="text9 txt-blue d-block">Formatos para Iconos</label>
-                                <button type="button" class="boton2 ps-0">Descargar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-            </div>
-        </div>
-    </div>
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <h5 class="modal-title mb-3" id="exampleModalLabel">Archivos</h5>
+              <p class="text7 txt-gris mb-3">Estos recursos son brindados con el fin de que puedas guiar tu aprendizaje de la mano de los mismos.</p>
+              <div class="card color rounded-4 mb-3" *ngFor="let file of this.nameFiles">
+                  <div class="card-body">
+                      <div class="d-flex">
+                          <div class="me-3 mt-1">
+                              <img src="assets/img/visto.svg" class="mx-auto d-block" alt="...">
+                          </div>
+                          <div>
+                              <label class="text9 txt-blue d-block">{{file.name}}</label>
+                              <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiH09Wy7YGCAxWyhu4BHeurAggQFnoECAoQAQ&url=https%3A%2F%2Fdialnet.unirioja.es%2Fdescarga%2Farticulo%2F8746976.pdf&usg=AOvVaw3nZVGjYzc5OmgMh7psRl83&opi=89978449" target="_blank" download="plantilla_usuarios.csv" class="boton2 ps-0">Descargar</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 <!-- Modal Conferncias-->
 <div class="modal fade" id="conferencias" tabindex="-1" aria-labelledby="conferencias" aria-hidden="true">

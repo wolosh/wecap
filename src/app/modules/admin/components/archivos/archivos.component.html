@@ -27,17 +27,22 @@
                         </div>
                         <hr class="w-100">
                         <div class="row">
-                            <div class="col-6">
-                                <label class="text14 txt-blue mb-3">Datos generales</label>
+                            <div class="col-8">
+                                <div class="mb-3" *ngIf="showDescription == false">
+                                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Sube solo archivos en formato PDF, estos archivos siempre estarán disponibles para descarga o consulta de los usuarios. </label>
+                                    <!--p type="text" class="text19 text-dark mb-3">{{
+                                        this.description
+                                        }}</p-->
+                                </div>
                             </div>
-                            <div class="col-6" *ngIf="showDescription == false">
+                            <div class="col-4" *ngIf="showDescription == false">
                                 <button type="button" class="boton bg-blue w-auto p-2 ps-3 pe-3 float-end"
                                     (click)="showDescription = true">
                                     Editar descripción
                                 </button>
                             </div>
 
-                            <div class="col-6" *ngIf="showDescription == true">
+                            <div class="col-4" *ngIf="showDescription == true">
                                 <button type="button" class="boton bg-blue w-auto p-2 ps-3 pe-3 float-end"
                                     (click)="showDescription = false">
                                     Cancelar
@@ -45,13 +50,7 @@
                             </div>
                         </div>
                         <!--<label> Este texto aparecera en la ventana donde los usuarios descargaran los archivos.</label>--->
-                        <div class="mb-3" *ngIf="showDescription == false">
-                            <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción (Aquí puedes agregar el texto
-                                aparecera en la ventana donde los usuarios descargaran los archivos).</label>
-                            <p type="text" class="text19 text-dark mb-3">{{
-                                this.description
-                                }}</p>
-                        </div>
+                        
 
                         <div class="row mb-4" *ngIf="showDescription == true">
                             <form [formGroup]="formArchivos" (ngSubmit)="updateDescription('description')">

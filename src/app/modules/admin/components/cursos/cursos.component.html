@@ -155,7 +155,7 @@
                                 <button class="boton bg-grey2 mx-auto d-block w-100 p-2">Desactivar certificación</button>
                             </div>
                         </div>
-                        <!---------->
+                        ----->
             </form>
           </div>
 
@@ -352,9 +352,7 @@
               <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                 <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar orden</button>
               </div>
-            </div>
-
-            <!---->
+            </div>-->
             <!------Diploma--->
             <label class="text3 txt-blue2 mt-3">Diploma</label>
             <label class="text6 txt-gris mt-3 ms-2">(opcional) <span class="text11">Otorga un diploma a tus usuarios al
@@ -461,26 +459,16 @@
                       name="inlineRadioOptions" id="inlineRadio2" [value]="0">
                   </div>
                 </div>
-                <div class="row mt-3 mb-3 d-flex align-items-center">
-                  <div class="col-12 col-lg-5" *ngIf="this.exam == 1">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Calificación mínima aprobatoria para el examen</label>
-                    <input type="text" class="input3" formControlName="score">
-                  </div>
-                  <div class="col-12 col-lg-5">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Duración máxima para medalla por
-                      tiempo
-                      (opcional)</label>
-                    <input type="text" class="input3" formControlName="duracion">
-                  </div>
+                <!--div class="row mt-3 mb-3 d-flex align-items-end">
                   
-                  <!--<div class="col-12 col-lg-5">
+                  <div class="col-12 col-lg-5">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Url del video (opcional)</label>
                     <input type="text" class="input3" formControlName="url_video">
-                  </div>-->
-                </div>
+                  </div>
+                </div-->
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono</label>
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Imagen para botón de modulo</label>
                     <img *ngIf="this.imgIconoDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgIcono" />
                     <div *ngIf="this.isNewModule == 1">
@@ -500,7 +488,7 @@
                       (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">
                   </div>
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Cabecera</label>
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Imagen para cabecera de módulo</label>
                     <img *ngIf="this.imgHeaderDos == ''" class="imgPreviewCab" src="assets/img/imgpreview.png"
                       alt="imgHeader" />
                     <div *ngIf="this.isNewModule == 1">
@@ -518,8 +506,37 @@
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="header"
                       (change)="fileHeader($event, 'change')" accept="image/png,image/jpeg,image/jpg">
                   </div>
+                </div>
+                <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Reconocimiento por terminar en tiempo
+                      (opcional)</label>
+                    <img *ngIf="this.imgTiempoDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
+                      alt="imgIcono" />
+                    <div *ngIf="this.isNewModule == 1">
+                      <img *ngIf="this.imgTiempoDos != ''" class="imgPreview" src="{{this.imgTiempoDos}}"
+                        alt="imgIcono" />
+                    </div>
+                    <div *ngIf="this.isNewModule == 2">
+                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
+                    this.imgTiempoDos}}" alt="imgIcono" />
+                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 2" class="imgPreview"
+                        src="{{this.imgTiempoDos}}" alt="imgIcono" />
+                    </div>
+                    <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
+                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallapt"
+                      (change)="fileTiempo($event)" accept="image/png,image/jpeg,image/jpg">
+                    <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallapt"
+                      (change)="fileTiempo($event, 'update')" accept="image/png,image/jpeg,image/jpg">
+                  </div>
+                  <div class="col-12 col-lg-5">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Ingresa la duración en minutos que no debe exceder el usuario para ser acreedor a este reconocimiento</label>
+                    <input type="text" class="input3" formControlName="duracion">
+                  </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                  <div class="col-12 col-lg-4">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Reconocimiento por terminar
                       (opcional)</label>
                     <img *ngIf="this.imgTerminaDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgTermina" />
@@ -540,10 +557,8 @@
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
                       (change)="fileTermina($event, 'update')" accept="image/png,image/jpeg,image/jpg">
                   </div>
-                </div>
-                <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por score perfecto
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Reconocimiento por score perfecto
                       (opcional)</label>
                     <img *ngIf="this.imgScoreDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgIcono" />
@@ -553,7 +568,7 @@
                     </div>
                     <div *ngIf="this.isNewModule == 2">
                       <img *ngIf="this.imgScoreDos != '' && this.score == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
-                    this.imgScoreDos}}" alt="imgIcono" />
+                      this.imgScoreDos}}" alt="imgIcono" />
                       <img *ngIf="this.imgScoreDos != '' && this.score == 2" class="imgPreview"
                         src="{{this.imgScoreDos}}" alt="imgIcono" />
                     </div>
@@ -563,31 +578,16 @@
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
                       (change)="fileScore($event, 'update')" accept="image/png,image/jpeg,image/jpg">
                   </div>
-                  <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Medalla por terminar en tiempo
-                      (opcional)</label>
-                    <img *ngIf="this.imgTiempoDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
-                      alt="imgIcono" />
-                    <div *ngIf="this.isNewModule == 1">
-                      <img *ngIf="this.imgTiempoDos != ''" class="imgPreview" src="{{this.imgTiempoDos}}"
-                        alt="imgIcono" />
-                    </div>
-                    <div *ngIf="this.isNewModule == 2">
-                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 1" class="imgPreview" src="{{this.helpers.domain+'media/' +
-                    this.imgTiempoDos}}" alt="imgIcono" />
-                      <img *ngIf="this.imgTiempoDos != '' && this.tiempo == 2" class="imgPreview"
-                        src="{{this.imgTiempoDos}}" alt="imgIcono" />
-                    </div>
-                    <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
-                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallapt"
-                      (change)="fileTiempo($event)" accept="image/png,image/jpeg,image/jpg">
-                    <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallapt"
-                      (change)="fileTiempo($event, 'update')" accept="image/png,image/jpeg,image/jpg">
-                  </div>
                   <!--div class="col-6 col-lg-2">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
                     <input type="color" class="input3 w-50" id="exampleInputEmail1" formControlName="color">
                   </div-->
+                </div>
+                <div class="row mt-3 mb-3">
+                  <div class="col-12 col-lg-5">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Ingresa la calificación mínima aprobatoria para el examen</label>
+                    <input type="text" class="input3" formControlName="score">
+                  </div>
                 </div>
               </form>
               <div *ngIf="this.isNewModule == 2">
@@ -703,7 +703,7 @@
                 </div>
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4 mb-3">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema</label>
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Imagen para tema</label>
                     <img *ngIf="this.imgTemaDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgIcono" />
                     <div *ngIf="this.isNewTheme == 1">
@@ -748,8 +748,7 @@
                     <input type="text" class="input3" formControlName="url_subtitulos">
                   </div>
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Video (YouTube, vimeo, PDF o Power
-                      Point)</label>
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Video (YouTube o Vimeo) o Presentación (PDF o Power Point)</label>
                     <input type="text" class="input3" formControlName="url_video">
                   </div>
                 </div>
@@ -855,9 +854,6 @@
               </form>
             </div>
           </div>
-
-
-
         </div>
         <!--TABLA MATERIAS-->
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
