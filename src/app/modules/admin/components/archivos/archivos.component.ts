@@ -111,7 +111,7 @@ export class ArchivosComponent implements OnInit {
     //console.log(event.target.files[0])
     if (type == 'archivo') {
       this.file = event.target.files[0];
-      console.log(this.file);
+      console.log(this.file, this.file.name.split('?')[0].split('.').pop());
     } else if (type == 'media') {
       this.file = event.target.files[0];
     }
@@ -436,8 +436,8 @@ export class ArchivosComponent implements OnInit {
       });
     } else {
       if (this.file != undefined) {
-      
-        files.append('file', this.file, this.file.name);
+      console.log(this.file, this.file.name, this.formArchivos.controls['name'].value, this.formArchivos.controls['name'].value + '.' + this.file.name.split('?')[0].split('.').pop())
+        files.append('file', this.file, this.formArchivos.controls['name'].value + '.' + this.file.name.split('?')[0].split('.').pop());
       } else {
         Swal.fire({
           title: '¡Error!',
