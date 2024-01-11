@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { Buffer } from 'buffer';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { UploadAdapter } from '../mail/my-upload-adapter';
 
 
 @Component({
@@ -1882,7 +1883,7 @@ export class CursosComponent implements OnInit {
     eventData.plugins.get('FileRepository').createUploadAdapter = function (loader) {
       //console.log(btoa(loader.file));
       //console.log(new UploadAdapter(loader));
-      //return new UploadAdapter(loader);
+      return new UploadAdapter(loader);
     };
   }
 

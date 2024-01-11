@@ -23,6 +23,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
+
+
 const routes: Routes = [
   {path: "archivos", component: ArchivosComponent},
   {path: "conferencias", component: ConferenciasComponent},
@@ -61,7 +63,7 @@ const routes: Routes = [
     MatTableModule,
     MatInputModule,
     DragDropModule,
-    ImageCropperModule
+    ImageCropperModule,
   ],
   exports: [RouterModule, ArchivosComponent, ExamenesComponent, EstadisticasComponent, ConferenciasComponent, MailComponent, UsuariosComponent, ConfiguracionComponent]
 })

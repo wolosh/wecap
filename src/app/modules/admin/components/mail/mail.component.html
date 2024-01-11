@@ -72,6 +72,9 @@
                           <div class="mb-3">
                               <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
                               <ckeditor [editor]="Editor" data=""  (ready)="onReady($event)" formControlName="cuerpo"></ckeditor>
+                              <!--ckeditor [(ngModel)]="content" [config]="ckeditorConfig"></ckeditor-->
+
+
                           </div>
                           <div class="mb-3">
                               <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
