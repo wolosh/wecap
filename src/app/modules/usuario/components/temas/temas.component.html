@@ -8,10 +8,15 @@
                             <h1 class="text2 txt-blue" *ngIf="this.finalizado == 0">{{this.nameTopic}}</h1>
                             <h1 class="text2 txt-blue" *ngIf="this.finalizado == 1">{{this.nameTopic}}: Finalizado</h1>
                             <hr class="w-100">
-                            <div class="ratio ratio-16x9 mt-5">
+                            <!--div class="ratio ratio-16x9 mt-5">
                                 <iframe id="urlIframe" nombre="urlIframe" border="none" frameborder="1"
                                     [src]="this.chanceTow" allowfullscreen></iframe>
-                            </div>
+                            </div-->
+                            <ngx-doc-viewer
+                              [url]="doc"
+                              viewer="google"
+                              style="aspect-ratio: 16/9;"
+                            ></ngx-doc-viewer>
                         </div>
                         <div *ngIf="this.like == '1'">
                             <div class="row" *ngIf="this.userLike == false">
@@ -321,7 +326,7 @@
                             <div>
                                 <label class="text9 txt-blue d-block">{{file.name}}</label>
                                 <a href="{{file.url}}" target="_blank" class="boton2 ps-0">Descargar</a>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -378,7 +383,7 @@
             <div class="modal-body" *ngIf="this.allConferencias == 0">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Conferencias</h5>
                 <p class="text7 txt-gris mb-3">Aun no hay conferencias programadas para esta certificación.</p>
-                
+
             </div>
         </div>
     </div>

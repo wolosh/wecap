@@ -93,27 +93,27 @@
                   accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo durante un periodo de tiempo 
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo durante un periodo de tiempo
                 </label>
               </div>
               <div class="mb-3">
                 <div class="form-check form-check-inline ps-0">
                   <label class="text13 txt-gris2 float-start" for="inlineRadioSi">Si</label>
-                  <input  class="form-check-input ms-3" type="radio" name="inlineRadioOption" id="inlineRadioSi" 
+                  <input  class="form-check-input ms-3" type="radio" name="inlineRadioOption" id="inlineRadioSi"
                             (change)="changeActive($event, 'new')" [value]="1" [(ngModel)]="date"
                             [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="form-check form-check-inline ps-0">
                   <label class="text13 txt-gris2 float-start" for="inlineRadioNo" >No</label>
-                  <input  class="form-check-input ms-3" type="radio" 
+                  <input  class="form-check-input ms-3" type="radio"
                             name="inlineRadioOption" id="inlineRadioNo" (change)="changeActive($event, 'new')" [value]="0" [(ngModel)]="date"
                             [ngModelOptions]="{standalone: true}"
-                            > 
-                </div>    
+                            >
+                </div>
               </div>
                 <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
                 <div class="row" *ngIf ="this.date == 1">
-                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo 
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo
                   </label>
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
@@ -139,7 +139,7 @@
                     [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
-              
+
               <div class="row">
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
                   <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
@@ -197,7 +197,7 @@
                   accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo durante un periodo de tiempo 
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo durante un periodo de tiempo
                 </label>
               </div>
               <div class="mb-3">
@@ -214,10 +214,10 @@
                   id="inlineRadioNo" [value]="0">
                 </div>
               </div>
-              <div class="mb-3"> 
+              <div class="mb-3">
                 <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
                 <div class="row mt-2" *ngIf ="this.date == 1">
-                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo 
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo
                   </label>
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
@@ -460,7 +460,7 @@
                   </div>
                 </div>
                 <!--div class="row mt-3 mb-3 d-flex align-items-end">
-                  
+
                   <div class="col-12 col-lg-5">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Url del video (opcional)</label>
                     <input type="text" class="input3" formControlName="url_video">
@@ -658,17 +658,11 @@
                     <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 2">Editar Tema</label>
                     <label class="text3 txt-blue2" *ngIf="this.isNewTheme == 1">Añadir Tema</label>
                   </div>
-                  <div class="col-6 col-md-3 col-lg-2 offset-lg-2">
-                    <button *ngIf="this.isNewTheme == 2" class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
-                      (click)="changeViewTemas('cols', this.idTema)">
-                      Editar contenido</button>
-                  </div>
-                  <div class="col-6 offset-6 col-lg-2 offset-lg-0">
+                  <div class="col-6 offset-6 col-lg-2 offset-lg-4">
                     <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('back')">
                       <i class="fas fa-reply"></i>
                     </button>
                   </div>
-
                 </div>
                 <hr class="w-100">
                 <div class="row mt-3 mb-3 d-flex align-items-center">
@@ -744,12 +738,41 @@
                 </div>
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4 mb-3">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Subtítulos (.srt) (opcional)</label>
-                    <input type="text" class="input3" formControlName="url_subtitulos">
+                    <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Que te gustaría subir Subtítulos?</label>
+                    <div class="form-check form-check-inline mb-3">
+                      <input class="form-check-input" type="radio" name="subtitulo" id="subtitulo1" value="1" (change)="changeShow($event, 'sub')">
+                      <label class="form-check-label text10 txt-gris2" for="subtitulo1">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-3">
+                      <input class="form-check-input" type="radio" name="subtitulo" id="subtitulo2" value="0" (change)="changeShow($event, 'sub')">
+                      <label class="form-check-label text10 txt-gris2" for="subtitulo2">No</label>
+                    </div>
+                    <div *ngIf="this.sub == 1">
+                      <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block">Subtítulos (.srt) (opcional)</label>
+                      <input type="text" class="input3" formControlName="url_subtitulos">
+                    </div>
+
                   </div>
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Video (YouTube o Vimeo) o Presentación (PDF o Power Point)</label>
-                    <input type="text" class="input3" formControlName="url_video">
+                    <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Que te gustaría subir?</label>
+                    <div class="form-check form-check-inline mb-3">
+                      <input class="form-check-input" type="radio" name="archivo" id="archivo1" value="0" (change)="changeShow($event, 'archivo')">
+                      <label class="form-check-label text10 txt-gris2" for="archivo1">Video</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-3">
+                      <input class="form-check-input" type="radio" name="archivo" id="archivo2" value="1" (change)="changeShow($event, 'archivo')">
+                      <label class="form-check-label text10 txt-gris2" for="archivo2">Presentación</label>
+                    </div>
+                    <label *ngIf="this.show == 0" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Video (YouTube o Vimeo)</label>
+                    <label *ngIf="this.show == 1" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Presentación o PDF</label>
+                    <input *ngIf="this.show == 0 || this.show == 1" type="file" class="input3 mb-2" formControlName="url_video">
+                  </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                  <div class="col-6 col-md-3 col-lg-2">
+                    <button *ngIf="this.isNewTheme == 2" class="boton bg-blue w-100 p-1 p-md-2"
+                      (click)="changeViewTemas('cols', this.idTema)">
+                      Editar contenido</button>
                   </div>
                 </div>
               </form>
@@ -849,7 +872,7 @@
                   <!--<ckeditor [editor]="Editor" [data]="data" [(ngModel)]="colFinal" (ready)="onReady($event)" formControlName="contenido"></ckeditor>-->
                 </div>
                 <!--<div class="mb-3" [innerHtml]='this.columnText.content'>
-                  
+
                 </div>-->
               </form>
             </div>

@@ -8,9 +8,10 @@ import { TestComponent } from './components/test/test.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { SeccionComponent } from './components/seccion/seccion.component';
 import { FormsModule } from '@angular/forms';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 const routes: Routes = [
-  {path: "cmtemplate", component: CursosModulosComponent}, 
+  {path: "cmtemplate", component: CursosModulosComponent},
   {path: "perfil", component: PerfilUsuarioComponent},
   {path: "temas/:idTopic", component: TemasComponent},
   {path: "test/:idTest", component: TestComponent},
@@ -23,10 +24,11 @@ const routes: Routes = [
     PerfilUsuarioComponent,
     TemasComponent,
     TestComponent,
-    SeccionComponent
+    SeccionComponent,
   ],
   imports: [
     CarouselModule,
+    NgxDocViewerModule,
     CommonModule, RouterModule.forChild(routes), FormsModule
   ], exports: [RouterModule, CursosModulosComponent, PerfilUsuarioComponent, TemasComponent, TestComponent]
 })

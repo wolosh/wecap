@@ -44,7 +44,7 @@ export class TemasComponent implements OnInit {
   coment = '';
   comentArr: any;
   description = '';
-
+  doc = 'https://ci.wecap.mx/files/alsain@gmail.com.pptx';
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -55,6 +55,7 @@ export class TemasComponent implements OnInit {
 
   ngOnInit(): void {
     //this.session.configuracion();
+
     this.helpers.name = localStorage.getItem('userName');
     console.log(this.helpers.name)
     this.comentario = localStorage.getItem('isComentario');
@@ -131,7 +132,7 @@ export class TemasComponent implements OnInit {
     });
   }
 
-  
+
 
   tema(id: any) {
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
@@ -332,7 +333,7 @@ export class TemasComponent implements OnInit {
         console.log(data)
         this.allConferencias = data;
         console.log(this.allConferencias)
-        
+
       }
     );
   }
@@ -378,7 +379,7 @@ export class TemasComponent implements OnInit {
             this.getComentarios(this.idTopic);
                 this.coment = '';
                 //this.tema(this.idTopic);
-              
+
             //this.tema(this.idTopic);
           }
         });

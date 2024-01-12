@@ -133,6 +133,8 @@ export class CursosComponent implements OnInit {
   allModulesL: any;
   columnText: any;
   userCount: any;
+  show: number;
+  sub: number;
 
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
@@ -479,6 +481,30 @@ export class CursosComponent implements OnInit {
   }*/
   }
 
+  changeShow(event: any, kind: any) {
+    //console.log(this.date, event.target.value);
+    if(kind == 'sub'){
+      switch(event.target.value){
+        case '0':
+          this.sub = 0;
+          break;
+        case '1':
+          this.sub = 1;
+          break;
+      }
+    } else if(kind == 'archivo'){
+      switch(event.target.value){
+        case '0':
+          this.show = 0;
+          break;
+        case '1':
+          this.show = 1;
+          break;
+      }
+    }
+    //console.log(this.date)
+  }
+
   selectFile(event, type) {
     //console.log(event.target.value)
     if (type == 'img') {
@@ -592,7 +618,7 @@ export class CursosComponent implements OnInit {
     }
   }
 
-  
+
 
   allMaterias() {
     this.materias = [];
@@ -666,7 +692,7 @@ export class CursosComponent implements OnInit {
   //cambia la vista de cursos
   changeViewCourses(view: any, name?: any, id?: any) {
     //console.log(view, name, id);
-    
+
     switch (view) {
       case 'back':
         this.pt = 1;
@@ -691,7 +717,7 @@ export class CursosComponent implements OnInit {
             this.diploma(item.idCertification);
             this.course = item.title;
             this.active = item.is_active;
-            
+
             this.formEdit.controls['title'].setValue(item.title);
             this.formEdit.controls['description'].setValue(item.description);
             this.formEdit.controls['default_active_days_start'].setValue(item.inicio);
@@ -823,7 +849,7 @@ export class CursosComponent implements OnInit {
             this.modules(this.idCertification);
             break;
           case 'editm':
-            
+
             this.icon = 1;
             this.header = 1;
             this.terminar = 1;
@@ -874,7 +900,7 @@ export class CursosComponent implements OnInit {
                 this.imgIcono = `data:image/jpeg;base64,${base64Data}`;
                 console.log(this.imgIcono);*/
               }
-              
+
             );
             break;
           case 'add':
@@ -982,7 +1008,7 @@ export class CursosComponent implements OnInit {
         this.viewTemasCol = 1;
         this.viewTemasE = 3;
         //onsole.log(this.idTema);
-        
+
         this.get.getCols(this.idTema,localStorage.getItem('token')).subscribe(
           (data: any) => {
             console.log(data);
@@ -1938,7 +1964,7 @@ export class CursosComponent implements OnInit {
         });
         //this.modules(this.idCertification);
         /*this.temas(this.idModulo);*/
-        
+
       }
     );
   }
