@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { CursosModulosComponent } from './components/cursos-modulos/cursos-modulos.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
@@ -9,6 +10,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { SeccionComponent } from './components/seccion/seccion.component';
 import { FormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 const routes: Routes = [
   {path: "cmtemplate", component: CursosModulosComponent},
@@ -28,8 +31,11 @@ const routes: Routes = [
   ],
   imports: [
     CarouselModule,
+    BrowserModule,
     NgxDocViewerModule,
+    PdfViewerModule,
     CommonModule, RouterModule.forChild(routes), FormsModule
   ], exports: [RouterModule, CursosModulosComponent, PerfilUsuarioComponent, TemasComponent, TestComponent]
 })
 export class UsuarioModule { }
+

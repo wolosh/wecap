@@ -44,7 +44,12 @@ export class TemasComponent implements OnInit {
   coment = '';
   comentArr: any;
   description = '';
-  doc = 'https://ci.wecap.mx/files/alsain@gmail.com.pptx';
+  doc = 'https://ci.wecap.mx/files/diseño.pdf';
+  pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
+  //page = 0;
+  totalPages: number;
+  page: number = 1;
+  isLoaded: boolean = false;
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -123,6 +128,19 @@ export class TemasComponent implements OnInit {
       }
     }
   }*/
+
+  nextPage() {
+    this.page += 1;
+  }
+
+   previousPage() {
+    this.page -= 1;
+  }
+
+  afterLoadComplete(pdfData: any) {
+    this.totalPages = pdfData.numPages;
+    this.isLoaded = true;
+  }
 
   colsFromTopic(id){
     console.log(id);

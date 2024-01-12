@@ -12,11 +12,25 @@
                                 <iframe id="urlIframe" nombre="urlIframe" border="none" frameborder="1"
                                     [src]="this.chanceTow" allowfullscreen></iframe>
                             </div-->
-                            <ngx-doc-viewer
+                            <!--ngx-doc-viewer
                               [url]="doc"
                               viewer="google"
                               style="aspect-ratio: 16/9;"
-                            ></ngx-doc-viewer>
+                            ></ngx-doc-viewer-->
+                            <pdf-viewer [src]="pdfSrc"
+                                        [show-all]="false"
+                                        [page]="page"
+                                        (after-load-complete)="afterLoadComplete($event)"
+                                        [original-size]="false" [render-text]="true"
+                                        style="aspect-ratio: 1/1;"
+                            ></pdf-viewer>
+                            <div class="d-flex justify-content-center align-items-center  mt-3">
+                              <button class="boton3 w-auto text10 ps-3 pe-3" (click)="previousPage()" [disabled]="page === 1"><i class="fas fa-chevron-left"></i></button>
+                              <p class="text4 txt-blue ps-4 pe-4 mb-0">{{ page }} / {{ totalPages }}</p>
+                              <button class="boton3 w-auto text10 ps-3 pe-3" (click)="nextPage()" [disabled]="totalPages === 1 || page === totalPages"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+
+
                         </div>
                         <div *ngIf="this.like == '1'">
                             <div class="row" *ngIf="this.userLike == false">
