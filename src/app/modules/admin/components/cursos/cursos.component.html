@@ -712,7 +712,7 @@
                     <!--<img *ngIf="this.imgTemaDos == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTema" />
                     <img *ngIf="this.imgTemaDos != ''" class="imgPreview" src="{{ this.imgTemaDos }}" alt="imgTema" />-->
                     <!--img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgPreview"-->
-                    <input type="file" class="input3" id="medallapt" (change)="fileTema($event)">
+                    <input type="file"  accept="image/jpg, image/png" class="input3" id="medallapt" (change)="fileTema($event)">
                   </div>
                   <!--<div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
@@ -761,7 +761,7 @@
                     </div>
                     <div class="form-check form-check-inline mb-3">
                       <input class="form-check-input" type="radio" name="archivo" id="archivo2" value="1" (change)="changeShow($event, 'archivo')">
-                      <label class="form-check-label text10 txt-gris2" for="archivo2">Presentación</label>
+                      <label class="form-check-label text10 txt-gris2" for="archivo2">Presentación o PDF</label>
                     </div>
                     <label *ngIf="this.show == 0" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Video (YouTube o Vimeo)</label>
                     <label *ngIf="this.show == 1" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Presentación o PDF</label>

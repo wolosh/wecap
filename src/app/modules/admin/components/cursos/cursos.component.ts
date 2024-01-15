@@ -1744,6 +1744,7 @@ export class CursosComponent implements OnInit {
     console.log(this.fileSend)
     let tema = new FormData();
     if (this.formTemas.value.title != '' && this.formTemas.value.description != '' && this.imgTema != undefined && this.imgTemaV != undefined) {
+      this.helpers.loader();
       tema.append('idModule', this.idModulo);
       tema.append('title', this.formTemas.value.title);
       tema.append('description', this.formTemas.value.description);
@@ -1778,6 +1779,7 @@ export class CursosComponent implements OnInit {
 
       this.session.addTema(tema, localStorage.getItem('token')).subscribe(
         (data: any) => {
+          Swal.close();
           //console.log(data);
           Swal.fire({
             title: '¡Agregado con exito!',
@@ -1801,10 +1803,11 @@ export class CursosComponent implements OnInit {
   }
 
   saveTemas() {
-    console.log(this.imgTema, this.imgTemaV, this.imgTemaDos, this.imgTemaVDos)
+    console.log(this.imgTema, this.imgTemaV, this.imgTemaDos, this.imgTemaVDos, this.fileSend)
     /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
     this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
+    this.helpers.loader();
     let tema = new FormData();
     tema.append('idModule', this.idModulo);
     tema.append('title', this.formTemas.value.title);
@@ -1833,9 +1836,9 @@ export class CursosComponent implements OnInit {
     if(this.fileSend != undefined){
       tema.append('doc', this.fileSend, this.fileSend.name);
     }
-    console.log(tema.getAll('icon'), tema.getAll('icon_gold'))
-    /*console.log(modulo.getAll)
-    console.log(modulo.get)
+    console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'),tema.getAll('doc'))
+    console.log(tema.getAll)
+    /*console.log(modulo.get)
     console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
     modulo.getAll('description'), modulo.getAll('imgIcono'),
     modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
@@ -1844,16 +1847,21 @@ export class CursosComponent implements OnInit {
     //console.log(tema.getAll('description'));
     this.session.updateTemas(this.idModulo, tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        Swal.close();
+        console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
-          text: 'El módulo ha sido actualizado.',
+          text: 'El tema ha sido actualizado.',
           icon: 'success',
           confirmButtonColor: '#015287',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.temas(this.idModulo);
+        this.changeViewTemas('back', this.idModulo)
+          }
         });
         //this.modules(this.idCertification);
-        this.temas(this.idModulo);
-        this.changeViewTemas('back', this.idModulo)
+        
       }
     );
   }
