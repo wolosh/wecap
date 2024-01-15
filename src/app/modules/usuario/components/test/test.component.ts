@@ -180,7 +180,7 @@ export class TestComponent implements OnInit {
 
   getInfoExam(id: any) {
     this.valido = false;
-    //console.log(id);
+    console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
@@ -189,7 +189,6 @@ export class TestComponent implements OnInit {
         let segundos = (data.duracion * 60)* data.preguntas.length;
         console.log(data.preguntas.length)
         this.timeLeft = segundos;
-        
         console.log(segundos)
         this.nameExam = data.title;
         this.questionsExam = data.preguntas;
@@ -198,11 +197,12 @@ export class TestComponent implements OnInit {
           (data: any) => {
             //console.log(data);
             //console.log(parseInt(data.calificacion));
-            if (parseInt(data.calificacion) > 0) {
+            if (parseInt(data.calificacion) == 0) {
               Swal.close();
+              console.log(data)
               this.valido = true;
               this.score = parseInt(data.calificacion);
-            } else if (parseInt(data.calificacion) == 0) {
+            } else if (parseInt(data.calificacion) > 0) {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);
@@ -456,9 +456,11 @@ export class TestComponent implements OnInit {
         send.respuestas.push({ idEval_question: key, respuesta: this.objResp[key] });
       });
 
+      console.log(send)
+
       this.session.calificaExamen(send, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          ////console.log(data);
+          console.log(data);
           Swal.fire({
             title: '¡Listo!',
             text: 'Se guardo tu test, pronto uno de los administradores calificara tus respuestas.',

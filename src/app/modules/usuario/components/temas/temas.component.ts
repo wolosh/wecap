@@ -44,12 +44,13 @@ export class TemasComponent implements OnInit {
   coment = '';
   comentArr: any;
   description = '';
-  doc = 'https://ci.wecap.mx/files/diseño.pdf';
-  pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
+  doc = '';
+  pdfSrc: string = '';
   //page = 0;
   totalPages: number;
   page: number = 1;
   isLoaded: boolean = false;
+  hasFile: number = 0;
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -133,7 +134,7 @@ export class TemasComponent implements OnInit {
     this.page += 1;
   }
 
-   previousPage() {
+  previousPage() {
     this.page -= 1;
   }
 
@@ -142,7 +143,7 @@ export class TemasComponent implements OnInit {
     this.isLoaded = true;
   }
 
-  colsFromTopic(id){
+  colsFromTopic(id) {
     console.log(id);
     this.get.getCols(id, localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
@@ -156,7 +157,7 @@ export class TemasComponent implements OnInit {
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
-      if(data.like != null){
+      if (data.like != null) {
         this.userLike = true;
         console.log(data.like.tipo);
         this.showLike = data.like.tipo;
@@ -172,26 +173,68 @@ export class TemasComponent implements OnInit {
       this.medalla = data.icon_gold;
       this.colsFromTopic(data.idTopic);
       this.getComentarios(data.idTopic);
-      this.idTopic = data.idTopic;
-      if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
-        let regExp  = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
-        let match = data.url_video.match(regExp);
-        console.log(match, match[0], match[1])
-        //let youID = (match.length && match[2].length == 11) ? match[1] : "" //asignamos video url embed
-        //console.log(youID)
-        this.video = "https://www.youtube.com/embed/" + match[1];
+      if (data.url_video == '') {
+        this.video = null;
         console.log(this.video)
-        this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
-        this.swalClosed();
-      } else if(data.url_video.includes('vimeo') ){
-        let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:vimeo\.com)\/(?:watch\?v=)?(.+)/;
-        let match = data.url_video.match(regExp);
-        console.log(match)
-        this.video = "https://player.vimeo.com/video/"+match[1]+"?byline=08portrait=0"
+      } else {
+        if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
+          let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
+          let match = data.url_video.match(regExp);
+          console.log(match, match[0], match[1])
+          //let youID = (match.length && match[2].length == 11) ? match[1] : "" //asignamos video url embed
+          //console.log(youID)
+          this.video = "https://www.youtube.com/embed/" + match[1];
+          console.log(this.video)
+          this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
+          this.swalClosed();
+        } else if (data.url_video.includes('vimeo')) {
+          let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:vimeo\.com)\/(?:watch\?v=)?(.+)/;
+          let match = data.url_video.match(regExp);
+          console.log(match)
+          this.video = "https://player.vimeo.com/video/" + match[1] + "?byline=08portrait=0"
+          console.log(this.video)
+          this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
+          this.swalClosed();
+        }
         console.log(this.video)
-        this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
-        this.swalClosed();
       }
+      if (data.doc == '') {
+        console.log(data.doc)
+        this.hasFile = 0;
+        console.log(this.hasFile)
+      } else {
+
+        if (data.doc.includes('.pdf')) {
+          console.log(data.doc)
+          this.hasFile = 1;
+          this.pdfSrc = this.helpers.domain + 'media/temas/docs/' + data.doc;
+          
+          /*let tryUrl = fetch(this.pdfSrc).then(function (res) { 
+            console.log(res)
+            let response = res;
+            console.log(response)
+          
+          }).catch(function () {
+            setTimeout(() => {
+              this.toaster.error('Invalid URL', 'File Upload', {
+                positionClass: 'toast-top-right'
+              });
+            });
+          });
+
+          console.log(tryUrl)*/
+
+        } else if (data.doc.includes('.ppt') || data.doc.includes('.pptx')) {
+          console.log(data.doc)
+          this.hasFile = 2;
+          this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
+          console.log(this.doc)
+        }
+
+
+      }
+      this.idTopic = data.idTopic;
+
       let date = new Date();
       this.startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 
@@ -205,16 +248,18 @@ export class TemasComponent implements OnInit {
     });*/
   }
 
-  getembenurl(video: any)
-  {
+  
+
+
+  getembenurl(video: any) {
     this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(video);
     //return this.dom.bypassSecurityTrustResourceUrl(this.video);
   }
 
-  swalClosed(){
+  swalClosed() {
     setTimeout(() => {
       Swal.close();
-     }, 4000);
+    }, 4000);
   }
 
 
@@ -294,7 +339,7 @@ export class TemasComponent implements OnInit {
   }
 
   public temasSeccion(id: any, name: any) {
-    console.log(this.idModule,id, name)
+    console.log(this.idModule, id, name)
     //his.helpers.idModuleBackUp = this.idModule;
     //this.helpers.nameModuleBackUp = name;
     this.route.navigate(['/seccion', this.idModule]);
@@ -303,7 +348,7 @@ export class TemasComponent implements OnInit {
 
   temasLike(id: any, like: any) {
     console.log(id, like)
-    if(like == 1){
+    if (like == 1) {
       this.showLike = 1;
     } else {
       this.showLike = 2;
@@ -374,7 +419,7 @@ export class TemasComponent implements OnInit {
     );
   }
 
-  saveComent(){
+  saveComent() {
     console.log(this.coment)
 
     let json = {
@@ -395,8 +440,8 @@ export class TemasComponent implements OnInit {
           //console.log(result)
           if (result.isConfirmed) {
             this.getComentarios(this.idTopic);
-                this.coment = '';
-                //this.tema(this.idTopic);
+            this.coment = '';
+            //this.tema(this.idTopic);
 
             //this.tema(this.idTopic);
           }

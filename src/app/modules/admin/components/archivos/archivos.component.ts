@@ -438,6 +438,29 @@ export class ArchivosComponent implements OnInit {
       if (this.file != undefined) {
       console.log(this.file, this.file.name, this.formArchivos.controls['name'].value, this.formArchivos.controls['name'].value + '.' + this.file.name.split('?')[0].split('.').pop())
         files.append('file', this.file, this.formArchivos.controls['name'].value + '.' + this.file.name.split('?')[0].split('.').pop());
+      
+        this.helpers.loader();
+        this.session.uploadFile( files, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            Swal.close();
+            console.log(data);
+            if (data.code == '200') {
+              Swal.close();
+              Swal.fire({
+                title: '¡Actualizado!',
+                text: 'Se agrego correctamente.',
+                icon: 'success',
+                confirmButtonColor: '#015287',
+              }).then((result) => {
+                //console.log(result)
+                if (result.isConfirmed) {
+                  this.filesArr = [];
+                  this.changeViewArchivos('back');
+                }
+              });
+            }
+          }
+        );
       } else {
         Swal.fire({
           title: '¡Error!',
@@ -448,26 +471,7 @@ export class ArchivosComponent implements OnInit {
       }
     }
 
-    this.session.uploadFile( files, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        Swal.close();
-        console.log(data);
-        if (data.code == '200') {
-          Swal.fire({
-            title: '¡Actualizado!',
-            text: 'Se agrego correctamente.',
-            icon: 'success',
-            confirmButtonColor: '#015287',
-          }).then((result) => {
-            //console.log(result)
-            if (result.isConfirmed) {
-              this.filesArr = [];
-              this.changeViewArchivos('back');
-            }
-          });
-        }
-      }
-    );
+    
 
 
     /*Swal.fire({

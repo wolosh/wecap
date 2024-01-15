@@ -765,7 +765,9 @@
                     </div>
                     <label *ngIf="this.show == 0" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Video (YouTube o Vimeo)</label>
                     <label *ngIf="this.show == 1" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Presentación o PDF</label>
-                    <input *ngIf="this.show == 0 || this.show == 1" type="file" class="input3 mb-2" formControlName="url_video">
+                    <input *ngIf="this.show == 0" type="text" class="input3 mb-2" formControlName="url_video">
+                    <input *ngIf="this.show == 1" type="file" class="input3 mb-2" formControlName="file" (change)="fileTema($event, 'file')">
+                  
                   </div>
                 </div>
                 <div class="row mt-3 mb-3">
