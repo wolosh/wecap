@@ -203,34 +203,22 @@ export class TemasComponent implements OnInit {
         this.hasFile = 0;
         console.log(this.hasFile)
       } else {
-
+        //this.hasFile = 1;
         if (data.doc.includes('.pdf')) {
           console.log(data.doc)
+          //this.pdfSrc = 'google';
           this.hasFile = 1;
-          this.pdfSrc = this.helpers.domain + 'media/temas/docs/' + data.doc;
-          
-          /*let tryUrl = fetch(this.pdfSrc).then(function (res) { 
-            console.log(res)
-            let response = res;
-            console.log(response)
-          
-          }).catch(function () {
-            setTimeout(() => {
-              this.toaster.error('Invalid URL', 'File Upload', {
-                positionClass: 'toast-top-right'
-              });
-            });
-          });
-
-          console.log(tryUrl)*/
+          //this.pdfSrc = this.helpers.domain + 'media/temas/docs/' + data.doc;
+  
 
         } else if (data.doc.includes('.ppt') || data.doc.includes('.pptx')) {
           console.log(data.doc)
           this.hasFile = 2;
-          this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
+          //this.pdfSrc = 'office';
+          //this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
           console.log(this.doc)
         }
-
+        this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
 
       }
       this.idTopic = data.idTopic;
@@ -248,7 +236,22 @@ export class TemasComponent implements OnInit {
     });*/
   }
 
-  
+  async getUrl(id:any){
+    let url2 = await fetch(id, {
+      //mode: "no-cors",
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(function (res) { 
+
+      let response = res;
+      console.log(response)
+    
+    }).catch(function () {
+      console.log("error");
+    });
+console.log(url2)
+  }
 
 
   getembenurl(video: any) {
