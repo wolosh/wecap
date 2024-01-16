@@ -132,7 +132,7 @@ export class UsuariosComponent implements OnInit {
       this.usuarios.forEach(element => {
         if (element.idUser == id) {
           this.userObj = element;
-          //console.log(this.userObj)
+          console.log(this.userObj)
         }
       });
       this.id = id;
@@ -215,7 +215,7 @@ export class UsuariosComponent implements OnInit {
   registerUser(){
     //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
     let form = new FormData();
-    if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.password != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != ''){
+    if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != ''){
       //console.log('esta correcto');
       form.set('email', this.formUser.value.email);
       form.set('password', this.formUser.value.password);
@@ -264,9 +264,12 @@ export class UsuariosComponent implements OnInit {
 
   editUser() {
     //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
+    this.helpers.loader();
     let form = new URLSearchParams();
 
-    if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != '') {
+    //if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != '') {
+      if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != '') {
+    
       form.set('email', this.formUser.value.email);
       form.set('full_name', this.formUser.value.name);
       form.set('job', this.formUser.value.puesto);
@@ -278,11 +281,13 @@ export class UsuariosComponent implements OnInit {
       form.set('ciudad', this.formUser.value.ciudad);
       form.set('is_admin', this.typeSelected);
       form.set('grupo', this.formUser.value.grupo);
+      form.set('password', this.formUser.value.password);
 
-      //console.log(form.getAll('email'))
+      //console.log(form.getAll('email'), form.getAll('password'))
 
-      this.session.editarPerfil(this.idOf, form, localStorage.getItem('token')).subscribe(
+    this.session.editarPerfil(this.idOf, form, localStorage.getItem('token')).subscribe(
         (data: any) => {
+          Swal.close();
           //console.log(data);
           Swal.fire({
             title: '¡Agregado con exito!',

@@ -894,6 +894,7 @@ export class CursosComponent implements OnInit {
                 //console.log(this.imgIconoDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos)
                 this.formModulo.controls['color'].setValue(data.color_style);
                 this.formModulo.controls['url_video'].setValue(data.url_video);
+                
                 this.activeM = data.is_active;
                 Swal.close();
                 this.helpers.goTop();
@@ -984,6 +985,7 @@ export class CursosComponent implements OnInit {
             this.formTemas.controls['description'].setValue(item.description);
             this.formTemas.controls['url_video'].setValue(item.url_video);
             this.formTemas.controls['url_subtitulos'].setValue(item.url_subtitulos);
+            this.formTemas.controls['file'].setValue(item.file);
             //console.log(this.formTemas.value)
             this.imgTemaDos = item.icon;
             this.imgTemaVDos = item.icon_gold;
@@ -1835,7 +1837,10 @@ export class CursosComponent implements OnInit {
     }
     if(this.fileSend != undefined){
       tema.append('doc', this.fileSend, this.fileSend.name);
+    } else {
+      tema.append('doc', this.formTemas.value.doc);
     }
+
     console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'),tema.getAll('doc'))
     console.log(tema.getAll)
     /*console.log(modulo.get)
