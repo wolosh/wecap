@@ -111,7 +111,7 @@ export class ArchivosComponent implements OnInit {
     //console.log(event.target.files[0])
     if (type == 'archivo') {
       this.file = event.target.files[0];
-      console.log(this.file, this.file.name.split('?')[0].split('.').pop());
+      //console.log(this.file, this.file.name.split('?')[0].split('.').pop());
     } else if (type == 'media') {
       this.file = event.target.files[0];
     }
@@ -452,7 +452,7 @@ export class ArchivosComponent implements OnInit {
                 icon: 'success',
                 confirmButtonColor: '#015287',
               }).then((result) => {
-                //console.log(result)
+                ////console.log(result)
                 if (result.isConfirmed) {
                   this.filesArr = [];
                   this.changeViewArchivos('back');

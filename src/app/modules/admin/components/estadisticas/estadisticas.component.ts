@@ -175,7 +175,7 @@ export class EstadisticasComponent implements OnInit {
   }
 
   changeViewEstadisticas(view:any, id?:any, name?:any){
-    console.log(view, id, name)
+    //console.log(view, id, name)
     this.helpers.loader();
     switch (view) {
       case 'generales':
@@ -189,20 +189,20 @@ export class EstadisticasComponent implements OnInit {
         //this.estadisticaView = 1;
         //this.estadModulo(id);
         this.cursoName = name;
-        console.log(id)
+        //console.log(id)
         this.certificaciones.forEach((element: any) => {
           if(element.idCurso == id){
-            console.log(element);
+            //console.log(element);
             this.estaCurso(element);
           }
         });
         this.estadisticaView = 1;
-        console.log(this.certInfo)
+        //console.log(this.certInfo)
         this.estadModulo(id);
         break;
       case 'moduloInfo':
         this.showModule = 1;
-        console.log(this.modulos)
+        //console.log(this.modulos)
         this.moduleName = name;
         this.modulos.forEach((element: any) => {
           if(element.idModule == id){
@@ -227,7 +227,7 @@ export class EstadisticasComponent implements OnInit {
   }
 
   estaCurso(element:any){
-    console.log(element);
+    //console.log(element);
     this.modules = element.modulos;
     this.usuariosmod = element.usuarios;
     this.calificacionInicial = element.promedioCalificacion;
@@ -237,14 +237,14 @@ export class EstadisticasComponent implements OnInit {
     this.medallaTerminar = element.promedioMedalla1;
     this.medallaScore = element.promedioMedalla2;
     this.medallaTiempo = element.promedioMedalla3;
-    console.log(element.promedioAvanceArea)
+    //console.log(element.promedioAvanceArea)
 
     Object.keys(element.promedioAvanceArea).forEach((key) => {
-      console.log(key, element.promedioAvanceArea[key]);
-      console.log(key.replace(/_+/g,' '));
+      //console.log(key, element.promedioAvanceArea[key]);
+      //console.log(key.replace(/_+/g,' '));
       this.areas.push(key.replace(/_+/g,' '));
       this.value.push(element.promedioAvanceArea[key]);
-      console.log(this.areas, this.value);
+      //console.log(this.areas, this.value);
     });
     
 
@@ -547,9 +547,9 @@ export class EstadisticasComponent implements OnInit {
   estadisticas(){
     this.get.getEstadGenerales(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
-        console.log(this.certificaciones)
+        //console.log(this.certificaciones)
         this.certiCount = data.length;
       }, (error: any) => {
         this.helpers.logout();
@@ -560,22 +560,22 @@ export class EstadisticasComponent implements OnInit {
   estadisticasCurso(id:any){
     this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
             //this.allModules = data;
-            //console.log(this.allModules)
+            ////console.log(this.allModules)
       }
     )
   }
 
   estadModulo(id: any) {
-    console.log(id)
+    //console.log(id)
   
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.modulos = data;
         this.modCount = data.length;
-        console.log(this.modulos)
+        //console.log(this.modulos)
         Swal.close();
         //this.avance =  data.promedioAvance;
         //this.calificacion =  data.promedioCalificacion;

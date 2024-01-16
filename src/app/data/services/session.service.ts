@@ -227,8 +227,19 @@ export class SessionService {
       headers,
     }).pipe(
       catchError((err) => {
-        //console.log(err);
-        return err;
+        console.log(err);
+        return Swal.fire({
+          title: 'Error',
+          html: err.error.message,
+          icon: 'error',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          confirmButtonColor: '#015287',
+          didOpen: () => {
+            Swal.hideLoading();
+            Swal.getConfirmButton();
+          }
+        });
       })
     );
   }

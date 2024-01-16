@@ -141,17 +141,17 @@ export class CursosComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
   ngOnInit(): void {
-    console.log(this.helpers.domainPrueba);
-    console.log(this.helpers.domain);
-    console.log(localStorage.getItem('type'))
-    console.log(this.helpers.view);
+    //console.log(this.helpers.domainPrueba);
+    //console.log(this.helpers.domain);
+    //console.log(localStorage.getItem('type'))
+    //console.log(this.helpers.view);
     Swal.close();
     this.sizeColumna()
     //this.getColumnas(1)
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
       this.helpers.goTop();
-      console.log(localStorage.getItem('type'))
+      //console.log(localStorage.getItem('type'))
       //console.log(this.searchArray)
       //console.log(localStorage.getItem('name'));
       this.helpers.type = localStorage.getItem('type');
@@ -163,7 +163,7 @@ export class CursosComponent implements OnInit {
       //console.log(this.view)
     } else {
 
-        console.log(localStorage.getItem('type'))
+        //console.log(localStorage.getItem('type'))
         /*Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -180,18 +180,18 @@ export class CursosComponent implements OnInit {
 
 
     public drop(event: CdkDragDrop<any>, type:any) {
-      console.log(type)
+      //console.log(type)
       if(type == 'modules'){
       moveItemInArray(this.allModules, event.previousIndex, event.currentIndex);
       } else {
       moveItemInArray(this.alltemas, event.previousIndex, event.currentIndex);
-      console.log(this.alltemas);
+      //console.log(this.alltemas);
       }
       this.isOrderChange = true;
     }
 
     public updateOrder(type:any) {
-      console.log(type, this.idCertification)
+      //console.log(type, this.idCertification)
       let json = {} as any;
       let newOrder = '';
       if(type == 'modules'){
@@ -204,11 +204,11 @@ export class CursosComponent implements OnInit {
         //se elimina la ultima coma
         newOrder = newOrder.slice(0, -1);
         json['module_order'] = newOrder;
-        console.log(json);
+        //console.log(json);
         this.helpers.loader();
         this.session.orderModule(json, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             Swal.close();
             Swal.fire({
               title: '¡Actualizado!',
@@ -232,11 +232,11 @@ export class CursosComponent implements OnInit {
       //se elimina la ultima coma
       newOrder = newOrder.slice(0, -1);
       json['topic_order'] = newOrder;
-      console.log(json);
+      //console.log(json);
       this.helpers.loader();
       this.session.orderTopic(json, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           Swal.close();
           Swal.fire({
             title: '¡Actualizado!',
@@ -421,7 +421,7 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         this.certificaciones = data;
         this.countCert = this.certificaciones.length;
-        console.log(this.certificaciones, this.countCert);
+        //console.log(this.certificaciones, this.countCert);
         if(name){
           this.changeViewCourses('editc', name)
         }
@@ -454,14 +454,14 @@ export class CursosComponent implements OnInit {
         break;
       case 'col':
           this.formTemasCol.controls['col'].setValue(this.colSelected);
-          console.log(this.formTemasCol.value.col)
+          //console.log(this.formTemasCol.value.col)
         break;
     }
 
   }
 
   changeActive(event: any, kind: any) {
-    console.log(this.date, event.target.value);
+    //console.log(this.date, event.target.value);
     if(kind == 'new'){
       switch(event.target.value){
         case '0':
@@ -472,7 +472,7 @@ export class CursosComponent implements OnInit {
           break;
       }
     }
-    console.log(this.date)
+    //console.log(this.date)
     /*if(event.target.checked ){
       this.date = 1;
     } else {
@@ -530,13 +530,13 @@ export class CursosComponent implements OnInit {
   //Crear nuevo curso
   saveCourse(kind: any, id?: any) {
     let send = new FormData();
-    console.log(this.formNewCurso.value, this.image, this.exam)
+    //console.log(this.formNewCurso.value, this.image, this.exam)
     switch (kind) {
       case 'create':
         send.append('title', this.formNewCurso.value.title);
         send.append('description', this.formNewCurso.value.description);
         if (this.image != undefined) {
-          console.log(this.image)
+          //console.log(this.image)
           send.append('img', this.image, this.image.name);
         } else {
           Swal.fire({
@@ -557,13 +557,13 @@ export class CursosComponent implements OnInit {
         send.append('fin', this.formNewCurso.value.default_active_days_end);
         send.append('secuencial', this.exam);
 
-        console.log(send.getAll('inicio'), send.getAll('fin'))
-        console.log(send.getAll(''),send.getAll('secuencial'),  send.getAll('inicio'), send.getAll('fin'), send.get, send.getAll('img'));
-        console.log( send.getAll('img'))
+        //console.log(send.getAll('inicio'), send.getAll('fin'))
+        //console.log(send.getAll(''),send.getAll('secuencial'),  send.getAll('inicio'), send.getAll('fin'), send.get, send.getAll('img'));
+        //console.log( send.getAll('img'))
         ////console.log( send.getAll('hasExam'),  send.getAll('default_active_days'),  send.get);
         this.session.newCurso(send, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             this.formNewCurso.reset();
             this.formNewCurso.value.title = '';
                 this.formNewCurso.value.description = '';
@@ -585,7 +585,7 @@ export class CursosComponent implements OnInit {
         );
         break;
       case 'edit':
-        console.log(this.formEdit)
+        //console.log(this.formEdit)
         this.formData.append('title', this.formEdit.value.title);
         this.formData.append('description', this.formEdit.value.description);
         this.formData.append('secuencial', this.exam);
@@ -597,11 +597,11 @@ export class CursosComponent implements OnInit {
           this.formData.append('img', this.formEdit.value.img);
         }
         ////console.log(this.formData.getAll('img'));
-        console.log(this.formData.getAll('inicio'), this.formData.getAll('fin'))
-        console.log(this.formData.getAll('title'), this.formData.getAll('description'), this.formData.getAll('img'), this.formData.getAll('default_active_days'), this.formData.getAll('secuencial'), this.formData.get);
+        //console.log(this.formData.getAll('inicio'), this.formData.getAll('fin'))
+        //console.log(this.formData.getAll('title'), this.formData.getAll('description'), this.formData.getAll('img'), this.formData.getAll('default_active_days'), this.formData.getAll('secuencial'), this.formData.get);
         this.session.editCourse(id, this.formData, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             Swal.fire({
               title: '¡Actualizado con exito!',
               text: 'El curso se ha actualizado.',
@@ -712,8 +712,8 @@ export class CursosComponent implements OnInit {
                 this.exam = '';
         for (let item of this.certificaciones) {
           if (item.title == name) {
-            console.log(item)
-            console.log(item)
+            //console.log(item)
+            //console.log(item)
             this.idCertification = item.idCertification;
             this.modules(item.idCertification);
             this.diploma(item.idCertification);
@@ -723,19 +723,19 @@ export class CursosComponent implements OnInit {
             this.formEdit.controls['title'].setValue(item.title);
             this.formEdit.controls['description'].setValue(item.description);
             this.formEdit.controls['default_active_days_start'].setValue(item.inicio);
-            console.log(this.formEdit.controls['default_active_days_start'].value, item.inicio)
+            //console.log(this.formEdit.controls['default_active_days_start'].value, item.inicio)
             this.formEdit.controls['default_active_days_end'].setValue(item.fin);
             this.formEdit.controls['img'].setValue(item.img);
             this.bf = item.img;
             this.exam = parseInt(item.secuencial);
 
-            console.log(item.inicio, item.fin)
+            //console.log(item.inicio, item.fin)
             if(item.inicio != '0000-00-00' && item.fin != '0000-00-00'){
               this.date = 1;
             } else {
               this.date = 0;
             }
-            console.log(this.date)
+            //console.log(this.date)
             //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
@@ -877,7 +877,7 @@ export class CursosComponent implements OnInit {
             this.startForm(5);
             this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data)
+                //console.log(data)
                 this.idModulo = data.idModule;
                 this.temas(this.idModulo);
                 this.formModulo.controls['title'].setValue(data.title);
@@ -885,7 +885,7 @@ export class CursosComponent implements OnInit {
                 this.formModulo.controls['duracion'].setValue(data.max_time);
                 this.formModulo.controls['score'].setValue(data.min_score);
                 this.exam = parseInt(data.hasExam);
-                console.log(this.exam, data.hasExam)
+                //console.log(this.exam, data.hasExam)
                 this.imgIconoDos = data.icon;
                 this.imgHeaderDos = data.imgHeader;///Checar
                 this.imgTerminaDos = data.medal_finish;
@@ -937,7 +937,7 @@ export class CursosComponent implements OnInit {
   temas(id: any) {
     this.get.getTemas(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.alltemas = data;
         this.temasCount = data.length;
         //console.log(this.alltemas)
@@ -975,8 +975,8 @@ export class CursosComponent implements OnInit {
         this.viewE = 1;
         this.startForm(6);
         for (let item of this.alltemas) {
-          console.log(this.alltemas)
-          console.log(tema)
+          //console.log(this.alltemas)
+          //console.log(tema)
           if (item.title == tema || item.idTopic == tema) {
             this.idTema = item.idTopic;
             //this.startForm(6);
@@ -986,11 +986,11 @@ export class CursosComponent implements OnInit {
             this.formTemas.controls['url_video'].setValue(item.url_video);
             this.formTemas.controls['url_subtitulos'].setValue(item.url_subtitulos);
             this.formTemas.controls['file'].setValue(item.file);
-            //console.log(this.formTemas.value)
+            ////console.log(this.formTemas.value)
             this.imgTemaDos = item.icon;
             this.imgTemaVDos = item.icon_gold;
             this.active = item.is_active;
-            console.log(this.active, this.imgTemaDos, this.imgTemaVDos)
+            //console.log(this.active, this.imgTemaDos, this.imgTemaVDos)
           }
         }
         break;
@@ -1015,7 +1015,7 @@ export class CursosComponent implements OnInit {
 
         this.get.getCols(this.idTema,localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
             this.columnas = data;
             Swal.close();
           }
@@ -1035,8 +1035,8 @@ export class CursosComponent implements OnInit {
           this.sizeColumna
           this.startForm(7);
           for (let item of this.columnas) {
-            console.log(item)
-            console.log(name, tema)
+            //console.log(item)
+            //console.log(name, tema)
             //console.log(item.idTopic_content)
             //console.log(this.columnas)
             if (item.idTopic_content == tema) {
@@ -1050,7 +1050,7 @@ export class CursosComponent implements OnInit {
               this.formTemasCol.controls['contenido'].setValue(item.content);
               this.formTemasCol.controls['col'].setValue(item.column_size);
               this.colFinal = item.content;
-              console.log(item.content)
+              //console.log(item.content)
               this.data = item.content;
               if(item.column_size.includes('1')){
                 this.colSelected = '1'
@@ -1089,7 +1089,7 @@ export class CursosComponent implements OnInit {
           //console.log(json)
           this.session.deleteCol(id, localStorage.getItem('token')).subscribe(
             (data: any) => {
-              console.log(data);
+              //console.log(data);
               Swal.fire({
                 title: '¡Columna eliminada!',
                 text: 'La columna se elimino correctamente.',
@@ -1146,7 +1146,7 @@ export class CursosComponent implements OnInit {
     //console.log(id);
     this.get.getDiploma(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         if (data != null) {
           this.formDiploma.controls['cursoID'].setValue(data.idCertification);
           this.formDiploma.controls['encargado'].setValue(data.encargado);
@@ -1160,7 +1160,7 @@ export class CursosComponent implements OnInit {
           this.hasDiploma = false;
         }
 
-        console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
+        //console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
       },
       (error: any) => {
         this.helpers.logout();
@@ -1219,9 +1219,9 @@ export class CursosComponent implements OnInit {
 
   //salva la configuración de los diplomas
   saveDiploma() {
-    console.log(this.formDiploma.value, this.hasDiploma);
-    console.log(this.logo);
-    console.log(this.firma, this.idCertification);
+    //console.log(this.formDiploma.value, this.hasDiploma);
+    //console.log(this.logo);
+    //console.log(this.firma, this.idCertification);
     let diploma = new FormData();
 
     diploma.append('cursoID', this.idCertification);
@@ -1246,7 +1246,7 @@ export class CursosComponent implements OnInit {
       diploma.append('logo', this.formDiploma.value.logo);
     }
 
-    console.log(diploma.getAll('cursoId'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('img'), diploma.getAll('activado'), diploma.getAll('logo'), diploma.get);
+    //console.log(diploma.getAll('cursoId'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('img'), diploma.getAll('activado'), diploma.getAll('logo'), diploma.get);
     //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
     this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -1475,7 +1475,7 @@ export class CursosComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imgHeaderDos = event.target.result;
-        console.log(this.imgHeaderDos)
+        //console.log(this.imgHeaderDos)
       };
       reader.readAsDataURL(event.target.files[0])
     }
@@ -1540,9 +1540,9 @@ export class CursosComponent implements OnInit {
   }
   fileTema(event, file?: any) {
     if(file){
-      console.log(event.target.files[0])
+      //console.log(event.target.files[0])
      this.fileSend = event.target.files[0];
-     console.log(this.fileSend)
+     //console.log(this.fileSend)
     } else {
     if (this.imgTemaDos != '') {
       this.change = 1;
@@ -1665,7 +1665,7 @@ export class CursosComponent implements OnInit {
   }
 
   saveModulo() {
-    console.log(this.imgIcono, 'editando un modulo');
+    //console.log(this.imgIcono, 'editando un modulo');
     //this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
     //this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
     //this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
@@ -1674,7 +1674,7 @@ export class CursosComponent implements OnInit {
     this.imgTermina = this.helpers.dataUrlToFile(this.imgTermina);
     this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
     this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
-    console.log(this.imgHeader.name)
+    //console.log(this.imgHeader.name)
 
     let modulo = new FormData();
     modulo.append('idCertification', this.idCertification);
@@ -1743,7 +1743,7 @@ export class CursosComponent implements OnInit {
 
   addTema() {
     //console.log(this.formTemas.value)
-    console.log(this.fileSend)
+    //console.log(this.fileSend)
     let tema = new FormData();
     if (this.formTemas.value.title != '' && this.formTemas.value.description != '' && this.imgTema != undefined && this.imgTemaV != undefined) {
       this.helpers.loader();
@@ -1805,7 +1805,7 @@ export class CursosComponent implements OnInit {
   }
 
   saveTemas() {
-    console.log(this.imgTema, this.imgTemaV, this.imgTemaDos, this.imgTemaVDos, this.fileSend)
+    //console.log(this.imgTema, this.imgTemaV, this.imgTemaDos, this.imgTemaVDos, this.fileSend)
     /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
     this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
@@ -1841,8 +1841,8 @@ export class CursosComponent implements OnInit {
       tema.append('doc', this.formTemas.value.doc);
     }
 
-    console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'),tema.getAll('doc'))
-    console.log(tema.getAll)
+    //console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'),tema.getAll('doc'))
+    //console.log(tema.getAll)
     /*console.log(modulo.get)
     console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
     modulo.getAll('description'), modulo.getAll('imgIcono'),
@@ -1853,7 +1853,7 @@ export class CursosComponent implements OnInit {
     this.session.updateTemas(this.idModulo, tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'El tema ha sido actualizado.',
@@ -1954,7 +1954,7 @@ export class CursosComponent implements OnInit {
   sizeColumna() {
     this.get.getsizeCol(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.sizecolumna = data;
       }
     );
@@ -1973,7 +1973,7 @@ export class CursosComponent implements OnInit {
   }
 
   addTemasCol() {
-    console.log(this.formTemasCol.value.contenido, this.colFinal, this.data)
+    //console.log(this.formTemasCol.value.contenido, this.colFinal, this.data)
     let temacol = {
       idTopic: this.idTema,
       content:this.formTemasCol.value.contenido,
@@ -1981,7 +1981,7 @@ export class CursosComponent implements OnInit {
       column_title: this.formTemasCol.value.title,
       show_title: this.mostrar
     };
-    console.log(temacol)
+    //console.log(temacol)
     this.session.addCol(temacol, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
@@ -2007,10 +2007,10 @@ export class CursosComponent implements OnInit {
   }
 
   saveCol() {
-    console.log(this.formTemasCol.value.contenido, this.data, this.colFinal)
-    console.log(this.colFinal)
+    //console.log(this.formTemasCol.value.contenido, this.data, this.colFinal)
+    //console.log(this.colFinal)
     this.data = this.colFinal
-    console.log(this.data)
+    //console.log(this.data)
     let temaCol = {
       idTopic_content: this.idTemaC,
       idTopic: this.idTopicC,
@@ -2019,10 +2019,10 @@ export class CursosComponent implements OnInit {
       column_title: this.formTemasCol.value.title,
       show_title: this.mostrar
     }
-    console.log(temaCol)
+    //console.log(temaCol)
     this.session.updateCol(temaCol, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'La columna ha sido actualizada.',

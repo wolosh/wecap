@@ -77,7 +77,7 @@ export class ConfiguracionComponent implements OnInit {
 
   //funcion para subir la imagen al servidor
   cargarImagen() {
-    console.log(this.croppedImage);
+    //console.log(this.croppedImage);
     //declara imageBlob que llama a la función dataUrlBlob y le pasa la imagen con base64
     //let imageBlob = this.helpers.dataUrlToBlob(this.croppedImage);
     let imageBlob = this.croppedImage;
@@ -113,7 +113,7 @@ export class ConfiguracionComponent implements OnInit {
 
   //Evento para cargar la imagen del talento
   fileChangeEvent(event: any): void {
-    console.log(event);
+    //console.log(event);
     //si el archivo es diferente de vacio
     if (event.target.files.length > 0) {
       //muestra el loader
@@ -141,10 +141,10 @@ export class ConfiguracionComponent implements OnInit {
 
   //función para actualizar formato de la imagen
   imageCropped(event: ImageCroppedEvent) {
-    console.log(event, event.base64);
+    //console.log(event, event.base64);
     //Cuanda la imagen se recorta se le da formato base64
     this.croppedImage = event.blob;
-    console.log(this.croppedImage);
+    //console.log(this.croppedImage);
   }
 
   //función que carga la imagen
@@ -181,7 +181,7 @@ export class ConfiguracionComponent implements OnInit {
     }
     //si no es vacio se declara el archivo
     const fileToUpload = files[0];
-    console.log(fileToUpload, fileToUpload.size);
+    //console.log(fileToUpload, fileToUpload.size);
 
     if(fileToUpload.size > 52428){
       Swal.fire({
@@ -195,7 +195,7 @@ export class ConfiguracionComponent implements OnInit {
     Swal.close();
     this.logo = fileToUpload;
     this.logoName = 'Imagen cargada correctamente';
-    console.log(this.logo, this.logoName)
+    //console.log(this.logo, this.logoName)
     
     Swal.fire({
       title: '¡Éxito!',
@@ -269,7 +269,7 @@ export class ConfiguracionComponent implements OnInit {
     
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data)
+        //console.log(data)
         this.formConfiguracion.patchValue({
           colorText: data.colorText,
           txt_sesionUsuario: data.txt_sesionUsuario,
@@ -441,7 +441,7 @@ export class ConfiguracionComponent implements OnInit {
     configuracion.append('username', this.formConfiguracion.controls['username'].value);
     configuracion.append('password', this.formConfiguracion.controls['contraseña'].value);
     //console.log(configuracion.getAll('logo'), configuracion.getAll('fondo'), configuracion.getAll('certificado'));
-    console.log(configuracion.getAll('isLike'),configuracion.getAll('isComentario'))
+    //console.log(configuracion.getAll('isLike'),configuracion.getAll('isComentario'))
     this.session.updateConfiguration(configuracion, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);

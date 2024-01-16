@@ -214,9 +214,19 @@ export class UsuariosComponent implements OnInit {
 
   registerUser(){
     //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
+    
     let form = new FormData();
-    if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != ''){
+    if(this.formUser.value.name.length < 10){
+      Swal.close();
+      Swal.fire({
+        title: '¡Error!',
+        text: 'El nombre debe tener al menos 10 caracteres.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != ''){
       //console.log('esta correcto');
+      this.helpers.loader();
       form.set('email', this.formUser.value.email);
       form.set('password', this.formUser.value.password);
       form.set('confirm_password', this.formUser.value.password);
@@ -233,10 +243,13 @@ export class UsuariosComponent implements OnInit {
 
       this.session.registrarUser(form, localStorage.getItem('token')).subscribe(
         (data: any) => {
+          Swal.close();
           //console.log(data);
+          
+          
           Swal.fire({
             title: '¡Agregado con exito!',
-            text: 'El usuario ha sido modificado.',
+            text: 'El usuario ha sido agregado.',
             icon: 'success',
             confirmButtonColor: '#015287',
           }).then((result) => {
@@ -245,11 +258,13 @@ export class UsuariosComponent implements OnInit {
             }
           });
         }
-      ),
+        
+      )/*,
       (error: any) => {
-        //console.log(error);
+        Swal.close();
+        console.log(error);
         this.helpers.showError(error);
-      };
+      };*/
     } else {
       Swal.fire({
         title: '¡Error!',
@@ -264,12 +279,20 @@ export class UsuariosComponent implements OnInit {
 
   editUser() {
     //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
-    this.helpers.loader();
+    
     let form = new URLSearchParams();
 
-    //if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != '') {
+    if(this.formUser.value.name.length < 10){
+      Swal.close();
+      Swal.fire({
+        title: '¡Error!',
+        text: 'El nombre debe tener al menos 10 caracteres.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else //if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != '') {
       if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != '') {
-    
+        this.helpers.loader();
       form.set('email', this.formUser.value.email);
       form.set('full_name', this.formUser.value.name);
       form.set('job', this.formUser.value.puesto);

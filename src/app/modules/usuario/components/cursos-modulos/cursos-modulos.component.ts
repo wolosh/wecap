@@ -45,7 +45,7 @@ export class CursosModulosComponent implements OnInit {
   constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
-    console.log(this.helpers.view);
+    //console.log(this.helpers.view);
     /*if(localStorage.getItem('token') == null){
       window.location.href = '/login';
     } else if(localStorage.getItem('type') == '0'){
@@ -68,7 +68,7 @@ export class CursosModulosComponent implements OnInit {
           this.getFiles();
           this.helpers.cursos = 1;
           this.session.curso = false;
-          console.log(this.session.cursos)
+          //console.log(this.session.cursos)
           if(this.session.cursos == 1){
             this.changeViewCourses(1);
           } else if(this.session.cursos == 2){
@@ -127,7 +127,7 @@ export class CursosModulosComponent implements OnInit {
             this.certifications();
             break;
           case 2:
-            console.log(this.certificaciones)
+            //console.log(this.certificaciones)
             this.certifications(id);
             this.cursos = 2;
             /*this.certificaciones.forEach(element => {
@@ -153,7 +153,7 @@ export class CursosModulosComponent implements OnInit {
   certifications(recharge?:any) {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
         ////console.log(this.certificaciones);
         if(recharge){
@@ -180,7 +180,7 @@ export class CursosModulosComponent implements OnInit {
   getFiles(){
     this.get.getMedia(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       }
     );
   }
@@ -188,7 +188,7 @@ export class CursosModulosComponent implements OnInit {
   modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.modulesCertifications = data;
         //console.log(this.modulesCertifications.finalizado);
         for (let item of this.modulesCertifications) {
@@ -249,7 +249,7 @@ export class CursosModulosComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.description = data.files.description
         this.arrFiles = data.files.files;
         //////console.log(this.arrFiles);
@@ -265,25 +265,25 @@ export class CursosModulosComponent implements OnInit {
   }
 
   verTemas(idModulo: any, nameMod: any){
-    console.log(this.helpers.view)
-    console.log(idModulo, this.modulesCertifications);
+    //console.log(this.helpers.view)
+    //console.log(idModulo, this.modulesCertifications);
     let c;
     this.modulesCertifications.forEach((element, index) => {
-      console.log(element, element.idModule, index)
+      //console.log(element, element.idModule, index)
       if (element.idModule == idModulo) {
         c = index;
-        console.log(c, (c-1))
+        //console.log(c, (c-1))
         if(c == 0){
-          console.log('es el primero')
+          //console.log('es el primero')
           this. moduleUniversal(idModulo, nameMod);
-          console.log(c)
+          //console.log(c)
         } else {
-          console.log(c)
+          //console.log(c)
           if (this.modulesCertifications[c - 1].finalizado == '1') {
-            console.log('es el otro', this.modulesCertifications[c - 1])
+            //console.log('es el otro', this.modulesCertifications[c - 1])
             this. moduleUniversal(idModulo, nameMod);
           } else {
-            console.log(c)
+            //console.log(c)
             Swal.fire({
               title: '¡Error!',
               text: 'Aún no has finalizado el módulo anterior, continua con el módulo o regresa mas tarde.',
@@ -303,7 +303,7 @@ export class CursosModulosComponent implements OnInit {
   getConferencias(idModulo: any) {
     this.get.getConferencias(idModulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.helpers.conferencias = true;
         this.allConferencias = data;
       }

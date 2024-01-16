@@ -55,7 +55,7 @@ export class TemasComponent implements OnInit {
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
-      console.log(params);
+      //console.log(params);
       this.idTopic = params['idTopic'];
     });
   }
@@ -64,13 +64,13 @@ export class TemasComponent implements OnInit {
     //this.session.configuracion();
 
     this.helpers.name = localStorage.getItem('userName');
-    console.log(this.helpers.name)
+    //console.log(this.helpers.name)
     this.comentario = localStorage.getItem('isComentario');
     this.like = localStorage.getItem('isLike');
     this.helpers.goTop();
-    console.log(this.helpers.idModuleBackUp, localStorage.getItem('idModule'))
+    //console.log(this.helpers.idModuleBackUp, localStorage.getItem('idModule'))
     this.idModule = localStorage.getItem('idModule');
-    console.log(this.idModule)
+    //console.log(this.idModule)
     if (localStorage.getItem('type') == '4') {
       Swal.fire({
         title: 'Cargando',
@@ -145,9 +145,9 @@ export class TemasComponent implements OnInit {
   }
 
   colsFromTopic(id) {
-    console.log(id);
+    //console.log(id);
     this.get.getCols(id, localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.cols = data;
     });
   }
@@ -157,68 +157,68 @@ export class TemasComponent implements OnInit {
   tema(id: any) {
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       if (data.like != null) {
         this.userLike = true;
-        console.log(data.like.tipo);
+        //console.log(data.like.tipo);
         this.showLike = data.like.tipo;
-        console.log(this.showLike, this.userLike);
+        //console.log(this.showLike, this.userLike);
       } else {
         this.userLike = false;
       }
       this.helpers.nameTopicBackUp = data.title;
       this.nameTopic = data.title;
-      console.log(this.nameTopic)
+      //console.log(this.nameTopic)
       this.temasArr = data;
-      console.log(this.temasArr)
+      //console.log(this.temasArr)
       this.medalla = data.icon_gold;
       this.colsFromTopic(data.idTopic);
       this.getComentarios(data.idTopic);
       if (data.url_video == '') {
         this.videoShow = 0;
-        console.log(this.video)
+        //console.log(this.video)
       } else {
         this.videoShow = 1;
         if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
           let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
           let match = data.url_video.match(regExp);
-          console.log(match, match[0], match[1])
+          //console.log(match, match[0], match[1])
           //let youID = (match.length && match[2].length == 11) ? match[1] : "" //asignamos video url embed
           //console.log(youID)
           this.video = "https://www.youtube.com/embed/" + match[1];
-          console.log(this.video)
+          //console.log(this.video)
           this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
           this.swalClosed();
         } else if (data.url_video.includes('vimeo')) {
           let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:vimeo\.com)\/(?:watch\?v=)?(.+)/;
           let match = data.url_video.match(regExp);
-          console.log(match)
+          //console.log(match)
           this.video = "https://player.vimeo.com/video/" + match[1] + "?byline=08portrait=0"
-          console.log(this.video)
+          //console.log(this.video)
           this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
           this.swalClosed();
         }
-        console.log(this.video)
+        //console.log(this.video)
       }
       if (data.doc == '') {
-        console.log(data.doc)
+        //console.log(data.doc)
         this.hasFile = 0;
-        console.log(this.hasFile)
+        //console.log(this.hasFile)
       } else {
         //this.hasFile = 1;
         
         if (data.doc.includes('.pdf')) {
-          console.log(data.doc)
+          //console.log(data.doc)
           //this.pdfSrc = 'google';
           this.hasFile = 1;
           //this.pdfSrc = this.helpers.domain + 'media/temas/docs/' + data.doc;
 
         } else if (data.doc.includes('.ppt') || data.doc.includes('.pptx')) {
-          console.log(data.doc)
+          //console.log(data.doc)
           this.hasFile = 2;
           //this.pdfSrc = 'office';
           //this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
-          console.log(this.doc)
+          //console.log(this.doc)
 
         }
         this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
@@ -249,12 +249,12 @@ export class TemasComponent implements OnInit {
     }).then(function (res) { 
 
       let response = res;
-      console.log(response)
+      //console.log(response)
     
     }).catch(function () {
-      console.log("error");
+      //console.log("error");
     });
-console.log(url2)
+//console.log(url2)
   }
 
 
@@ -272,38 +272,38 @@ console.log(url2)
 
 
   getTemas() {
-    console.log(localStorage.getItem('idModulo'), localStorage.getItem('token'))
+    //console.log(localStorage.getItem('idModulo'), localStorage.getItem('token'))
     this.get.getTemas(localStorage.getItem('idModulo'), localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       for (let mod of data) {
-        console.log(mod)
+        //console.log(mod)
         if (mod.idModule == this.idTopic) {
           this.nameTopic = mod.title;
         }
       }
-      console.log(this.nameTopic)
-      ////console.log(this.temasArr)
+      //console.log(this.nameTopic)
+      //////console.log(this.temasArr)
       Swal.close();
     });
   }
 
   temaFinalizado(idTopic: any) {
-    console.log(idTopic, 'finalizado')
+    //console.log(idTopic, 'finalizado')
     let tema = new FormData();
     let date = new Date();
 
-    console.log(date)
+    //console.log(date)
 
     tema.append('idTema', this.idTopic);
     tema.append('inicio', this.startDate);
     tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
 
 
-    console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
+    //console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
 
     this.session.saveTheme(tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Tema finalizado!',
           text: '¡Has finalizado este tema!',
@@ -346,7 +346,7 @@ console.log(url2)
   }
 
   public temasSeccion(id: any, name: any) {
-    console.log(this.idModule, id, name)
+    //console.log(this.idModule, id, name)
     //his.helpers.idModuleBackUp = this.idModule;
     //this.helpers.nameModuleBackUp = name;
     this.route.navigate(['/seccion', this.idModule]);
@@ -354,7 +354,7 @@ console.log(url2)
   }
 
   temasLike(id: any, like: any) {
-    console.log(id, like)
+    //console.log(id, like)
     if (like == 1) {
       this.showLike = 1;
     } else {
@@ -365,11 +365,11 @@ console.log(url2)
       "tipo": like
     }
 
-    console.log(json)
+    //console.log(json)
 
     this.session.topicLike(json, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.userLike = true;
       }
     );
@@ -378,7 +378,7 @@ console.log(url2)
   getConferencias(idModulo: any) {
     this.get.getConferencias(idModulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.helpers.conferencias = true;
         this.allConferencias = data;
       }
@@ -388,7 +388,7 @@ console.log(url2)
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.description = data.files.description
         this.arrFiles = data.files.files;
         //////console.log(this.arrFiles);
@@ -400,23 +400,23 @@ console.log(url2)
   conferencias(id: any) {
     this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data)
+        //console.log(data)
         this.allConferencias = data;
-        console.log(this.allConferencias)
+        //console.log(this.allConferencias)
 
       }
     );
   }
 
   checkTheme(id: any) {
-    console.log(id)
+    //console.log(id)
     this.get.checkTheme(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data)
+        //console.log(data)
         if (data.finalizado == true) {
           this.finalizado = 1;
           this.helpers.nameTopicBackUp = this.nameTopic + ' - Finalizado'
-          console.log(this.helpers.nameTopicBackUp)
+          //console.log(this.helpers.nameTopicBackUp)
         } else {
           this.finalizado = 0;
           this.helpers.nameTopicBackUp = this.nameTopic
@@ -427,17 +427,17 @@ console.log(url2)
   }
 
   saveComent() {
-    console.log(this.coment)
+    //console.log(this.coment)
 
     let json = {
       "idTopic": parseInt(this.idTopic),
       "comentario": this.coment
     }
-    console.log(json);
+    //console.log(json);
 
     this.session.addComentario(json, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Comentario agregado!',
           text: '¡Tu comentario ha sido agregado!',
@@ -460,10 +460,10 @@ console.log(url2)
   getComentarios(id: any) {
     this.get.getComentarios(this.idTopic, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         //this.tema(this.idTopic);
         this.comentArr = data;
-        console.log(this.comentArr)
+        //console.log(this.comentArr)
       }
     );
   }

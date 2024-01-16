@@ -30,12 +30,12 @@ export class SeccionComponent implements OnInit {
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
-      console.log(params);
+      //console.log(params);
       this.idModule = params['idModule'];
       this.helpers.idModuleBackUp = this.idModule;
       localStorage.setItem('idModule', this.idModule);
-      console.log(this.idModule)
-      console.log(this.helpers.idModuleBackUp)
+      //console.log(this.idModule)
+      //console.log(this.helpers.idModuleBackUp)
     });
   }
 
@@ -44,7 +44,7 @@ export class SeccionComponent implements OnInit {
     //console.log(localStorage.getItem('idCertification'));
     if (localStorage.getItem('type') == '4') {
       this.helpers.view = parseInt(localStorage.getItem('view'));
-      console.log(this.helpers.view, localStorage.getItem('idModule'))
+      //console.log(this.helpers.view, localStorage.getItem('idModule'))
       this.helpers.goTop();
       Swal.fire({
         title: 'Cargando',
@@ -106,7 +106,7 @@ export class SeccionComponent implements OnInit {
   checkFinalizado() {
     this.get.checkModule(this.idModule, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         if (data.finalizado == true) {
           this.finalizado = 1;
           this.helpers.nameModuleBackUp = this.nameModule + ' - Finalizado'
@@ -122,7 +122,7 @@ export class SeccionComponent implements OnInit {
   getConferencias(idModulo: any) {
     this.get.getConferencias(idModulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.helpers.conferencias = true;
         this.allConferencias = data;
       }
@@ -146,7 +146,7 @@ export class SeccionComponent implements OnInit {
   getModules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         for (let mod of data) {
           //console.log(mod)
           if (mod.idModule == this.idModule) {
@@ -175,7 +175,7 @@ export class SeccionComponent implements OnInit {
     this.get.getTemas(this.idModule, localStorage.getItem('token')).subscribe((data: any) => {
       //console.log(data)
       this.temasArr = data;
-      console.log(this.temasArr)
+      //console.log(this.temasArr)
       Swal.close();
     });
   }
@@ -193,7 +193,7 @@ export class SeccionComponent implements OnInit {
   }
 
   modulosSeccion(id: any, name: any) {
-    console.log(this.idModule, id, name)
+    //console.log(this.idModule, id, name)
     this.helpers.idModuleBackUp = id;
     this.helpers.nameModuleBackUp = name;
     this.route.navigate(['/cmtemplate']);
@@ -208,20 +208,20 @@ export class SeccionComponent implements OnInit {
   }
 
   goToTheme(idTopic: any, name: any) {
-    console.log(idTopic, this.temasArr);
+    //console.log(idTopic, this.temasArr);
     let c;
-    console.log(c)
+    //console.log(c)
     this.temasArr.forEach((element, index) => {
-      console.log(element.idTopic, index)
+      //console.log(element.idTopic, index)
       if (element.idTopic == idTopic) {
         c = index;
-        console.log(c, (c-1))
+        //console.log(c, (c-1))
         if(c == 0){
-          console.log('es el primero')
+          //console.log('es el primero')
           this.themeUniversal(idTopic, name);
         } else {
           if (this.temasArr[c - 1].finalizado == '1') {
-            console.log('es el otro')
+            //console.log('es el otro')
             this.themeUniversal(idTopic, name);
           } else {
             Swal.fire({

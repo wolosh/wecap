@@ -44,7 +44,7 @@ export class PerfilUsuarioComponent implements OnInit {
   certifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
         ////console.log(this.certificaciones);
         Swal.close();
@@ -76,7 +76,7 @@ export class PerfilUsuarioComponent implements OnInit {
   getConferencias(idModulo: any) {
     this.get.getConferencias(idModulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.helpers.conferencias = true;
         this.allConferencias = data;
       }
@@ -86,7 +86,7 @@ export class PerfilUsuarioComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.description = data.files.description
         this.arrFiles = data.files.files;
         //////console.log(this.arrFiles);
@@ -103,7 +103,7 @@ export class PerfilUsuarioComponent implements OnInit {
             (data: any) => {
               //console.log(data);
               this.modulesCertifications = data;
-              console.log(this.modulesCertifications);
+              //console.log(this.modulesCertifications);
               //this.files(id);
             }
         );
@@ -113,14 +113,14 @@ export class PerfilUsuarioComponent implements OnInit {
         this.get.getTemas(this.moduloSelected, localStorage.getItem('token')).subscribe((data: any) => {
           //console.log(data)
           this.temasArr = data;
-          console.log(this.temasArr)
+          //console.log(this.temasArr)
           for (let index = 0; index < this.temasArr.length; index++) {
             const element = this.temasArr[index];
             if(element.idTopic){
               this.get.getTemaVisto(element.idTopic, localStorage.getItem('token')).subscribe((data: any) => {
                 //console.log(data)
                 this.visto = data.finalizado;
-                console.log(this.visto)
+                //console.log(this.visto)
                 Swal.close();
               });
             }
