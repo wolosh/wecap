@@ -8,10 +8,10 @@
                             <h1 class="text2 txt-blue" *ngIf="this.finalizado == 0">{{this.nameTopic}}</h1>
                             <h1 class="text2 txt-blue" *ngIf="this.finalizado == 1">{{this.nameTopic}}: Finalizado</h1>
                             <hr class="w-100">
-                            <!--div class="ratio ratio-16x9 mt-5">
+                            <div class="ratio ratio-16x9 mt-5" *ngIf="this.videoShow == 1">
                                 <iframe id="urlIframe" nombre="urlIframe" border="none" frameborder="1"
                                     [src]="this.chanceTow" allowfullscreen></iframe>
-                            </div-->
+                            </div>
                             <ngx-doc-viewer *ngIf="this.hasFile == 2 "
                               [url]="doc"
                               viewer="office"

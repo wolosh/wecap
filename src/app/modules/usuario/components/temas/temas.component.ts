@@ -51,6 +51,7 @@ export class TemasComponent implements OnInit {
   page: number = 1;
   isLoaded: boolean = false;
   hasFile: number = 0;
+  videoShow: number = 0;
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -174,9 +175,10 @@ export class TemasComponent implements OnInit {
       this.colsFromTopic(data.idTopic);
       this.getComentarios(data.idTopic);
       if (data.url_video == '') {
-        this.video = null;
+        this.videoShow = 0;
         console.log(this.video)
       } else {
+        this.videoShow = 1;
         if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
           let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
           let match = data.url_video.match(regExp);
@@ -204,12 +206,12 @@ export class TemasComponent implements OnInit {
         console.log(this.hasFile)
       } else {
         //this.hasFile = 1;
+        
         if (data.doc.includes('.pdf')) {
           console.log(data.doc)
           //this.pdfSrc = 'google';
           this.hasFile = 1;
           //this.pdfSrc = this.helpers.domain + 'media/temas/docs/' + data.doc;
-  
 
         } else if (data.doc.includes('.ppt') || data.doc.includes('.pptx')) {
           console.log(data.doc)
@@ -217,8 +219,10 @@ export class TemasComponent implements OnInit {
           //this.pdfSrc = 'office';
           //this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
           console.log(this.doc)
+
         }
         this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
+        this.swalClosed();
 
       }
       this.idTopic = data.idTopic;
