@@ -220,7 +220,7 @@ export class UsuariosComponent implements OnInit {
       Swal.close();
       Swal.fire({
         title: '¡Error!',
-        text: 'El nombre debe tener al menos 10 caracteres.',
+        text: 'El nombre debe contener al menos un apellido.',
         icon: 'error',
         confirmButtonColor: '#015287',
       });
@@ -286,7 +286,7 @@ export class UsuariosComponent implements OnInit {
       Swal.close();
       Swal.fire({
         title: '¡Error!',
-        text: 'El nombre debe tener al menos 10 caracteres.',
+        text: 'El nombre debe contener al menos un apellido.',
         icon: 'error',
         confirmButtonColor: '#015287',
       });
