@@ -1835,6 +1835,11 @@ export class CursosComponent implements OnInit {
     } else {
       tema.append('icon_gold', this.imgTemaVDos);
     }
+    if(this.imgTemaVDos != ''){
+      tema.append('icon_gold', this.imgTemaVDos);
+    } else if( this.imgTemaV!= undefined || this.imgTemaV!= ''){
+      tema.append('icon', this.imgTemaV, this.imgTemaV.name);
+    }
     if(this.fileSend != undefined){
       tema.append('doc', this.fileSend, this.fileSend.name);
     } else {

@@ -61,6 +61,10 @@ export class CursosModulosComponent implements OnInit {
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
+          if(this.helpers.startDate != ''){
+            console.log(this.helpers.idTopicBackUp,this.helpers.startDate)
+            this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.startDate, localStorage.getItem('token'));
+          }
           ////console.log(localStorage.getItem('type'));
           this.helpers.type = localStorage.getItem('type');
           this.profile();
@@ -79,7 +83,7 @@ export class CursosModulosComponent implements OnInit {
         }
       });
     } else {
-      if (localStorage.getItem('type') == '1') {
+      if (localStorage.getItem('type') != '4') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -188,9 +192,9 @@ export class CursosModulosComponent implements OnInit {
   modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.modulesCertifications = data;
-        //console.log(this.modulesCertifications.finalizado);
+        console.log(this.modulesCertifications.finalizado);
         for (let item of this.modulesCertifications) {
           this.finalizado = item.finalizado
           this.idModulo = item.idModule;
@@ -249,9 +253,14 @@ export class CursosModulosComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data.message);
+        if(data.message == 'No encontrado'){
+          console.log(data.message)
+
+        } else {
         this.description = data.files.description
         this.arrFiles = data.files.files;
+        }
         //////console.log(this.arrFiles);
         Swal.close();
       }

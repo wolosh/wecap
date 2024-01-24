@@ -27,6 +27,7 @@ export class SeccionComponent implements OnInit {
   idExamBackUp: any;
   showModal = false;
   imgHeader: any;
+  description = '';
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -76,7 +77,7 @@ export class SeccionComponent implements OnInit {
           }*/
           this.certifications();
           this.temas();
-          this.files();
+          this.files(localStorage.getItem('idCertification'));
           this.checkFinalizado()
           this.conferencias(localStorage.getItem('idCertification'));
           this.getModules(localStorage.getItem('idCertification'));
@@ -180,13 +181,18 @@ export class SeccionComponent implements OnInit {
     });
   }
 
-  files() {
-    this.get.getFiles(localStorage.getItem('idCertification'), localStorage.getItem('token')).subscribe(
+  files(id: any) {
+    this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
-        this.arrFiles = data.files;
-        this.nameFiles = data.files.files;
-        //console.log(this.arrFiles, this.nameFiles);
+        console.log(data.message);
+        if(data.message == 'No encontrado'){
+          console.log(data.message)
+
+        } else {
+        this.description = data.files.description
+        this.arrFiles = data.files.files;
+        }
+        //////console.log(this.arrFiles);
         Swal.close();
       }
     );

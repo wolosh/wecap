@@ -248,7 +248,7 @@ export class EstadisticasComponent implements OnInit {
     });
     
 
-
+    //información grafica de avance en medallas en un curso
     this.chartMedallas = {
       series: [this.medallaTerminar, this.medallaScore, this.medallaTiempo],
       chart: {
@@ -310,6 +310,7 @@ export class EstadisticasComponent implements OnInit {
       ]
     };
 
+    //información grafica de avance en un curso
     this.chartCurso = {
       series: [
         {
@@ -388,6 +389,8 @@ export class EstadisticasComponent implements OnInit {
       this.calificacion =  data.promedioCalificacion;
       this.tiempo =  data.promedioTiempo;
       this.intentos =  data.promedioIntentos;
+
+      //Datos de grafica cantidad de usuarios
       this.chartUsuarios = {
         series: [this.usuarios.hombres, this.usuarios.mujeres, this.usuarios.otro],
         chart: {
@@ -448,7 +451,7 @@ export class EstadisticasComponent implements OnInit {
           }
         ]
       };
-
+      //Datos de grafica cantidad de avance por usuarios
       this.chartAvances = {
         series: [this.avance.hombres, this.avance.mujeres, this.avance.otro],
         chart: {
@@ -513,27 +516,6 @@ export class EstadisticasComponent implements OnInit {
       this.helpers.goTop();
     });
   }
-  /*certifications() {
-    //this.certificaciones = [];
-    let json={}
-    this.get.getCertifications(localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.certificaciones = data;
-        for (let item of this.certificaciones){
-          this.cursos2.push({iduser:data.idCertification,name:data.title})
-          console.log(this.cursos2)
-          let id=item.idCertification;
-          this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
-            (data: any) => {
-              console.log(data);
-
-            }
-          )
-        }
-      }
-    );
-  }*/
 
   /*estadCurso(id: any) {
     this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
@@ -547,9 +529,9 @@ export class EstadisticasComponent implements OnInit {
   estadisticas(){
     this.get.getEstadGenerales(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.certificaciones = data;
-        //console.log(this.certificaciones)
+        console.log(this.certificaciones)
         this.certiCount = data.length;
       }, (error: any) => {
         this.helpers.logout();
@@ -572,7 +554,7 @@ export class EstadisticasComponent implements OnInit {
   
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.modulos = data;
         this.modCount = data.length;
         //console.log(this.modulos)

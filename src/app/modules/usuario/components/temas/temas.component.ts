@@ -1,7 +1,8 @@
 import {
   Component, OnInit, ElementRef,
   HostListener,
-  ViewChild
+  ViewChild,
+  ChangeDetectorRef
 } from '@angular/core';
 import { Data, Router } from '@angular/router';
 import { GetService } from 'src/app/data/services/get.service';
@@ -53,16 +54,27 @@ export class TemasComponent implements OnInit {
   hasFile: number = 0;
   videoShow: number = 0;
 
+  unloadEvent = function (e) {
+    var confirmationMessage = "Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?";
+
+    
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage; //Webkit, Safari, Chrome etc.
+};
+
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
       //console.log(params);
       this.idTopic = params['idTopic'];
     });
+
+    
   }
 
   ngOnInit(): void {
     //this.session.configuracion();
-
+    window.addEventListener("beforeunload", this.unloadEvent);
+    //window.onbeforeunload = this.helpers.confirmExit;
     this.helpers.name = localStorage.getItem('userName');
     //console.log(this.helpers.name)
     this.comentario = localStorage.getItem('isComentario');
@@ -96,6 +108,7 @@ export class TemasComponent implements OnInit {
           this.tema(this.idTopic);
           this.conferencias(localStorage.getItem('idCertification'))
           this.files(localStorage.getItem('idCertification'))
+          setInterval( this.checkFocus, 200 );
         }
       });
     } else {
@@ -115,7 +128,7 @@ export class TemasComponent implements OnInit {
         this.route.navigate(['/']);
       }
     }
-  }
+  };
 
   /*checkFinalizado(arr: any) {
       //console.log(arr);
@@ -130,6 +143,18 @@ export class TemasComponent implements OnInit {
       }
     }
   }*/
+
+  checkFocus(){
+    ChangeDetectorRef.prototype.detectChanges = function () {
+      console.log('detectado');
+
+    };
+    /*if(document.hasFocus() == false){
+      console.log('no hay foco')
+    } else {
+      console.log('hay foco');
+    }*/
+  }
 
   nextPage() {
     this.page += 1;
@@ -157,7 +182,7 @@ export class TemasComponent implements OnInit {
   tema(id: any) {
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
-      //console.log(data)
+      console.log(data)
       if (data.like != null) {
         this.userLike = true;
         //console.log(data.like.tipo);
@@ -174,11 +199,18 @@ export class TemasComponent implements OnInit {
       this.medalla = data.icon_gold;
       this.colsFromTopic(data.idTopic);
       this.getComentarios(data.idTopic);
+      this.idTopic = data.idTopic;
+      this.helpers.idTopicBackUp = data.idTopic;
+      let date = new Date();
+      this.startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+      this.helpers.startDate = this.startDate;
+      console.log(this.startDate, this.helpers.startDate)
       if (data.url_video == '') {
         this.videoShow = 0;
         //console.log(this.video)
       } else {
         this.videoShow = 1;
+        
         if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
           let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
           let match = data.url_video.match(regExp);
@@ -225,11 +257,7 @@ export class TemasComponent implements OnInit {
         this.swalClosed();
 
       }
-      this.idTopic = data.idTopic;
-
-      let date = new Date();
-      this.startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-
+      
     });
     /*this.get.getTemas(localStorage.getItem('idModule'), localStorage.getItem('token')).subscribe((data: any) => {
       ////console.log(data)
@@ -297,7 +325,7 @@ export class TemasComponent implements OnInit {
     tema.append('idTema', this.idTopic);
     tema.append('inicio', this.startDate);
     tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
-
+    tema.append('finalizado', '1');
 
     //console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
 
@@ -349,8 +377,11 @@ export class TemasComponent implements OnInit {
     //console.log(this.idModule, id, name)
     //his.helpers.idModuleBackUp = this.idModule;
     //this.helpers.nameModuleBackUp = name;
+    this.helpers.idTopicBackUp = this.idTopic;
+    this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
+    //this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
     this.route.navigate(['/seccion', this.idModule]);
-    this.session.curso = true;
+    //this.session.curso = true;
   }
 
   temasLike(id: any, like: any) {
@@ -388,9 +419,14 @@ export class TemasComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data.message);
+        if(data.message == 'No encontrado'){
+          console.log(data.message)
+
+        } else {
         this.description = data.files.description
         this.arrFiles = data.files.files;
+        }
         //////console.log(this.arrFiles);
         Swal.close();
       }

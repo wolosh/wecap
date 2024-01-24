@@ -33,6 +33,8 @@ export class HelpersService {
   public finalizados = [] as any;
   public conferencias = false;
   view: any;
+  startDate = '';
+  message = "You have not filled out the form.";
 
   constructor(private route: Router, public session:SessionService) {
     if (this.domainPrueba.includes('americargo')) {
@@ -53,8 +55,6 @@ export class HelpersService {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
     const byteString = atob(dataUrl.split(',')[1]);
-
-
     
     // separate out the mime component
     const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
@@ -73,6 +73,26 @@ export class HelpersService {
     // write the ArrayBuffer to a blob, and you're done
     const blob = new Blob([ia], { type: mimeString });
     return blob;
+  }
+
+  public confirmExit(){
+
+
+      return Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Si sales de la página perderás tu progreso.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#015287',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Salir',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        //console.log(result)
+        if (result.isConfirmed) {
+          this.endTheme(this.idTopicBackUp, this.startDate, localStorage.getItem('token'));
+      }
+    });
   }
 
   public getName(){
@@ -138,6 +158,27 @@ export class HelpersService {
     });
   }
 
+  public endTheme(idTheme:any, startDate:any, token:any){
+    let tema = new FormData();
+    let date = new Date();
+
+    //console.log(date)
+
+    tema.append('idTema', idTheme);
+    tema.append('inicio', startDate);
+    tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+    tema.append('finalizado', '0');
+
+    //console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
+
+    this.session.saveTheme(tema, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.startDate = '';
+      }
+    );
+  }
+
   //función para cerrar la sesión del usuario
   public logout() {
     Swal.fire({
@@ -150,11 +191,18 @@ export class HelpersService {
         setTimeout(() => {
           Swal.close();
           //cerramos la sesion
+          if(this.startDate != ''){
+            console.log(this.idTopicBackUp,this.startDate)
+            this.endTheme(this.idTopicBackUp, this.startDate, localStorage.getItem('token'));
+          }
           this.pauseTimer(this.interval);
           this.type = 0;
           localStorage.removeItem('userName');
           localStorage.clear();
           localStorage.removeItem('token');
+          localStorage.removeItem('type');
+          localStorage.removeItem('isLike');
+          localStorage.removeItem('isComentario');         
           this.session.curso = false;
           this.conferencias = false;
           this.session.configuracion();

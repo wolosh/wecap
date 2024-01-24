@@ -31,7 +31,8 @@ export class FooterComponent implements OnInit {
       (data: any) => {
         console.log(data)
         this.socialMedia = data;
-        if(data.red_facebook == '')this.logof = 1
+        console.log(this.socialMedia.red_facebook)
+        if(data.red_facebook == '')this.logof = 1 
         if(data.red_instagram == '')this.logoi = 1
         if( data.red_twitter ==='')this.logotw = 1
         if(data.red_tiktok ==='') this.logot = 1

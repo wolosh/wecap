@@ -76,6 +76,7 @@ export class TestComponent implements OnInit {
           }
           this.helpers.type = localStorage.getItem('type');
           this.session.curso = true;
+          
           ////console.log(this.helpers.nameModuleBackUp);
           ////console.log(localStorage.getItem('test'));
           /*if (localStorage.getItem('test') == 'true') {
@@ -224,6 +225,8 @@ export class TestComponent implements OnInit {
     );
   }
 
+  
+
   startTimer() {
 
     setTimeout(() => {
@@ -252,6 +255,7 @@ export class TestComponent implements OnInit {
       }
     }, 1000);
   }
+
 
   transform(value: number, args?: any) {
     const minutes: number = Math.floor(value / 60);
