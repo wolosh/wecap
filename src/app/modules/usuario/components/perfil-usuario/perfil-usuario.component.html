@@ -77,18 +77,20 @@
                             <th></th>
                             <th class="text4 txt-blue">Tema</th>
                             <th class="text4 txt-blue">Visto</th>
+                            <th class="text4 txt-blue">Tiempo en el tema</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let tema of this.temasArr" >
+                    <tbody *ngFor="let tema of this.temasArr; let i=index " >
                         <tr>
-                            <td><img src="{{this.helpers.domain + 'media/' + tema.icon}}" class=" rounded-circle" alt="icon" width="40px" height="40px"></td>
+                            <td><img src="{{this.helpers.domain+'media/temas/' + tema.icon}}" class=" rounded-circle" alt="icon" width="40px" height="40px"></td>
                             <td class="">{{tema.title}}</td>
                             <td>
                                 <!--img  src="assets/img/close.svg" class="ps-4 close" alt="">
                                 <img *ngIf="this.visto == false" src="assets/img/close.svg" class="ps-4 close" alt=""-->
-                                <i *ngIf="this.visto == true" class="fas fa-check ps-4" style="color: #015287;"></i>
-                                <i *ngIf="this.visto == false" class="fas fa-times ps-4" style="color: #015287;"></i>
+                                <i *ngIf="this.tema.finalizado == 1" class="fas fa-check ps-4" style="color: #015287;"></i>
+                                <i *ngIf="this.tema.finalizado == 0" class="fas fa-times ps-4" style="color: #015287;"></i>
                             </td>
+                            <td class="">{{this.times[i].tiempo}}</td>
                         </tr>
                     </tbody>
                 </table>

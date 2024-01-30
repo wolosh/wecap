@@ -284,7 +284,7 @@ export class GetService {
     return this.http.get(`${this.session.API}estadisticasGlobales`, {
       headers,
     })
-  }
+  }       
   //Estadisticas Curso
   getEstadCurso(id: any,token: any) {
     const headers = new HttpHeaders({
@@ -441,6 +441,15 @@ export class GetService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(this.session.API + 'estadisticas', {
+      headers,
+    })
+  }
+
+  getUserTime(id, user, token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.session.API}getTiempoTema/${id}/${user}`, {
       headers,
     })
   }

@@ -70,13 +70,13 @@
     <!--Parte modulos-->
     <div *ngIf="this.cursos == 2">
 
-        <carousel  *ngIf="this.helpers.view == 1" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
+        <carousel *ngIf="this.helpers.view == 1" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
             [showIndicators]="showIndicator" [interval]="0" [noWrap]="noWrap">
             <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
-                <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity"
-                    style="display: block; width: 100%;" class="h-100 opacity">
-                    <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity"
-                    style="display: block; width: 100%;" class="h-100">
+                <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}"
+                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100 opacity">
+                <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}"
+                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100">
 
                 <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
           <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
@@ -87,11 +87,13 @@
 
                     <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                         <div class="row">
-                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block" alt="..."></div>
-                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block opacity-50"
-                                    alt="..."></div>
-                            <div class="col"><img src="assets/img/medalla.svg" class="mx-auto d-block opacity-50"
-                                    alt="..."></div>
+                            
+                        <div class="col"><img src="{{this.helpers.domain+'/media/' + slide.medal_finish}}"
+                                    class="mx-auto d-block w-50" alt="..."></div>
+                            <div class="col"><img src="{{this.helpers.domain+'/media/' + slide.medal_perfect}}"
+                                    class="mx-auto d-block opacity-50 w-50" alt="..."></div>
+                            <div class="col"><img src="{{this.helpers.domain+'/media/' + slide.medal_time}}"
+                                    class="mx-auto d-block opacity-50 w-50" alt="..."></div>
                         </div>
                     </div>
                 </div>
@@ -100,10 +102,10 @@
         <carousel *ngIf="this.helpers.view == 0" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
             [showIndicators]="showIndicator" [interval]="0" [noWrap]="noWrap">
             <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
-                <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity"
-                    style="display: block; width: 100%;" class="h-100 opacity">
-                    <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}" alt="image slide opacity"
-                    style="display: block; width: 100%;" class="h-100">
+                <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}"
+                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100 opacity">
+                <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}"
+                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100">
 
                 <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
           <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
@@ -125,7 +127,7 @@
             </slide>
         </carousel>
     </div>
-    
+
 </div>
 
 
@@ -181,7 +183,7 @@
                             <div>
                                 <label class="text9 txt-blue d-block">{{file.name}}</label>
                                 <a href="{{file.url}}" target="_blank" class="boton2 ps-0">Descargar</a>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -210,8 +212,7 @@
                                 <label class="text10 txt-blue d-block">{{conferencia.titulo}}</label>
                                 <label class="text9 txt-blue d-block">{{conferencia.fecha}}</label>
                                 <!---<label class="text9 txt-blue d-block">Bases para módulo Promocional.</label>-->
-                                <a href="{{conferencia.link}}" target="_blank"
-                                    class="boton2 ps-0">Link</a>
+                                <a href="{{conferencia.link}}" target="_blank" class="boton2 ps-0">Link</a>
                             </div>
                         </div>
                     </div>
@@ -238,7 +239,7 @@
             <div class="modal-body" *ngIf="this.allConferencias == 0">
                 <h5 class="modal-title mb-3" id="exampleModalLabel">Conferencias</h5>
                 <p class="text7 txt-gris mb-3">Aun no hay conferencias programadas para esta certificación.</p>
-                
+
             </div>
         </div>
     </div>

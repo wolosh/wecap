@@ -1830,14 +1830,14 @@ export class CursosComponent implements OnInit {
       tema.append('url_video', this.formTemas.value.url_video);
     }
     tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
-    if (this.imgTemaV != undefined) {
+    /*if (this.imgTemaV != undefined) {
       tema.append('icon_gold', this.imgTemaV, this.imgTemaV.name);
     } else {
       tema.append('icon_gold', this.imgTemaVDos);
-    }
+    }*/
     if(this.imgTemaVDos != ''){
       tema.append('icon_gold', this.imgTemaVDos);
-    } else if( this.imgTemaV!= undefined || this.imgTemaV!= ''){
+    } else if( this.imgTemaV != undefined || this.imgTemaV!= ''){
       tema.append('icon', this.imgTemaV, this.imgTemaV.name);
     }
     if(this.fileSend != undefined){

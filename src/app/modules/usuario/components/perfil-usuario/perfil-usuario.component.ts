@@ -27,6 +27,9 @@ export class PerfilUsuarioComponent implements OnInit {
   visto: any;
   description = '';
   arrFiles: any;
+  userId: any;
+  timeInTheme: any;
+  times = [];
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
@@ -102,7 +105,8 @@ export class PerfilUsuarioComponent implements OnInit {
     //console.log(id)
     this.get.getPerfil(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        console.log(data, data.idUser);
+        this.userId = data.idUser;
         this.allPerfil = data;
         //console.log()
       }
@@ -153,8 +157,19 @@ export class PerfilUsuarioComponent implements OnInit {
         this.modulos = 1;
         break;
       case 'modulo':
+        console.log(this.userId);
+        this.times = [];
         this.get.getTemas(this.moduloSelected, localStorage.getItem('token')).subscribe((data: any) => {
           console.log(data)
+          for(let tema of data){
+            console.log(tema.idTopic)
+            this.get.getUserTime(tema.idTopic, this.userId, localStorage.getItem('token')).subscribe((data: any) => {
+              console.log(data);
+              this.times.push(data);
+              console.log(this.times);
+            });
+          }
+          console.log(this.times);
           this.temasArr = data;
           //console.log(this.temasArr)
           for(let tema of this.temasArr){
