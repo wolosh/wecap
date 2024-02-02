@@ -32,7 +32,7 @@ export class ArchivosComponent implements OnInit {
   notificarCargaCompleta: any;
   //mostrar editar about
   showDescription = false;
-  description: any;
+  description = '';
 
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private session: SessionService, private formBuilder: FormBuilder) { }
 

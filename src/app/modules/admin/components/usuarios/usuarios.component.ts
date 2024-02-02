@@ -120,7 +120,7 @@ export class UsuariosComponent implements OnInit {
         break;
       case 'type':
         this.formUser.controls['is_admin'].setValue(this.typeSelected);
-        //console.log(this.formUser.controls['is_admin'].value);
+        //console.log(this.formUser.controls['is_admin']errorvalue);
     }
   }
 
@@ -157,7 +157,7 @@ export class UsuariosComponent implements OnInit {
         if (this.userObj.genero != null) this.genderSelected = this.userObj.genero;
         this.typeSelected = this.userObj.is_admin;
         this.active = this.userObj.is_active;
-        //console.log(this.usuarios)
+        console.log(this.usuarios)
         this.formUser.patchValue({
           email: this.userObj.email,
           name: this.userObj.full_name,
@@ -225,7 +225,7 @@ export class UsuariosComponent implements OnInit {
         confirmButtonColor: '#015287',
       });
     } else if (this.formUser.value.name != '' && this.formUser.value.email != '' && this.formUser.value.fecha_nacimiento != '' && this.formUser.value.puesto != '' && this.formUser.value.area != '' && this.formUser.value.is_admin != ''){
-      //console.log('esta correcto');
+      console.log('esta correcto');
       this.helpers.loader();
       form.set('email', this.formUser.value.email);
       form.set('password', this.formUser.value.password);

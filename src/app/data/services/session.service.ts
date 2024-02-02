@@ -861,5 +861,22 @@ export class SessionService {
     );
   }
 
+  public editConferencia(id, form, token) {
+    //console.log(form)
+    //console.log(idUser,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}editConferencia/${id}`, form, {
+      headers,
+    })/*.pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );*/
+  }
+
 }
 

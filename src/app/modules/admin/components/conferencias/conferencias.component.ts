@@ -18,6 +18,7 @@ export class ConferenciasComponent implements OnInit {
   p: any;
   allConferencias: any;
   viewConf = 0;
+  isNew = 0;
   formConf: FormGroup;
   idConf: any;
   //title= '';
@@ -37,6 +38,7 @@ export class ConferenciasComponent implements OnInit {
   backId: any;
   confeCount: any;
   confeCountInfo: any;
+  startDate = '';
 
 
 
@@ -112,7 +114,7 @@ export class ConferenciasComponent implements OnInit {
     //console.log(id);
     this.get.getConferencias(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.allConferencias = data;
         this.confeCountInfo = data.length;
         //console.log(this.allConferencias);
@@ -179,6 +181,47 @@ export class ConferenciasComponent implements OnInit {
     }
   }
 
+  editConferencias(id:any){
+    console.log(this.formConf.value, this.idConf);
+
+    if(this.formConf.value.titulo == '' || this.formConf.value.descripcion == '' || this.formConf.value.link == '' || this.formConf.value.fecha == ''){
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Faltan campos por llenar, por favor completa la información.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+
+      this.helpers.loader();
+    let conferencia = new FormData();
+    conferencia.append('titulo', this.formConf.value.titulo);
+    conferencia.append('descripcion', this.formConf.value.descripcion);
+    conferencia.append('link', this.formConf.value.link);
+    conferencia.append('fecha', this.formConf.value.fecha);
+
+    console.log(conferencia.getAll('titulo'), conferencia.getAll('descripcion'), conferencia.getAll('link'), conferencia.getAll('fecha'));
+
+    this.session.editConferencia(this.idConf, conferencia, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        Swal.close();
+        console.log(data);
+        Swal.fire({
+          title: '¡Listo!',
+          text: 'Conferencia actualizada.',
+          icon: 'success',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)
+          if (result.isConfirmed) {
+            this.changeViewConferencias('verConf', '', this.backId);
+          }
+        });
+      }
+    );
+    }
+  }
+
   //cambia la vista a Temas
   changeViewConferencias(view: any, name?: any, id?: any) {
     Swal.fire({
@@ -203,9 +246,27 @@ export class ConferenciasComponent implements OnInit {
       case 'newConf':
         this.viewConf = 2;
         this.startForm();
+        this.isNew = 1;
       //this.promos;
+      break;
+      case 'editConf':
+        this.idConf = id;
+        this.viewConf = 2;
+        this.isNew = 2;
+        this.startForm();
+        console.log(id, this.idConf, this.allConferencias)
 
-
+        for(let conferencia of this.allConferencias){
+          if(conferencia.idVideoCon == id){
+            console.log(conferencia)
+            this.formConf.controls['titulo'].setValue(conferencia.titulo);
+            this.formConf.controls['descripcion'].setValue(conferencia.descripcion);
+            this.formConf.controls['link'].setValue(conferencia.link);
+            this.formConf.controls['fecha'].setValue(conferencia.fecha);
+            this.startDate = conferencia.fecha;
+            console.log(this.formConf.value)
+          }
+        }
     }
       }
       });

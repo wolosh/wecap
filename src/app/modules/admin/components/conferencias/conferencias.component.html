@@ -1,92 +1,111 @@
 <div class="container-lg page-content top">
-    <div class="row">
-        <div class="col-12">
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" (click)="onClickTab()">Conferencias</button>
-                </div>
-              </nav>
-              <div class="tab-content mb-5" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <div *ngIf="viewConf == 0">
-                    <label class="text3 txt-blue2 mt-3">Video Conferencias</label>
-                    <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o añadir sus conferencias</label>
-                    <hr class="w-100">
-                    <!--Tabla--->
-                    
-                    <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.allcursos == 0">Aun no cuentas con cursos, por favor ve a la pantalla "Cursos" para añadir.</label>
-                       
-                    <table id="conferencia" class="table data striped dt-responsive nowrap" style="width:100%" *ngIf="this.allcursos != 0">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Descripción</th>
-                                <th>Fecha</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let curso of allcursos | paginate: {id: 'confeCerti', itemsPerPage: 6, currentPage: p}">
-                                <th scope="row">{{curso.idCertification}}</th>
-                                <th scope="row"><button type="button" class="boton4" (click)="changeViewConferencias('verConf', curso.title, curso.idCertification)">{{curso.title}}</button></th>
-                                <td>{{curso.description}}</td>
-                                <td>{{curso.creation_date}}</td>
-                                <td *ngIf="this.curso.is_active == 1">Activa</td>
-                                <td *ngIf="this.curso.is_active == 0">Inactivo</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row" *ngIf="this.confeCount > 6">
-                      <div class="col-12">
-                        <pagination-controls id="confeCerti" class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
-                        nextLabel="Siguiente"></pagination-controls>
-                      </div>
-                    </div>
-                  </div>
-                  <div *ngIf="viewConf == 1">
-                    <!--Conferencias--->
-                    <div class="row d-flex align-items-center">
-                        <div class="col-6 col-md-7 col-lg-9">
-                            <label class="text3 txt-blue2">Conferencias {{this.nombreCertificacion}}</label>
-                        </div>
-                        <div class="col-6 col-md-5 col-lg-3">
-                            <button class="botondrop bg-blue w-100 p-1 p-md-2" (click)="changeViewConferencias('newConf')">
-                                Añadir conferencia
-                                <img src="assets/img/agregar.svg" alt="agregar">
-                            </button>
-                        </div>
-                        
-                    </div>
-                    <hr class="w-100">
-                    <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.allConferencias == 0">Aun no cuentas con conferencias, presiona "Añadir conferencia" para comenzar.</label>
-                    <div class="table-responsive" *ngIf="this.allConferencias != 0">
-                        <table class="table w-100">
-                          <thead>
-                            <tr>
-                              <th scope="col">Titulo</th>
-                              <th scope="col">Descripcion</th>
-                              <th scope="col">Fecha</th>
-                              <th scope="col">Link</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let conferencia of allConferencias | paginate: {id: 'confe', itemsPerPage: 6, currentPage: p }">
-                              <td>{{conferencia.titulo}}</td>
-                              <td>{{conferencia.descripcion}}</td>
-                              <td>{{conferencia.fecha}}</td>
-                              <td>{{conferencia.link}}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="row" *ngIf="this.confeCountInfo > 6">
-                        <div class="col-12">
-                          <pagination-controls id="confe" class="w-100 d-flex justify-content-center" (pageChange)="p = $event" previousLabel="Anterior"
-                          nextLabel="Siguiente"></pagination-controls>
-                        </div>
-                      </div>
-                    <!--form class="formulario" [formGroup]="fg" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-12">
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+            type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+            (click)="onClickTab()">Conferencias</button>
+        </div>
+      </nav>
+      <div class="tab-content mb-5" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div *ngIf="viewConf == 0">
+            <label class="text3 txt-blue2 mt-3">Video Conferencias</label>
+            <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o añadir
+              conferencias.</label>
+            <hr class="w-100">
+            <!--Tabla--->
+
+            <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.allcursos == 0">Aun no cuentas con cursos, por favor ve
+              a la pantalla "Cursos" para añadir.</label>
+
+            <table id="conferencia" class="table data striped dt-responsive nowrap" style="width:100%"
+              *ngIf="this.allcursos != 0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Descripción</th>
+                  <th>Fecha</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let curso of allcursos | paginate: {id: 'confeCerti', itemsPerPage: 6, currentPage: p}">
+                  <th scope="row">{{curso.idCertification}}</th>
+                  <th scope="row"><button type="button" class="boton4"
+                      (click)="changeViewConferencias('verConf', curso.title, curso.idCertification)">{{curso.title}}</button>
+                  </th>
+                  <td>{{curso.description}}</td>
+                  <td>{{curso.creation_date}}</td>
+                  <td *ngIf="this.curso.is_active == 1">Activa</td>
+                  <td *ngIf="this.curso.is_active == 0">Inactivo</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row" *ngIf="this.confeCount > 6">
+              <div class="col-12">
+                <pagination-controls id="confeCerti" class="w-100 d-flex justify-content-center"
+                  (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="viewConf == 1">
+            <!--Conferencias--->
+            <div class="row d-flex align-items-center">
+              <div class="col-6 col-md-7 col-lg-9">
+                <label class="text3 txt-blue2">Conferencias {{this.nombreCertificacion}}</label>
+              </div>
+              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewConferencias('back')">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+              <div class="col-6 col-md-5 col-lg-3">
+
+                <button class="botondrop bg-blue w-100 p-1 p-md-2" (click)="changeViewConferencias('newConf')">
+                  Añadir conferencia
+                  <img src="assets/img/agregar.svg" alt="agregar">
+                </button>
+              </div>
+
+            </div>
+            <hr class="w-100">
+            <label class="text6 txt-gris mt-3 ms-2" *ngIf="this.allConferencias == 0">Aun no cuentas con conferencias,
+              presiona "Añadir conferencia" para comenzar.</label>
+            <div class="table-responsive" *ngIf="this.allConferencias != 0">
+              <table class="table w-100">
+                <thead>
+                  <tr>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let conferencia of allConferencias | paginate: {id: 'confe', itemsPerPage: 6, currentPage: p }">
+
+                    <th scope="row">{{conferencia.titulo}}
+                    </th>
+                    <td>{{conferencia.descripcion}}</td>
+                    <td>{{conferencia.fecha}}</td>
+                    <td>{{conferencia.link}}</td>
+                    <td><button class="boton2"
+                        (click)="changeViewConferencias('editConf', '', conferencia.idVideoCon)">Editar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row" *ngIf="this.confeCountInfo > 6">
+              <div class="col-12">
+                <pagination-controls id="confe" class="w-100 d-flex justify-content-center" (pageChange)="p = $event"
+                  previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+              </div>
+            </div>
+            <!--form class="formulario" [formGroup]="fg" (ngSubmit)="onSubmit()">
                       <div class="button">
                         <button type="button" (click)="addLesson()">Agregar fila</button>
                       </div>
@@ -129,7 +148,7 @@
                             </mat-cell>
                           </ng-container>
                           <!-- Delete Column -->
-                          <!--ng-container matColumnDef="eliminar">
+            <!--ng-container matColumnDef="eliminar">
                             <mat-header-cell *matHeaderCellDef></mat-header-cell>
                             <mat-cell *matCellDef="let element; index as i" [formGroup]="element">
                               <button type="button" (click)="deleteLesson(i)">
@@ -144,31 +163,55 @@
                       </mat-table>
                       <button class="btn-save" type="submit">Guardar</button>
                     </form-->
-                  </div>
-                  <div *ngIf="viewConf == 2">
-                    <form [formGroup]="formConf" id="conferencias">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-8 col-md-5 col-lg-4">
-                                <label class="text3 txt-blue2">Añadir Conferencia</label>
-                            </div>
-                            <div class="col-4 col-md-4 col-lg-2 offset-lg-6 offset-md-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="addConferencia()">Guardar</button>
-                            </div>
-                        </div>
-                        <hr class="w-100">
-                        <div class="row">
-                          <div class="col-12">
-                            <input type="text" class="input3 mb-3" placeholder="Título de la conferencia"  formControlName="titulo" >
-                            <input type="text" class="input3 mb-3" placeholder="Descripción"  formControlName="descripcion">
-                            <input type="text" class="input3 mb-3" placeholder="Link para ingresar"  formControlName="link">
-                            <input type="text" class="input3 mb-3" placeholder="Fecha"  formControlName="fecha">
-                            <hr class="hr-gris mt-4 mb-4">
-                          </div>
-                        </div>
-                    </form>
+          </div>
+          <div *ngIf="viewConf == 2">
+            <form [formGroup]="formConf" id="conferencias">
+              <div class="row d-flex align-items-center">
+                <div class="col-8 col-md-5 col-lg-4">
+                  <label class="text3 txt-blue2" *ngIf="this.isNew == 1">Añadir Conferencia</label>
+                  <label class="text3 txt-blue2" *ngIf="this.isNew == 2">Editar Conferencia</label>
                 </div>
+                <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                  <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewConferencias('verConf', '', this.backId)">
+                    <i class="fas fa-reply"></i>
+                  </button>
                 </div>
-            </div>
+                <div class="col-4 col-md-4 col-lg-2 offset-lg-6 offset-md-3">
+                  
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    (click)="addConferencia()" *ngIf="this.isNew == 1">Guardar</button>
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                    (click)="editConferencias(this.idConf)" *ngIf="this.isNew == 2">Guardar cambios</button>
+                </div>
+              </div>
+              <hr class="w-100">
+              <div class="row">
+                <div class="col-12">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Titulo</label>
+                  <input type="text" class="input3 mb-3" placeholder="Título de la conferencia"
+                    formControlName="titulo">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
+                  <input type="text" class="input3 mb-3" placeholder="Descripción" formControlName="descripcion">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Link de acceso</label>
+                  <input type="text" class="input3 mb-3" placeholder="Link para ingresar" formControlName="link">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Fecha</label>
+                  <!--<label class="text13 txt-gris2 mb-2" for="inlineRadioSi">{{this.startDate}} </label>-->
+                    <input type="text" class="input3 mb-3" placeholder="Fecha" formControlName="fecha">
+                  <!--<div class="mb-3">
+                    <div class="form-check form-check-inline ps-0">
+                      <label for="exampleInputEmail1" class="text13 txt-blue float-start">Seleccionar nueva fecha:</label>
+                      <input class="input4" type="date" 
+                  formControlName="fecha_nacimiento" />
+                        </div>
+                    
+                  </div>-->
+                  <hr class="hr-gris mt-4 mb-4">
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

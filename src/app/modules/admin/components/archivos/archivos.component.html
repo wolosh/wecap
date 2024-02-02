@@ -17,6 +17,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <label class="text3 txt-blue2">Archivos</label>
+                                <label for="exampleInputEmail1" class="text13 txt-gris mb-2">Sube solo archivos en formato PDF, estos siempre estarán disponibles para descarga o consulta de los usuarios. </label>
+                                    
                             </div>
                             <div class="col-6" *ngIf="viewEdit == 0">
                                 <button class="boton bg-blue w-auto p-2 ps-3 pe-3 float-end" (click)="changeViewArchivos('añadir')">
@@ -29,10 +31,10 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="mb-3" *ngIf="showDescription == false">
-                                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Sube solo archivos en formato PDF, estos archivos siempre estarán disponibles para descarga o consulta de los usuarios. </label>
-                                    <!--p type="text" class="text19 text-dark mb-3">{{
+                                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
+                                    <p type="text" class="text19 text-dark mb-3">{{
                                         this.description
-                                        }}</p-->
+                                        }}</p>
                                 </div>
                             </div>
                             <div class="col-4" *ngIf="showDescription == false">
