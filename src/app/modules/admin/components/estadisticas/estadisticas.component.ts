@@ -162,8 +162,9 @@ export class EstadisticasComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
-    this.helpers.loader();
+    
     if (localStorage.getItem('type') == '1') {
+      this.helpers.loader();
       this.helpers.type = localStorage.getItem('type');
       //this.certifications();
       //this.estadisticasCurso(1);
@@ -171,6 +172,22 @@ export class EstadisticasComponent implements OnInit {
       this.estadisticas();
       //this.estadCurso(1);
       //this.estadModulo(1);
+    } else {
+      if (localStorage.getItem('type') == '4') {
+        Swal.fire({
+          title: '¡Error!',
+          text: 'No tienes permiso para acceder a esta página.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          //console.log(result)
+          if (result.isConfirmed) {
+            this.route.navigate(['/cmtemplate']);
+          }
+        });
+      } else if (localStorage.getItem('token') == null) {
+        this.route.navigate(['/']);
+      }
     }
   }
 

@@ -43,8 +43,9 @@ export class MailComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
-    this.helpers.loader();
+    
     if (localStorage.getItem('type') == '1') {
+      this.helpers.loader();
       this.helpers.type = localStorage.getItem('type');
       this.mails();
       this.helpers.cursos = 1;

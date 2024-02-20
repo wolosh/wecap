@@ -47,9 +47,9 @@ export class ConferenciasComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
-    this.helpers.loader();
+    
     if (localStorage.getItem('type') == '1') {
-
+      this.helpers.loader();
       //console.log(this.searchArray)
       //console.log(localStorage.getItem('token'));
       this.helpers.type = localStorage.getItem('type');

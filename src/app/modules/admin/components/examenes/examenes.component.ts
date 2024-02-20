@@ -127,9 +127,10 @@ export class ExamenesComponent implements OnInit {
   ngOnInit(): void {
     //console.log(this.helpers.domainPrueba);
     console.log(localStorage.getItem('type'))
-    this.helpers.loader();
+    
     this.helpers.goTop();
     if (localStorage.getItem('type') == '1') {
+      this.helpers.loader();
       this.helpers.type = localStorage.getItem('type');
       this.users('asignature');
       this.startForm(1);

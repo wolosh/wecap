@@ -74,14 +74,6 @@ export class TemasComponent implements OnInit {
   ngOnInit(): void {
     //this.session.configuracion();
     window.addEventListener("beforeunload", this.unloadEvent);
-    //window.onbeforeunload = this.helpers.confirmExit;
-    this.helpers.name = localStorage.getItem('userName');
-    //console.log(this.helpers.name)
-    this.comentario = localStorage.getItem('isComentario');
-    this.like = localStorage.getItem('isLike');
-    this.helpers.goTop();
-    //console.log(this.helpers.idModuleBackUp, localStorage.getItem('idModule'))
-    this.idModule = localStorage.getItem('idModule');
     //console.log(this.idModule)
     if (localStorage.getItem('type') == '4') {
       Swal.fire({
@@ -92,6 +84,14 @@ export class TemasComponent implements OnInit {
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
+           //window.onbeforeunload = this.helpers.confirmExit;
+    this.helpers.name = localStorage.getItem('userName');
+    //console.log(this.helpers.name)
+    this.comentario = localStorage.getItem('isComentario');
+    this.like = localStorage.getItem('isLike');
+    this.helpers.goTop();
+    //console.log(this.helpers.idModuleBackUp, localStorage.getItem('idModule'))
+    this.idModule = localStorage.getItem('idModule');
           this.helpers.nameModuleBackUp = '';
           if (this.helpers.idTopicBackUp == undefined || this.helpers.nameTopicBackUp == undefined || this.helpers.nameTopicBackUp == '') {
             //this.helpers.nameTopicBackUp = localStorage.getItem('nameTopic');

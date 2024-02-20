@@ -21,7 +21,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
+    if(!localStorage.getItem('token')){
     this.startForm();
+    } else{
+      if(localStorage.getItem('type') == '4'){
+        this.router.navigate(['/cmtemplate']);
+      } else if(localStorage.getItem('type') == '1'){
+        this.router.navigate(['/cursos']);
+      }
+    }
     //this.logo = localStorage.getItem('logo');
   }
 

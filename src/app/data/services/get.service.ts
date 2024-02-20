@@ -454,4 +454,13 @@ export class GetService {
     })
   }
 
+  getUserDiploma(idUser, idCurso, token){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.session.API}getDiploma/${idUser}/${idCurso}`, {
+      headers,
+    })
+  }
+
 }

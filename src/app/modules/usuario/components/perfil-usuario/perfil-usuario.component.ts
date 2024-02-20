@@ -30,6 +30,7 @@ export class PerfilUsuarioComponent implements OnInit {
   userId: any;
   timeInTheme: any;
   times = [];
+  urlDiploma = '0';
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
@@ -85,7 +86,7 @@ export class PerfilUsuarioComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.certificaciones = data;
-        ////console.log(this.certificaciones);
+        console.log(this.certificaciones);
         Swal.close();
       }
     );
@@ -143,13 +144,15 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   changeOption(type: any) {
-    //console.log(type, this.cursoSelected);
+    console.log(type, this.cursoSelected, this.userId);
     switch (type) {
       case 'curso':
+        this.helpers.goTop();
         this.get.getModules(this.cursoSelected, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);
             this.modulesCertifications = data;
+            this.diploma(this.userId, this.cursoSelected);
             console.log(this.modulesCertifications);
             //this.files(id);
           }
@@ -200,5 +203,39 @@ export class PerfilUsuarioComponent implements OnInit {
 
     }
 
+  }
+
+  //trae el diploma del usuario
+  diploma(user:any, course:any){
+    console.log(user, course);
+    this.get.getUserDiploma(user, course, localStorage.getItem('token')).subscribe((data: any) => {
+      console.log(data);
+      if(data.code != 400){
+        if(data.message == 'El usuario no ha finalizado el curso')
+        {
+          this.urlDiploma = '1';
+          /*Swal.fire({
+            title: '¡Error!',
+            text: 'No has finalizado el curso, termina el curso para obtener tu diploma.',
+            icon: 'error',
+            confirmButtonColor: '#015287',
+          });*/
+        } else {
+          this.urlDiploma = '2';
+        
+        /*Swal.fire({
+          title: '¡Error!',
+          text: 'No se ha encontrado el diploma, termina el curso o regresa mas tarde para obtenerlo.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        });*/
+      }
+      } else {
+        this.urlDiploma = this.helpers.domain + data.url;
+        //window.open(this.urlDiploma, '_blank');
+      }
+      Swal.close();
+      console.log(this.urlDiploma);
+    });
   }
 }
