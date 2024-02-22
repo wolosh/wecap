@@ -1320,7 +1320,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
+<!-- Modal crear examen-->
 <div class="modal fade" id="crear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form [formGroup]="formModal" (ngSubmit)="createExam(this.respaldo)">
         <div class="modal-dialog">
@@ -1335,7 +1335,7 @@
                         todos los campos</label>
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Titulo del examen</label>
                     <input type="text" class="input3 w-100" formControlName="title">
-                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2">Duración por pregunta (en
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2">Duración de tiempo por pregunta (en
                         minutos)</label>
                     <input type="text" class="input3  w-100" formControlName="duracion">
                     <div class="row mt-2">
@@ -1359,7 +1359,7 @@
         </div>
     </form>
 </div>
-<!--MODAL EDIT OPTION-->
+<!--MODAL EDIT OPTION ANSWER-->
 <div class="modal fade" id="editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form [formGroup]="formModalEdit" (ngSubmit)="editAnswers(this.backAnswer, 2, this.backQuestion)">
         <div class="modal-dialog">

@@ -191,7 +191,7 @@ export class TestComponent implements OnInit {
          segundos = (data.duracion * 60)* data.preguntas.length;
         //console.log(data.preguntas.length)
         this.timeLeft = segundos;
-        //console.log(this.timeLeft, segundos)
+        console.log(this.timeLeft, segundos)
         this.nameExam = data.title;
         this.questionsExam = data.preguntas;
         //console.log(this.nameExam, this.questionsExam, this.timeLeft, segundos)

@@ -307,6 +307,7 @@ export class ExamenesComponent implements OnInit {
   changeExam(id: any, certificacion?: any, name?: any, question?: any) {
     this.examModule = [];
     this.questionAnswers = [];
+    this.optionsProv = [];
     //console.log(id, certificacion, name, question);
     Swal.fire({
       title: 'Cargando...',
@@ -1534,6 +1535,7 @@ console.log(json)
         }).then((result) => {
           if (result.isConfirmed) {
             this.changeExam(2, this.certificacionID);
+            this.editQuestion = 0;
           }
         });
       }
