@@ -366,9 +366,20 @@
                   (change)="init($event.target)">
               </div>
               <div class="mb-3">
-                <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen, máximo 1200x100)</label>
-                <input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'logo')"
-                  accept="image/png,image/jpeg,image/jpg">
+                <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen)</label>
+                <!--<input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'logo')"
+                  accept="image/png,image/jpeg,image/jpg">-->
+                  <br>
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
+                  <div>
+                    <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
+                    <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
+                                    this.logoBack}}" alt="imgIcono" />
+                  </div>
+    
+                  <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('logo')" data-bs-toggle="modal" data-bs-target="#modalfoto">Seleccionar
+                    imagen</button>
+                  <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.logoName}}</label>
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de quien firma</label>
@@ -386,9 +397,21 @@
                 accept="image/png,image/jpeg,image/jpg">
               </div>-->
               <div class="mb-3">
-                <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
-                <input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
-                  accept="image/png,image/jpeg,image/jpg">
+                <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen)</label>
+                <!--<input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
+                  accept="image/png,image/jpeg,image/jpg">-->
+
+                  <br>
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Firma actual</label>
+                  <div>
+                    <img *ngIf="this.firmaBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
+                    <img *ngIf="this.firmaBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
+                                    this.firmaBack}}" alt="imgFirma" />
+                  </div>
+    
+                  <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('firma')" data-bs-toggle="modal" data-bs-target="#modalfoto">Seleccionar
+                    imagen</button>
+                  <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.firmaName}}</label>
               </div>
               <div class="row">
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -1129,6 +1152,84 @@
               </div>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--------Agregar logo diploma------------------------------------>
+  <div class="modal fade modalmensaje" id="modalfoto" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="cancelUpload()"></button>
+        </div>
+        <div class="modal-body p-5">
+          <h5 *ngIf="this.isLogo == 1" class="modal-title text-blue mt-3 mb-2 text-center lh-1">
+            Agrega el logo que se mostrara en el Diploma
+          </h5>
+          <h5 *ngIf="this.isLogo == 2"  class="modal-title text-blue mt-3 mb-2 text-center lh-1">
+            Agrega la firma de la persona a cargo
+          </h5>
+          <p class="text6 txt-gris2 text-center">Límite de 50KB</p>
+          <div class="row mt-2 mb-2">
+            <div class="col-12">
+              <div class="form-group">
+                <div class="profile-container mx-auto d-block" *ngIf="this.imageChangedEvent == ''">
+                  <img id="profileImage" class="profileImage mx-auto" src="assets/img/arrastraperfil.png" />
+                  <input class="imageUpload" type="file" accept="image/png"
+                    (change)="fileChangeEvent($event)" />
+                </div>
+              </div>
+            </div>
+            <image-cropper [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"
+              [maintainAspectRatio]="true" [aspectRatio]="400 / 200" format="png" [transform]="transform"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+              (loadImageFailed)="loadImageFailed()"></image-cropper>
+              <!--<image-cropper *ngIf="isLogo == 2" [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"
+              [maintainAspectRatio]="true" [aspectRatio]="400 / 200" format="png" [transform]="transform"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+              (loadImageFailed)="loadImageFailed()"></image-cropper>-->
+          </div>
+          <div class="d-flex justify-content-center mt-3 mb-2" *ngIf="this.imageChangedEvent != ''">
+            <div class="me-3">
+              <button type="button"
+                class="text9 rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 text-nowrap h-100"
+                (click)="resetImage()">
+                Ajustar automáticamente
+              </button>
+            </div>
+            <div class="me-2">
+              <button type="button"
+                class="rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 zoom h-100"
+                (click)="zoomIn()">
+                <img class="mx-auto w-75" src="/assets/img/zoom.png" />
+              </button>
+            </div>
+            <div class="">
+              <button type="button"
+                class="rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 zoom h-100"
+                (click)="zoomOut()">
+                <img class="mx-auto w-75" src="/assets/img/zoom2.png" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-block pb-5 pt-0">
+          <button *ngIf="isLogo == 1" type="button" class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2" data-bs-dismiss="modal"
+            (click)="cargarImagen('logo')">
+            Aceptar
+          </button>
+          <button *ngIf="isLogo == 2" type="button" class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2" data-bs-dismiss="modal"
+            (click)="cargarImagen('firma')">
+            Aceptar 
+          </button>
+          <button type="button" class="boton bg-grey2 mx-auto d-block w-50 p-1 p-md-2 mt-3" data-bs-dismiss="modal"
+            (click)="cancelUpload()">
+            Cancelar
+          </button>
         </div>
       </div>
     </div>

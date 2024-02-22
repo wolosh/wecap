@@ -87,7 +87,7 @@ export class TestComponent implements OnInit {
           //this.certifications();
           //this.temas();
           //Swal.close();
-          this.getInfoExam(this.idExamBackUp)
+          this.getInfoExam(localStorage.getItem('idModule'))
           this.conferencias(localStorage.getItem('idCertification'))
           //this.startTimer();
         }
@@ -180,6 +180,7 @@ export class TestComponent implements OnInit {
   }*/
 
   getInfoExam(id: any) {
+    let segundos = 0;
     this.valido = false;
     //console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
@@ -187,10 +188,10 @@ export class TestComponent implements OnInit {
         //console.log(data);
         this.idExamBackUp = data.idExamen;
         //this.tiempo = data.duracion * 60;
-        let segundos = (data.duracion * 60)* data.preguntas.length;
+         segundos = (data.duracion * 60)* data.preguntas.length;
         //console.log(data.preguntas.length)
         this.timeLeft = segundos;
-        //console.log(segundos)
+        //console.log(this.timeLeft, segundos)
         this.nameExam = data.title;
         this.questionsExam = data.preguntas;
         //console.log(this.nameExam, this.questionsExam, this.timeLeft, segundos)
@@ -198,12 +199,12 @@ export class TestComponent implements OnInit {
           (data: any) => {
             //console.log(data);
             //console.log(parseInt(data.calificacion));
-            if (parseInt(data.calificacion) == 0) {
+            if (parseInt(data.calificacion) > 0) {
               Swal.close();
               //console.log(data)
               this.valido = true;
               this.score = parseInt(data.calificacion);
-            } else if (parseInt(data.calificacion) > 0) {
+            } else if (parseInt(data.calificacion) == 0) {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);

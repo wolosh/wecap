@@ -98,6 +98,7 @@ export class ExamenesComponent implements OnInit {
   public options = '';
   new = 0;
   public selectedOption = 2;
+  public selectedSearch = 2;
   backId: any;
   image: any;
   onImage = 0;
@@ -346,7 +347,7 @@ export class ExamenesComponent implements OnInit {
             //console.log(id, certificacion, this.respaldo, this.certificacionID);
             this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data);
+                console.log(data);
                 /*if (data.preguntas.length == 0) {
                   this.none = 1;
                 } else {
@@ -369,8 +370,8 @@ export class ExamenesComponent implements OnInit {
                     //console.log(this.none)
                     //this.questions = data;
                     this.examModule = data.preguntas;
-                    this.modLength = data.length;
-                    console.log(this.modLength);
+                    this.modLength = data.preguntas.length;
+                    console.log(this.examModule, this.modLength);
                     //console.log(data, data.preguntas);
                     //console.log(question)
                   }
@@ -383,10 +384,10 @@ export class ExamenesComponent implements OnInit {
           case 3:
             this.cloneOption = 0;
             this.moduloTitle = name;
-            //console.log(id, certificacion, this.respaldo);
+            console.log(id, certificacion, this.respaldo);
             this.get.getCursantesModulo(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data)
+                console.log(data)
                 Swal.close();
                 this.usersModule = data.usuarios;
                 //console.log(this.usersModule)
@@ -429,12 +430,13 @@ export class ExamenesComponent implements OnInit {
               });
             Swal.close();
             break;
-          case 7:
+          case 7: //editar pregunta
             this.backAnswer = question;
             this.editQuestion = 1;
             //console.log(certificacion, question, this.editQuestion)
             this.get.questionInfo(question, localStorage.getItem('token')).subscribe(
               (data: any) => {
+                console.log(data);
                 this.startForm(2);
                 this.backDataAnswer = data;
                 this.formAbiertas.controls['question'].setValue(data.question);
@@ -495,7 +497,7 @@ export class ExamenesComponent implements OnInit {
                 //console.log(item)
                 if (item.idEval_option == this.backAnswer) {
                   item.option = this.formModalEdit.value.option;
-                  item.is_correct = this.selectedOption.toString();
+                  item.is_correct = this.selectedSearch.toString();
                   item.img = this.image;
                 }
                 //console.log(item);
@@ -507,7 +509,7 @@ export class ExamenesComponent implements OnInit {
                 text: 'La opción ha sido modificada con exito.',
                 icon: 'success',
                 confirmButtonColor: '#015287',
-              });
+              })
             }
           }
         });
@@ -796,7 +798,7 @@ export class ExamenesComponent implements OnInit {
 
   //actualiza las preguntas de un examen
   updateQuestionsExam(question: any) {
-    //console.log(this.examModule, this.certificacionID)
+    console.log(this.examModule, this.certificacionID, this.backDataAnswer)
     if (this.formAbiertas.value.question == '') {
       Swal.fire({
         title: '¡Error!',
@@ -828,7 +830,7 @@ export class ExamenesComponent implements OnInit {
             respuestas: this.optionsProv
           });
         }
-        //console.log(json)
+        console.log(json)
       } else {
         this.examModule.forEach(element => {
           this.backId = parseInt(element.idEval_question); //guarda el ultimo id de la pregunta en el arreglo
@@ -859,9 +861,9 @@ export class ExamenesComponent implements OnInit {
           });
         }
 
-        //console.log(json)
+        console.log(json)
       }
-
+console.log(json)
       let change = JSON.stringify(json);
       //console.log(change);
       this.session.updatePreguntasExamen(json, localStorage.getItem('token')).subscribe(
@@ -1516,14 +1518,14 @@ export class ExamenesComponent implements OnInit {
     this.json.idEval_question = this.backDataAnswer.idEval_question;
     this.json.pregunta = this.formAbiertas.value.question;
     this.json.is_active = 1;
-    if (type == 'open') {
+    if (type == 'close') {
       this.json.respuestas = this.questionAnswers
     }
     console.log(this.json)
 
     this.session.updatePregunta(this.json, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         Swal.fire({
           title: '¡Modificado con exito!',
           text: 'La pregunta ha sido modificada con exito.',

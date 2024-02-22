@@ -294,10 +294,10 @@ export class SeccionComponent implements OnInit {
 
   getInfoExam(id: any) {
     this.test = false;
-    //console.log(id);
+    console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         if (data.message == 'No se encontro examen para el modulo indicado') {
           this.test = false;
           this.showModal = true;

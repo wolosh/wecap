@@ -10,6 +10,7 @@ import { Buffer } from 'buffer';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UploadAdapter } from '../mail/my-upload-adapter';
+import { ImageCroppedEvent, ImageTransform, LoadedImage } from 'ngx-image-cropper';
 
 
 @Component({
@@ -68,7 +69,9 @@ export class CursosComponent implements OnInit {
   allModules: any[];
   hasDiploma: boolean;
   logo: any;
+  logoBack: any;
   firma: any;
+  firmaBack: any;
   agMat = 0;
   teachers: any;
   searchArray: any[];
@@ -137,6 +140,19 @@ export class CursosComponent implements OnInit {
   sub: number;
   fileSend: any;
 
+  //variables para actualizar imagen
+  //guarda la imagen en el evento
+  imageChangedEvent: any = '';
+  //mostrar la imagen en el cropper
+  croppedImage: any = '';
+  //mostrar el cropper
+  showCropper = false;
+  scale = 1;
+  transform: ImageTransform = {};
+  logoName = 'Ningun archivo seleccionado';
+  firmaName = 'Ningun archivo seleccionado';
+  isLogo = 0;
+
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
@@ -182,6 +198,187 @@ export class CursosComponent implements OnInit {
         });
       }
     }
+
+    //función que cancela la carga de la imagen
+  cancelUpload() {
+    //limpiamos el crop
+    this.cleanCropped();
+    //cerramos el crop
+    this.showCropper = false;
+  }
+
+  //funcion para subir la imagen al servidor
+  cargarImagen(type:any) {
+    //console.log(this.croppedImage);
+    //declara imageBlob que llama a la función dataUrlBlob y le pasa la imagen con base64
+    //let imageBlob = this.helpers.dataUrlToBlob(this.croppedImage);
+    let imageBlob = this.croppedImage;
+    //declara el archivo que se va a subir
+    let imageFile = new File([imageBlob], 'img', { type: 'image/png' });
+    //declaramos un arreglo de archivos
+    const fileArray: File[] = [];
+    //agregamos el archivo al arreglo
+    fileArray.push(imageFile);
+    //mostramos una modal de carga
+    /*Swal.fire({
+      title: 'Subiendo imagen',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });*/
+    //llamamos la función uploadFile que se encuentra en el servicio y le pasamos el arreglo de archivos
+    this.uploadFile(fileArray as unknown as FileList, type);
+    //limpiamos el crop
+    this.cleanCropped();
+    //cerramos el crop
+    this.showCropper = false;
+  }
+
+  //función para limpiar el cropped
+  cleanCropped() {
+    //limpiamos la imagen del crop
+    this.croppedImage = '';
+    //limpiamos la imagen del evento
+    this.imageChangedEvent = '';
+  }
+
+  //Evento para cargar la imagen del talento
+  fileChangeEvent(event: any): void {
+    //console.log(event);
+    //si el archivo es diferente de vacio
+    if (event.target.files.length > 0) {
+      //muestra el loader
+      /*Swal.fire({
+        title: 'Cargando imagen',
+        text: 'Espere por favor',
+        allowOutsideClick: false,
+        didOpen: () => {
+          //se llama el loader
+          Swal.showLoading();
+          //canbiamos a verdadero para que se muestre el cropper
+          this.showCropper = true;
+          //asgnamos la imagen que viene en el evento al imageChangedEvent
+          this.imageChangedEvent = event;
+        },
+      });*/
+        //canbiamos a verdadero para que se muestre el cropper
+        this.showCropper = true;
+        //asgnamos la imagen que viene en el evento al imageChangedEvent
+        this.imageChangedEvent = event;
+    }
+  }
+
+
+
+  //función para actualizar formato de la imagen
+  imageCropped(event: ImageCroppedEvent) {
+    //console.log(event, event.base64);
+    //Cuanda la imagen se recorta se le da formato base64
+    this.croppedImage = event.blob;
+    //console.log(this.croppedImage);
+  }
+
+  //función que carga la imagen
+  imageLoaded() {
+    //cerramos la ventana 
+    Swal.close();
+  }
+
+  //función para falla en carga de imagen 
+  loadImageFailed() {
+    //mostramos el error 
+    Swal.fire({
+      title: 'Error',
+      text: 'No se pudo cargar la imagen',
+      icon: 'error',
+      confirmButtonText: 'Ok',
+    });
+  }
+
+  //función para restablecer imagen 
+  resetImage() {
+    //el valor de this.scale se le asigna 1
+    this.scale = 1;
+    //en transform se limpia
+    this.transform = {};
+  }
+
+  //Función que llama profilePic de la api
+  public uploadFile(files: FileList, type?: any) {
+    //si la longuitud de el arreglo de archivos es mayor a 0
+    if (files.length === 0) {
+      //se regresa
+      return;
+    }
+    //si no es vacio se declara el archivo
+    const fileToUpload = files[0];
+    console.log(fileToUpload, fileToUpload.size);
+
+    if(fileToUpload.size > 524288){
+      Swal.fire({
+        title: '¡Error!',
+        text: 'La imagen no debe pesar más de 500 kb.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+      
+   } else {
+    Swal.close();
+    if(type == 'logo'){
+    this.logo = fileToUpload;
+    this.logoName = 'Imagen cargada correctamente';
+    } else {
+    this.firma = fileToUpload;
+    this.logoName = 'Imagen cargada correctamente';
+    }
+    //console.log(this.logo, this.logoName)
+    
+    Swal.fire({
+      title: '¡Éxito!',
+      text: 'Se ha cargado la imagen.',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+      confirmButtonColor: '#015287',
+    });
+   }
+    //se llama el servicio
+    /*this.session
+      .profilePic(localStorage.getItem('token'), fileToUpload)
+      .subscribe(
+        (response: any) => {
+          //manda llamar info talento para recargar datos
+          this.getInfoTalento();
+        },
+        (error: any) => {
+          //si fracasa manda mensaje de error
+          this.helpers.showError(error);
+        }
+      );*/
+  }
+
+  //funcion para aumentar zoom a la imagen 
+  zoomIn() {
+    //al valor de this.scale se suma 0.1
+    this.scale += 0.1;
+    //en transform se le asigna el valor de this.scale para aumentar el zoom
+    this.transform = {
+      ...this.transform,
+      scale: this.scale,
+    };
+  }
+
+  //función para disminuir zoom de la imagen 
+  zoomOut() {
+    //al valor de this.scale se le resta 0.1
+    this.scale -= 0.1;
+    //en transform se le asigna el valor de this.scale para disminuir el zoom
+    this.transform = {
+      ...this.transform,
+      scale: this.scale,
+    };
+  }
+
 
 
     public drop(event: CdkDragDrop<any>, type:any) {
@@ -263,6 +460,17 @@ export class CursosComponent implements OnInit {
           this.getInfo();
         });*/
       this.isOrderChange = false;
+    }
+
+    isLogoChange(type:any){
+      switch(type){
+        case 'logo':
+          this.isLogo = 1;
+          break;
+        case 'firma':
+          this.isLogo = 2;
+          break;
+      }
     }
 
   onClickTab(tab: string) {
@@ -351,6 +559,7 @@ export class CursosComponent implements OnInit {
         //hasExam: [''],
       });
     } else if (id == 2) {
+      console.log('entro')
       this.formEdit = this.formBuilder.group({
         title: [''],
         description: [''],
@@ -359,15 +568,6 @@ export class CursosComponent implements OnInit {
         default_active_days_start: [''],
         default_active_days_end: [''],
         //hasExam: [''],
-      });
-
-      this.formDiploma = this.formBuilder.group({
-        cursoID: [''],
-        encargado: [''],
-        puesto: [''],
-        firma: [''],
-        activado: [''],
-        logo: [''],
       });
     } else if (id == 3) {
       this.formNewMat = this.formBuilder.group({
@@ -407,6 +607,15 @@ export class CursosComponent implements OnInit {
         title: [''],
         col: [''],
         contenido: [''],
+      });
+    } else if(id == 8){
+      this.formDiploma = this.formBuilder.group({
+        cursoID: [''],
+        encargado: [''],
+        puesto: [''],
+        firma: [''],
+        activado: [''],
+        logo: [''],
       });
     }
   }
@@ -709,22 +918,24 @@ export class CursosComponent implements OnInit {
                 this.exam = '';
         break;
       case 'editc':
+        console.log('entro')
         this.pt = 1;
         this.p = 1;
         this.cview1 = 1;
         this.startForm(2);
         this.date = 2;
-                this.exam = '';
+        this.exam = '';
         for (let item of this.certificaciones) {
           if (item.title == name) {
-            //console.log(item)
+            console.log(item, 'entro')
             //console.log(item)
             this.idCertification = item.idCertification;
+            console.log(this.idCertification)
             this.modules(item.idCertification);
             this.diploma(item.idCertification);
             this.course = item.title;
             this.active = item.is_active;
-
+    
             this.formEdit.controls['title'].setValue(item.title);
             this.formEdit.controls['description'].setValue(item.description);
             this.formEdit.controls['default_active_days_start'].setValue(item.inicio);
@@ -733,7 +944,7 @@ export class CursosComponent implements OnInit {
             this.formEdit.controls['img'].setValue(item.img);
             this.bf = item.img;
             this.exam = parseInt(item.secuencial);
-
+    
             //console.log(item.inicio, item.fin)
             if(item.inicio != '0000-00-00' && item.fin != '0000-00-00'){
               this.date = 1;
@@ -741,13 +952,16 @@ export class CursosComponent implements OnInit {
               this.date = 0;
             }
             //console.log(this.date)
-            //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
+            console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
+        
         break;
     }
 
   }
+
+  
 
   //cambia el status de los cursos
   statusCourses(set: any) {
@@ -1149,10 +1363,28 @@ export class CursosComponent implements OnInit {
   //trae el diploma de una certificación
   diploma(id: any) {
     //console.log(id);
+    this.helpers.goTop();
+    this.startForm(8);
     this.get.getDiploma(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
-        if (data != null) {
+        console.log('entro')
+        console.log(data);
+        if(data.activado == '1'){
+          this.hasDiploma = true;
+          this.formDiploma.controls['cursoID'].setValue(data.idCertification);
+          this.formDiploma.controls['encargado'].setValue(data.encargado);
+          this.formDiploma.controls['puesto'].setValue(data.puesto);
+          this.formDiploma.controls['activado'].setValue(data.activado);
+          this.formDiploma.controls['firma'].setValue(data.firma);
+        this.formDiploma.controls['logo'].setValue(data.logo);
+        this.firma = data.firma;
+        this.logo = data.logo;
+        this.logoBack = data.logo;
+        this.logoName = data.logo;
+        this.firmaBack = data.firma;
+        this.firmaName = data.firma;
+        this.firmaBack = data.firma;
+        /*if (data != null) {
           this.formDiploma.controls['cursoID'].setValue(data.idCertification);
           this.formDiploma.controls['encargado'].setValue(data.encargado);
           this.formDiploma.controls['puesto'].setValue(data.puesto);
@@ -1160,12 +1392,12 @@ export class CursosComponent implements OnInit {
           this.formDiploma.controls['firma'].setValue(data.firma);
         this.formDiploma.controls['logo'].setValue(data.logo);
           if (data.activado == 1)
-            this.hasDiploma = true;
+            this.hasDiploma = true;*/
         } else {
           this.hasDiploma = false;
         }
 
-        //console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
+        console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
       },
       (error: any) => {
         this.helpers.logout();
@@ -1188,30 +1420,30 @@ export class CursosComponent implements OnInit {
         //console.log(w + ' ' + h);
         if (type == 'logo') {
           //console.log(w, h);
-          if (w <= 1200 && h <= 100) {
+          //if (w <= 1200 && h <= 100) {
             this.logo = event.target.files[0];
             //console.log(this.logo);
-          } else {
+          /*} else {
             Swal.fire({
               title: '¡Error!',
               text: 'La imagen debe ser de un tamaño máximo de 1200x100',
               icon: 'error',
               confirmButtonColor: '#015287',
             });
-          }
+          }*/
         } else if (type == 'firma') {
           //cosole.log(w, h);
-          if (w <= 400 && h <= 100) {
+          //if (w <= 400 && h <= 100) {
             this.firma = event.target.files[0];
             //console.log(this.firma);
-          } else {
+          /*} else {
             Swal.fire({
               title: '¡Error!',
               text: 'La imagen debe ser de un tamaño máximo de 400x100',
               icon: 'error',
               confirmButtonColor: '#015287',
             });
-          }
+          }*/
         }
 
       }
@@ -1224,9 +1456,10 @@ export class CursosComponent implements OnInit {
 
   //salva la configuración de los diplomas
   saveDiploma() {
-    //console.log(this.formDiploma.value, this.hasDiploma);
-    //console.log(this.logo);
-    //console.log(this.firma, this.idCertification);
+    this.helpers.loader();
+    console.log(this.formDiploma.value, this.hasDiploma);
+    console.log(this.logo);
+    console.log(this.firma, this.idCertification);
     let diploma = new FormData();
 
     diploma.append('cursoID', this.idCertification);
@@ -1234,7 +1467,7 @@ export class CursosComponent implements OnInit {
     diploma.append('puesto', this.formDiploma.value.puesto);
 
     if (this.firma != undefined) {
-      diploma.append('firma', this.firma, this.firma.name);
+      diploma.append('firma', this.firma, 'firmaDiploma.png');
     } else {
       diploma.append('firma', this.formDiploma.value.firma);
     }
@@ -1246,7 +1479,7 @@ export class CursosComponent implements OnInit {
     }
 
     if (this.logo != undefined) {
-      diploma.append('logo', this.logo, this.logo.name);
+      diploma.append('logo', this.logo, 'logoDiploma.png');
     } else {
       diploma.append('logo', this.formDiploma.value.logo);
     }
@@ -1255,6 +1488,7 @@ export class CursosComponent implements OnInit {
     //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
     this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
       (data: any) => {
+        Swal.close();
         //console.log(data);}
         Swal.fire({
           title: '¡Actualizado con exito!',
@@ -1263,7 +1497,8 @@ export class CursosComponent implements OnInit {
           confirmButtonColor: '#015287',
         }).then((result) => {
           if (result.isConfirmed) {
-            this.changeViewCourses('editc')
+            console.log(this.formEdit.value)
+            this.diploma(this.idCertification);
           }
         });
 
@@ -1727,7 +1962,7 @@ export class CursosComponent implements OnInit {
     console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
     //console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
 
-    /*this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
+    this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
         Swal.fire({
@@ -1743,7 +1978,7 @@ export class CursosComponent implements OnInit {
         //this.modules(this.idCertification);
         //this.changeViewModulo('back', this.idCertification)
       }
-    );*/
+    );
   }
 
   addTema() {

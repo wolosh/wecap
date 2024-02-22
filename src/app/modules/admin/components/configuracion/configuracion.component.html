@@ -1,33 +1,34 @@
 <div class="container-lg page-content top">
-    <div class="row">
-        <div class="col-12">
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Configuración</button>
-                </div>
-              </nav>
-              <div class="tab-content mb-5" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <label class="text3 txt-blue2 mt-3">Configuración</label>
-                    <hr class="w-100">
-                    <form [formGroup]="formConfiguracion">
-                        <label class="text13 txt-blue mb-3">Personalización</label>
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">Logo Empresarial (esta imagen aparecera en el login y el menu de tu pagina). (380*65)</label>
-                            <!--<input class="input3" type="file" id="formFile" accept="image/png,image/jpeg,image/jpg" (change)="personalizarFile($event, 'logo')">-->
-                            <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
-                            <div >
-                              <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png"
-                                alt="imgTermina" />
-                              <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/' +
+  <div class="row">
+    <div class="col-12">
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Configuración</button>
+        </div>
+      </nav>
+      <div class="tab-content mb-5" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <label class="text3 txt-blue2 mt-3">Configuración</label>
+          <hr class="w-100">
+          <form [formGroup]="formConfiguracion">
+            <label class="text13 txt-blue mb-3">Personalización</label>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">Logo Empresarial (esta imagen aparecera en el login y
+                el menu de tu pagina). (380*65)</label>
+              <!--<input class="input3" type="file" id="formFile" accept="image/png,image/jpeg,image/jpg" (change)="personalizarFile($event, 'logo')">-->
+              <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
+              <div>
+                <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
+                <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/' +
                                 this.logoBack}}" alt="imgIcono" />
-                            </div>
+              </div>
 
-                            <button class="boton bg-blue p-2 ps-4 pe-4" data-bs-toggle="modal"
-                            data-bs-target="#modalfoto">Seleccionar imagen</button>
-                            <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.logoName}}</label>
-                        </div>
-                        <!--div class="mb-3">
+              <button class="boton bg-blue p-2 ps-4 pe-4" data-bs-toggle="modal" data-bs-target="#modalfoto">Seleccionar
+                imagen</button>
+              <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.logoName}}</label>
+            </div>
+            <!--div class="mb-3">
                             <label for="formFile" class="text10 txt-gris2 mb-3">Fondo (1920*1280)</label>
                             <input class="input3" type="file" id="formFile" accept="image/png,image/jpeg,image/jpg" (change)="personalizarFile($event, 'fondo')">
                         </div>
@@ -55,11 +56,12 @@
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Vista previa botón</label>
                             <button  id="background-change" class="botondrop bg-change w-85 d-block" disabled>Botón ejemplo</button>
                         </div-->
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">Correo electrónico de notificaciones</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="notificacionEmail">
-                        </div>
-                        <!--div class="mb-3">
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">Correo electrónico de notificaciones</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="notificacionEmail">
+            </div>
+            <!--div class="mb-3">
                             <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Color cabecera y pie de página</label>
                             <input type="color" class="form-control form-control-color" id="exampleColorInput" [value]="this.color" title="Choose your color" formControlName="col_head_foot">
                         </div>
@@ -72,164 +74,144 @@
                             <label class="text10 txt-gris2" for="inlineRadio1">Negro</label>
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                         </div>-->
-                        <label class="text13 txt-blue mt-5 mb-3 d-block">Módulos</label>
-                        <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Me gusta y no me gusta en videos</label>
-                        <div class="form-check form-check-inline mb-3">
-                            <label class="text10 txt-gris2" for="inlineRadio">Activado</label>
-                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio" [ngModelOptions]="{standalone: true}" [(ngModel)]="like" value="1"
-                            (change)="changeActive($event, 'like')">
-                        </div>
-                        <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Comentarios en videos</label>
-                        <div class="form-check form-check-inline mb-3">
-                            <label class="text10 txt-gris2" for="inlineRadio1">Activado</label>
-                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions2" id="inlineRadio1" [ngModelOptions]="{standalone: true}" [(ngModel)]="coment" value="1" (change)="changeActive($event, 'comentario')">
-                        </div>
-                        <div>
-                            <label class="text13 txt-blue mt-5 mb-3">Redes sociales: (URL completa)</label>
-                            <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Dejar vacío el campo, ocultara el icono.</label>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">Facebook:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="facebook">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">Instagram:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="instagram">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">X (antes conocido como Twitter):</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="twitter">
-                        </div>
-                        <div class="mb-3">
-                          <label for="formFile" class="text10 txt-gris2 mb-3">TikTok:</label>
-                          <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="tiktok">
-                      </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">YouTube:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="youtube">
-                        </div>
-                        <label class="text13 txt-blue mt-5 mb-3">Correo:</label>
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">Host:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="host">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">Username:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="text10 txt-gris2 mb-3">Contraseña:</label>
-                            <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="contraseña">
-                        </div>
-                        <div class="row">
-                            <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="saveConfiguration()">Guardar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <label class="text13 txt-blue mt-5 mb-3 d-block">Módulos</label>
+            <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Me gusta y no me gusta en
+              videos</label>
+            <div class="form-check form-check-inline mb-3">
+              <label class="text10 txt-gris2" for="inlineRadio">Activado</label>
+              <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="like" value="1"
+                (change)="changeActive($event, 'like')">
             </div>
-        </div>
-    </div>
-
-     <!--------Agregar foto de perfil------------------------------------>
-  <div
-  class="modal fade modalmensaje"
-  id="modalfoto"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="cancelUpload()"
-        ></button>
-      </div>
-      <div class="modal-body p-5">
-        <h5 class="modal-title text-blue mt-3 mb-2 text-center lh-1">
-          Agrega el logo de tu marca
-        </h5>
-        <p class="text6 txt-gris2 text-center">Límite de 50KB</p>
-        <div class="row mt-2 mb-2">
-          <div class="col-12">
-            <div class="form-group">
-              <div
-                class="profile-container mx-auto d-block"
-                *ngIf="this.imageChangedEvent == ''"
-              >
-                <img
-                  id="profileImage"
-                  class="profileImage mx-auto"
-                  src="assets/img/arrastraperfil.png"
-                />
-                <input
-                  class="imageUpload"
-                  type="file"
-                  accept="image/jpg, image/png"
-                  (change)="fileChangeEvent($event)"
-                />
+            <label for="exampleColorInput" class="text10 txt-gris2 mb-3 d-block">Comentarios en videos</label>
+            <div class="form-check form-check-inline mb-3">
+              <label class="text10 txt-gris2" for="inlineRadio1">Activado</label>
+              <input class="form-check-input" type="checkbox" name="inlineRadioOptions2" id="inlineRadio1"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="coment" value="1"
+                (change)="changeActive($event, 'comentario')">
+            </div>
+            <div>
+              <label class="text13 txt-blue mt-5 mb-3">Redes sociales: (URL completa)</label>
+              <label for="exampleColorInput" class="text10 txt-gris2 mb-3">Dejar vacío el campo, ocultara el
+                icono.</label>
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">Facebook:</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="facebook">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">Instagram:</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="instagram">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">X (antes conocido como Twitter):</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="twitter">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">TikTok:</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="tiktok">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">YouTube:</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="youtube">
+            </div>
+            <label class="text13 txt-blue mt-5 mb-3">Correo:</label>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">Host:</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="host">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">Username:</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="username">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="text10 txt-gris2 mb-3">Contraseña:</label>
+              <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="contraseña">
+            </div>
+            <div class="row">
+              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                  (click)="saveConfiguration()">Guardar</button>
               </div>
             </div>
-          </div>
-          <image-cropper
-            [resizeToWidth]="200"
-            [resizeToHeight]="100"
-            [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="true"
-            [aspectRatio]="200 / 100"
-            format="png"
-            [transform]="transform"
-            (imageCropped)="imageCropped($event)"
-            (imageLoaded)="imageLoaded()"
-            (loadImageFailed)="loadImageFailed()"
-          ></image-cropper>
+          </form>
         </div>
-        <div
-          class="d-flex justify-content-center mt-3 mb-2"
-          *ngIf="this.imageChangedEvent != ''"
-        >
-          <div class="me-3">
-            <button type="button" class="text9 rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 text-nowrap h-100" (click)="resetImage()">
-              Ajustar automáticamente
-            </button>
-          </div>
-          <div class="me-2">
-            <button type="button" class="rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 zoom h-100" (click)="zoomIn()">
-              <img class="mx-auto w-75" src="/assets/img/zoom.png" />
-            </button>
-          </div>
-          <div class="">
-            <button type="button" class="rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 zoom h-100" (click)="zoomOut()">
-              <img class="mx-auto w-75" src="/assets/img/zoom2.png" />
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer d-block pb-5 pt-0">
-        <button
-          type="button"
-          class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2"
-          data-bs-dismiss="modal"
-          (click)="cargarImagen()"
-        >
-          Aceptar
-        </button>
-        <button
-          type="button"
-          class="boton bg-grey2 mx-auto d-block w-50 p-1 p-md-2 mt-3"
-          data-bs-dismiss="modal"
-          (click)="cancelUpload()"
-        >
-          Cancelar
-        </button>
       </div>
     </div>
   </div>
-</div>
+
+  <!--------Agregar logo------------------------------------>
+  <div class="modal fade modalmensaje" id="modalfoto" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="cancelUpload()"></button>
+        </div>
+        <div class="modal-body p-5">
+          <h5 class="modal-title text-blue mt-3 mb-2 text-center lh-1">
+            Agrega el logo de tu marca
+          </h5>
+          <p class="text6 txt-gris2 text-center">Límite de 50KB</p>
+          <div class="row mt-2 mb-2">
+            <div class="col-12">
+              <div class="form-group">
+                <div class="profile-container mx-auto d-block" *ngIf="this.imageChangedEvent == ''">
+                  <img id="profileImage" class="profileImage mx-auto" src="assets/img/arrastraperfil.png" />
+                  <input class="imageUpload" type="file" accept="image/jpg, image/png"
+                    (change)="fileChangeEvent($event)" />
+                </div>
+              </div>
+            </div>
+            <image-cropper [resizeToWidth]="200" [resizeToHeight]="100" [imageChangedEvent]="imageChangedEvent"
+              [maintainAspectRatio]="true" [aspectRatio]="200 / 100" format="png" [transform]="transform"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+              (loadImageFailed)="loadImageFailed()"></image-cropper>
+          </div>
+          <div class="d-flex justify-content-center mt-3 mb-2" *ngIf="this.imageChangedEvent != ''">
+            <div class="me-3">
+              <button type="button"
+                class="text9 rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 text-nowrap h-100"
+                (click)="resetImage()">
+                Ajustar automáticamente
+              </button>
+            </div>
+            <div class="me-2">
+              <button type="button"
+                class="rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 zoom h-100"
+                (click)="zoomIn()">
+                <img class="mx-auto w-75" src="/assets/img/zoom.png" />
+              </button>
+            </div>
+            <div class="">
+              <button type="button"
+                class="rounded boton bg-blue mx-auto d-block w-100 p-1 p-md-2 pt-md-1 pb-md-1 zoom h-100"
+                (click)="zoomOut()">
+                <img class="mx-auto w-75" src="/assets/img/zoom2.png" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-block pb-5 pt-0">
+          <button type="button" class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2" data-bs-dismiss="modal"
+            (click)="cargarImagen()">
+            Aceptar
+          </button>
+          <button type="button" class="boton bg-grey2 mx-auto d-block w-50 p-1 p-md-2 mt-3" data-bs-dismiss="modal"
+            (click)="cancelUpload()">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
