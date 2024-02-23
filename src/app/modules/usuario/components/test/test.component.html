@@ -148,7 +148,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <!--<div class="col-6" *ngIf="this.hoursDisplay != 0">
+                        <div class="col-6" *ngIf="this.hoursDisplay != 0">
                             <div
                                 class="rounded-circle bg-transparent border-blue d-flex justify-content-center align-items-center">
                                 <div class="row text-center">
@@ -161,8 +161,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>-->
-                        <div class="col-6">
+                        </div>
+                        <div class="col-6" *ngIf="this.minutesDisplay != 0">
                             <div
                                 class="rounded-circle bg-transparent border-blue d-flex justify-content-center align-items-center">
                                 <div class="row text-center">
@@ -170,7 +170,7 @@
                                         <label class="text5 txt-blue txt-blue d-block">Minutos</label>
                                     </div>
                                     <div class="col-12">
-                                        <label class="text12" *ngIf="this.minutesDisplay > 10">{{this.minutesDisplay}}</label>
+                                        <label class="text12" *ngIf="this.minutesDisplay >= 10">{{this.minutesDisplay}}</label>
                                         <label class="text12" *ngIf="this.minutesDisplay < 10">0{{this.minutesDisplay}}</label>
                                     </div>
                                 </div>
@@ -184,7 +184,7 @@
                                         <label class="text5 txt-blue txt-blue d-block">Segundos</label>
                                     </div>
                                     <div class="col-12">
-                                        <label class="text12" *ngIf="this.secondsDisplay > 10">{{this.secondsDisplay}}</label>
+                                        <label class="text12" *ngIf="this.secondsDisplay >= 10">{{this.secondsDisplay}}</label>
                                         <label class="text12" *ngIf="this.secondsDisplay < 10">0{{this.secondsDisplay}}</label>
                                     </div>
                                 </div>

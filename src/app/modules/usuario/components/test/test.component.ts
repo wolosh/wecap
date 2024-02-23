@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import Swal from 'sweetalert2';
 import { Buffer } from 'buffer';
+
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -30,6 +31,7 @@ export class TestComponent implements OnInit {
   valido: boolean = false;
   timeLeft: number; //variabe timer
   interval: any;
+  hoursDisplay: number;
   minutesDisplay: number;
   secondsDisplay: number;
   init: any;
@@ -191,7 +193,7 @@ export class TestComponent implements OnInit {
          segundos = (data.duracion * 60)* data.preguntas.length;
         //console.log(data.preguntas.length)
         this.timeLeft = segundos;
-        console.log(this.timeLeft, segundos)
+        //console.log(this.timeLeft, segundos)
         this.nameExam = data.title;
         this.questionsExam = data.preguntas;
         //console.log(this.nameExam, this.questionsExam, this.timeLeft, segundos)
@@ -237,7 +239,8 @@ export class TestComponent implements OnInit {
       this.helpers.interval = this.interval;
       if (this.timeLeft > 0) {
         this.timeLeft--;
-        this.transform(this.timeLeft);
+        //this.transform(this.timeLeft);
+        this.secondsToTime(this.timeLeft);
       } else if (this.timeLeft === 0) {
         this.helpers.pauseTimer(this.interval);
         Swal.fire({
@@ -257,8 +260,32 @@ export class TestComponent implements OnInit {
     }, 1000);
   }
 
+   secondsToTime(secs)
+{
+    var hours = Math.floor(secs / (60 * 60));
 
-  transform(value: number, args?: any) {
+    var divisor_for_minutes = secs % (60 * 60);
+    var minutes = Math.floor(divisor_for_minutes / 60);
+
+    var divisor_for_seconds = divisor_for_minutes % 60;
+    var seconds = Math.ceil(divisor_for_seconds);
+
+    //console.log(hours, minutes, seconds);
+    this.hoursDisplay = hours;
+    this.minutesDisplay = minutes;
+    this.secondsDisplay = seconds;
+    
+
+    var obj = {
+        "h": hours,
+        "m": minutes,
+        "s": seconds
+    };
+    return obj;
+}
+
+
+  /*transform(value: number, args?: any) {
     const minutes: number = Math.floor(value / 60);
     const seconds: number = value - minutes * 60;
 
@@ -273,7 +300,7 @@ export class TestComponent implements OnInit {
     } else {
       return minutes + ' : ' + seconds;
     }
-  }
+  }*/
 
 
 
