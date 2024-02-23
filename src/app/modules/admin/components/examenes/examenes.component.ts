@@ -343,6 +343,7 @@ export class ExamenesComponent implements OnInit {
             );
             break;
           case 2:
+            this.editQuestion = 0;
             this.cloneOption = 0;
             this.certificacionID = certificacion;
             //console.log(id, certificacion, this.respaldo, this.certificacionID);
