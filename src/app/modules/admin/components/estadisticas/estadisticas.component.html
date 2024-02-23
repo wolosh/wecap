@@ -139,7 +139,7 @@
                                         {{curso.title}}
                                     </th>
                                     <td>{{curso.modulos}}</td>
-                                    <td>{{curso.usuarios}}</td>
+                                    <td>{{curso.usuarios.todos}}</td>
                                     <td>{{curso.promedioCalificacion}}</td>
                                     <!--<td>{{curso.promedioAvance}}%</td>-->
                                     <td>{{curso.promedioIntentos}}</td>
@@ -195,7 +195,7 @@
                             <div class="col-12 col-lg-3">
                                 <div class="cuadro bg-blue3 text12">
                                     <i class="fas fa-regular fa-user fa-xs"></i>
-                                    {{this.usuariosmod}}
+                                    {{this.usuariosmod.todos}}
                                     <span class="text13 d-block">Número de Usuarios</span>
                                 </div>
                             </div>

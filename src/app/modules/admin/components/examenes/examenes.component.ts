@@ -89,6 +89,7 @@ export class ExamenesComponent implements OnInit {
   moduloTitle: any;
   respaldo: any;
   allThemes: boolean = false;
+  public durationSelected = '0';
 
   allDiagnostico: any;
   respaldo1: any;
@@ -750,17 +751,19 @@ export class ExamenesComponent implements OnInit {
   }
 
   removeQuestion(id: any, action: any, type?: any) {
-    //console.log(id);
-    //console.log(this.optionsProv);
+    console.log(id);
+    console.log(this.optionsProv);
     if (type) {
       //console.log(type);
       this.optionsProv.forEach(element => {
-        if (element.idOpcion == id) {
-          //console.log(element);
+        console.log(element);
+        console.log(element, element.opcion, id);
+        if (element.opcion == id) {
+          console.log(element);
           this.optionsProv.splice(this.optionsProv.indexOf(element), 1);
         }
       });
-      //console.log(this.optionsProv);
+      console.log(this.optionsProv);
     } else {
       if (action == 'diagnostic') {
         this.session.deleteQuestionDiagnostico(id, localStorage.getItem('token')).subscribe(
@@ -779,7 +782,7 @@ export class ExamenesComponent implements OnInit {
           }
         );
       } else if (action == 'exam') {
-        this.session.deleteQuestionExam(id, localStorage.getItem('token')).subscribe(
+        /*this.session.deleteQuestionExam(id, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);
             Swal.fire({
@@ -793,7 +796,7 @@ export class ExamenesComponent implements OnInit {
               }
             });
           }
-        );
+        );*/
       }
     }
   }
@@ -1017,14 +1020,16 @@ console.log(json)
   }
 
   createExam(id: any, name?: any) {
-    //console.log(id, name);
+    //console.log(id, name, this.durationSelected);
     //console.log(this.formModal.value);
+    this.formModal.controls['duracion'].setValue(this.durationSelected);
     if (this.formModal.valid) {
       this.error = 0;
       let formData = new FormData();
       formData.append('idModulo', id);
       formData.append('title', this.formModal.value.title);
       formData.append('duracion', this.formModal.value.duracion);
+      //formData.append('duracion', this.durationSelected);
       formData.append('fechaInicio', this.formModal.value.fechaInicio);
       formData.append('fechaFinal', this.formModal.value.fechaFinal);
 
