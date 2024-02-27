@@ -51,6 +51,7 @@ export class TestComponent implements OnInit {
   count: number = 0;
   answersBackup = [] as any;
   tiempo: number;
+  calFinal: any;
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -187,7 +188,7 @@ export class TestComponent implements OnInit {
     //console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.idExamBackUp = data.idExamen;
         //this.tiempo = data.duracion * 60;
          segundos = (data.duracion * 60)* data.preguntas.length;
@@ -199,7 +200,7 @@ export class TestComponent implements OnInit {
         //console.log(this.nameExam, this.questionsExam, this.timeLeft, segundos)
         this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            //console.log(data);
+            console.log(data);
             //console.log(parseInt(data.calificacion));
             if (parseInt(data.calificacion) > 0) {
               Swal.close();
@@ -492,8 +493,10 @@ export class TestComponent implements OnInit {
 
       this.session.calificaExamen(send, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          //console.log(data);
-          Swal.fire({
+          console.log(data);
+          this.calFinal = data.calificacion;
+          this.valido =  true;
+         /* Swal.fire({
             title: '¡Listo!',
             text: 'Se guardo tu test, pronto uno de los administradores calificara tus respuestas.',
             icon: 'success',
@@ -505,7 +508,7 @@ export class TestComponent implements OnInit {
               this.valido = true;
               localStorage.setItem('test', this.valido.toString());
             }
-          });
+          });*/
         }
       );
 

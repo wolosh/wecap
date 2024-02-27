@@ -102,15 +102,15 @@
                                 <div *ngIf="this.score >= 7">
                                 <p class="text6 txt-blue">¡Ya has completado esta evaluación!
                                 </p>
-                                <p class="text9 txt-blue">
+                                <!--<p class="text9 txt-blue">
                                     Puedes consultar tu calificación en la parte superior de la pantalla.
                                     <br>
                                     Si aun no se encuentra disponible, espera a que tu instructor la califique.
 
-                                </p>
+                                </p>-->
                                 </div>
                                 <div *ngIf="this.score < 7">
-                                    <p class="text6 txt-blue">¡No lograste aprovar la evaluación!
+                                    <p class="text6 txt-blue">¡No lograste aprobar la evaluación!
                                     </p>
                                     <p class="text9 txt-blue">
                                         No te preocupes puedes volver a intentarlo.
@@ -197,7 +197,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <label *ngIf="this.score >= 7" class="text3 txt-blue">Resultado: Aprobado ({{this.score}})</label>
+                            <label *ngIf="this.score >= 7" class="text3 txt-blue">Resultado: Aprobado</label>
                             <label *ngIf="this.score < 7" class="text3 txt-blue">Resultado: No Aprobado ({{this.score}})</label>
                             
                             <hr class="w-100">
