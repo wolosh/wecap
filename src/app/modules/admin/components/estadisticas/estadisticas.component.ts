@@ -162,7 +162,7 @@ export class EstadisticasComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
-    
+
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
       this.helpers.type = localStorage.getItem('type');
@@ -196,7 +196,7 @@ export class EstadisticasComponent implements OnInit {
     this.helpers.loader();
     switch (view) {
       case 'generales':
-        
+
         this.estadisticaView = 0;
         this.estadGlobales();
         this.areas = [];
@@ -228,7 +228,6 @@ export class EstadisticasComponent implements OnInit {
             this.tiempoMod = element.promedioTiempo;
             Swal.close();
           }
-          
         });
         break;
       case 'close':
@@ -263,7 +262,7 @@ export class EstadisticasComponent implements OnInit {
       this.value.push(element.promedioAvanceArea[key]);
       //console.log(this.areas, this.value);
     });
-    
+
 
     //información grafica de avance en medallas en un curso
     this.chartMedallas = {
@@ -541,7 +540,7 @@ export class EstadisticasComponent implements OnInit {
       }
     )
   }*/
-  
+
 
   estadisticas(){
     this.get.getEstadGenerales(localStorage.getItem('token')).subscribe(
@@ -555,7 +554,7 @@ export class EstadisticasComponent implements OnInit {
       }
     );
   }
-  
+
   estadisticasCurso(id:any){
     this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -568,11 +567,12 @@ export class EstadisticasComponent implements OnInit {
 
   estadModulo(id: any) {
     //console.log(id)
-  
+
     this.get.getEstadModulo(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
         this.modulos = data;
+        //console.log(this.modulos)
         this.modCount = data.length;
         //console.log(this.modulos)
         Swal.close();
@@ -644,5 +644,5 @@ export class EstadisticasComponent implements OnInit {
       }
     );
     }
-  
+
 }

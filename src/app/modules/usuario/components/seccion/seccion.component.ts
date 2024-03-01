@@ -28,6 +28,8 @@ export class SeccionComponent implements OnInit {
   showModal = false;
   imgHeader: any;
   description = '';
+  ultimoTema: any;
+  idUltimoTema: any;
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -177,6 +179,9 @@ export class SeccionComponent implements OnInit {
       //console.log(data)
       this.temasArr = data;
       //console.log(this.temasArr)
+      this.ultimoTema = this.temasArr[this.temasArr.length - 1];
+      this.idUltimoTema = this.ultimoTema.idTopic;
+      localStorage.setItem('idUltimoTema', this.idUltimoTema);
       Swal.close();
     });
   }
@@ -215,6 +220,7 @@ export class SeccionComponent implements OnInit {
 
   goToTheme(idTopic: any, name: any) {
     //console.log(idTopic, this.temasArr);
+    //console.log(this.idUltimoTema)
     let c;
     //console.log(c)
     this.temasArr.forEach((element, index) => {
@@ -237,7 +243,7 @@ export class SeccionComponent implements OnInit {
               confirmButtonColor: '#015287',
             })
           }
-        } 
+        }
         /*if(this.temasArr[c - 1] == 0){
           console.log('es el primero')
          this.themeUniversal(idTopic, name);
@@ -304,6 +310,7 @@ export class SeccionComponent implements OnInit {
         } else {
 
           this.idExamBackUp = data.idExamen;
+          localStorage.setItem('idExamBackUp', this.idExamBackUp);
           //console.log(this.idExamBackUp)
           this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
             (data: any) => {

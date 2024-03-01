@@ -57,10 +57,12 @@ export class TemasComponent implements OnInit {
   unloadEvent = function (e) {
     var confirmationMessage = "Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?";
 
-    
+
     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
     return confirmationMessage; //Webkit, Safari, Chrome etc.
 };
+  idUltimoTema: string;
+  idExamBackUp: string;
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -68,7 +70,7 @@ export class TemasComponent implements OnInit {
       this.idTopic = params['idTopic'];
     });
 
-    
+
   }
 
   ngOnInit(): void {
@@ -180,6 +182,8 @@ export class TemasComponent implements OnInit {
 
 
   tema(id: any) {
+    //console.log(this.idUltimoTema)
+
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
@@ -210,7 +214,7 @@ export class TemasComponent implements OnInit {
         //console.log(this.video)
       } else {
         this.videoShow = 1;
-        
+
         if (data.url_video.includes('youtube') || data.url_video.includes('youtu.be')) {
           let regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
           let match = data.url_video.match(regExp);
@@ -238,7 +242,7 @@ export class TemasComponent implements OnInit {
         //console.log(this.hasFile)
       } else {
         //this.hasFile = 1;
-        
+
         if (data.doc.includes('.pdf')) {
           //console.log(data.doc)
           //this.pdfSrc = 'google';
@@ -257,7 +261,7 @@ export class TemasComponent implements OnInit {
         this.swalClosed();
 
       }
-      
+
     });
     /*this.get.getTemas(localStorage.getItem('idModule'), localStorage.getItem('token')).subscribe((data: any) => {
       ////console.log(data)
@@ -274,11 +278,11 @@ export class TemasComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json',
       }
-    }).then(function (res) { 
+    }).then(function (res) {
 
       let response = res;
       //console.log(response)
-    
+
     }).catch(function () {
       //console.log("error");
     });
@@ -316,6 +320,8 @@ export class TemasComponent implements OnInit {
   }
 
   temaFinalizado(idTopic: any) {
+    this.idUltimoTema =localStorage.getItem('idUltimoTema');
+    this.idExamBackUp =localStorage.getItem('idExamBackUp');
     //console.log(idTopic, 'finalizado')
     let tema = new FormData();
     let date = new Date();
@@ -338,7 +344,16 @@ export class TemasComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#015287',
         }).then((result) => {
-          this.route.navigate(['/seccion', this.idModule]);
+          if(this.idTopic == this.idUltimoTema){
+            this.route.navigate(['/test', this.idExamBackUp]).then(() => {
+              this.helpers.conferencias = true;
+              localStorage.setItem('idModule', this.helpers.idModuleBackUp);
+              localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
+            });
+          }else{
+            this.route.navigate(['/seccion', this.idModule]);
+          }
+
           //console.log(result)
           /*if (result.isConfirmed) {
             this.temasSeccion(localStorage.getItem('idModule'), localStorage.getItem('nameModule'));
@@ -448,7 +463,7 @@ export class TemasComponent implements OnInit {
     //console.log(id)
     this.get.checkTheme(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data)
+        console.log(data)
         if (data.finalizado == true) {
           this.finalizado = 1;
           this.helpers.nameTopicBackUp = this.nameTopic + ' - Finalizado'
