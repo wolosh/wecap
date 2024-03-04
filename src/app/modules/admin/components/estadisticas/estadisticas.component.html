@@ -96,7 +96,7 @@
                                         [plotOptions]="chartUsuarios.plotOptions"></apx-chart>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6">
+                            <div class="col-12 col-lg-6" *ngIf="this.cantAvance == 1">
                                 <div style="text-align:center">
                                     <apx-chart [series]="chartAvances.series" [chart]="chartAvances.chart"
                                         [title]="chartAvances.title" [labels]="chartAvances.labels"

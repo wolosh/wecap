@@ -769,7 +769,22 @@ export class CursosComponent implements OnInit {
         //console.log( send.getAll('img'),  send.getAll('title'),  send.getAll('description'));
         send.append('inicio', this.formNewCurso.value.default_active_days_start);
         send.append('fin', this.formNewCurso.value.default_active_days_end);
+        if(this.exam != '' || this.exam != undefined){
         send.append('secuencial', this.exam);
+        } else {
+          Swal.fire({
+            title: '¡Error!',
+            text: 'Selecciona el orden de visualización para tu curso.',
+            icon: 'error',
+            confirmButtonColor: '#015287',
+          });
+          send.delete('title');
+          send.delete('description');
+          send.delete('img');
+          send.delete('inicio');
+          send.delete('fin');
+          send.delete('secuencial');
+        }
 
         //console.log(send.getAll('inicio'), send.getAll('fin'))
         //console.log(send.getAll(''),send.getAll('secuencial'),  send.getAll('inicio'), send.getAll('fin'), send.get, send.getAll('img'));
@@ -1905,7 +1920,7 @@ export class CursosComponent implements OnInit {
   }
 
   saveModulo() {
-    //console.log(this.imgIcono, 'editando un modulo');
+    console.log(this.imgIcono, this.imgHeader);
     //this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
     //this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
     //this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });

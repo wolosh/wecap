@@ -191,7 +191,7 @@ export class TestComponent implements OnInit {
         console.log(data);
         this.idExamBackUp = data.idExamen;
         //this.tiempo = data.duracion * 60;
-         segundos = (data.duracion * 60)* data.preguntas.length;
+         segundos = (data.duracion * 60) * data.preguntas.length;
         //console.log(data.preguntas.length)
         this.timeLeft = segundos;
         //console.log(this.timeLeft, segundos)
@@ -496,6 +496,7 @@ export class TestComponent implements OnInit {
           console.log(data);
           this.calFinal = data.calificacion;
           this.valido =  true;
+          localStorage.setItem('test', this.valido.toString());
          /* Swal.fire({
             title: '¡Listo!',
             text: 'Se guardo tu test, pronto uno de los administradores calificara tus respuestas.',

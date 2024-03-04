@@ -26,7 +26,7 @@ export class CursosModulosComponent implements OnInit {
   noWrap = true;
   email: any;
   certificaciones: any;
-  modulesCertifications: any;
+  modulesCertifications = [] as any;	
   cursos = 1;
   certificationBackup: any;
   arrFiles: any;
@@ -42,6 +42,7 @@ export class CursosModulosComponent implements OnInit {
   medalla: any;
   description = '';
   allConferencias: any;
+  image: any;
   constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
@@ -157,15 +158,20 @@ export class CursosModulosComponent implements OnInit {
   certifications(recharge?:any) {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         this.certificaciones = data;
         ////console.log(this.certificaciones);
         if(recharge){
           this.certificaciones.forEach(element => {
-            //console.log(element.idCertification, id);
+            //console.log(element.idCertification);
             if(element.idCertification == recharge){
+              //console.log(element.secuencial);
+              if(element.secuencial == 2){
+                this.helpers.view = 0;
+              } else {
               this.helpers.view = element.secuencial;
               localStorage.setItem('view', element.secuencial);
+              }
             }
             //console.log(this.helpers.view, localStorage.getItem('view'))
           });
@@ -192,11 +198,17 @@ export class CursosModulosComponent implements OnInit {
   modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
-        this.modulesCertifications = data;
-        console.log(this.modulesCertifications.finalizado);
-        for (let item of this.modulesCertifications) {
+        console.log(this.helpers.view, this.cursos, data, data.icon, data.finalizado);
+        
+       
+        //this.modulesCertifications = data;
+        //console.log(this.modulesCertifications.finalizado);
+        for (let item of data) {
+          console.log(item)
+          this.modulesCertifications.push(item);
+          console.log(this.modulesCertifications)
           this.finalizado = item.finalizado
+          console.log()
           this.idModulo = item.idModule;
           this.get.medallas(this.idModulo, localStorage.getItem('token')).subscribe(
             (data: any) => {

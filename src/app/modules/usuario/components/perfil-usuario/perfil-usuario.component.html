@@ -93,7 +93,7 @@
                                 <i *ngIf="this.tema.finalizado == 1" class="fas fa-check ps-4" style="color: #015287;"></i>
                                 <i *ngIf="this.tema.finalizado == 0" class="fas fa-times ps-4" style="color: #015287;"></i>
                             </td>
-                            <td class="">{{this.times[i].tiempo}}</td>
+                            <td class="">{{this.times[i]?.tiempo}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -74,6 +74,8 @@ export type ChartMedallas = {
   plotOptions: ApexPlotOptions;
   responsive: ApexResponsive[];
 };
+
+
 /*export type ChartCalificacion = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -117,6 +119,7 @@ export class EstadisticasComponent implements OnInit {
   coursesArr: any;
   cursos2: any;
   estadisticaView: number = 0;
+  cantAvance: number = 0;
 
   @ViewChild("chart") chart: ChartComponent;
   public chartUsuarios: Partial<ChartUsuarios> | any;
@@ -399,7 +402,7 @@ export class EstadisticasComponent implements OnInit {
 
   estadGlobales(){
     this.get.getEstadGlobales(localStorage.getItem('token')).subscribe((data: any) => {
-      //console.log(data)
+      console.log(data)
       this.usuarios =  data.usuarios;
       this.avance =  data.avance;
       this.cursos =  data.totalCursos;
@@ -468,7 +471,11 @@ export class EstadisticasComponent implements OnInit {
           }
         ]
       };
-      //Datos de grafica cantidad de avance por usuarios
+      if(this.avance.hombres == 0 && this.avance.mujeres == 0 && this.avance.otro == 0){
+        this.cantAvance = 0;
+      } else{
+        this.cantAvance = 1;
+            //Datos de grafica cantidad de avance por usuarios
       this.chartAvances = {
         series: [this.avance.hombres, this.avance.mujeres, this.avance.otro],
         chart: {
@@ -529,6 +536,7 @@ export class EstadisticasComponent implements OnInit {
           }
         ]
       };
+    }
       Swal.close();
       this.helpers.goTop();
     });

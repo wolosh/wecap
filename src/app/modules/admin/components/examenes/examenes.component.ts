@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Data, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray} from '@angular/forms';
 import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
-import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-examenes',
@@ -21,6 +21,12 @@ export class ExamenesComponent implements OnInit {
     fechaInicio: [''],
     fechaFinal: [''],
   });*/
+
+  jsonPrueba = {
+    idForm: '',
+    img: '',
+  }
+  arrayPrueba = [] as any;
 
   json = {
     idEval_question: '',
@@ -119,6 +125,8 @@ export class ExamenesComponent implements OnInit {
   diagLength: any;
   searchAdd: any;
   //examQuestion = [] as any;
+  formulario: FormGroup;
+  idOption: any;
 
 
 
@@ -137,6 +145,7 @@ export class ExamenesComponent implements OnInit {
       this.users('asignature');
       this.startForm(1);
       this.certifications();
+      this.crearFormulario();
     } else {
       if (localStorage.getItem('type') == '4') {
         Swal.fire({
@@ -155,6 +164,31 @@ export class ExamenesComponent implements OnInit {
       }
     }
     this.helpers.cursos = 1;
+  }
+
+  crearFormulario() {
+    this.formulario = this.formBuilder.group({
+      experienciaLaboral: this.formBuilder.array([])
+    });
+  }
+
+  get experienciaLaboral(): FormArray {
+    return this.formulario.get('experienciaLaboral') as FormArray;
+  }
+
+  anadirExperienciaLaboral() {
+    this.idOption = '';
+    const trabajo = this.formBuilder.group({
+      empresa: new FormControl(''),
+      puesto: new FormControl(''),
+      descripcion: new FormControl('')
+    });
+  
+    this.experienciaLaboral.push(trabajo);
+  }
+
+  borrarTrabajo(indice: number) {
+    this.experienciaLaboral.removeAt(indice);
   }
 
   getPage(page: any) {
@@ -804,6 +838,11 @@ export class ExamenesComponent implements OnInit {
   //actualiza las preguntas de un examen
   updateQuestionsExam(question: any) {
     console.log(this.examModule, this.certificacionID, this.backDataAnswer)
+    /*console.log(this.formulario.getRawValue(), this.arrayPrueba)
+    this.formulario.getRawValue().experienciaLaboral.forEach((element: any) => {
+      console.log(element);
+    });*/
+    
     if (this.formAbiertas.value.question == '') {
       Swal.fire({
         title: '¡Error!',
@@ -827,6 +866,24 @@ export class ExamenesComponent implements OnInit {
             respuestas: []
           });
         } else if (question == 'close') {
+
+          /*this.formulario.getRawValue().experienciaLaboral.forEach((element: any, index) => {
+            console.log(element, index);
+            this.arrayPrueba.forEach((element2: any, index2: any) => {
+              console.log(element2, index2);
+              if(index == element2.idForm){
+                console.log(element, element2)
+                console.log(element.empresa, element.puesto, element.descripcion)
+              }
+            });*/
+            /*this.optionsProv.push({
+              //idEval_option: i + 1,
+              idEval_option: '',
+              opcion: this.options,
+              correcta: this.selectedOption,
+              img: ''
+            })*/
+          //});
           json.preguntas.push({
             //idEval_question: this.examModule.length + 1,
             idEval_question: '',
@@ -1814,11 +1871,15 @@ console.log(json)
 
   }
 
-  selectFile(event) {
-    //console.log(event.target.value)
+  selectFile(event, id?:any) {
+    console.log(event.target.value, id)
     var files = event.target.files;
     var file = files[0];
     this.onImage = 1;
+    this.idOption = id;
+
+    this.jsonPrueba.idForm = this.idOption;
+    console.log(this.jsonPrueba)
 
     if (files && file) {
       var reader = new FileReader();
@@ -1853,6 +1914,10 @@ console.log(json)
   handleFile(event) {
     var binaryString = event.target.result;
     this.image = window.btoa(binaryString);
+    this.experienciaLaboral.controls[this.idOption].patchValue(this.image);
+    this.jsonPrueba.img = this.image;
+    this.arrayPrueba.push({idForm: this.idOption, img: this.image});
+    console.log(this.formulario.getRawValue(), this.image, this.arrayPrueba)
     //console.log(this.image, window.btoa(binaryString));
   }
 

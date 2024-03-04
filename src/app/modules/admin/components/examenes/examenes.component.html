@@ -71,9 +71,9 @@
                                         </label>
                                     </li>
                                 </ul>
-                                <pagination-controls  *ngIf="this.searchAdd > 6" id="firstAsg" class="w-100 d-flex justify-content-center mt-2"
-                                    (pageChange)="psc = $event" previousLabel="Anterior"
-                                    nextLabel="Siguiente"></pagination-controls>
+                                <pagination-controls *ngIf="this.searchAdd > 6" id="firstAsg"
+                                    class="w-100 d-flex justify-content-center mt-2" (pageChange)="psc = $event"
+                                    previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                             </div>
                         </div>
                         <label class="text13 txt-blue mb-2">Curso</label>
@@ -333,7 +333,8 @@
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <div *ngIf="this.diagnostic == 0">
                         <label class="text3 txt-blue2 mt-3">Diagnóstico</label>
-                        <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o editar su prueba diagnóstico</label>
+                        <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o editar
+                            su prueba diagnóstico</label>
                         <hr class="w-100">
                         <!--Tabla--->
                         <table id="diagnostico" class="table data striped dt-responsive nowrap" style="width:100%">
@@ -586,14 +587,16 @@
                     <div *ngIf="this.diagnostic == 2">
                         <div class="row d-flex align-items-center">
                             <div class="col-6 col-md-4 col-lg-4">
-                                <label class="text3 txt-blue2" *ngIf="this.editQuestion == 0">Añadir pregunta abierta</label>
-                                <label class="text3 txt-blue2" *ngIf="this.editQuestion == 1">Editar pregunta abierta</label>
+                                <label class="text3 txt-blue2" *ngIf="this.editQuestion == 0">Añadir pregunta
+                                    abierta</label>
+                                <label class="text3 txt-blue2" *ngIf="this.editQuestion == 1">Editar pregunta
+                                    abierta</label>
                             </div>
                             <div class="col-6 col-md-4 col-lg-2 offset-lg-5">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestions('open')">
                                     Guardar pregunta
                                 </button>
-                                
+
                             </div>
                             <div class="col-6 col-md-4 col-lg-1">
                                 <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
@@ -698,7 +701,8 @@
                                     </div>
                                     <div class="col-3">
                                         <button class="boton bg-blue w-auto p-1 p-md-2 clone"
-                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg" alt="guardar">Guardar
+                                            (click)="cloneOpcion()"><img src="assets/img/agregar.svg"
+                                                alt="guardar">Guardar
                                             opción</button>
                                     </div>
                                     <div class="col-3">
@@ -760,8 +764,9 @@
                         <div class="row mt-3 mb-3 d-flex align-items-center">
                             <div class="col-lg-6">
                                 <label class="text3 txt-blue2">Módulos</label>
-                                <label class="text6 txt-gris mt-3 ms-2">En esta ventana puedes editar la información del examen o ver los usuarios cursantes del módulo.</label>
-                                    </div>
+                                <label class="text6 txt-gris mt-3 ms-2">En esta ventana puedes editar la información del
+                                    examen o ver los usuarios cursantes del módulo.</label>
+                            </div>
                             <div class="col-6 offset-6 col-lg-2 offset-lg-4">
 
                                 <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeExam(0)">
@@ -790,7 +795,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let module of modules | paginate: { id:'examEdit', itemsPerPage: 6, currentPage: pexamEdit}">
+                                    <tr
+                                        *ngFor="let module of modules | paginate: { id:'examEdit', itemsPerPage: 6, currentPage: pexamEdit}">
                                         <td>{{module.title}}</td>
 
                                         <td><button class="boton2 text-decoration-none"
@@ -816,8 +822,9 @@
                         <div class="row mt-3 mb-3 d-flex align-items-center">
                             <div class="col-lg-4">
                                 <label class="text3 txt-blue2">Lista de preguntas</label>
-                                <label class="text6 txt-gris mt-3 ms-2">Haz click en cualquier pregunta para editar sus detalles.</label>               
-                           
+                                <label class="text6 txt-gris mt-3 ms-2">Haz click en cualquier pregunta para editar sus
+                                    detalles.</label>
+
                                 <!--label class="text6 txt-gris ms-2">Agrega preguntas cerradas o abiertas con
                                 opciones.</label-->
                             </div>
@@ -839,7 +846,7 @@
                                     <img src="assets/img/agregar.svg" alt="agregar">
                                     Agregar pregunta opcion multiple
                                 </button>
-                                
+
                             </div>
                             <!--<div class="col-8 col-md-4 col-lg-3" *ngIf="this.none == 1 || this.none == 2">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
@@ -1037,8 +1044,10 @@
                     <div *ngIf="this.exam == 4">
                         <div class="row d-flex align-items-center">
                             <div class="col-6 col-md-4 col-lg-4">
-                                <label class="text3 txt-blue2" *ngIf="this.editQuestion == 0">Añadir pregunta abierta</label>
-                                <label class="text3 txt-blue2" *ngIf="this.editQuestion == 1">Editar pregunta abierta</label>
+                                <label class="text3 txt-blue2" *ngIf="this.editQuestion == 0">Añadir pregunta
+                                    abierta</label>
+                                <label class="text3 txt-blue2" *ngIf="this.editQuestion == 1">Editar pregunta
+                                    abierta</label>
                             </div>
                             <div class="col-6 col-md-4 col-lg-2 offset-lg-5">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="updateQuestionsExam('open')">
@@ -1081,7 +1090,7 @@
                                 </button>
                                 <button (click)="updateQuestion('close')" class="boton bg-blue w-100 p-1 p-md-2"
                                     *ngIf="this.editQuestion == 1">
-                                        Guardar cambios
+                                    Guardar cambios
                                 </button>
                             </div>
                             <div class="col-6 col-md-4 col-lg-1">
@@ -1186,7 +1195,8 @@
                                                     data-bs-toggle="modal" data-bs-target="#editar">Editar
                                                     opción</button>
                                             </div>
-                                            <div class="col-4 d-flex align-items-center" *ngIf="answer.img != '' && answer.img != undefined">
+                                            <div class="col-4 d-flex align-items-center"
+                                                *ngIf="answer.img != '' && answer.img != undefined">
                                                 <input type="file" class="file" name="avatar" title="Añadir una imagen"
                                                     accept="image/png, image/jpeg" (change)="selectFile($event)"
                                                     disabled />Contiene imagen
@@ -1228,7 +1238,7 @@
                                             <label *ngIf="this.onImage == 1">Imagen agregada</label>
                                         </div>
                                     </div>
-                                    <!--<div class="row mt-3 opcion" *ngFor="let answer of this.questionAnswers">
+                                    <!--THIS WAS COMENTED BEFORE<div class="row mt-3 opcion" *ngFor="let answer of this.questionAnswers">
                                         <div class="col-7">
                                           <label class="text13 txt-blue d-block mb-2">Respuesta correcta:</label>
                                           <div class="form-check form-check-inline ps-0 mb-2">
@@ -1264,6 +1274,38 @@
                                 </div>
                             </div>
                         </form>
+                        <!--PRUEBA-->
+                        <!--<form [formGroup]="formulario">
+                            <!--<h3>
+                                Opciones
+                            </h3>-->
+                            <!--<div formArrayName="experienciaLaboral">
+                                <div *ngFor="let trabajo of experienciaLaboral.controls; let i = index;">
+                                    <div [formGroupName]="i">
+                                        <div>
+                                            <label class="text13 txt-blue mb-2">Opción:</label><br />
+                                            <input class="input5" type="text" formControlName="empresa" />
+                                        </div>
+                                        <div>
+                                            <label class="text13 txt-blue mb-2">Es correcta (si, no):</label><br />
+                                            <input class="input5" type="text" formControlName="puesto" />
+                                        </div>
+                                        <div>
+                                            <label class="text13 txt-blue mb-2">Imagen:</label><br />
+                                            <input type="file" class="file" name="avatar" title="Añadir una imagen"
+                                                accept="image/png, image/jpeg" formControlName="descripcion" (change)="selectFile($event, i)" />
+                                            <!--<textarea formControlName="descripcion"></textarea>-->
+                                        <!--</div>
+                                        <hr />
+                                        <button class="boton bg-blue w-auto p-1 p-md-2 clone" (click)="borrarTrabajo(i)">Eliminar</button>
+                                    </div>
+                                </div>
+                                <button class="boton bg-blue w-auto p-1 p-md-2 clone" (click)="anadirExperienciaLaboral()">
+                                    + Añadir opción
+                                </button>
+
+                            </div>
+                        </form>-->
                     </div>
                     <!--Vista Revision de preguntas abiertas examenes-->
                     <div *ngIf="this.exam == 6">
@@ -1335,10 +1377,11 @@
                         todos los campos</label>
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Titulo del examen</label>
                     <input type="text" class="input3 w-100" formControlName="title">
-                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2">Duración de tiempo por pregunta (en
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2 mt-2">Duración de tiempo por pregunta
+                        (en
                         minutos)</label>
-                        <div class="dropdown">
-                            <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    <div class="dropdown">
+                        <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1"
                               data-bs-toggle="dropdown" aria-expanded="false">
                               Seleccionar grupo
                             </button>
@@ -1347,21 +1390,21 @@
                               <li><a class="dropdown-item" href="#">Another action</a></li>
                               <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>-->
-                            <select class="botondrop p-2 dropdown-toggle" [(ngModel)]="durationSelected"
-                              [ngModelOptions]="{standalone: true}">
-                              <option value="0" hidden>Duración</option>
-                              <option [value]="1">1</option>
-                                <option [value]="2">2</option>
-                                <option [value]="3">3</option>
-                                <option [value]="4">4</option>
-                                <option [value]="5">5</option>
-                                <option [value]="6">6</option>
-                                <option [value]="7">7</option>
-                                <option [value]="8">8</option>
-                                <option [value]="9">9</option>
-                              <!--<option *ngFor="let g of group" [value]="g.id">{{g.nombre_grupo}}</option>-->
-                            </select>
-                          </div>
+                        <select class="botondrop p-2 dropdown-toggle" [(ngModel)]="durationSelected"
+                            [ngModelOptions]="{standalone: true}">
+                            <option value="0" hidden>Duración</option>
+                            <option [value]="1">1</option>
+                            <option [value]="2">2</option>
+                            <option [value]="3">3</option>
+                            <option [value]="4">4</option>
+                            <option [value]="5">5</option>
+                            <option [value]="6">6</option>
+                            <option [value]="7">7</option>
+                            <option [value]="8">8</option>
+                            <option [value]="9">9</option>
+                            <!--<option *ngFor="let g of group" [value]="g.id">{{g.nombre_grupo}}</option>-->
+                        </select>
+                    </div>
                     <!--<input type="text" class="input3  w-100" formControlName="duracion">-->
                     <div class="row mt-2">
                         <div class="col-6">
@@ -1377,8 +1420,7 @@
                 <div class="modal-footer">
                     <button type="button" class="boton bg-grey2 mx-auto ps-5 pe-5"
                         data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="boton bg-blue mx-auto ps-5 pe-5"
-                        >Guardar</button>
+                    <button type="submit" class="boton bg-blue mx-auto ps-5 pe-5">Guardar</button>
                 </div>
             </div>
         </div>
