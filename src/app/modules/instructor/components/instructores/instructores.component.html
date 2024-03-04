@@ -1,0 +1,394 @@
+<div class="container-lg page-content top">
+  <div class="row">
+    <div class="col-12">
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-instructor-tab" data-bs-toggle="tab" data-bs-target="#nav-instructor"
+            type="button" role="tab" aria-controls="nav-instructor" aria-selected="true"
+            >Instructor</button>
+          <button class="nav-link" id="nav-materias-tab" data-bs-toggle="tab" data-bs-target="#nav-materias" type="button"
+            role="tab" aria-controls="nav-materias" aria-selected="false" >Materias</button>
+          <button class="nav-link" id="nav-grupos-tab" data-bs-toggle="tab" data-bs-target="#nav-grupos" type="button"
+            role="tab" aria-controls="nav-grupos" aria-selected="false" >Grupos</button>
+        </div>
+      </nav>
+      <div class="tab-content mb-5" id="nav-tabContent">
+        <!--TABLA CURSOS-->
+        <div class="tab-pane fade show active" id="nav-instructor" role="tabpanel" aria-labelledby="nav-instructor-tab">
+          <div *ngIf="view == 0">
+            <!--Tabla de instructores-->
+            <label class="text3 txt-blue2 mt-3">Instructores</label>
+            <label class="text6 txt-gris mt-3 ms-2">Selecciona un instructor para ver más información</label>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table striped w-100">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr>
+                    <th scope="row"><button type="button" class="boton4" (click)="changeView('instr', 1)">
+                      Alejandro Sandoval
+                    </button></th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Marcela Hernandez</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Gloria Ochoa</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="view == 1">
+            <!--Editar instructor-->
+            <div class="row d-flex align-items-center">
+              <div class="col-lg-6 ">
+                <label class="text3 txt-blue2">Instructores</label>
+                <label class="text6 txt-gris ms-2">Alejandro Sandoval</label>
+              </div>
+              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeView('back')">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <form>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Alejandro Sandoval</label>
+              </div>
+              <div class="dropdown mb-3">
+                <select class="botondrop dropdown-toggle p-1 p-md-2" (change)="changeView('mat')">
+                  <option value="0" hidden>Seleccionar Materia</option>
+                  <option>Historia</option>
+                  <option>Matemáticas</option>
+                  <option>Arte</option>
+                  <option>Ciencias</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div *ngIf="viewM == 1">
+            <!--Tabla de materia-->
+            <div class="row mt-5">
+              <div class="col-10">
+                <label class="text3 txt-blue2">Historia</label>
+                <label class="text6 txt-gris ms-2">Selecciona un grupo</label>
+              </div>
+              <div class="col-2">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Agregar grupo</button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table striped w-100">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr>
+                    <th scope="row"><button type="button" class="boton4" (click)="changeView('grup', 1)">
+                      1A PREPARATORIA
+                    </button></th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2A PREPARATORIA</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3A PREPARATORIA</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="viewG == 1">
+            <!--Tabla de grupo-->
+            <div class="row mt-5">
+              <div class="col-12">
+                <label class="text3 txt-blue2">1A PREPARATORIA</label>
+                <label class="text6 txt-gris ms-2">Selecciona un alumno</label>
+              </div>
+            </div>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table w-100">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr>
+                    <th scope="row">Alan Ortiz</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Juan Carvajal</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Alejandro Valencia</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade show " id="nav-materias" role="tabpanel" aria-labelledby="nav-materias-tab">
+          <div *ngIf="viewMat == 0">
+            <!--Tabla de materia-->
+            <div class="row">
+              <div class="col-10">
+                <label class="text3 txt-blue2">Materias</label>
+                <label class="text6 txt-gris ms-2">Selecciona una materia para ver más información</label>
+              </div>
+              <div class="col-2">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeView('materia', 1)">Agregar materia</button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table striped w-100">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr>
+                    <th scope="row">Historia</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Matemáticas</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Arte</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Ciencias</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--Tabla de materia-->
+            <div class="row">
+              <div class="col-10">
+                <label class="text3 txt-blue2">Historia</label>
+                <label class="text6 txt-gris ms-2">Selecciona un grupo</label>
+              </div>
+              <div class="col-2">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeView('grupo', 1)">Agregar grupo</button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table striped w-100">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr>
+                    <th scope="row">1A PREPARATORIA</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2A PREPARATORIA</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3A PREPARATORIA</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="viewMatNew == 1">
+            <!--Agregar nueva materia-->
+            <div class="row d-flex align-items-center">
+              <div class="col-lg-6 ">
+                <label class="text3 txt-blue2">Materia nueva</label>
+                <label class="text6 txt-gris ms-2">Escribe el nombre de la nueva materia</label>
+              </div>
+              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeView('back')">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <form>
+              <div class="row">
+                <div class="col-10">
+                  <div class="mb-3">
+                    <input type="text" class="input3" formControlName="materia" placeholder="Materia">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Información adicional</label>
+                    <textarea class="input3" id="" style="height: 100px"
+                      formControlName="adicional"></textarea>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar materia</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="tab-pane fade show " id="nav-grupos" role="tabpanel" aria-labelledby="nav-grupos-tab">
+          <div *ngIf="viewGrupo == 0">
+            <!--Tabla de grupos-->
+            <div class="row">
+              <div class="col-10">
+                <label class="text3 txt-blue2">Grupos</label>
+                <label class="text6 txt-gris ms-2">Selecciona una materia para ver más información</label>
+              </div>
+              <div class="col-2">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeView('grupo', 1)">Agregar grupo</button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table striped w-100">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr>
+                    <th scope="row">1A PREPARATORIA</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2A PREPARATORIA</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3A PREPARATORIA</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--Tabla de alumnos-->
+            <div class="row mt-3">
+              <div class="col-12">
+                <label class="text3 txt-blue2">1A PREPARATORIA</label>
+                <label class="text6 txt-gris ms-2">Selecciona un alumno</label>
+              </div>
+            </div>
+            <hr class="w-100">
+            <div class="table-responsive">
+              <table class="table w-100">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr>
+                    <th scope="row">Alan Ortiz</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Juan Carvajal</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Alejandro Valencia</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="viewGrupoNew == 1">
+            <!--Agregar grupo nuevo-->
+            <div class="row d-flex align-items-center">
+              <div class="col-lg-6 ">
+                <label class="text3 txt-blue2">Grupo Nuevo</label>
+                <label class="text6 txt-gris ms-2">Selecciona un grupo</label>
+              </div>
+              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeView('back')">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
+            <hr class="w-100">
+            <form>
+              <div class="row">
+                <div class="col-10">
+                  <div class="mb-3">
+                    <input type="text" class="input3" formControlName="materia" placeholder="Grupo">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Buscar alumnos</label>
+                    <!--Input buscar--->
+                    <input type="text" class="input3" formControlName="materia" placeholder="Alan Ortiz">
+                  </div>
+                </div>
+                <div class="col-2">
+                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2">Guardar grupo</button>
+                </div>
+              </div>
+            </form>
+            <div class="table-responsive">
+              <table class="table striped w-100">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="temas">
+                  <tr>
+                    <th scope="row">Alan Ortiz</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Juan Carvajal</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Alejandro Valencia</th>
+                    <td><button class="boton2">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

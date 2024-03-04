@@ -116,7 +116,7 @@
                                         No te preocupes puedes volver a intentarlo.
                                         <br>
                                         Solo da click en el botón de "Iniciar Evaluación"
-    
+
                                     </p>
                                     </div>
                             </div>
@@ -148,7 +148,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6" *ngIf="this.hoursDisplay != 0">
+                        <!--div class="col-6" *ngIf="this.hoursDisplay != 0">
                             <div
                                 class="rounded-circle bg-transparent border-blue d-flex justify-content-center align-items-center">
                                 <div class="row text-center">
@@ -161,7 +161,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
                         <div class="col-6" *ngIf="this.minutesDisplay != 0">
                             <div
                                 class="rounded-circle bg-transparent border-blue d-flex justify-content-center align-items-center">
@@ -199,7 +199,7 @@
                         <div class="col-12">
                             <label *ngIf="this.score >= 7" class="text3 txt-blue">Resultado: Aprobado</label>
                             <label *ngIf="this.score < 7" class="text3 txt-blue">Resultado: No Aprobado ({{this.score}})</label>
-                            
+
                             <hr class="w-100">
                         </div>
                     </div>

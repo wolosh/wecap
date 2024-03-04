@@ -114,7 +114,7 @@ export class CursosModulosComponent implements OnInit {
   }
 
   changeViewCourses(view: any, id?: any) {
-    ////console.log(view, id);
+    //console.log(view, id);
     if(id){
       this.session.idCertification = id;
       //console.log(this.session.idCertification);
@@ -160,9 +160,10 @@ export class CursosModulosComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.certificaciones = data;
-        ////console.log(this.certificaciones);
+        //console.log(this.certificaciones);
         if(recharge){
           this.certificaciones.forEach(element => {
+            //console.log(element.idCertification, recharge);
             //console.log(element.idCertification);
             if(element.idCertification == recharge){
               //console.log(element.secuencial);
@@ -312,7 +313,7 @@ export class CursosModulosComponent implements OnInit {
               confirmButtonColor: '#015287',
             })
           }
-        } 
+        }
       }
     });
 

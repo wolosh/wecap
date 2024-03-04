@@ -79,7 +79,7 @@ export class TestComponent implements OnInit {
           }
           this.helpers.type = localStorage.getItem('type');
           this.session.curso = true;
-          
+
           ////console.log(this.helpers.nameModuleBackUp);
           ////console.log(localStorage.getItem('test'));
           /*if (localStorage.getItem('test') == 'true') {
@@ -229,7 +229,7 @@ export class TestComponent implements OnInit {
     );
   }
 
-  
+
 
   startTimer() {
 
@@ -275,7 +275,7 @@ export class TestComponent implements OnInit {
     this.hoursDisplay = hours;
     this.minutesDisplay = minutes;
     this.secondsDisplay = seconds;
-    
+
 
     var obj = {
         "h": hours,
@@ -328,7 +328,7 @@ export class TestComponent implements OnInit {
 
   /*changeOption() {
     ////console.log(this.text1, this.text2, this.text3);
-    
+
   }*/
 
   /*saveAnswer(id: any, pregunta: any) {
@@ -496,6 +496,7 @@ export class TestComponent implements OnInit {
           console.log(data);
           this.calFinal = data.calificacion;
           this.valido =  true;
+          //console.log(this.calFinal)
           localStorage.setItem('test', this.valido.toString());
          /* Swal.fire({
             title: '¡Listo!',
