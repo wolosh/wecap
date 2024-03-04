@@ -63,6 +63,7 @@ export class TemasComponent implements OnInit {
 };
   idUltimoTema: string;
   idExamBackUp: string;
+  todosFinalizados: boolean;
 
   constructor(private hostElement: ElementRef, private activeRoute: ActivatedRoute, private dom: DomSanitizer, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -325,9 +326,7 @@ export class TemasComponent implements OnInit {
     //console.log(idTopic, 'finalizado')
     let tema = new FormData();
     let date = new Date();
-
     //console.log(date)
-
     tema.append('idTema', this.idTopic);
     tema.append('inicio', this.startDate);
     tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
@@ -345,12 +344,24 @@ export class TemasComponent implements OnInit {
           confirmButtonColor: '#015287',
         }).then((result) => {
           if(this.idTopic == this.idUltimoTema){
-            this.route.navigate(['/test', this.idExamBackUp]).then(() => {
-              this.helpers.conferencias = true;
-              localStorage.setItem('idModule', this.helpers.idModuleBackUp);
-              localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
+            //console.log('Es el ultimo tema')
+            this.get.getTemas(localStorage.getItem('idModulo'), localStorage.getItem('token')).subscribe((data: any) => {
+              for (let mod of data) {
+                //console.log(mod)
+                if (mod.finalizado == 0) { // Si un tema no está finalizado
+                  this.todosFinalizados = false; // Cambiar la variable a false
+                  //console.log(this.todosFinalizados)
+                  break; // No es necesario continuar verificando los otros temas
+                }else{
+                  this.route.navigate(['/test', this.idExamBackUp]).then(() => {
+                    this.helpers.conferencias = true;
+                    localStorage.setItem('idModule', this.helpers.idModuleBackUp);
+                    localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
+                  });
+                }
+              }
             });
-          }else{
+          }else {
             this.route.navigate(['/seccion', this.idModule]);
           }
 
