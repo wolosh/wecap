@@ -353,10 +353,24 @@ export class TemasComponent implements OnInit {
                   //console.log(this.todosFinalizados)
                   break; // No es necesario continuar verificando los otros temas
                 }else{
-                  this.route.navigate(['/test', this.idExamBackUp]).then(() => {
-                    this.helpers.conferencias = true;
-                    localStorage.setItem('idModule', this.helpers.idModuleBackUp);
-                    localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
+                  Swal.fire({
+                    title: '¡Esta a punto de comenzar la evaluación!',
+                    //text: '¿Deseas realizarla?',
+                    html: "Si lo rechazas o sales, te contara como un intento.<br> ¿Deseas realizarla?  ",
+                    icon: 'success',
+                    confirmButtonColor: '#015287',
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Si",
+                    cancelButtonText: `Cancelar`
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      this.route.navigate(['/test', this.idExamBackUp]).then(() => {
+                        this.helpers.conferencias = true;
+                        localStorage.setItem('idModule', this.helpers.idModuleBackUp);
+                        localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
+                      });
+                    }
                   });
                 }
               }
@@ -364,7 +378,6 @@ export class TemasComponent implements OnInit {
           }else {
             this.route.navigate(['/seccion', this.idModule]);
           }
-
           //console.log(result)
           /*if (result.isConfirmed) {
             this.temasSeccion(localStorage.getItem('idModule'), localStorage.getItem('nameModule'));
