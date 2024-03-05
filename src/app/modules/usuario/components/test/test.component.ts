@@ -52,6 +52,7 @@ export class TestComponent implements OnInit {
   answersBackup = [] as any;
   tiempo: number;
   calFinal: any;
+  minScore: any;
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -192,6 +193,7 @@ export class TestComponent implements OnInit {
         let score = data.min_score;
         console.log(score);
         this.idExamBackUp = data.idExamen;
+        //console.log(this.minScore)
         //this.tiempo = data.duracion * 60;
          segundos = (data.duracion * 60) * data.preguntas.length;
         //console.log(data.preguntas.length)
@@ -199,6 +201,7 @@ export class TestComponent implements OnInit {
         //console.log(this.timeLeft, segundos)
         this.nameExam = data.title;
         this.questionsExam = data.preguntas;
+        this.minScore = data.min_score;
         //console.log(this.nameExam, this.questionsExam, this.timeLeft, segundos)
         this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
           (data: any) => {
@@ -500,10 +503,10 @@ export class TestComponent implements OnInit {
           this.valido =  true;
           //console.log(this.calFinal)
           localStorage.setItem('test', this.valido.toString());
-          if(this.calFinal >= 70){
+          if(this.calFinal >= this.minScore){
             Swal.fire({
               title: '¡Felicidades!',
-              text: 'Aprobaste el test con una calificación de ' + this.calFinal + ' puntos.',
+              text: 'Aprobaste el test',
               icon: 'success',
               confirmButtonColor: '#015287',
             }).then((result) => {
@@ -514,13 +517,12 @@ export class TestComponent implements OnInit {
           } else {
             Swal.fire({
               title: 'Lo sentimos...',
-              text: 'No has aprobado el test, tu calificación fue de ' + this.calFinal + ' puntos.',
+              text: 'No obtuviste la calificación minima aprobatoria',
               icon: 'info',
               showCancelButton: false,
               confirmButtonColor: '#015287',
               confirmButtonText: 'Entendido'
             }).then((result) => {
-              /* Read more about isConfirmed, isDenied below */
               if (result.isConfirmed) {
                 this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
               }
