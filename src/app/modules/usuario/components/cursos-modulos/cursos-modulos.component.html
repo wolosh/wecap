@@ -75,8 +75,8 @@
             <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
                 <img  src="https://ci.americargo.wecap.mx/media/Boton_del_modulo.jpg"
                     alt="image slide opacity" style="display: block; width: 100%;" class="h-100 opacity">
-                <img  src="https://ci.americargo.wecap.mx/media/Boton_del_modulo.jpg"
-                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100">
+                <!--img  src="https://ci.americargo.wecap.mx/media/Boton_del_modulo.jpg"
+                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100"-->
 
                 <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
           <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
@@ -87,7 +87,7 @@
 
                     <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                         <div class="row">
-                            
+
                         <div class="col"><img src="{{this.helpers.domain+'/media/' + slide.medal_finish}}"
                                     class="mx-auto d-block w-50" alt="..."></div>
                             <div class="col"><img src="{{this.helpers.domain+'/media/' + slide.medal_perfect}}"

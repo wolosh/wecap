@@ -202,18 +202,19 @@ export class TestComponent implements OnInit {
           (data: any) => {
             console.log(data);
             //console.log(parseInt(data.calificacion));
-            if (parseInt(data.calificacion) > 0) {
+            if (parseInt(data.calificacion) >= 70) {
               Swal.close();
               //console.log(data)
               this.valido = true;
               this.score = parseInt(data.calificacion);
-            } else if (parseInt(data.calificacion) == 0) {
+            } else if (parseInt(data.calificacion) < 70) {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);
               //console.log(start.get('idExamen'));
               this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
                 (data: any) => {
+                  //console.log(data)
                   this.idExamBackUp = data.id;
                   ////console.log(data);
                   this.startTimer();
@@ -488,9 +489,7 @@ export class TestComponent implements OnInit {
         ////console.log(key, index, this.objResp[key]);
         send.respuestas.push({ idEval_question: key, respuesta: this.objResp[key] });
       });
-
       //console.log(send)
-
       this.session.calificaExamen(send, localStorage.getItem('token')).subscribe(
         (data: any) => {
           console.log(data);
@@ -498,6 +497,33 @@ export class TestComponent implements OnInit {
           this.valido =  true;
           //console.log(this.calFinal)
           localStorage.setItem('test', this.valido.toString());
+          if(this.calFinal >= 70){
+            Swal.fire({
+              title: '¡Felicidades!',
+              text: 'Aprobaste el test con una calificación de ' + this.calFinal + ' puntos.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'Lo sentimos...',
+              text: 'No has aprobado el test, tu calificación fue de ' + this.calFinal + ' puntos.',
+              icon: 'info',
+              showCancelButton: false,
+              confirmButtonColor: '#015287',
+              confirmButtonText: 'Entendido'
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
+              }
+            });
+          }
+          //this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
          /* Swal.fire({
             title: '¡Listo!',
             text: 'Se guardo tu test, pronto uno de los administradores calificara tus respuestas.',
