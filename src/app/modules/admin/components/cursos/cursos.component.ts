@@ -126,7 +126,7 @@ export class CursosComponent implements OnInit {
   isOrderChange: boolean;
   viewTemasCol: number = 0;
   public colSelected = '0';
-  public colFinal:any;
+  public colFinal: any;
   mostrar: any;
   sizecolumna: any;
   columnas: any;
@@ -139,6 +139,7 @@ export class CursosComponent implements OnInit {
   show: number;
   sub: number;
   fileSend: any;
+  public pass = '0';
 
   //variables para actualizar imagen
   //guarda la imagen en el evento
@@ -179,27 +180,27 @@ export class CursosComponent implements OnInit {
       //console.log(this.view)
     } else {
 
-        console.log(localStorage.getItem('type'))
-        Swal.fire({
-          title: '¡Error!',
-          text: 'No tienes permiso para acceder a esta página.',
-          icon: 'error',
-          confirmButtonColor: '#015287',
-        }).then((result) => {
-          //console.log(result)
-          if (result.isConfirmed) {
-            if(localStorage.getItem('type') == '4'){
+      console.log(localStorage.getItem('type'))
+      Swal.fire({
+        title: '¡Error!',
+        text: 'No tienes permiso para acceder a esta página.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      }).then((result) => {
+        //console.log(result)
+        if (result.isConfirmed) {
+          if (localStorage.getItem('type') == '4') {
             this.route.navigate(['/cmtemplate']);
-            } else {
-              this.route.navigate(['/']);
-            
-            }
-          }
-        });
-      }
-    }
+          } else {
+            this.route.navigate(['/']);
 
-    //función que cancela la carga de la imagen
+          }
+        }
+      });
+    }
+  }
+
+  //función que cancela la carga de la imagen
   cancelUpload() {
     //limpiamos el crop
     this.cleanCropped();
@@ -208,7 +209,7 @@ export class CursosComponent implements OnInit {
   }
 
   //funcion para subir la imagen al servidor
-  cargarImagen(type:any) {
+  cargarImagen(type: any) {
     //console.log(this.croppedImage);
     //declara imageBlob que llama a la función dataUrlBlob y le pasa la imagen con base64
     //let imageBlob = this.helpers.dataUrlToBlob(this.croppedImage);
@@ -262,10 +263,10 @@ export class CursosComponent implements OnInit {
           this.imageChangedEvent = event;
         },
       });*/
-        //canbiamos a verdadero para que se muestre el cropper
-        this.showCropper = true;
-        //asgnamos la imagen que viene en el evento al imageChangedEvent
-        this.imageChangedEvent = event;
+      //canbiamos a verdadero para que se muestre el cropper
+      this.showCropper = true;
+      //asgnamos la imagen que viene en el evento al imageChangedEvent
+      this.imageChangedEvent = event;
     }
   }
 
@@ -315,33 +316,33 @@ export class CursosComponent implements OnInit {
     const fileToUpload = files[0];
     console.log(fileToUpload, fileToUpload.size);
 
-    if(fileToUpload.size > 524288){
+    if (fileToUpload.size > 524288) {
       Swal.fire({
         title: '¡Error!',
         text: 'La imagen no debe pesar más de 500 kb.',
         icon: 'error',
         confirmButtonColor: '#015287',
       });
-      
-   } else {
-    Swal.close();
-    if(type == 'logo'){
-    this.logo = fileToUpload;
-    this.logoName = 'Imagen cargada correctamente';
+
     } else {
-    this.firma = fileToUpload;
-    this.logoName = 'Imagen cargada correctamente';
+      Swal.close();
+      if (type == 'logo') {
+        this.logo = fileToUpload;
+        this.logoName = 'Imagen cargada correctamente';
+      } else {
+        this.firma = fileToUpload;
+        this.logoName = 'Imagen cargada correctamente';
+      }
+      //console.log(this.logo, this.logoName)
+
+      Swal.fire({
+        title: '¡Éxito!',
+        text: 'Se ha cargado la imagen.',
+        icon: 'success',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#015287',
+      });
     }
-    //console.log(this.logo, this.logoName)
-    
-    Swal.fire({
-      title: '¡Éxito!',
-      text: 'Se ha cargado la imagen.',
-      icon: 'success',
-      confirmButtonText: 'Ok',
-      confirmButtonColor: '#015287',
-    });
-   }
     //se llama el servicio
     /*this.session
       .profilePic(localStorage.getItem('token'), fileToUpload)
@@ -381,51 +382,51 @@ export class CursosComponent implements OnInit {
 
 
 
-    public drop(event: CdkDragDrop<any>, type:any) {
-      //console.log(type)
-      if(type == 'modules'){
+  public drop(event: CdkDragDrop<any>, type: any) {
+    //console.log(type)
+    if (type == 'modules') {
       moveItemInArray(this.allModules, event.previousIndex, event.currentIndex);
-      } else {
+    } else {
       moveItemInArray(this.alltemas, event.previousIndex, event.currentIndex);
       //console.log(this.alltemas);
-      }
-      this.isOrderChange = true;
     }
+    this.isOrderChange = true;
+  }
 
-    public updateOrder(type:any) {
-      //console.log(type, this.idCertification)
-      let json = {} as any;
-      let newOrder = '';
-      if(type == 'modules'){
+  public updateOrder(type: any) {
+    //console.log(type, this.idCertification)
+    let json = {} as any;
+    let newOrder = '';
+    if (type == 'modules') {
 
-        json.id_certification = this.idCertification;
-        //se recorre el arreglo formar un string con los ids de los cursos separados por comas
-        this.allModules.map((value: any, key: any) => {
-          newOrder += value.idModule + ',';
-        });
-        //se elimina la ultima coma
-        newOrder = newOrder.slice(0, -1);
-        json['module_order'] = newOrder;
-        //console.log(json);
-        this.helpers.loader();
-        this.session.orderModule(json, localStorage.getItem('token')).subscribe(
-          (data: any) => {
-            //console.log(data);
-            Swal.close();
-            Swal.fire({
-              title: '¡Actualizado!',
-              text: 'El orden ha sido actualizado.',
-              icon: 'success',
-              confirmButtonColor: '#015287',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                //this.changeViewModulo('editm', this.idModulo)
-                this.changeViewCourses('editc')
-              }
-            })
-          }
-        );
-      } else {
+      json.id_certification = this.idCertification;
+      //se recorre el arreglo formar un string con los ids de los cursos separados por comas
+      this.allModules.map((value: any, key: any) => {
+        newOrder += value.idModule + ',';
+      });
+      //se elimina la ultima coma
+      newOrder = newOrder.slice(0, -1);
+      json['module_order'] = newOrder;
+      //console.log(json);
+      this.helpers.loader();
+      this.session.orderModule(json, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          //console.log(data);
+          Swal.close();
+          Swal.fire({
+            title: '¡Actualizado!',
+            text: 'El orden ha sido actualizado.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              //this.changeViewModulo('editm', this.idModulo)
+              this.changeViewCourses('editc')
+            }
+          })
+        }
+      );
+    } else {
       json.id_module = this.idModulo;
       //se recorre el arreglo formar un string con los ids de los cursos separados por comas
       this.alltemas.map((value: any, key: any) => {
@@ -453,25 +454,25 @@ export class CursosComponent implements OnInit {
         }
       );
     }
-      //this.helpers.loader();
-      /*this.register
-        .editCourse(json, this.helpers.getToken())
-        .subscribe((data: any) => {
-          this.getInfo();
-        });*/
-      this.isOrderChange = false;
-    }
+    //this.helpers.loader();
+    /*this.register
+      .editCourse(json, this.helpers.getToken())
+      .subscribe((data: any) => {
+        this.getInfo();
+      });*/
+    this.isOrderChange = false;
+  }
 
-    isLogoChange(type:any){
-      switch(type){
-        case 'logo':
-          this.isLogo = 1;
-          break;
-        case 'firma':
-          this.isLogo = 2;
-          break;
-      }
+  isLogoChange(type: any) {
+    switch (type) {
+      case 'logo':
+        this.isLogo = 1;
+        break;
+      case 'firma':
+        this.isLogo = 2;
+        break;
     }
+  }
 
   onClickTab(tab: string) {
     //console.log(this.p, this.pm, this.pg);
@@ -495,12 +496,12 @@ export class CursosComponent implements OnInit {
             this.isNewTheme = 0;
             this.viewTemasE = 0;
             this.formNewCurso.value.title = '';
-                this.formNewCurso.value.description = '';
-                this.exam = '';
-                this.formNewCurso.value.default_active_days = '';
-                this.formNewCurso.value.hasExam = '';
-                this.date = 2;
-                this.exam = '';
+            this.formNewCurso.value.description = '';
+            this.exam = '';
+            this.formNewCurso.value.default_active_days = '';
+            this.formNewCurso.value.hasExam = '';
+            this.date = 2;
+            this.exam = '';
             this.certifications();
             break;
           case 'mat':
@@ -608,7 +609,7 @@ export class CursosComponent implements OnInit {
         col: [''],
         contenido: [''],
       });
-    } else if(id == 8){
+    } else if (id == 8) {
       this.formDiploma = this.formBuilder.group({
         cursoID: [''],
         encargado: [''],
@@ -628,7 +629,7 @@ export class CursosComponent implements OnInit {
     }
   }
 
-  certifications(name?:any) {
+  certifications(name?: any) {
     this.certificaciones = [];
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -636,7 +637,7 @@ export class CursosComponent implements OnInit {
         this.certificaciones = data;
         this.countCert = this.certificaciones.length;
         //console.log(this.certificaciones, this.countCert);
-        if(name){
+        if (name) {
           this.changeViewCourses('editc', name)
         }
         this.helpers.goTop();
@@ -667,8 +668,8 @@ export class CursosComponent implements OnInit {
         //console.log(this.formSearch.value, this.formSearch.value.filter);
         break;
       case 'col':
-          this.formTemasCol.controls['col'].setValue(this.colSelected);
-          //console.log(this.formTemasCol.value.col)
+        this.formTemasCol.controls['col'].setValue(this.colSelected);
+        //console.log(this.formTemasCol.value.col)
         break;
     }
 
@@ -676,8 +677,8 @@ export class CursosComponent implements OnInit {
 
   changeActive(event: any, kind: any) {
     //console.log(this.date, event.target.value);
-    if(kind == 'new'){
-      switch(event.target.value){
+    if (kind == 'new') {
+      switch (event.target.value) {
         case '0':
           this.date = 0;
           break;
@@ -699,8 +700,8 @@ export class CursosComponent implements OnInit {
 
   changeShow(event: any, kind: any) {
     //console.log(this.date, event.target.value);
-    if(kind == 'sub'){
-      switch(event.target.value){
+    if (kind == 'sub') {
+      switch (event.target.value) {
         case '0':
           this.sub = 0;
           break;
@@ -708,8 +709,8 @@ export class CursosComponent implements OnInit {
           this.sub = 1;
           break;
       }
-    } else if(kind == 'archivo'){
-      switch(event.target.value){
+    } else if (kind == 'archivo') {
+      switch (event.target.value) {
         case '0':
           this.show = 0;
           break;
@@ -769,8 +770,8 @@ export class CursosComponent implements OnInit {
         //console.log( send.getAll('img'),  send.getAll('title'),  send.getAll('description'));
         send.append('inicio', this.formNewCurso.value.default_active_days_start);
         send.append('fin', this.formNewCurso.value.default_active_days_end);
-        if(this.exam != '' || this.exam != undefined){
-        send.append('secuencial', this.exam);
+        if (this.exam != '' || this.exam != undefined) {
+          send.append('secuencial', this.exam);
         } else {
           Swal.fire({
             title: '¡Error!',
@@ -795,11 +796,11 @@ export class CursosComponent implements OnInit {
             //console.log(data);
             this.formNewCurso.reset();
             this.formNewCurso.value.title = '';
-                this.formNewCurso.value.description = '';
-                this.exam = '';
-                this.date = 2;
-                this.formNewCurso.value.default_active_days = '';
-                this.formNewCurso.value.hasExam = '';
+            this.formNewCurso.value.description = '';
+            this.exam = '';
+            this.date = 2;
+            this.formNewCurso.value.default_active_days = '';
+            this.formNewCurso.value.hasExam = '';
             Swal.fire({
               title: '¡Creado con exito!',
               text: 'El curso ha sido creado.',
@@ -930,7 +931,7 @@ export class CursosComponent implements OnInit {
         this.p = 1;
         this.cview1 = 0;
         this.date = 2;
-                this.exam = '';
+        this.exam = '';
         break;
       case 'editc':
         console.log('entro')
@@ -950,7 +951,7 @@ export class CursosComponent implements OnInit {
             this.diploma(item.idCertification);
             this.course = item.title;
             this.active = item.is_active;
-    
+
             this.formEdit.controls['title'].setValue(item.title);
             this.formEdit.controls['description'].setValue(item.description);
             this.formEdit.controls['default_active_days_start'].setValue(item.inicio);
@@ -959,9 +960,9 @@ export class CursosComponent implements OnInit {
             this.formEdit.controls['img'].setValue(item.img);
             this.bf = item.img;
             this.exam = parseInt(item.secuencial);
-    
+
             //console.log(item.inicio, item.fin)
-            if(item.inicio != '0000-00-00' && item.fin != '0000-00-00'){
+            if (item.inicio != '0000-00-00' && item.fin != '0000-00-00') {
               this.date = 1;
             } else {
               this.date = 0;
@@ -970,13 +971,13 @@ export class CursosComponent implements OnInit {
             console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
-        
+
         break;
     }
 
   }
 
-  
+
 
   //cambia el status de los cursos
   statusCourses(set: any) {
@@ -1052,7 +1053,7 @@ export class CursosComponent implements OnInit {
         Swal.close();
       },
       (error: any) => {
-        this.helpers.logout();
+        console.log(error)
       }
     );
   }
@@ -1067,6 +1068,7 @@ export class CursosComponent implements OnInit {
         Swal.showLoading();
         switch (view) {
           case 'back':
+            this.pass = '0';
             this.imgIcono = '';
             this.imgHeader = '';
             this.imgTermina = '';
@@ -1085,7 +1087,7 @@ export class CursosComponent implements OnInit {
             this.modules(this.idCertification);
             break;
           case 'editm':
-
+            console.log(id)
             this.icon = 1;
             this.header = 1;
             this.terminar = 1;
@@ -1111,13 +1113,17 @@ export class CursosComponent implements OnInit {
             this.startForm(5);
             this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data)
+                console.log(data)
                 this.idModulo = data.idModule;
                 this.temas(this.idModulo);
                 this.formModulo.controls['title'].setValue(data.title);
                 this.formModulo.controls['descripcion'].setValue(data.description);
                 this.formModulo.controls['duracion'].setValue(data.max_time);
-                this.formModulo.controls['score'].setValue(data.min_score);
+                //this.formModulo.controls['score'].setValue(data.min_score);
+                let change = Math.trunc(data.min_score);
+                console.log(change)
+                this.pass = change.toString();
+                console.log(this.pass)
                 this.exam = parseInt(data.hasExam);
                 //console.log(this.exam, data.hasExam)
                 this.imgIconoDos = data.icon;
@@ -1128,7 +1134,7 @@ export class CursosComponent implements OnInit {
                 //console.log(this.imgIconoDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos)
                 this.formModulo.controls['color'].setValue(data.color_style);
                 this.formModulo.controls['url_video'].setValue(data.url_video);
-                
+
                 this.activeM = data.is_active;
                 Swal.close();
                 this.helpers.goTop();
@@ -1247,7 +1253,7 @@ export class CursosComponent implements OnInit {
         this.viewTemasE = 3;
         //onsole.log(this.idTema);
 
-        this.get.getCols(this.idTema,localStorage.getItem('token')).subscribe(
+        this.get.getCols(this.idTema, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);
             this.columnas = data;
@@ -1255,88 +1261,88 @@ export class CursosComponent implements OnInit {
           }
         );
         break;
-        case 'col':
-          this.viewTemasCol = 2;
-          this.startForm(7);
-          this.isEditCol = 2;
-          //console.log(this.idTema);
-          break;
-        case 'editC':
-          this.helpers.loader();
-          this.helpers.goTop();
-          this.viewTemasCol = 2;
-          this.isEditCol = 1;
-          this.sizeColumna
-          this.startForm(7);
-          for (let item of this.columnas) {
-            //console.log(item)
-            //console.log(name, tema)
+      case 'col':
+        this.viewTemasCol = 2;
+        this.startForm(7);
+        this.isEditCol = 2;
+        //console.log(this.idTema);
+        break;
+      case 'editC':
+        this.helpers.loader();
+        this.helpers.goTop();
+        this.viewTemasCol = 2;
+        this.isEditCol = 1;
+        this.sizeColumna
+        this.startForm(7);
+        for (let item of this.columnas) {
+          //console.log(item)
+          //console.log(name, tema)
+          //console.log(item.idTopic_content)
+          //console.log(this.columnas)
+          if (item.idTopic_content == tema) {
+            //this.idColumna = item.idTopic_content;
+            //this.startForm(6);
             //console.log(item.idTopic_content)
-            //console.log(this.columnas)
-            if (item.idTopic_content == tema) {
-              //this.idColumna = item.idTopic_content;
-              //this.startForm(6);
-              //console.log(item.idTopic_content)
-              this.columnText = item;
-              this.idTemaC = tema
-              this.idTopicC = name
-              this.formTemasCol.controls['title'].setValue(item.column_title);
-              this.formTemasCol.controls['contenido'].setValue(item.content);
-              this.formTemasCol.controls['col'].setValue(item.column_size);
-              this.colFinal = item.content;
-              //console.log(item.content)
-              this.data = item.content;
-              if(item.column_size.includes('1')){
-                this.colSelected = '1'
-              } if(item.column_size.includes('2')){
-                this.colSelected = '2'
-              } if(item.column_size.includes('3')){
-                this.colSelected = '3'
-              } if(item.column_size.includes('4')){
-                this.colSelected = '4'
-              } if(item.column_size.includes('5')){
-                this.colSelected = '5'
-              } if(item.column_size.includes('6')){
-                this.colSelected = '6'
-              } if(item.column_size.includes('7')){
-                this.colSelected = '7'
-              } if(item.column_size.includes('8')){
-                this.colSelected = '8'
-              } if(item.column_size.includes('9')){
-                this.colSelected = '9'
-              } if(item.column_size.includes('10')){
-                this.colSelected = '10'
-              } if(item.column_size.includes('11')){
-                this.colSelected = '11'
-              } if(item.column_size.includes('12')){
-                this.colSelected = '12'
-              }
-              //this.colSelected = item.column_size;
-              this.mostrar = parseInt(item.show_title);
-              //console.log(this.mostrar)
-              Swal.close();
+            this.columnText = item;
+            this.idTemaC = tema
+            this.idTopicC = name
+            this.formTemasCol.controls['title'].setValue(item.column_title);
+            this.formTemasCol.controls['contenido'].setValue(item.content);
+            this.formTemasCol.controls['col'].setValue(item.column_size);
+            this.colFinal = item.content;
+            //console.log(item.content)
+            this.data = item.content;
+            if (item.column_size.includes('1')) {
+              this.colSelected = '1'
+            } if (item.column_size.includes('2')) {
+              this.colSelected = '2'
+            } if (item.column_size.includes('3')) {
+              this.colSelected = '3'
+            } if (item.column_size.includes('4')) {
+              this.colSelected = '4'
+            } if (item.column_size.includes('5')) {
+              this.colSelected = '5'
+            } if (item.column_size.includes('6')) {
+              this.colSelected = '6'
+            } if (item.column_size.includes('7')) {
+              this.colSelected = '7'
+            } if (item.column_size.includes('8')) {
+              this.colSelected = '8'
+            } if (item.column_size.includes('9')) {
+              this.colSelected = '9'
+            } if (item.column_size.includes('10')) {
+              this.colSelected = '10'
+            } if (item.column_size.includes('11')) {
+              this.colSelected = '11'
+            } if (item.column_size.includes('12')) {
+              this.colSelected = '12'
             }
+            //this.colSelected = item.column_size;
+            this.mostrar = parseInt(item.show_title);
+            //console.log(this.mostrar)
+            Swal.close();
           }
-          break;
-        case 'eliminar':
-            let id=tema
-          //console.log(json)
-          this.session.deleteCol(id, localStorage.getItem('token')).subscribe(
-            (data: any) => {
-              //console.log(data);
-              Swal.fire({
-                title: '¡Columna eliminada!',
-                text: 'La columna se elimino correctamente.',
-                icon: 'success',
-                confirmButtonColor: '#015287',
-              }).then((result) => {
-                //console.log(result)
-                if (result.isConfirmed) {
-                  this.changeViewTemas('cols', this.idTema);
-                }
-              });
-            }
-          );
+        }
+        break;
+      case 'eliminar':
+        let id = tema
+        //console.log(json)
+        this.session.deleteCol(id, localStorage.getItem('token')).subscribe(
+          (data: any) => {
+            //console.log(data);
+            Swal.fire({
+              title: '¡Columna eliminada!',
+              text: 'La columna se elimino correctamente.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then((result) => {
+              //console.log(result)
+              if (result.isConfirmed) {
+                this.changeViewTemas('cols', this.idTema);
+              }
+            });
+          }
+        );
         break;
     }
   }
@@ -1384,30 +1390,30 @@ export class CursosComponent implements OnInit {
       (data: any) => {
         console.log('entro')
         console.log(data);
-        if(data.activado == '1'){
+        if (data.activado == '1') {
           this.hasDiploma = true;
           this.formDiploma.controls['cursoID'].setValue(data.idCertification);
           this.formDiploma.controls['encargado'].setValue(data.encargado);
           this.formDiploma.controls['puesto'].setValue(data.puesto);
           this.formDiploma.controls['activado'].setValue(data.activado);
           this.formDiploma.controls['firma'].setValue(data.firma);
-        this.formDiploma.controls['logo'].setValue(data.logo);
-        this.firma = data.firma;
-        this.logo = data.logo;
-        this.logoBack = data.logo;
-        this.logoName = data.logo;
-        this.firmaBack = data.firma;
-        this.firmaName = data.firma;
-        this.firmaBack = data.firma;
-        /*if (data != null) {
-          this.formDiploma.controls['cursoID'].setValue(data.idCertification);
-          this.formDiploma.controls['encargado'].setValue(data.encargado);
-          this.formDiploma.controls['puesto'].setValue(data.puesto);
-          this.formDiploma.controls['activado'].setValue(data.activado);
-          this.formDiploma.controls['firma'].setValue(data.firma);
-        this.formDiploma.controls['logo'].setValue(data.logo);
-          if (data.activado == 1)
-            this.hasDiploma = true;*/
+          this.formDiploma.controls['logo'].setValue(data.logo);
+          this.firma = data.firma;
+          this.logo = data.logo;
+          this.logoBack = data.logo;
+          this.logoName = data.logo;
+          this.firmaBack = data.firma;
+          this.firmaName = data.firma;
+          this.firmaBack = data.firma;
+          /*if (data != null) {
+            this.formDiploma.controls['cursoID'].setValue(data.idCertification);
+            this.formDiploma.controls['encargado'].setValue(data.encargado);
+            this.formDiploma.controls['puesto'].setValue(data.puesto);
+            this.formDiploma.controls['activado'].setValue(data.activado);
+            this.formDiploma.controls['firma'].setValue(data.firma);
+          this.formDiploma.controls['logo'].setValue(data.logo);
+            if (data.activado == 1)
+              this.hasDiploma = true;*/
         } else {
           this.hasDiploma = false;
         }
@@ -1436,8 +1442,8 @@ export class CursosComponent implements OnInit {
         if (type == 'logo') {
           //console.log(w, h);
           //if (w <= 1200 && h <= 100) {
-            this.logo = event.target.files[0];
-            //console.log(this.logo);
+          this.logo = event.target.files[0];
+          //console.log(this.logo);
           /*} else {
             Swal.fire({
               title: '¡Error!',
@@ -1449,8 +1455,8 @@ export class CursosComponent implements OnInit {
         } else if (type == 'firma') {
           //cosole.log(w, h);
           //if (w <= 400 && h <= 100) {
-            this.firma = event.target.files[0];
-            //console.log(this.firma);
+          this.firma = event.target.files[0];
+          //console.log(this.firma);
           /*} else {
             Swal.fire({
               title: '¡Error!',
@@ -1548,7 +1554,7 @@ export class CursosComponent implements OnInit {
 
   didModify() {
     //console.log(this.text1);
-    if(this.formSearch.value.filter == ''){
+    if (this.formSearch.value.filter == '') {
       this.formSearch.controls['filter'].setValue('nombre');
     }
     if (this.text1 != '') {
@@ -1740,7 +1746,7 @@ export class CursosComponent implements OnInit {
   fileTermina(event, act?: any) {
     if (act) {
 
-        this.terminar = 2;
+      this.terminar = 2;
       this.imgTerminaDos = this.imgIconoDos;
 
     }
@@ -1757,12 +1763,12 @@ export class CursosComponent implements OnInit {
     this.filenameT = this.imgTermina.name;
     this.filetypeT = this.imgTermina.type;
   }
-  fileScore(event, change?:any) {
+  fileScore(event, change?: any) {
     if (change) {
       this.score = 2;
-    this.imgScoreDos = this.imgIconoDos;
+      this.imgScoreDos = this.imgIconoDos;
 
-  }
+    }
     //console.log(event.target.files)
     this.imgScore = event.target.files[0]
     if (event.target.files.length > 0) {
@@ -1778,9 +1784,9 @@ export class CursosComponent implements OnInit {
   fileTiempo(event, act?: any) {
     if (act) {
       this.tiempo = 2;
-    this.imgScoreDos = this.imgIconoDos;
+      this.imgScoreDos = this.imgIconoDos;
 
-  }
+    }
     this.imgTiempo = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
@@ -1794,25 +1800,25 @@ export class CursosComponent implements OnInit {
     this.filetypeD = this.imgTiempo.type;
   }
   fileTema(event, file?: any) {
-    if(file){
+    if (file) {
       //console.log(event.target.files[0])
-     this.fileSend = event.target.files[0];
-     //console.log(this.fileSend)
+      this.fileSend = event.target.files[0];
+      //console.log(this.fileSend)
     } else {
-    if (this.imgTemaDos != '') {
-      this.change = 1;
+      if (this.imgTemaDos != '') {
+        this.change = 1;
+      }
+      this.imgTema = event.target.files[0]
+      if (event.target.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.imgTemaDos = event.target.result;
+          //console.log(this.imgTemaDos)
+          //this.imgTema = this.helpers.dataUrlToFile(this.imgTema, this.imgTema.name);
+        };
+        reader.readAsDataURL(event.target.files[0])
+      }
     }
-    this.imgTema = event.target.files[0]
-    if (event.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.imgTemaDos = event.target.result;
-        //console.log(this.imgTemaDos)
-        //this.imgTema = this.helpers.dataUrlToFile(this.imgTema, this.imgTema.name);
-      };
-      reader.readAsDataURL(event.target.files[0])
-    }
-  } 
   }
   fileTemaV(event) {
     if (this.imgTemaVDos != '') {
@@ -1832,10 +1838,10 @@ export class CursosComponent implements OnInit {
 
   addModulo() {
     //console.log(this.formModulo.value, this.imgIcono)
-    if (this.formModulo.value.title == '' || this.formModulo.value.descripcion == '' || this.imgIcono == '' || this.imgHeader == '') {
+    if (this.formModulo.value.title == '' || this.formModulo.value.descripcion == '' || this.imgIcono == '' || this.imgHeader == '' || this.pass == '0') {
       Swal.fire({
         title: '¡Error!',
-        text: 'Completa todos los campos obligatorios como titulo, descripción, examen, icono y cabecera.',
+        text: 'Completa todos los campos obligatorios como titulo, descripción, examen, icono, cabecera y calificación minima.',
         icon: 'error',
         confirmButtonColor: '#015287',
       });
@@ -1860,10 +1866,10 @@ export class CursosComponent implements OnInit {
       modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
 
       modulo.append('color_style', this.formModulo.value.color);
-      if(this.formModulo.value.url_video != '') {
+      if (this.formModulo.value.url_video != '') {
         modulo.append('url_video', this.formModulo.value.url_video);
       } else {
-          modulo.append('url_video', '');
+        modulo.append('url_video', '');
       }
       if (this.imgTermina != '') {
         modulo.append('medal_finish', this.imgTermina, this.imgTermina.name);
@@ -1886,7 +1892,7 @@ export class CursosComponent implements OnInit {
       } else {
         modulo.append('max_time', '');
       }
-      modulo.append('min_score', this.formModulo.value.score);
+      modulo.append('min_score', this.pass);
       modulo.append('hasExam', this.exam);
       //console.log(modulo.getAll('hasExam'), modulo.getAll('default_active_days'), modulo.get);
       /*//console.log(modulo.getAll('icon'))
@@ -1920,7 +1926,9 @@ export class CursosComponent implements OnInit {
   }
 
   saveModulo() {
-    console.log(this.imgIcono, this.imgHeader);
+    console.log(this.imgIcono, this.imgHeader, this.imgTermina, this.imgScore, this.imgTiempo, this.pass);
+    console.log(this.imgIconoDos, this.imgHeaderDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos, this.pass);
+    console.log(this.imgIcono)
     //this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
     //this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
     //this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
@@ -1930,70 +1938,108 @@ export class CursosComponent implements OnInit {
     this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
     this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
     //console.log(this.imgHeader.name)
-
-    let modulo = new FormData();
-    modulo.append('idCertification', this.idCertification);
-    modulo.append('title', this.formModulo.value.title);
-    modulo.append('description', this.formModulo.value.descripcion);
-    if (this.imgIcono != '') {
-      modulo.append('icon', this.imgIcono, this.imgIcono.name);
-    } else {
-      modulo.append('icon', this.imgIconoDos);
-    }
-    modulo.append('color_style', this.formModulo.value.color);
-    if(this.formModulo.value.url_video != '') modulo.append('url_video', this.formModulo.value.url_video);
-    if (this.imgTermina != '') {
-      modulo.append('medal_finish', this.imgTermina, this.imgTermina.name);
-    } else {
-      modulo.append('medal_finish', this.imgTerminaDos);
-    }
-    if (this.imgScore != '') {
-      modulo.append('medal_perfect', this.imgScore, this.imgScore.name);
-    } else {
-      modulo.append('medal_perfect', this.imgScoreDos);
-    }
-    if (this.imgTiempo != '') {
-      modulo.append('medal_time', this.imgTiempo, this.imgTiempo.name);
-    } else {
-      modulo.append('medal_time', this.imgTiempoDos);
-    }
-    //modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
-    modulo.append('max_time', this.formModulo.value.duracion);
-    modulo.append('min_score', this.formModulo.value.score);
-    modulo.append('hasExam', this.exam);
-    if (this.imgHeader != '') {
-      modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
-    } else {
-      modulo.append('imgHeader', this.imgHeaderDos);
-    }
-    /*console.log(modulo.getAll('icon'))
-    console.log(modulo.getAll)
-    console.log(modulo.get)
-    console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
-    modulo.getAll('description'), modulo.getAll('imgIcono'),
-    modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
-    modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
-    modulo.getAll('score'), modulo.getAll('hasExam'));
-    console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
-    //console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
-
-    this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        //console.log(data);
-        Swal.fire({
-          title: '¡Actualizado con exito!',
-          text: 'El módulo ha sido actualizado.',
-          icon: 'success',
-          confirmButtonColor: '#015287',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.changeViewModulo('back', this.idCertification)
-          }
-        });
-        //this.modules(this.idCertification);
-        //this.changeViewModulo('back', this.idCertification)
+    if (this.pass != '0') {
+      let modulo = new FormData();
+      modulo.append('idCertification', this.idCertification);
+      modulo.append('title', this.formModulo.value.title);
+      modulo.append('description', this.formModulo.value.descripcion);
+      /*if(this.imgIconoDos != undefined){
+        modulo.append('icon', this.imgIconoDos);
+      } else {
+        modulo.append('icon', this.imgIcono, this.imgIcono.name);
+      }*/
+      if (this.imgIcono !== '' || this.imgIcono !== undefined) {
+        console.log(this.imgIcono)
+        modulo.append('icon', this.imgIcono, this.imgIcono.name);
+      } else {
+        console.log(this.imgIconoDos)
+        modulo.append('icon', this.imgIconoDos);
       }
-    );
+      modulo.append('color_style', this.formModulo.value.color);
+      if (this.formModulo.value.url_video != '') modulo.append('url_video', this.formModulo.value.url_video);
+      if (this.imgTermina != '' || this.imgTermina != undefined) {
+
+        modulo.append('medal_finish', this.imgTermina, this.imgTermina.name);
+      } else {
+        modulo.append('medal_finish', this.imgTerminaDos);
+      }
+      /*if(this.imgTerminaDos != undefined){
+        modulo.append('icon', this.imgTerminaDos);
+      } else {
+        modulo.append('icon', this.imgTermina, this.imgTermina.name);
+      }*/
+      if (this.imgScore != '' || this.imgScore != undefined) {
+        modulo.append('medal_perfect', this.imgScore, this.imgScore.name);
+      } else {
+        modulo.append('medal_perfect', this.imgScoreDos);
+      }
+      /*if(this.imgScoreDos != undefined){
+        modulo.append('icon', this.imgScoreDos);
+      } else {
+        modulo.append('icon', this.imgScore, this.imgScore.name);
+      }
+      */
+      if (this.imgTiempo != '' || this.imgTiempo != undefined) {
+        modulo.append('medal_time', this.imgTiempo, this.imgTiempo.name);
+      } else {
+        modulo.append('medal_time', this.imgTiempoDos);
+      }
+      /*if(this.imgTiempoDos != undefined){
+        modulo.append('icon', this.imgTiempoDos);
+      } else {
+        modulo.append('icon', this.imgTiempo, this.imgTiempo.name);
+      }*/
+      //modulo.append('medal_time',this.imgTiempo, this.imgTiempo.name);
+      modulo.append('max_time', this.formModulo.value.duracion);
+      modulo.append('min_score', this.pass);
+      modulo.append('hasExam', this.exam);
+      if (this.imgHeader != '' || this.imgHeader != undefined) {
+        modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
+      } else {
+        modulo.append('imgHeader', this.imgHeaderDos);
+      }
+      /*if(this.imgHeaderDos != undefined){
+        modulo.append('icon', this.imgHeaderDos);
+      } else {
+        modulo.append('icon', this.imgHeader, this.imgHeader.name);
+      }*/
+      /*console.log(modulo.getAll('icon'))
+      console.log(modulo.getAll)
+      console.log(modulo.get)
+      console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
+      modulo.getAll('description'), modulo.getAll('imgIcono'),
+      modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
+      modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
+      modulo.getAll('score'), modulo.getAll('hasExam'));
+      console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
+      console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
+
+      this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          //console.log(data);
+          Swal.fire({
+            title: '¡Actualizado con exito!',
+            text: 'El módulo ha sido actualizado.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.changeViewModulo('back', this.idCertification)
+            }
+          });
+          //this.modules(this.idCertification);
+          //this.changeViewModulo('back', this.idCertification)
+        }
+      );
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tienes que seleccionar una calificación minima aprobatoria para tu módulo',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+
+      });
+    }
   }
 
   addTema() {
@@ -2012,16 +2058,16 @@ export class CursosComponent implements OnInit {
       } else {
         tema.append('icon', this.imgTemaDos);
       }
-      
+
       tema.append('url_video', this.formTemas.value.url_video);
-    
+
       if (this.formTemas.value.url_subtitulos != '') tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
       if (this.imgTemaV != '') {
         tema.append('icon_gold', this.imgTemaV, this.imgTemaV);
       } else {
         tema.append('icon_gold', this.imgTemaVDos);
       }
-      if(this.fileSend != undefined){
+      if (this.fileSend != undefined) {
         tema.append('doc', this.fileSend, this.fileSend.name);
       }
       /*console.log(modulo.getAll('icon'))
@@ -2071,9 +2117,9 @@ export class CursosComponent implements OnInit {
     tema.append('description', this.formTemas.value.description);
     tema.append('order_number', '1');
     tema.append('is_active', this.formTemas.value.status);
-    if(this.imgTemaDos != ''){
+    if (this.imgTemaDos != '') {
       tema.append('icon', this.imgTemaDos);
-    } else if( this.imgTema != undefined || this.imgTema != ''){
+    } else if (this.imgTema != undefined || this.imgTema != '') {
       tema.append('icon', this.imgTema, this.imgTema.name);
     }
     /*if(this.imgTema != undefined || this.imgTema != ''){
@@ -2081,7 +2127,7 @@ export class CursosComponent implements OnInit {
     } else {
       tema.append('icon', this.imgTemaDos);
     }*/
-    if(this.formTemas.value.url_video != ''){
+    if (this.formTemas.value.url_video != '') {
       tema.append('url_video', this.formTemas.value.url_video);
     }
     tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
@@ -2090,12 +2136,12 @@ export class CursosComponent implements OnInit {
     } else {
       tema.append('icon_gold', this.imgTemaVDos);
     }*/
-    if(this.imgTemaVDos != ''){
+    if (this.imgTemaVDos != '') {
       tema.append('icon_gold', this.imgTemaVDos);
-    } else if( this.imgTemaV != undefined || this.imgTemaV!= ''){
+    } else if (this.imgTemaV != undefined || this.imgTemaV != '') {
       tema.append('icon', this.imgTemaV, this.imgTemaV.name);
     }
-    if(this.fileSend != undefined){
+    if (this.fileSend != undefined) {
       tema.append('doc', this.fileSend, this.fileSend.name);
     } else {
       tema.append('doc', this.formTemas.value.doc);
@@ -2122,11 +2168,11 @@ export class CursosComponent implements OnInit {
         }).then((result) => {
           if (result.isConfirmed) {
             this.temas(this.idModulo);
-        this.changeViewTemas('back', this.idModulo)
+            this.changeViewTemas('back', this.idModulo)
           }
         });
         //this.modules(this.idCertification);
-        
+
       }
     );
   }
@@ -2210,7 +2256,7 @@ export class CursosComponent implements OnInit {
     };
   }
 
-   //trae los columnas de un modulo
+  //trae los columnas de un modulo
   sizeColumna() {
     this.get.getsizeCol(localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -2236,7 +2282,7 @@ export class CursosComponent implements OnInit {
     //console.log(this.formTemasCol.value.contenido, this.colFinal, this.data)
     let temacol = {
       idTopic: this.idTema,
-      content:this.formTemasCol.value.contenido,
+      content: this.formTemasCol.value.contenido,
       column_size: this.formTemasCol.value.col,
       column_title: this.formTemasCol.value.title,
       show_title: this.mostrar
@@ -2274,7 +2320,7 @@ export class CursosComponent implements OnInit {
     let temaCol = {
       idTopic_content: this.idTemaC,
       idTopic: this.idTopicC,
-      content:this.data,
+      content: this.data,
       column_size: this.formTemasCol.value.col,
       column_title: this.formTemasCol.value.title,
       show_title: this.mostrar

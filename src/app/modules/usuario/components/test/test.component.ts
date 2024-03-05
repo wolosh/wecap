@@ -185,10 +185,12 @@ export class TestComponent implements OnInit {
   getInfoExam(id: any) {
     let segundos = 0;
     this.valido = false;
-    //console.log(id);
+    console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
+        let score = data.min_score;
+        console.log(score);
         this.idExamBackUp = data.idExamen;
         //this.tiempo = data.duracion * 60;
          segundos = (data.duracion * 60) * data.preguntas.length;
@@ -202,12 +204,13 @@ export class TestComponent implements OnInit {
           (data: any) => {
             console.log(data);
             //console.log(parseInt(data.calificacion));
-            if (parseInt(data.calificacion) >= 70) {
+            if (parseInt(data.calificacion) >= score) {
+            console.log(score)
               Swal.close();
               //console.log(data)
               this.valido = true;
               this.score = parseInt(data.calificacion);
-            } else if (parseInt(data.calificacion) < 70) {
+            } else if (parseInt(data.calificacion) < score) {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);

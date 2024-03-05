@@ -19,7 +19,8 @@
           <!--VER CURSOS Y CREAR CURSO-->
           <div *ngIf="cview1 == 0">
             <label class="text3 txt-blue2 mt-3">Ver Cursos</label>
-            <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o editar sus detalles</label>
+            <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un curso para conocer o editar sus
+              detalles</label>
             <hr class="w-100">
             <div class="table-responsive" *ngIf="this.certificaciones != 0">
               <table class="table w-100">
@@ -32,7 +33,8 @@
                   </tr>
                 </thead>
                 <tbody id="cursos">
-                  <tr *ngFor="let certificacion of certificaciones | paginate: { id: 'cursos', itemsPerPage: 6, currentPage: pc}">
+                  <tr
+                    *ngFor="let certificacion of certificaciones | paginate: { id: 'cursos', itemsPerPage: 6, currentPage: pc}">
                     <th scope="row">
                       <button type="button" class="boton4" (click)="changeViewCourses('editc', certificacion.title)">
                         {{certificacion.title}}
@@ -93,47 +95,50 @@
                   accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo durante un periodo de tiempo
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo
+                  durante un periodo de tiempo
                 </label>
               </div>
               <div class="mb-3">
                 <div class="form-check form-check-inline ps-0">
                   <label class="text13 txt-gris2 float-start" for="inlineRadioSi">Si</label>
-                  <input  class="form-check-input ms-3" type="radio" name="inlineRadioOption" id="inlineRadioSi"
-                            (change)="changeActive($event, 'new')" [value]="1" [(ngModel)]="date"
-                            [ngModelOptions]="{standalone: true}">
+                  <input class="form-check-input ms-3" type="radio" name="inlineRadioOption" id="inlineRadioSi"
+                    (change)="changeActive($event, 'new')" [value]="1" [(ngModel)]="date"
+                    [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 txt-gris2 float-start" for="inlineRadioNo" >No</label>
-                  <input  class="form-check-input ms-3" type="radio"
-                            name="inlineRadioOption" id="inlineRadioNo" (change)="changeActive($event, 'new')" [value]="0" [(ngModel)]="date"
-                            [ngModelOptions]="{standalone: true}"
-                            >
+                  <label class="text13 txt-gris2 float-start" for="inlineRadioNo">No</label>
+                  <input class="form-check-input ms-3" type="radio" name="inlineRadioOption" id="inlineRadioNo"
+                    (change)="changeActive($event, 'new')" [value]="0" [(ngModel)]="date"
+                    [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
-                <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
-                <div class="row" *ngIf ="this.date == 1">
-                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo
-                  </label>
-                  <div class="col-6">
-                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
-                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_start">
-                  </div>
-                  <div class="col-6">
-                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Final</label>
-                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_end">
-                  </div>
+              <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
+              <div class="row" *ngIf="this.date == 1">
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo
+                </label>
+                <div class="col-6">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
+                  <input class="input4 w-auto position-relative" type="date"
+                    formControlName="default_active_days_start">
                 </div>
+                <div class="col-6">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Final</label>
+                  <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_end">
+                </div>
+              </div>
               <div>
                 <label class="text13 txt-blue mt-3 mb-3 d-block" for="inlineRadio1">Orden de Visualización</label>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 txt-gris2 float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
+                  <label class="text13 txt-gris2 float-start" for="inlineRadio1">Secuencial (El usuario tendrá que
+                    terminar cada tema antes de poder visualizar el siguiente).</label>
                   <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
                     name="inlineRadioOptions" id="inlineRadio1" [value]="1" [(ngModel)]="exam"
                     [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 txt-gris2  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
+                  <label class="text13 txt-gris2  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el
+                    tema de su preferencia para continuar).</label>
                   <input class="form-check-input ms-3" type="radio" (change)="selectFile($event, 'exam')"
                     name="inlineRadioOptions" id="inlineRadio2" [value]="0" [(ngModel)]="exam"
                     [ngModelOptions]="{standalone: true}">
@@ -197,35 +202,38 @@
                   accept="image/png,image/jpeg,image/jpg">
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo durante un periodo de tiempo
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Deseas que el curso este activo solo
+                  durante un periodo de tiempo
                 </label>
               </div>
               <div class="mb-3">
                 <div class="form-check form-check-inline ps-0">
                   <label class="text13 txt-gris2 float-start" for="inlineRadioSi">Si</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="date"
-                  [ngModelOptions]="{standalone: true}"  (change)="changeActive($event, 'new')" name="inlineRadioOption"
-                  id="inlineRadioSi" [value]="1">
+                    [ngModelOptions]="{standalone: true}" (change)="changeActive($event, 'new')"
+                    name="inlineRadioOption" id="inlineRadioSi" [value]="1">
                 </div>
                 <div class="form-check form-check-inline ps-0">
                   <label class="text13 txt-gris2 float-start" for="inlineRadioNo">No</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="date"
-                  [ngModelOptions]="{standalone: true}"  (change)="changeActive($event, 'new')" name="inlineRadioOption"
-                  id="inlineRadioNo" [value]="0">
+                    [ngModelOptions]="{standalone: true}" (change)="changeActive($event, 'new')"
+                    name="inlineRadioOption" id="inlineRadioNo" [value]="0">
                 </div>
               </div>
               <div class="mb-3">
                 <!--<input type="text" class="input3" id="exampleInputEmail1" formControlName="default_active_days">-->
-                <div class="row mt-2" *ngIf ="this.date == 1">
+                <div class="row mt-2" *ngIf="this.date == 1">
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona el periodo de tiempo
                   </label>
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Inicio</label>
-                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_start">
+                    <input class="input4 w-auto position-relative" type="date"
+                      formControlName="default_active_days_start">
                   </div>
                   <div class="col-6">
                     <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Final</label>
-                    <input class="input4 w-auto position-relative" type="date" formControlName="default_active_days_end">
+                    <input class="input4 w-auto position-relative" type="date"
+                      formControlName="default_active_days_end">
                   </div>
                 </div>
               </div>
@@ -248,16 +256,18 @@
               <div>
                 <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio1">Orden de Visualización</label>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 txt-gris2 float-start" for="inlineRadio1">Secuencial (El usuario tendrá que terminar cada tema antes de poder visualizar el siguiente).</label>
+                  <label class="text13 txt-gris2 float-start" for="inlineRadio1">Secuencial (El usuario tendrá que
+                    terminar cada tema antes de poder visualizar el siguiente).</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
-                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
-                  id="inlineRadio1" [value]="1">
+                    [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
+                    name="inlineRadioOptions" id="inlineRadio1" [value]="1">
                 </div>
                 <div class="form-check form-check-inline ps-0">
-                  <label class="text13 txt-gris2  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el tema de su preferencia para continuar).</label>
+                  <label class="text13 txt-gris2  float-start" for="inlineRadio2">Libre (El usuario podra seleccionar el
+                    tema de su preferencia para continuar).</label>
                   <input class="form-check-input ms-3" type="radio" [(ngModel)]="exam"
-                  [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')" name="inlineRadioOptions"
-                  id="inlineRadio2" [value]="0">
+                    [ngModelOptions]="{standalone: true}" (change)="selectFile($event, 'exam')"
+                    name="inlineRadioOptions" id="inlineRadio2" [value]="0">
                 </div>
               </div>
               <!--<div class="form-check form-check-inline ps-0">
@@ -369,17 +379,18 @@
                 <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen)</label>
                 <!--<input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'logo')"
                   accept="image/png,image/jpeg,image/jpg">-->
-                  <br>
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
-                  <div>
-                    <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
-                    <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
+                <br>
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
+                <div>
+                  <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
+                  <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
                                     this.logoBack}}" alt="imgIcono" />
-                  </div>
-    
-                  <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('logo')" data-bs-toggle="modal" data-bs-target="#modalfoto">Seleccionar
-                    imagen</button>
-                  <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.logoName}}</label>
+                </div>
+
+                <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('logo')" data-bs-toggle="modal"
+                  data-bs-target="#modalfoto">Seleccionar
+                  imagen</button>
+                <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.logoName}}</label>
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de quien firma</label>
@@ -401,17 +412,18 @@
                 <!--<input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
                   accept="image/png,image/jpeg,image/jpg">-->
 
-                  <br>
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Firma actual</label>
-                  <div>
-                    <img *ngIf="this.firmaBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
-                    <img *ngIf="this.firmaBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
+                <br>
+                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Firma actual</label>
+                <div>
+                  <img *ngIf="this.firmaBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
+                  <img *ngIf="this.firmaBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
                                     this.firmaBack}}" alt="imgFirma" />
-                  </div>
-    
-                  <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('firma')" data-bs-toggle="modal" data-bs-target="#modalfoto">Seleccionar
-                    imagen</button>
-                  <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.firmaName}}</label>
+                </div>
+
+                <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('firma')" data-bs-toggle="modal"
+                  data-bs-target="#modalfoto">Seleccionar
+                  imagen</button>
+                <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.firmaName}}</label>
               </div>
               <div class="row">
                 <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
@@ -466,7 +478,8 @@
                     formControlName="descripcion"></textarea>
                 </div>
                 <div class="mb-3">
-                  <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio">Deseas habilitar un examen en este módulo</label>
+                  <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio">Deseas habilitar un examen en este
+                    módulo</label>
                 </div>
                 <div class="mb-3">
                   <div class="form-check form-check-inline ps-0">
@@ -511,7 +524,8 @@
                       (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">
                   </div>
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Imagen para cabecera de módulo</label>
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Imagen para cabecera de
+                      módulo</label>
                     <img *ngIf="this.imgHeaderDos == ''" class="imgPreviewCab" src="assets/img/imgpreview.png"
                       alt="imgHeader" />
                     <div *ngIf="this.isNewModule == 1">
@@ -553,7 +567,8 @@
                       (change)="fileTiempo($event, 'update')" accept="image/png,image/jpeg,image/jpg">
                   </div>
                   <div class="col-12 col-lg-5">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Ingresa la duración en minutos que no debe exceder el usuario para ser acreedor a este reconocimiento</label>
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Ingresa la duración en minutos que no
+                      debe exceder el usuario para ser acreedor a este reconocimiento</label>
                     <input type="text" class="input3" formControlName="duracion">
                   </div>
                 </div>
@@ -608,8 +623,30 @@
                 </div>
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-5">
-                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Ingresa la calificación mínima aprobatoria para el examen</label>
-                    <input type="text" class="input3" formControlName="score">
+                    <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Ingresa la calificación mínima
+                      aprobatoria para el examen</label>
+                    <!--<input type="text" class="input3" formControlName="score">-->
+                    <div class="dropdown">
+                      <!--<button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Seleccionar grupo
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                          </ul>-->
+                      <select class="botondrop p-2 dropdown-toggle" [(ngModel)]="pass"
+                        [ngModelOptions]="{standalone: true}">
+                        <option value="0" hidden>Calificación</option>
+                        <option [value]="60">60</option>
+                        <option [value]="70">70</option>
+                        <option [value]="80">80</option>
+                        <option [value]="90">90</option>
+                        <option [value]="100">100</option>
+                        <!--<option *ngFor="let g of group" [value]="g.id">{{g.nombre_grupo}}</option>-->
+                      </select>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -735,7 +772,8 @@
                     <!--<img *ngIf="this.imgTemaDos == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTema" />
                     <img *ngIf="this.imgTemaDos != ''" class="imgPreview" src="{{ this.imgTemaDos }}" alt="imgTema" />-->
                     <!--img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgPreview"-->
-                    <input type="file"  accept="image/jpg, image/png" class="input3" id="medallapt" (change)="fileTema($event)">
+                    <input type="file" accept="image/jpg, image/png" class="input3" id="medallapt"
+                      (change)="fileTema($event)">
                   </div>
                   <!--<div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
@@ -761,36 +799,46 @@
                 </div>
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4 mb-3">
-                    <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Que te gustaría subir Subtítulos?</label>
+                    <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Que te gustaría subir
+                      Subtítulos?</label>
                     <div class="form-check form-check-inline mb-3">
-                      <input class="form-check-input" type="radio" name="subtitulo" id="subtitulo1" value="1" (change)="changeShow($event, 'sub')">
+                      <input class="form-check-input" type="radio" name="subtitulo" id="subtitulo1" value="1"
+                        (change)="changeShow($event, 'sub')">
                       <label class="form-check-label text10 txt-gris2" for="subtitulo1">Si</label>
                     </div>
                     <div class="form-check form-check-inline mb-3">
-                      <input class="form-check-input" type="radio" name="subtitulo" id="subtitulo2" value="0" (change)="changeShow($event, 'sub')">
+                      <input class="form-check-input" type="radio" name="subtitulo" id="subtitulo2" value="0"
+                        (change)="changeShow($event, 'sub')">
                       <label class="form-check-label text10 txt-gris2" for="subtitulo2">No</label>
                     </div>
                     <div *ngIf="this.sub == 1">
-                      <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block">Subtítulos (.srt) (opcional)</label>
+                      <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block">Subtítulos (.srt)
+                        (opcional)</label>
                       <input type="text" class="input3" formControlName="url_subtitulos">
                     </div>
 
                   </div>
                   <div class="col-12 col-lg-4">
-                    <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Que te gustaría subir?</label>
+                    <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Que te gustaría
+                      subir?</label>
                     <div class="form-check form-check-inline mb-3">
-                      <input class="form-check-input" type="radio" name="archivo" id="archivo1" value="0" (change)="changeShow($event, 'archivo')">
+                      <input class="form-check-input" type="radio" name="archivo" id="archivo1" value="0"
+                        (change)="changeShow($event, 'archivo')">
                       <label class="form-check-label text10 txt-gris2" for="archivo1">Video</label>
                     </div>
                     <div class="form-check form-check-inline mb-3">
-                      <input class="form-check-input" type="radio" name="archivo" id="archivo2" value="1" (change)="changeShow($event, 'archivo')">
+                      <input class="form-check-input" type="radio" name="archivo" id="archivo2" value="1"
+                        (change)="changeShow($event, 'archivo')">
                       <label class="form-check-label text10 txt-gris2" for="archivo2">Presentación o PDF</label>
                     </div>
-                    <label *ngIf="this.show == 0" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Video (YouTube o Vimeo)</label>
-                    <label *ngIf="this.show == 1" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Presentación o PDF</label>
+                    <label *ngIf="this.show == 0" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block"> Video
+                      (YouTube o Vimeo)</label>
+                    <label *ngIf="this.show == 1" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block">
+                      Presentación o PDF</label>
                     <input *ngIf="this.show == 0" type="text" class="input3 mb-2" formControlName="url_video">
-                    <input *ngIf="this.show == 1" type="file" class="input3 mb-2" formControlName="file" (change)="fileTema($event, 'file')">
-                  
+                    <input *ngIf="this.show == 1" type="file" class="input3 mb-2" formControlName="file"
+                      (change)="fileTema($event, 'file')">
+
                   </div>
                 </div>
                 <div class="row mt-3 mb-3">
@@ -809,14 +857,16 @@
                   <label class="text6 txt-gris ms-2">Selecciona una columna para conocer o editar sus detalles</label>
                 </div>
                 <div class="col-6 offset-6 col-lg-2 offset-lg-2">
-                  <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('editT', '', this.idTema)">
+                  <button class="boton rounded-pill bg-blue aspect1-1 float-end"
+                    (click)="changeViewTemas('editT', '', this.idTema)">
                     <i class="fas fa-reply"></i>
                   </button>
                 </div>
               </div>
               <hr class="w-100">
               <div class="col-12 col-md-4 offset-md-6 col-lg-2 offset-lg-10 d-flex justify-content-end">
-                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" (click)="changeViewTemas('col', this.idTema)">
+                <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                  (click)="changeViewTemas('col', this.idTema)">
                   <img class="me-2" src="assets/img/agregar.svg" alt="agregar">Agregar columnas</button>
               </div>
               <div class="table-responsive" *ngIf="this.alltemas.length != 0">
@@ -832,7 +882,8 @@
                     <tr *ngFor="let columna of columnas | paginate: { itemsPerPage: 6, currentPage: pct}">
                       <th scope="row">{{columna.column_title}}</th>
                       <td><button class="boton2"
-                          (click)="changeViewTemas('editC', columna.idTopic, columna.idTopic_content )">Editar</button></td>
+                          (click)="changeViewTemas('editC', columna.idTopic, columna.idTopic_content )">Editar</button>
+                      </td>
                       <td><button class="boton2"
                           (click)="changeViewTemas('eliminar', '', columna.idTopic_content)">Eliminar</button></td>
                     </tr>
@@ -848,16 +899,19 @@
             </div>
             <div *ngIf="viewTemasCol == 2">
               <form [formGroup]="formTemasCol">
-                <div  class="row d-flex align-items-center">
+                <div class="row d-flex align-items-center">
                   <div class="col-12 col-lg-2">
                     <label for="exampleInputEmail1" class="text13 txt-blue">Contenido</label>
                   </div>
                   <div class="col-6 col-md-3 col-lg-2 offset-lg-6">
-                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isEditCol == 2" (click)="addTemasCol()">Guardar columna</button>
-                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isEditCol == 1" (click)="saveCol()">Guardar cambios</button>
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isEditCol == 2"
+                      (click)="addTemasCol()">Guardar columna</button>
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2" *ngIf="this.isEditCol == 1"
+                      (click)="saveCol()">Guardar cambios</button>
                   </div>
                   <div class="col-6 offset-6 col-lg-2 offset-lg-0">
-                    <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewTemas('cols', this.idTema)">
+                    <button class="boton rounded-pill bg-blue aspect1-1 float-end"
+                      (click)="changeViewTemas('cols', this.idTema)">
                       <i class="fas fa-reply"></i>
                     </button>
                   </div>
@@ -893,7 +947,8 @@
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Texto</label>
-                  <ckeditor [editor]="Editor" [data]="data" [(ngModel)]="colFinal" (ready)="onReady($event)" formControlName="contenido"></ckeditor>
+                  <ckeditor [editor]="Editor" [data]="data" [(ngModel)]="colFinal" (ready)="onReady($event)"
+                    formControlName="contenido"></ckeditor>
                   <!--<ckeditor [editor]="Editor" [data]="data" [(ngModel)]="colFinal" (ready)="onReady($event)" formControlName="contenido"></ckeditor>-->
                 </div>
                 <!--<div class="mb-3" [innerHtml]='this.columnText.content'>
@@ -1170,7 +1225,7 @@
           <h5 *ngIf="this.isLogo == 1" class="modal-title text-blue mt-3 mb-2 text-center lh-1">
             Agrega el logo que se mostrara en el Diploma
           </h5>
-          <h5 *ngIf="this.isLogo == 2"  class="modal-title text-blue mt-3 mb-2 text-center lh-1">
+          <h5 *ngIf="this.isLogo == 2" class="modal-title text-blue mt-3 mb-2 text-center lh-1">
             Agrega la firma de la persona a cargo
           </h5>
           <p class="text6 txt-gris2 text-center">Límite de 50KB</p>
@@ -1179,8 +1234,7 @@
               <div class="form-group">
                 <div class="profile-container mx-auto d-block" *ngIf="this.imageChangedEvent == ''">
                   <img id="profileImage" class="profileImage mx-auto" src="assets/img/arrastraperfil.png" />
-                  <input class="imageUpload" type="file" accept="image/png"
-                    (change)="fileChangeEvent($event)" />
+                  <input class="imageUpload" type="file" accept="image/png" (change)="fileChangeEvent($event)" />
                 </div>
               </div>
             </div>
@@ -1188,7 +1242,7 @@
               [maintainAspectRatio]="true" [aspectRatio]="400 / 200" format="png" [transform]="transform"
               (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
               (loadImageFailed)="loadImageFailed()"></image-cropper>
-              <!--<image-cropper *ngIf="isLogo == 2" [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"
+            <!--<image-cropper *ngIf="isLogo == 2" [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"
               [maintainAspectRatio]="true" [aspectRatio]="400 / 200" format="png" [transform]="transform"
               (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
               (loadImageFailed)="loadImageFailed()"></image-cropper>-->
@@ -1218,13 +1272,13 @@
           </div>
         </div>
         <div class="modal-footer d-block pb-5 pt-0">
-          <button *ngIf="isLogo == 1" type="button" class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2" data-bs-dismiss="modal"
-            (click)="cargarImagen('logo')">
+          <button *ngIf="isLogo == 1" type="button" class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2"
+            data-bs-dismiss="modal" (click)="cargarImagen('logo')">
             Aceptar
           </button>
-          <button *ngIf="isLogo == 2" type="button" class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2" data-bs-dismiss="modal"
-            (click)="cargarImagen('firma')">
-            Aceptar 
+          <button *ngIf="isLogo == 2" type="button" class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2"
+            data-bs-dismiss="modal" (click)="cargarImagen('firma')">
+            Aceptar
           </button>
           <button type="button" class="boton bg-grey2 mx-auto d-block w-50 p-1 p-md-2 mt-3" data-bs-dismiss="modal"
             (click)="cancelUpload()">
