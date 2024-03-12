@@ -50,6 +50,7 @@ export class PerfilUsuarioComponent implements OnInit {
             this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.startDate, localStorage.getItem('token'));
           }
           ////console.log(localStorage.getItem('type'));
+          this.helpers.pauseTimer(this.helpers.interval);
           this.helpers.type = localStorage.getItem('type');
           this.helpers.goTop();
           //this.conferencias(localStorage.getItem('idCertification'))

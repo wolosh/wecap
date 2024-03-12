@@ -48,6 +48,7 @@ export class ExamenesComponent implements OnInit {
     img: new FormControl('', Validators.required),
   });
 
+  lastId: number = 0;
   userCount: number = 0;
   modLength = 0;
   backAnswer: any;
@@ -421,7 +422,8 @@ export class ExamenesComponent implements OnInit {
           case 3:
             this.cloneOption = 0;
             this.moduloTitle = name;
-            console.log(id, certificacion, this.respaldo);
+            this.idModulo = certificacion;
+            console.log(id, certificacion, this.respaldo, this.idModulo);
             this.get.getCursantesModulo(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 console.log(data)
@@ -443,10 +445,18 @@ export class ExamenesComponent implements OnInit {
             break;
           case 6:
             //console.log('Case')
+            this.nameUser = name;
             this.exam = 6;
             this.startForm(2);
-            //console.log(id, certificacion, question)
-            this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
+
+            console.log(id, certificacion, question, name, this.respaldo)
+            this.get.getPreguntasPendientes(this.idModulo, localStorage.getItem('token')).subscribe(
+              (data: any) => {
+                console.log(data);
+                Swal.close();
+              }
+            );
+            /*this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 //console.log(data)
                 for (const [key, value] of Object.entries(data)) {
@@ -464,7 +474,7 @@ export class ExamenesComponent implements OnInit {
                     }
                   }
                 }
-              });
+              });*/
             Swal.close();
             break;
           case 7: //editar pregunta
@@ -1659,6 +1669,14 @@ console.log(json)
     }
   }
 
+  onKey(event: any) {
+    console.log(event.target.value);
+    if(event.target.value == ''){
+      this.lastId = 0;
+    } else {
+      this.lastId = this.lastId + 1;
+    }
+  }
 
   cambio() {
     //console.log(this.options)
@@ -1922,9 +1940,9 @@ console.log(json)
   }
 
 
-  changeOption(type: any, search?: any) {
+  changeOption(event) {
     //console.log(type, this.teacherSelected, this.groupSelected);
-
+    console.log(this.selectedOption);
 
   }
 

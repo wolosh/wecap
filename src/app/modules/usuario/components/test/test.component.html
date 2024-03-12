@@ -13,7 +13,7 @@
                                     <label class="text6 txt-blue mb-3 mt-3">{{q.question}}</label>
                                     <div *ngIf="q.respuestas != 0">
                                         <div class="form-check ms-4" *ngFor="let answers of q.respuestas">
-                                            <input class="form-check-input" type="radio" name="{{q.idEval_question}}"
+                                            <input class="form-check-input" type="checkbox" name="{{q.idEval_question}}"
                                                 id="flexRadioDefault1"
                                                 (change)="changeOption($event, q.idEval_question)"
                                                 value="{{answers.idEval_option}}">
@@ -40,7 +40,7 @@
                                     </div>
                                     <div *ngIf="q.respuestas == 0">
                                         <div class="row">
-                                            <input type="text" class="input3" id="exampleInputEmail1">
+                                            <input (keyup)="onKey($event, q.idEval_question)" type="text" class="input3" id="exampleInputEmail1">
 
                                         </div>
                                     </div>

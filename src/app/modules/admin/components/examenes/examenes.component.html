@@ -146,14 +146,14 @@
                         <label class="text6 txt-gris mt-3 ms-2">Selecciona el nombre de un usuario para conocer los
                             cursos que se le han asignado.</label>
                         <hr class="w-100">
-                        <!--Tabla--->
+                        <!--Tabla USUARIOS ASIGNACIONES--->
                         <div class="table-responsive">
                             <table id="asignacion" class="table data striped dt-responsive nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Trabajo</th>
+                                        <th>Puesto</th>
                                         <th>Área</th>
                                     </tr>
                                 </thead>
@@ -790,7 +790,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Título</th>
-                                        <th>Cursantes</th>
+                                        <th>Calificar cursantes</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -800,7 +800,7 @@
                                         <td>{{module.title}}</td>
 
                                         <td><button class="boton2 text-decoration-none"
-                                                (click)="changeExam(3, module.idModule, module.title)">Ver</button></td>
+                                                (click)="changeExam(3, module.idModule, module.title)">Calificar</button></td>
                                         <td><button class="boton2 text-decoration-none"
                                                 (click)="changeExam(2, module.idModule, module.title)">Editar
                                                 examen</button>
@@ -987,7 +987,6 @@
                                 </div>
                             </div-->
                             <!--Duplicar-->
-
                         </div>
                     </div>
                     <div *ngIf="this.exam == 3">
@@ -1017,8 +1016,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Trabajo</th>
+                                    <th>Puesto</th>
                                     <th>Área</th>
+                                    <th>Respuestas</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1029,6 +1029,8 @@
                                     <td>{{user.job}}</td>
                                     <td *ngIf="user.area != ''">{{user.area}}</td>
                                     <td *ngIf="user.area == ''">N/A</td>
+                                    <td *ngIf="user.calificacionPendiente == 0"><button class="boton2 text-decoration-none"  (click)="changeExam(6, user.idUser, user.full_name)">Calificar</button></td>
+                                    <td *ngIf="user.calificacionPendiente == 1"><button class="boton2 text-decoration-none" disabled>Sin respuestas</button></td>
                                 </tr>
                                 <!--<tr>
                                     <th scope="row">1</th>
@@ -1041,6 +1043,7 @@
                                 nextLabel="Siguiente"></pagination-controls>-->
                         </table>
                     </div>
+                    <!---VISTA AÑADIR O EDITAR PREGUNTA ABIERTA-->
                     <div *ngIf="this.exam == 4">
                         <div class="row d-flex align-items-center">
                             <div class="col-6 col-md-4 col-lg-4">
@@ -1119,6 +1122,70 @@
                                     </div>
                                 </div>-->
                                 <!--ARREGLO QUE MUESTRA LAS OPCIONES QUE AGREGO EL USUARIO-->
+                                <!--<div *ngIf="this.editQuestion == 0">
+                                    <div class="mt-3 opcion" *ngIf="this.new != 0">
+                                        <div *ngFor="let option of this.optionsProv" class="row">
+                                            <div class="col-12 mb-3">
+                                                <label class="text13 txt-blue me-3">Respuesta correcta:</label>
+                                                <label *ngIf="option.correcta == 1" class="text13 txt-gris2">Si</label>
+                                                <label *ngIf="option.correcta == 0" class="text13 txt-gris2">No</label>
+                                            </div>
+                                            <div class="col-3">
+                                                <input class="input5" type="text" name="opcion" id=""
+                                                    value="{{option.opcion}}" disabled>
+                                            </div>
+                                            <div class="col-4 d-flex align-items-center">
+                                                <button class="boton2 remove" title="Eliminar opción"
+                                                    (click)="removeQuestion(option.opcion, 'option', 'new')"><img
+                                                        src="assets/img/quitarpreg.svg" alt="remove"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3 opcion">
+                                        <div class="col-3">
+                                            <input class="input5" type="text" name="opcion" id="" value=""
+                                                placeholder="Escribe aquí la opción"
+                                                [ngModelOptions]="{standalone: true}" (keyup)="onKey($event)"
+                                                [(ngModel)]="options">
+                                                <!--<input  type="text" name="opcion" id="" value="">-->
+                                        <!--</div>
+                                        <div class="col-4 d-flex align-items-center">
+                                            <input type="file" class="file" name="avatar" title="Añadir una imagen"
+                                                accept="image/png, image/jpeg" (change)="selectFile($event)" />
+                                            <label *ngIf="this.onImage == 1">Imagen agregada</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <label class="text13 txt-blue d-block mb-2">Respuesta correcta:</label>
+                                            <div class="form-check form-check-inline ps-0 mb-2">
+                                                <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
+                                                <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                                    (change)="changeOption($event)"
+                                                    [ngModelOptions]="{standalone: true}" [value]="1" type="radio"
+                                                    name="inlineRadioOptions" id="inlineRadio1" *ngIf="this.lastId != 0">
+                                                    <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                                    (change)="changeOption($event)"
+                                                    [ngModelOptions]="{standalone: true}" [value]="1" type="radio"
+                                                    name="inlineRadioOptions" id="inlineRadio1" disabled *ngIf="this.lastId == 0">
+                                            </div>
+                                            <div class="form-check form-check-inline mb-2">
+                                                <label class="text13 txt-blue float-start" for="inlineRadio1">No</label>
+                                                <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                                    (change)="changeOption('search')"
+                                                    [ngModelOptions]="{standalone: true}" [value]="0" type="radio" *ngIf="this.lastId != 0">
+                                                    <input class="form-check-input ms-3" [(ngModel)]="selectedOption"
+                                                    (change)="changeOption($event)"
+                                                    [ngModelOptions]="{standalone: true}" [value]="1" type="radio"
+                                                    name="inlineRadioOptions" id="inlineRadio1" disabled *ngIf="this.lastId == 0">
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <button class="boton bg-blue w-auto p-1 p-md-2 clone"
+                                                (click)="cloneOpcionExam()"><img src="assets/img/agregar.svg"
+                                                    alt="guardar">Guardar opción</button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>-->
                                 <div *ngIf="this.editQuestion == 0">
                                     <div class="mt-3 opcion" *ngIf="this.new != 0">
                                         <div *ngFor="let option of this.optionsProv" class="row">
@@ -1165,6 +1232,7 @@
                                                 placeholder="Escribe aquí la opción"
                                                 [ngModelOptions]="{standalone: true}" (change)="cambio()"
                                                 [(ngModel)]="options">
+                                                <!--<input (keyup)="onKey($event)" type="text" name="opcion" id="" value="">-->
                                         </div>
                                         <div class="col-4 d-flex align-items-center">
                                             <input type="file" class="file" name="avatar" title="Añadir una imagen"
@@ -1311,7 +1379,7 @@
                     <div *ngIf="this.exam == 6">
                         <div class="row d-flex align-items-center">
                             <div class="col-6 col-md-4 col-lg-5">
-                                <label class="text3 txt-blue2 mt-3">Calificar preguntas abiertas</label>
+                                <label class="text3 txt-blue2 mt-3">Calificar respuestas: {{this.nameUser}}</label>
                             </div>
                             <div class="col-8 col-md-4 col-lg-3 offset-lg-3">
                                 <button class="boton bg-blue w-100 p-1 p-md-2"
@@ -1334,10 +1402,14 @@
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta</label>
                                         <input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" value="" formControlName="question">
+                                            <label class="text6 txt-gris mt-3 ms-2">Haz click en cualquier pregunta para editar sus
+                                                detalles.</label>
                                         <label for="exampleInputEmail1"
                                             class="text13 txt-blue mt-2 mb-2">Respuesta</label>
                                         <input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" value="" formControlName="respuesta">
+                                            <label class="text6 txt-gris mt-3 ms-2">Haz click en cualquier pregunta para editar sus
+                                                detalles.</label>
                                     </div>
                                     <div class="col-12 col-md-4 mt-4">
                                         <div class="form-check form-check-inline ps-0">

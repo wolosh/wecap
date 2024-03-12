@@ -51,12 +51,14 @@
                                     <div class="progress-bar bg-blue text11" role="progressbar" [style.width]="modulo.progreso+'%'" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{modulo.progreso}}%</div>
                                 </div>
                             </td>
-                            <td class="">{{modulo.calificacion}}</td>
+                            <td class="" *ngIf="modulo.calificacion != 'N/A' && modulo.intentos != ''">{{modulo.calificacion}}, {{modulo.intentos}}</td>
+                            <td class="" *ngIf="modulo.calificacion == 'N/A' && modulo.intentos == ''">{{modulo.calificacion}}, 0</td>
+                            <td class="" *ngIf="modulo.calificacion == 'N/A' && modulo.intentos != ''">{{modulo.calificacion}}, {{modulo.intentos}}</td>
                             <td class="">{{modulo.fechaAsignacion}}</td>
                             <td class="" *ngIf="modulo.fechaTermino != ''">{{modulo.fechaTermino}}</td>
                             <td class="" *ngIf="modulo.fechaTermino == ''">Sin terminar</td>
                             <td class="" *ngIf="modulo.duracion != ''">{{modulo.duracion}}</td>
-                            <td class="" *ngIf="modulo.duracion == ''">N/A</td>
+                            <td class="" *ngIf="modulo.duracion == '' ">N/A</td>
                         </tr>
                     </tbody>
                 </table>

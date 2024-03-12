@@ -193,7 +193,7 @@ export class TestComponent implements OnInit {
         let score = data.min_score;
         console.log(score);
         this.idExamBackUp = data.idExamen;
-        //console.log(this.minScore)
+        console.log(this.idExamBackUp);
         //this.tiempo = data.duracion * 60;
          segundos = (data.duracion * 60) * data.preguntas.length;
         //console.log(data.preguntas.length)
@@ -217,11 +217,12 @@ export class TestComponent implements OnInit {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);
-              //console.log(start.get('idExamen'));
+              console.log(start.get('idExamen'));
               this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
                 (data: any) => {
-                  //console.log(data)
-                  this.idExamBackUp = data.id;
+                  console.log(data)
+                  //this.idExamBackUp = data.id;
+                  console.log(this.idExamBackUp);
                   ////console.log(data);
                   this.startTimer();
                 }
@@ -327,10 +328,25 @@ export class TestComponent implements OnInit {
     //if (!this.objResp[question]) this.objResp[question] = [];
 
     //this.opCount++;
-    this.objResp[question] = event.target.value;
+    if(this.objResp.hasOwnProperty(question)){
+      console.log('existe', question)
+      if(this.objResp[question].includes(event.target.value)){
+        console.log('existe', question, event.target.value)
+        if(this.objResp[question].length == 1){
+          console.log('no hay nada', this.objResp[question])
+          delete this.objResp[question];
+        } else {
+        this.objResp[question] = this.objResp[question].filter((item) => item !== event.target.value);
+        }
+      } else {
+      this.objResp[question].push(event.target.value);
+      }
+    } else {
+    this.objResp[question] = [event.target.value];
+    }
 
 
-    ////console.log(this.objResp)
+    console.log(this.objResp)
   }
 
   /*changeOption() {
@@ -474,9 +490,18 @@ export class TestComponent implements OnInit {
 
   }*/
 
+  onKey(event, id){
+    console.log(event.target.value, id);
+    if(event.target.value == '') {
+      delete this.objResp[id];
+    } else {
+    this.objResp[id] = [event.target.value];
+    }
+    console.log(this.objResp);
+  }
   saveTest() {
 
-    ////console.log(this.objResp, Object.keys(this.objResp), this.questionsExam.length);
+    console.log(this.idExamBackUp, this.objResp, Object.keys(this.objResp).length, this.questionsExam.length);
 
     if (Object.keys(this.objResp).length < this.questionsExam.length) {
       Swal.fire({

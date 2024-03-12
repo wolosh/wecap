@@ -463,4 +463,14 @@ export class GetService {
     })
   }
 
+  getPreguntasPendientes(id, token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.session.API}getPreguntasPendientesCalificacion/${id}`, {
+      headers
+    });
+  }
+
 }
