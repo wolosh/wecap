@@ -207,13 +207,13 @@ export class TestComponent implements OnInit {
           (data: any) => {
             console.log(data);
             //console.log(parseInt(data.calificacion));
-            if (parseInt(data.calificacion) >= score) {
+            if (parseInt(data.calificacion) < score) {
             console.log(score)
               Swal.close();
               //console.log(data)
               this.valido = true;
               this.score = parseInt(data.calificacion);
-            } else if (parseInt(data.calificacion) < score) {
+            } else if (parseInt(data.calificacion) >= score) {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);
@@ -520,15 +520,28 @@ export class TestComponent implements OnInit {
         ////console.log(key, index, this.objResp[key]);
         send.respuestas.push({ idEval_question: key, respuesta: this.objResp[key] });
       });
-      //console.log(send)
+      console.log(send)
       this.session.calificaExamen(send, localStorage.getItem('token')).subscribe(
         (data: any) => {
           console.log(data);
-          this.calFinal = data.calificacion;
+          //this.calFinal = data.calificacion;
           this.valido =  true;
+          
           //console.log(this.calFinal)
           localStorage.setItem('test', this.valido.toString());
-          if(this.calFinal >= this.minScore){
+          if(data.calificacion == 'Pendiente de calificacion'){
+            Swal.fire({
+              title: '¡Listo!',
+              text: 'Se guardo tu test, pronto uno de los administradores calificara tus respuestas.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
+              }
+            
+            })
+          } else if(data.calificacion >= this.minScore){
             Swal.fire({
               title: '¡Felicidades!',
               text: 'Aprobaste el test',
