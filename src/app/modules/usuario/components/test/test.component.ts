@@ -207,13 +207,13 @@ export class TestComponent implements OnInit {
           (data: any) => {
             console.log(data);
             //console.log(parseInt(data.calificacion));
-            if (parseInt(data.calificacion) < score) {
+            if (parseInt(data.calificacion) >= score) {
             console.log(score)
               Swal.close();
               //console.log(data)
               this.valido = true;
               this.score = parseInt(data.calificacion);
-            } else if (parseInt(data.calificacion) >= score) {
+            } else if (parseInt(data.calificacion) < score) {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);
