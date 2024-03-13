@@ -331,7 +331,7 @@ export class CursosComponent implements OnInit {
         this.logoName = 'Imagen cargada correctamente';
       } else {
         this.firma = fileToUpload;
-        this.logoName = 'Imagen cargada correctamente';
+        this.firmaName = 'Imagen cargada correctamente';
       }
       //console.log(this.logo, this.logoName)
 
@@ -1404,7 +1404,7 @@ export class CursosComponent implements OnInit {
           this.logoName = data.logo;
           this.firmaBack = data.firma;
           this.firmaName = data.firma;
-          this.firmaBack = data.firma;
+          console.log(this.firmaBack, this.logoBack)
           /*if (data != null) {
             this.formDiploma.controls['cursoID'].setValue(data.idCertification);
             this.formDiploma.controls['encargado'].setValue(data.encargado);
@@ -1479,18 +1479,22 @@ export class CursosComponent implements OnInit {
   saveDiploma() {
     this.helpers.loader();
     console.log(this.formDiploma.value, this.hasDiploma);
-    console.log(this.logo);
-    console.log(this.firma, this.idCertification);
+    console.log(this.idCertification);
+    console.log(this.firma, this.idCertification, this.firmaBack, this.logoBack);
+    console.log(this.firma, this.firmaBack, this.logo, this.logoBack)
     let diploma = new FormData();
 
     diploma.append('cursoID', this.idCertification);
     diploma.append('encargado', this.formDiploma.value.encargado);
     diploma.append('puesto', this.formDiploma.value.puesto);
 
-    if (this.firma != undefined) {
-      diploma.append('firma', this.firma, 'firmaDiploma.png');
+    if (this.firmaBack === this.firma) {
+      diploma.append('firma', this.firmaBack);
+      console.log(diploma.getAll('firma'), 'la firma')
+      
     } else {
-      diploma.append('firma', this.formDiploma.value.firma);
+      diploma.append('firma', this.firma, 'firmaDiploma.png');
+      console.log(diploma.getAll('firma'), 'la firma')
     }
 
     if (this.hasDiploma == true) {
@@ -1499,18 +1503,20 @@ export class CursosComponent implements OnInit {
       diploma.append('activado', '0');
     }
 
-    if (this.logo != undefined) {
-      diploma.append('logo', this.logo, 'logoDiploma.png');
+    if (this.logoBack === this.logo) {
+      diploma.append('logo', this.logoBack);
+      console.log(diploma.getAll('logo'), 'el logo')
     } else {
-      diploma.append('logo', this.formDiploma.value.logo);
+      diploma.append('logo', this.logo, 'logoDiploma.png');
+      console.log(diploma.getAll('logo'), 'el logo')
     }
 
-    //console.log(diploma.getAll('cursoId'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('img'), diploma.getAll('activado'), diploma.getAll('logo'), diploma.get);
+    console.log(diploma.getAll('cursoID'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('firma'), diploma.getAll('activado'), diploma.getAll('logo'));
     //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
     this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
-        //console.log(data);}
+        console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'El diploma ha sido actualizado.',

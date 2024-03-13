@@ -27,6 +27,7 @@ export class ExamenesComponent implements OnInit {
     img: '',
   }
   arrayPrueba = [] as any;
+  seeQuestions = [] as any;
 
   json = {
     idEval_question: '',
@@ -449,11 +450,23 @@ export class ExamenesComponent implements OnInit {
             this.exam = 6;
             this.startForm(2);
 
-            console.log(id, certificacion, question, name, this.respaldo)
-            this.get.getPreguntasPendientes(this.idModulo, localStorage.getItem('token')).subscribe(
+            console.log(id, certificacion, question, name, this.respaldo, this.idModulo)
+            this.get.getPreguntasPendientes(this.idModulo, certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 console.log(data);
+                let bd = data;
                 Swal.close();
+                this.get.getExamModule(data.idModulo, localStorage.getItem('token')).subscribe(
+                  (data: any) => {
+                    console.log(data);
+                    for(let q of data.preguntas){
+                     console.log(q)
+                     if(q.idEval_question == bd.respuestas.idQuestion){
+                      console.log(q, bd)
+                     }
+                    }
+                  }
+                );
               }
             );
             /*this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(

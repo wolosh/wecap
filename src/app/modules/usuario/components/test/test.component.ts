@@ -221,7 +221,7 @@ export class TestComponent implements OnInit {
               this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
                 (data: any) => {
                   console.log(data)
-                  //this.idExamBackUp = data.id;
+                  this.idExamBackUp = data.id;
                   console.log(this.idExamBackUp);
                   ////console.log(data);
                   this.startTimer();

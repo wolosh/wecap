@@ -1029,8 +1029,10 @@
                                     <td>{{user.job}}</td>
                                     <td *ngIf="user.area != ''">{{user.area}}</td>
                                     <td *ngIf="user.area == ''">N/A</td>
-                                    <td *ngIf="user.calificacionPendiente == 0"><button class="boton2 text-decoration-none"  (click)="changeExam(6, user.idUser, user.full_name)">Calificar</button></td>
-                                    <td *ngIf="user.calificacionPendiente == 1"><button class="boton2 text-decoration-none" disabled>Sin respuestas</button></td>
+                                    <td *ngIf="user.calificacionPendiente == 1"><button class="boton2 text-decoration-none">Calificar</button></td>
+                                    
+                                    <!--<td *ngIf="user.calificacionPendiente == 1"><button class="boton2 text-decoration-none"  (click)="changeExam(6, user.idUser, user.full_name)">Calificar</button></td>-->
+                                    <td *ngIf="user.calificacionPendiente == 0"><button class="boton2 text-decoration-none" disabled>Sin respuestas</button></td>
                                 </tr>
                                 <!--<tr>
                                     <th scope="row">1</th>
