@@ -4,3 +4,11 @@
     justify-content: center;
     color: red;
 }
+
+.textAnswer{
+        display: block;
+        width: 85%;
+        background-color: #fff;
+        padding: .375rem .75rem;
+        border-radius: .375rem;
+}

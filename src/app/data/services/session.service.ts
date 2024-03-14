@@ -878,7 +878,22 @@ export class SessionService {
     );*/
   }
 
-  
+  public saveScore(form, token) {
+    //console.log(form)
+    //console.log(idUser,  token)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.post(`${this.API}calificaPreguntasAbiertas`, form, {
+      headers,
+    }).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
 
 }
 

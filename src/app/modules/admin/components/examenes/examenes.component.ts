@@ -36,6 +36,7 @@ export class ExamenesComponent implements OnInit {
     respuestas: []
   }
 
+  //Modal para crear Examen
   formModal = new FormGroup({
     title: new FormControl('', Validators.required),
     duracion: new FormControl('', Validators.required),
@@ -43,6 +44,7 @@ export class ExamenesComponent implements OnInit {
     fechaFinal: new FormControl('', Validators.required),
   });
 
+  //Modal para editar opción de una pregunta
   formModalEdit = new FormGroup({
     option: new FormControl('', Validators.required),
     is_correct: new FormControl('', Validators.required),
@@ -65,6 +67,7 @@ export class ExamenesComponent implements OnInit {
   asignature = 0;
   diagnostic = 0;
   exam = 0;
+  //INICIO VARIABLES PAGINACIÓN
   pas: number = 1;
   pquit: number = 1;
   psc: number = 1;
@@ -73,6 +76,7 @@ export class ExamenesComponent implements OnInit {
   pexam: number = 1;
   pexamEdit: number = 1;
   pe: number = 1;
+  //TERMINA VARIABLES PAGINACIÓN
   public searchSelect = '0';
   public certificationSelected = '0';
   formSearch: FormGroup;
@@ -98,6 +102,7 @@ export class ExamenesComponent implements OnInit {
   respaldo: any;
   allThemes: boolean = false;
   public durationSelected = '0';
+  isCorrect: number;
 
   allDiagnostico: any;
   respaldo1: any;
@@ -129,6 +134,7 @@ export class ExamenesComponent implements OnInit {
   //examQuestion = [] as any;
   formulario: FormGroup;
   idOption: any;
+  backOpenQuestions = [] as any;
 
 
 
@@ -449,24 +455,13 @@ export class ExamenesComponent implements OnInit {
             this.nameUser = name;
             this.exam = 6;
             this.startForm(2);
-
-            console.log(id, certificacion, question, name, this.respaldo, this.idModulo)
+            //console.log(id, certificacion, question, name, this.respaldo, this.idModulo, this.seeQuestions)
             this.get.getPreguntasPendientes(this.idModulo, certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data);
-                let bd = data;
-                Swal.close();
-                this.get.getExamModule(data.idModulo, localStorage.getItem('token')).subscribe(
-                  (data: any) => {
-                    console.log(data);
-                    for(let q of data.preguntas){
-                     console.log(q)
-                     if(q.idEval_question == bd.respuestas.idQuestion){
-                      console.log(q, bd)
-                     }
-                    }
-                  }
-                );
+                //console.log(data);
+                this.backOpenQuestions = data;
+                this.seeQuestions = data.respuestas;
+                //console.log(this.seeQuestions, this.backOpenQuestions)
               }
             );
             /*this.get.getExamModule(certificacion, localStorage.getItem('token')).subscribe(
@@ -496,7 +491,7 @@ export class ExamenesComponent implements OnInit {
             //console.log(certificacion, question, this.editQuestion)
             this.get.questionInfo(question, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data);
+                //console.log(data);
                 this.startForm(2);
                 this.backDataAnswer = data;
                 this.formAbiertas.controls['question'].setValue(data.question);
@@ -1955,7 +1950,14 @@ console.log(json)
 
   changeOption(event) {
     //console.log(type, this.teacherSelected, this.groupSelected);
-    console.log(this.selectedOption);
+    //console.log(this.isCorrect, event);
+    this.seeQuestions.forEach(element => {
+      if(element.idQuestion == event){
+        //console.log(element)
+        element.correcto = this.isCorrect;
+      }
+      //console.log(this.seeQuestions)
+    });
 
   }
 
@@ -1967,6 +1969,39 @@ console.log(json)
       test[i].addEventListener("click", function () {
         var removeid = document.getElementById(this.id);
         removeid.remove();
+      });
+    }
+  }
+
+  //save score open questions
+  saveScore() {
+    console.log(this.isCorrect, this.backOpenQuestions, this.seeQuestions)
+    if(this.isCorrect == 0 || this.isCorrect == 1){
+      this.backOpenQuestions.respuestas = this.seeQuestions;
+      //console.log(this.backOpenQuestions);
+
+      this.session.saveScore(this.backOpenQuestions, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          //console.log(data);
+          Swal.fire({
+            title: '¡Guardado con exito!',
+            text: 'La calificación ha sido guardada con exito.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.isCorrect = 2;
+              this.changeExam(1, this.idModulo);
+            }
+          });
+        }
+      );
+    } else {
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Selecciona si la respuesta es correcta o incorrecta.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
       });
     }
   }
