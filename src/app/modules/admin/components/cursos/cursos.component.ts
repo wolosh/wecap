@@ -625,7 +625,12 @@ export class CursosComponent implements OnInit {
     //console.log(event, this.hasDiploma)
     if (this.hasDiploma == true) {
       this.startForm(3);
-
+      Swal.fire({
+        title: '¡Añade la inormación de tu Diploma!',
+        text: 'Por favor asegurate de que toda la información del diploma se encuentre en orden antes de guardar.',
+        icon: 'info',
+        confirmButtonColor: '#015287',
+      })
     }
   }
 
@@ -1482,6 +1487,16 @@ export class CursosComponent implements OnInit {
     console.log(this.idCertification);
     console.log(this.firma, this.idCertification, this.firmaBack, this.logoBack);
     console.log(this.firma, this.firmaBack, this.logo, this.logoBack)
+    if(this.firma === undefined || this.firma === null || this.firma === '' || this.logoBack === undefined || this.logoBack === null || this.logoBack === '' 
+    || this.firmaBack === undefined || this.firmaBack === null || this.firmaBack === '' || this.logo === undefined || this.logo === null || this.logo === ''){ 
+      Swal.fire({
+        title: '¡Error!',
+        text: 'Tiener que seleccionar imagen de logo y firma para el diploma.',
+        icon: 'error',
+        confirmButtonColor: '#015287',
+      });
+    } else {
+    
     let diploma = new FormData();
 
     diploma.append('cursoID', this.idCertification);
@@ -1531,6 +1546,7 @@ export class CursosComponent implements OnInit {
 
       }
     );
+    }
   }
 
   //agrega las materias

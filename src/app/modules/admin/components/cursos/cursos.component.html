@@ -375,60 +375,62 @@
                   [(ngModel)]="hasDiploma" [checked]="hasDiploma == true" [ngModelOptions]="{standalone: true}"
                   (change)="init($event.target)">
               </div>
-              <div class="mb-3">
-                <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen)</label>
-                <!--<input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'logo')"
-                  accept="image/png,image/jpeg,image/jpg">-->
-                <br>
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
-                <div>
-                  <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
-                  <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
-                                    this.logoBack}}" alt="imgIcono" />
+              <div *ngIf="this.hasDiploma == true">
+                <div class="mb-3">
+                  <label for="formFile" class="text13 txt-blue mb-2">Logo de diploma (imagen)</label>
+                  <!--<input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'logo')"
+                    accept="image/png,image/jpeg,image/jpg">-->
+                  <br>
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
+                  <div>
+                    <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
+                    <img *ngIf="this.logoBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
+                                      this.logoBack}}" alt="imgIcono" />
+                  </div>
+
+                  <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('logo')" data-bs-toggle="modal"
+                    data-bs-target="#modalfoto">Seleccionar
+                    imagen</button>
+                  <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.logoName}}</label>
                 </div>
-
-                <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('logo')" data-bs-toggle="modal"
-                  data-bs-target="#modalfoto">Seleccionar
-                  imagen</button>
-                <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.logoName}}</label>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de quien firma</label>
-                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
-                  formControlName="encargado">
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cargo de quien firma</label>
-                <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
-                  formControlName="puesto">
-              </div>
-              <!--<div class="mb-3">
-                <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
-                <input class="input4" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
-                accept="image/png,image/jpeg,image/jpg">
-              </div>-->
-              <div class="mb-3">
-                <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen)</label>
-                <!--<input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
-                  accept="image/png,image/jpeg,image/jpg">-->
-
-                <br>
-                <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Firma actual</label>
-                <div>
-                  <img *ngIf="this.firmaBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
-                  <img *ngIf="this.firmaBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
-                                    this.firmaBack}}" alt="imgFirma" />
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Nombre de quien firma</label>
+                  <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    formControlName="encargado">
                 </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cargo de quien firma</label>
+                  <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    formControlName="puesto">
+                </div>
+                <!--<div class="mb-3">
+                  <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen, máximo 400x100)</label>
+                  <input class="input4" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
+                  accept="image/png,image/jpeg,image/jpg">
+                </div>-->
+                <div class="mb-3">
+                  <label for="formFile" class="text13 txt-blue mb-2">Firma (imagen)</label>
+                  <!--<input class="input3" type="file" id="formFile" (change)="diplomaFile($event, 'firma')"
+                    accept="image/png,image/jpeg,image/jpg">-->
 
-                <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('firma')" data-bs-toggle="modal"
-                  data-bs-target="#modalfoto">Seleccionar
-                  imagen</button>
-                <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.firmaName}}</label>
-              </div>
-              <div class="row">
-                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
-                    (click)="saveDiploma()">Guardar</button>
+                  <br>
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Firma actual</label>
+                  <div>
+                    <img *ngIf="this.firmaBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
+                    <img *ngIf="this.firmaBack != ''" class="" src="{{this.helpers.domain+'media/diplomas/' +
+                                      this.firmaBack}}" alt="imgFirma" />
+                  </div>
+
+                  <button class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('firma')" data-bs-toggle="modal"
+                    data-bs-target="#modalfoto">Seleccionar
+                    imagen</button>
+                  <label class="text10 txt-gris2 ms-2" for="inlineRadio">{{this.firmaName}}</label>
+                </div>
+                <div class="row">
+                  <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
+                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
+                      (click)="saveDiploma()">Guardar</button>
+                  </div>
                 </div>
               </div>
             </form>

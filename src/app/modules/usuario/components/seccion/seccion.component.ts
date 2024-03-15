@@ -30,6 +30,7 @@ export class SeccionComponent implements OnInit {
   description = '';
   ultimoTema: any;
   idUltimoTema: any;
+  seeExamButton = false;
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -135,7 +136,7 @@ export class SeccionComponent implements OnInit {
   getMedallas(id: any) {
     this.get.medallas(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         if (data.length > 0) {
           this.showMedallas = true;
         } else {
@@ -175,13 +176,27 @@ export class SeccionComponent implements OnInit {
   }
 
   temas() {
+    let seeExamButton = 0;
     this.get.getTemas(this.idModule, localStorage.getItem('token')).subscribe((data: any) => {
-      //console.log(data)
+      console.log(data)
       this.temasArr = data;
       //console.log(this.temasArr)
       this.ultimoTema = this.temasArr[this.temasArr.length - 1];
       this.idUltimoTema = this.ultimoTema.idTopic;
       localStorage.setItem('idUltimoTema', this.idUltimoTema);
+      this.temasArr.forEach((element, index) => {
+        if (element.finalizado == '1') {
+          seeExamButton += 1;
+        }
+        console.log(seeExamButton, this.temasArr.length);
+      });
+      if(seeExamButton = this.temasArr.length){
+        this.seeExamButton = true;
+      } else {
+        this.seeExamButton = false;
+      }
+      console.log(this.seeExamButton)
+
       Swal.close();
     });
   }
