@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
             if(data['is_admin'] == 0){
               localStorage.setItem('type', '4');
             } else {
-            localStorage.setItem('type', data['is_admin']);
+              localStorage.setItem('type', data['is_admin']);
             }
             this.helpers.type = localStorage.getItem('type');
             //this.helpers.name = localStorage.getItem('userName');

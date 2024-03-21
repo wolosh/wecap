@@ -25,13 +25,15 @@ export class GetService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-    console.log(headers)
+    //console.log(headers)
     return this.http.get(this.session.API + 'certifications', {
       headers,
     }).pipe(
       catchError((err) => {
         console.log(err);
-        if(err.status == 401) {
+        console.log(err.status)
+        if(err.status == 401 || err.status == 0 ) {
+          this.helpers.logout();
         }
         return err;
       })
