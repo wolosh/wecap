@@ -90,10 +90,10 @@ export class TestComponent implements OnInit {
           }*/
           //this.certifications();
           //this.temas();
-          //Swal.close();
+          Swal.close();
           this.getInfoExam(localStorage.getItem('idModule'))
           this.conferencias(localStorage.getItem('idCertification'))
-          //this.startTimer();
+          this.startTimer();
         }
       });
     } else {
@@ -526,7 +526,7 @@ export class TestComponent implements OnInit {
           console.log(data);
           //this.calFinal = data.calificacion;
           this.valido =  true;
-          
+
           //console.log(this.calFinal)
           localStorage.setItem('test', this.valido.toString());
           if(data.calificacion == 'Pendiente de calificacion'){
@@ -539,7 +539,7 @@ export class TestComponent implements OnInit {
               if (result.isConfirmed) {
                 this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
               }
-            
+
             })
           } else if(data.calificacion >= this.minScore){
             Swal.fire({
@@ -580,6 +580,8 @@ export class TestComponent implements OnInit {
               localStorage.setItem('test', this.valido.toString());
             }
           });*/
+        } ,(error: any) => {
+          console.log(error);
         }
       );
 
