@@ -90,7 +90,7 @@ export class TestComponent implements OnInit {
           }*/
           //this.certifications();
           //this.temas();
-          Swal.close();
+          //Swal.close();
           this.getInfoExam(localStorage.getItem('idModule'))
           this.conferencias(localStorage.getItem('idCertification'))
           this.startTimer();
@@ -206,13 +206,36 @@ export class TestComponent implements OnInit {
         this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
           (data: any) => {
             console.log(data);
+            console.log(score);
             //console.log(parseInt(data.calificacion));
             if (parseInt(data.calificacion) >= score) {
-            console.log(score)
-              Swal.close();
+              console.log(score)
+              //Swal.close();
               //console.log(data)
               this.valido = true;
               this.score = parseInt(data.calificacion);
+              Swal.fire({
+                title: '¡Felicidades!',
+                text: 'Aprobaste el test, ya no tienes mas intentos',
+                icon: 'success',
+                confirmButtonColor: '#015287',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
+                }
+              });
+            } else if(data.calificacion == 'Pendiente de calificacion'){
+              console.log('pendiente');
+              Swal.fire({
+                title: '¡Calificación pendiente!',
+                text: 'Pronto uno de los administradores calificara tus respuestas.',
+                icon: 'success',
+                confirmButtonColor: '#015287',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
+                }
+              });
             } else if (parseInt(data.calificacion) < score) {
               this.valido = false;
               let start = new FormData();
@@ -231,8 +254,6 @@ export class TestComponent implements OnInit {
             ////console.log(this.valido)
           }
         );
-
-
       }
     );
   }
@@ -240,7 +261,6 @@ export class TestComponent implements OnInit {
 
 
   startTimer() {
-
     setTimeout(() => {
       Swal.close();
     }, 800);

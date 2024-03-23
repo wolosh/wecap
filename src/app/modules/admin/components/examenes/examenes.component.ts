@@ -145,7 +145,7 @@ export class ExamenesComponent implements OnInit {
   ngOnInit(): void {
     //console.log(this.helpers.domainPrueba);
     console.log(localStorage.getItem('type'))
-    
+
     this.helpers.goTop();
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
@@ -191,7 +191,7 @@ export class ExamenesComponent implements OnInit {
       puesto: new FormControl(''),
       descripcion: new FormControl('')
     });
-  
+
     this.experienciaLaboral.push(trabajo);
   }
 
@@ -455,10 +455,11 @@ export class ExamenesComponent implements OnInit {
             this.nameUser = name;
             this.exam = 6;
             this.startForm(2);
+            console.log(this.idModulo);
             //console.log(id, certificacion, question, name, this.respaldo, this.idModulo, this.seeQuestions)
             this.get.getPreguntasPendientes(this.idModulo, certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data);
+                console.log(data);
                 this.backOpenQuestions = data;
                 this.seeQuestions = data.respuestas;
                 //console.log(this.seeQuestions, this.backOpenQuestions)
@@ -860,7 +861,7 @@ export class ExamenesComponent implements OnInit {
     this.formulario.getRawValue().experienciaLaboral.forEach((element: any) => {
       console.log(element);
     });*/
-    
+
     if (this.formAbiertas.value.question == '') {
       Swal.fire({
         title: '¡Error!',
@@ -1310,16 +1311,16 @@ console.log(json)
     console.log(this.selectedThemes);
     /*if(kind == 'module'){
       this.selectedThemes = [];
-      
+
       this.showModulesThemes.forEach(element => {
         if(element.idModule == event.target.value){
           console.log(element);
           if(!this.allThemes){
-            
+
             for(let theme of element.temas){
               this.selectedThemes.push(theme.idTema);
-            } 
-            
+            }
+
           } else {
             this.selectedThemes = [];
           }
@@ -1389,12 +1390,12 @@ console.log(json)
       });
     } else {
 
-    
+
     let json = {
       idUser: this.objUsers,
       modules: []
     }
-    let certificacion = { 
+    let certificacion = {
       idCertification: this.certificationSelected,
       idModule: '',
       temas: []
@@ -1422,7 +1423,7 @@ console.log(json)
     );
     }
 
-   
+
   }
 
   asignarCertificacion() {
@@ -1955,6 +1956,7 @@ console.log(json)
       if(element.idQuestion == event){
         //console.log(element)
         element.correcto = this.isCorrect;
+        //console.log(element)
       }
       //console.log(this.seeQuestions)
     });

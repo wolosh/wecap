@@ -31,6 +31,7 @@ export class SeccionComponent implements OnInit {
   ultimoTema: any;
   idUltimoTema: any;
   seeExamButton = false;
+  score: any;
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -295,10 +296,35 @@ export class SeccionComponent implements OnInit {
         confirmButtonColor: '#015287',
       })
     } else {
-      this.route.navigate(['/test', this.idExamBackUp]).then(() => {
-        this.helpers.conferencias = true;
-        localStorage.setItem('idModule', this.helpers.idModuleBackUp);
-        localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
+      this.get.getCalificacion(this.idExamBackUp, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(this.score);
+          console.log(data.calificacion);
+        if (parseInt(data.calificacion) >= this.score) {
+          Swal.fire({
+            title: '¡Felicidades!',
+            text: 'Aprobaste el test, ya no tienes mas intentos',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          });
+        } else if(data.calificacion == 'Pendiente de calificacion'){
+          console.log('pendiente');
+          Swal.fire({
+            title: '¡Calificación pendiente!',
+            text: 'Pronto uno de los administradores calificara tus respuestas.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          });
+        } else {
+          this.getInfoExam(this.idExamBackUp);
+          this.route.navigate(['/test', this.idExamBackUp]).then(() => {
+            this.helpers.conferencias = true;
+            localStorage.setItem('idModule', this.helpers.idModuleBackUp);
+            localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
+          });
+        }
+      },(error) => {
+        console.log(error);
       });
     }
   }
@@ -319,17 +345,17 @@ export class SeccionComponent implements OnInit {
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
+        this.score = data.min_score;
         if (data.message == 'No se encontro examen para el modulo indicado') {
           this.test = false;
           this.showModal = true;
         } else {
-
           this.idExamBackUp = data.idExamen;
           localStorage.setItem('idExamBackUp', this.idExamBackUp);
           //console.log(this.idExamBackUp)
           this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
             (data: any) => {
-              //console.log(data.calificacion);
+              console.log(data);
               if (parseInt(data.calificacion) > 0) {
                 this.test = true;
               } else {

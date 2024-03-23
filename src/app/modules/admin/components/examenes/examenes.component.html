@@ -1183,7 +1183,7 @@
                                                 (click)="cloneOpcionExam()"><img src="assets/img/agregar.svg"
                                                     alt="guardar">Guardar opción</button>
                                         </div>
-                                        
+
                                     </div>
                                 </div>-->
                                 <div *ngIf="this.editQuestion == 0">
@@ -1411,16 +1411,16 @@
                                     </div>
                                     <div class="col-12 col-md-4 mt-4">
                                         <div class="form-check form-check-inline ps-0">
-                                            <label class="text13 txt-blue float-start" for="inlineRadio1">Si</label>
+                                            <label class="text13 txt-blue float-start" for="enum_answer_{{i}}">Si</label>
                                             <input class="form-check-input ms-3" [(ngModel)]="isCorrect"
                                                 (change)="changeOption(question.idQuestion)" [ngModelOptions]="{standalone: true}"
-                                                [value]="1" type="radio" name="inlineRadioOptions" id="inlineRadio1">
+                                                [value]="1" type="radio" name="inlineRadioOptions" id="enum_answer_{{i}}">
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <label class="text13 txt-blue float-start" for="inlineRadio1">No</label>
+                                            <label class="text13 txt-blue float-start" for="enum_answer_{{i}}">No</label>
                                             <input class="form-check-input ms-3" [(ngModel)]="isCorrect"
                                                 (change)="changeOption(question.idQuestion)" [ngModelOptions]="{standalone: true}"
-                                                [value]="0" type="radio">
+                                                [value]="0" type="radio" name="inlineRadioOptions" id="enum_answer_{{i}}">
                                         </div>
                                     </div>
                                 </div>
