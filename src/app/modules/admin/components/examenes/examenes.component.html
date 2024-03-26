@@ -1410,7 +1410,24 @@
                                             <label class="textAnswer">{{question.respuesta}}</label>
                                     </div>
                                     <div class="col-12 col-md-4 mt-4">
-                                        <div class="form-check form-check-inline ps-0">
+                                        <!--div class="form-check form-check-inline ps-0">
+                                            <label class="text13 txt-blue float-start" for="enum_answer_{{ i }}">Si</label>
+                                            <input class="form-check-input ms-3" [checked]="question.respuesta === 1"
+                                                (change)="changeOption(question.idQuestion, 1)" [value]="1"
+                                                type="checkbox" id="enum_answer_{{ i }}">
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="text13 txt-blue float-start" for="enum_answer_{{ i }}">No</label>
+                                            <input class="form-check-input ms-3" [checked]="question.respuesta === 0"
+                                                   (change)="changeOption(question.idQuestion, 0)" [value]="0"
+                                                   type="checkbox" id="enum_answer_{{ i }}">
+                                        </div-->
+                                        <div class="form-check">
+                                            <input class="form-check-input" [(ngModel)]="isCorrect"
+                                            (change)="changeOptionexam(question.idQuestion, $event)"
+                                            [value]="1" type="checkbox" id="pregunta{{i}}" name="pregunta{{i}}">
+                                        </div>
+                                        <!--div class="form-check form-check-inline ps-0">
                                             <label class="text13 txt-blue float-start" for="enum_answer_{{i}}">Si</label>
                                             <input class="form-check-input ms-3" [(ngModel)]="isCorrect"
                                                 (change)="changeOption(question.idQuestion)" [ngModelOptions]="{standalone: true}"
@@ -1421,7 +1438,7 @@
                                             <input class="form-check-input ms-3" [(ngModel)]="isCorrect"
                                                 (change)="changeOption(question.idQuestion)" [ngModelOptions]="{standalone: true}"
                                                 [value]="0" type="radio" name="inlineRadioOptions" id="enum_answer_{{i}}">
-                                        </div>
+                                        </div-->
                                     </div>
                                 </div>
                             </div>

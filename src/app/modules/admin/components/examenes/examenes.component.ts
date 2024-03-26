@@ -462,6 +462,9 @@ export class ExamenesComponent implements OnInit {
                 console.log(data);
                 this.backOpenQuestions = data;
                 this.seeQuestions = data.respuestas;
+                this.seeQuestions.forEach(element => {
+                  element.correcto=0;                
+                });
                 //console.log(this.seeQuestions, this.backOpenQuestions)
               }
             );
@@ -806,6 +809,7 @@ export class ExamenesComponent implements OnInit {
   removeQuestion(id: any, action: any, type?: any) {
     console.log(id);
     console.log(this.optionsProv);
+    console.log(type)
     if (type) {
       //console.log(type);
       this.optionsProv.forEach(element => {
@@ -835,7 +839,7 @@ export class ExamenesComponent implements OnInit {
           }
         );
       } else if (action == 'exam') {
-        /*this.session.deleteQuestionExam(id, localStorage.getItem('token')).subscribe(
+        this.session.deleteQuestionExam(id, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);
             Swal.fire({
@@ -849,7 +853,7 @@ export class ExamenesComponent implements OnInit {
               }
             });
           }
-        );*/
+        );
       }
     }
   }
@@ -1948,19 +1952,52 @@ console.log(json)
     //console.log(this.image, window.btoa(binaryString));
   }
 
-
+  /*changeOption(questionId: number, value: number) {
+    const question = this.seeQuestions.find(q => q.idQuestion === questionId);
+    if (question) {
+      // Si el valor ya está en la lista de respuestas correctas, lo eliminamos
+      if (question.correcto && question.correcto.includes(value)) {
+        question.correcto = question.correcto.filter(v => v !== value);
+      } else {
+        // Si no está en la lista, lo agregamos
+        if (!question.correcto) {
+          question.correcto = [];
+        }
+        question.correcto.push(value);
+      }
+    }
+  }*/
+  
   changeOption(event) {
+    //console.log(type, this.teacherSelected, this.groupSelected);
+    //console.log(this.isCorrect);
+    this.seeQuestions.forEach(element => {
+      if(element.idQuestion == event){
+        console.log(event)
+        element.correcto = this.isCorrect;
+        console.log(element)
+      }
+      //console.log(this.seeQuestions)
+    });
+  }
+  changeOptionexam(event, pregunta:any) {
     //console.log(type, this.teacherSelected, this.groupSelected);
     //console.log(this.isCorrect, event);
     this.seeQuestions.forEach(element => {
       if(element.idQuestion == event){
-        //console.log(element)
-        element.correcto = this.isCorrect;
-        //console.log(element)
+        console.log(pregunta.target.checked)
+        if(pregunta.target.checked == true){
+          element.correcto = 1;
+          this.isCorrect = 1;
+        }
+        else{
+          element.correcto = 0;
+          this.isCorrect = 0;
+        }
+        console.log(element)
       }
-      //console.log(this.seeQuestions)
+      console.log(this.seeQuestions)
     });
-
   }
 
   public remove(): void { }
@@ -1980,8 +2017,7 @@ console.log(json)
     console.log(this.isCorrect, this.backOpenQuestions, this.seeQuestions)
     if(this.isCorrect == 0 || this.isCorrect == 1){
       this.backOpenQuestions.respuestas = this.seeQuestions;
-      //console.log(this.backOpenQuestions);
-
+      console.log(this.backOpenQuestions)
       this.session.saveScore(this.backOpenQuestions, localStorage.getItem('token')).subscribe(
         (data: any) => {
           //console.log(data);

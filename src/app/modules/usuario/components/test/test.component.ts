@@ -272,10 +272,12 @@ export class TestComponent implements OnInit {
         this.secondsToTime(this.timeLeft);
       } else if (this.timeLeft === 0) {
         this.helpers.pauseTimer(this.interval);
+        this.timeLeft = undefined;
         Swal.fire({
           title: '¡Tiempo!',
           text: 'Se termino el tiempo de aplicación.',
           icon: 'info',
+          allowOutsideClick: false,
           confirmButtonColor: '#015287',
         }).then((result) => {
           //////console.log(result)
@@ -520,9 +522,7 @@ export class TestComponent implements OnInit {
     console.log(this.objResp);
   }
   saveTest() {
-
     console.log(this.idExamBackUp, this.objResp, Object.keys(this.objResp).length, this.questionsExam.length);
-
     if (Object.keys(this.objResp).length < this.questionsExam.length) {
       Swal.fire({
         title: '¡Error!',
@@ -604,7 +604,7 @@ export class TestComponent implements OnInit {
           console.log(error);
         }
       );
-
+      this.timeLeft = undefined;
       ////console.log(send);
     }
 
