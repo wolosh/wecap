@@ -83,11 +83,20 @@
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
                 <input type="text" class="input3" id="exampleInputEmail1" formControlName="title">
+                <div class="alert alert-danger" *ngIf="titulo.errors?.['minlength']">
+                  El titulo debe tener mínimo 5 caracteres
+                </div>
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
-                <textarea class="input3" id="floatingTextarea2" style="height: 100px"
-                  formControlName="description"></textarea>
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción (Máximo 350 caracteres)</label>
+                <textarea class="input3" style="height: 100px" formControlName="description"
+                ></textarea>
+                <div class="alert alert-danger" *ngIf="description.errors?.['maxlength']">
+                  La descripcion debe tener máximo  350 caracteres
+                </div>
+                <div class="alert alert-danger" *ngIf="description.errors?.['minlength']">
+                  El titulo debe tener mínimo 10 caracteres
+                </div>
               </div>
               <div class="mb-3">
                 <label for="formFile" class="text13 txt-blue mb-2">Icon del Curso</label>
@@ -186,15 +195,23 @@
             <!---->
             <form [formGroup]="formEdit">
               <label class="text14 txt-blue mb-3">Datos generales</label>
-
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
                 <input type="text" class="input3" id="exampleInputEmail1" formControlName="title">
+                <div class="alert alert-danger" *ngIf="titulo2.errors?.['minlength']">
+                  El titulo debe tener mínimo 5 caracteres
+                </div>
               </div>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
+                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción (Máximo 350 caracteres)</label>
                 <textarea class="input3" id="floatingTextarea2" style="height: 100px"
                   formControlName="description"></textarea>
+                <div class="alert alert-danger" *ngIf="description2.errors?.['maxlength']">
+                  La descripcion debe tener máximo  350 caracteres
+                </div>
+                <div class="alert alert-danger" *ngIf="description2.errors?.['minlength']">
+                  El titulo debe tener mínimo 10 caracteres
+                </div>
               </div>
               <div class="mb-3">
                 <label for="formFile" class="text13 txt-blue mb-2">Icon del Curso</label>
@@ -475,9 +492,12 @@
                   <input type="text" class="input3" formControlName="title">
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción (Máximo 350 caracteres)</label>
                   <textarea class="input3" id="floatingTextarea2" style="height: 100px"
                     formControlName="descripcion"></textarea>
+                    <div class="alert alert-danger" *ngIf="description3.errors?.['maxlength']">
+                      La descripcion debe tener máximo  350 caracteres
+                    </div>
                 </div>
                 <div class="mb-3">
                   <label class="text13 txt-blue mt-5 mb-3 d-block" for="inlineRadio">Deseas habilitar un examen en este
@@ -753,9 +773,13 @@
                   <input type="text" class="input3" formControlName="title">
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción</label>
+                  <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción (Máximo 350 caracteres)</label>
                   <textarea class="input3" id="floatingTextarea2" style="height: 100px"
                     formControlName="description"></textarea>
+                    <div class="alert alert-danger" *ngIf="description4.errors?.['maxlength']">
+                      La descripcion debe tener máximo  350 caracteres
+                    </div>
+
                 </div>
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4 mb-3">

@@ -6,7 +6,7 @@ import { HelpersService } from 'src/app/data/services/helpers.service';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Data, Router } from '@angular/router';
-import { UploadAdapter } from '../mail/my-upload-adapter'; 
+import { UploadAdapter } from '../mail/my-upload-adapter';
 
 @Component({
   selector: 'app-mail',
@@ -38,12 +38,12 @@ export class MailComponent implements OnInit {
   objEmails = [] as any;
   mailCount: number = 0;
   /*editorPlaceholder:any = document.querySelector( '#editor' ) as HTMLElement;*/
- 
+
   constructor(private route: Router, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
-    
+
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
       this.helpers.type = localStorage.getItem('type');
@@ -66,15 +66,15 @@ export class MailComponent implements OnInit {
         this.route.navigate(['/']);
       }
     }
-    
 
-    
+
+
   }
 
   /*public ClassicEditor.create( this.editorPlaceholder ).catch( error => {
     console.error( error );
   } );*/
-  
+
   startForm() {
     this.formNewMail = this.formBuilder.group({
       titulo: ['', [Validators.required]],
@@ -94,6 +94,15 @@ export class MailComponent implements OnInit {
       group: [''],
       users: [''],
     });
+  }
+  get titulo() {
+    return this.formNewMail.get('titulo');
+  }
+  get cuerpo() {
+    return this.formNewMail.get('cuerpo');
+  }
+  get fechas() {
+    return this.formNewMail.get('fechas');
   }
 
   onClickTab() {
@@ -183,7 +192,7 @@ export class MailComponent implements OnInit {
       return new UploadAdapter(loader);
     };
   }
-  
+
   changeOption(type: any, search?: any) {
     //console.log(type, this.teacherSelected, this.groupSelected);
     switch (type) {

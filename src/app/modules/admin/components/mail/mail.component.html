@@ -68,13 +68,13 @@
                               <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
                               <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
                                   formControlName="titulo">
+                              <div class="alert alert-danger" *ngIf="titulo.errors?.['required' ]">El campo es obligatorio.</div>
                           </div>
                           <div class="mb-3">
                               <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
                               <ckeditor [editor]="Editor" data=""  (ready)="onReady($event)" formControlName="cuerpo"></ckeditor>
                               <!--ckeditor [(ngModel)]="content" [config]="ckeditorConfig"></ckeditor-->
-
-
+                              <div class="alert alert-danger" *ngIf="cuerpo.errors?.['required' ]">El campo es obligatorio.</div>
                           </div>
                           <div class="mb-3">
                               <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
@@ -85,6 +85,7 @@
                                   fechas</label>
                               <input type="date" class="input3 w-auto" id="exampleInputEmail1" value="{fecha[i]}"
                                   formControlName="fechas">
+                              <div class="alert alert-danger" *ngIf="fechas.errors?.['required' ]">El campo es obligatorio.</div>
                           </div>
                           <div class="row">
                               <div class="col-md-2 col-lg-2">

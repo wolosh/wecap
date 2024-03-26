@@ -282,13 +282,13 @@ export class CursosComponent implements OnInit {
 
   //función que carga la imagen
   imageLoaded() {
-    //cerramos la ventana 
+    //cerramos la ventana
     Swal.close();
   }
 
-  //función para falla en carga de imagen 
+  //función para falla en carga de imagen
   loadImageFailed() {
-    //mostramos el error 
+    //mostramos el error
     Swal.fire({
       title: 'Error',
       text: 'No se pudo cargar la imagen',
@@ -297,7 +297,7 @@ export class CursosComponent implements OnInit {
     });
   }
 
-  //función para restablecer imagen 
+  //función para restablecer imagen
   resetImage() {
     //el valor de this.scale se le asigna 1
     this.scale = 1;
@@ -358,7 +358,7 @@ export class CursosComponent implements OnInit {
       );*/
   }
 
-  //funcion para aumentar zoom a la imagen 
+  //funcion para aumentar zoom a la imagen
   zoomIn() {
     //al valor de this.scale se suma 0.1
     this.scale += 0.1;
@@ -369,7 +369,7 @@ export class CursosComponent implements OnInit {
     };
   }
 
-  //función para disminuir zoom de la imagen 
+  //función para disminuir zoom de la imagen
   zoomOut() {
     //al valor de this.scale se le resta 0.1
     this.scale -= 0.1;
@@ -551,8 +551,8 @@ export class CursosComponent implements OnInit {
     //Metodo para inicializar el formulario
     if (id == 1) {
       this.formNewCurso = this.formBuilder.group({
-        title: [''],
-        description: [''],
+        title: ['', [Validators.required,Validators.minLength(5)]],
+        description: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
         //img: [''],
         default_active_days_start: [''],
         default_active_days_end: [''],
@@ -562,8 +562,8 @@ export class CursosComponent implements OnInit {
     } else if (id == 2) {
       console.log('entro')
       this.formEdit = this.formBuilder.group({
-        title: [''],
-        description: [''],
+        title: ['', [Validators.required,Validators.minLength(5)]],
+        description: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
         img: [''],
         //default_active_days: [''],
         default_active_days_start: [''],
@@ -586,7 +586,7 @@ export class CursosComponent implements OnInit {
       this.formModulo = this.formBuilder.group({
         cursoId: [''],
         title: [''],
-        descripcion: [''],
+        descripcion: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
         duracion: [''],
         score: [''],
         color: [''],
@@ -597,7 +597,7 @@ export class CursosComponent implements OnInit {
     else if (id == 6) {
       this.formTemas = this.formBuilder.group({
         title: [''],
-        description: [''],
+        description: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
         url_video: [''],
         file: [''],
         url_subtitulos: [''],
@@ -619,6 +619,25 @@ export class CursosComponent implements OnInit {
         logo: [''],
       });
     }
+  }
+
+  get titulo() {
+    return this.formNewCurso.get('title');
+  }
+  get titulo2() {
+    return this.formEdit.get('title');
+  }
+  get description() {
+    return this.formNewCurso.get('description');
+  }
+  get description2() {
+    return this.formEdit.get('description');
+  }
+  get description3() {
+    return this.formModulo.get('description');
+  }
+  get description4() {
+    return this.formTemas.get('description');
   }
 
   init(event: any) {
@@ -1221,7 +1240,7 @@ export class CursosComponent implements OnInit {
         this.startForm(6);
         for (let item of this.alltemas) {
           //console.log(this.alltemas)
-          //console.log(tema)
+          console.log(tema)
           if (item.title == tema || item.idTopic == tema) {
             this.idTema = item.idTopic;
             //this.startForm(6);
@@ -1487,8 +1506,8 @@ export class CursosComponent implements OnInit {
     console.log(this.idCertification);
     console.log(this.firma, this.idCertification, this.firmaBack, this.logoBack);
     console.log(this.firma, this.firmaBack, this.logo, this.logoBack)
-    if(this.firma === undefined || this.firma === null || this.firma === '' || this.logoBack === undefined || this.logoBack === null || this.logoBack === '' 
-    || this.firmaBack === undefined || this.firmaBack === null || this.firmaBack === '' || this.logo === undefined || this.logo === null || this.logo === ''){ 
+    if(this.firma === undefined || this.firma === null || this.firma === '' || this.logoBack === undefined || this.logoBack === null || this.logoBack === ''
+    || this.firmaBack === undefined || this.firmaBack === null || this.firmaBack === '' || this.logo === undefined || this.logo === null || this.logo === ''){
       Swal.fire({
         title: '¡Error!',
         text: 'Tiener que seleccionar imagen de logo y firma para el diploma.',
@@ -1496,7 +1515,7 @@ export class CursosComponent implements OnInit {
         confirmButtonColor: '#015287',
       });
     } else {
-    
+
     let diploma = new FormData();
 
     diploma.append('cursoID', this.idCertification);
@@ -1506,7 +1525,7 @@ export class CursosComponent implements OnInit {
     if (this.firmaBack === this.firma) {
       diploma.append('firma', this.firmaBack);
       console.log(diploma.getAll('firma'), 'la firma')
-      
+
     } else {
       diploma.append('firma', this.firma, 'firmaDiploma.png');
       console.log(diploma.getAll('firma'), 'la firma')
@@ -2170,18 +2189,18 @@ export class CursosComponent implements OnInit {
     }
 
     //console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'),tema.getAll('doc'))
-    //console.log(tema.getAll)
+    console.log(tema.getAll('description'),tema.getAll('url_video'),tema.getAll('url_subtitulos'),tema.getAll('doc'));
     /*console.log(modulo.get)
     console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
     modulo.getAll('description'), modulo.getAll('imgIcono'),
     modulo.getAll('color'),modulo.getAll('imgTermina'),modulo.getAll('imgScore'),
     modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
     modulo.getAll('score'), modulo.getAll('hasExam'));*/
-    //console.log(tema.getAll('description'));
+    console.log(tema.getAll('doc'));
     this.session.updateTemas(this.idModulo, tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
-        //console.log(data);
+        console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'El tema ha sido actualizado.',
@@ -2194,7 +2213,8 @@ export class CursosComponent implements OnInit {
           }
         });
         //this.modules(this.idCertification);
-
+      }, error => {
+        console.log(error);
       }
     );
   }

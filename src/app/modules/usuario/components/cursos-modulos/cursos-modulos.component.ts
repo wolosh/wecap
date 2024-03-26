@@ -26,7 +26,7 @@ export class CursosModulosComponent implements OnInit {
   noWrap = true;
   email: any;
   certificaciones: any;
-  modulesCertifications = [] as any;	
+  modulesCertifications = [] as any;
   cursos = 1;
   certificationBackup: any;
   arrFiles: any;
@@ -199,9 +199,10 @@ export class CursosModulosComponent implements OnInit {
   modules(id: any) {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
+        this.modulesCertifications = []
         console.log(this.helpers.view, this.cursos, data, data.icon, data.finalizado);
-        
-       
+
+
         //this.modulesCertifications = data;
         //console.log(this.modulesCertifications.finalizado);
         for (let item of data) {
