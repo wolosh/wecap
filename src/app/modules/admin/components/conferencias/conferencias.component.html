@@ -54,19 +54,18 @@
           <div *ngIf="viewConf == 1">
             <!--Conferencias--->
             <div class="row d-flex align-items-center">
-              <div class="col-6 col-md-7 col-lg-9">
+              <div class="col-6 col-md-7 col-lg-6">
                 <label class="text3 txt-blue2">Conferencias {{this.nombreCertificacion}}</label>
               </div>
-              <div class="col-6 offset-6 col-lg-2 offset-lg-4">
-                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewConferencias('back')">
-                  <i class="fas fa-reply"></i>
-                </button>
-              </div>
-              <div class="col-6 col-md-5 col-lg-3">
-
+              <div class="col-6 col-md-5 col-lg-3 offset-lg-2">
                 <button class="botondrop bg-blue w-100 p-1 p-md-2" (click)="changeViewConferencias('newConf')">
                   Añadir conferencia
                   <img src="assets/img/agregar.svg" alt="agregar">
+                </button>
+              </div>
+              <div class="col-6 offset-6 col-lg-1 offset-lg-0">
+                <button class="boton rounded-pill bg-blue aspect1-1 float-end" (click)="changeViewConferencias('back')">
+                  <i class="fas fa-reply"></i>
                 </button>
               </div>
 
@@ -177,7 +176,7 @@
                   </button>
                 </div>
                 <div class="col-4 col-md-4 col-lg-2 offset-lg-6 offset-md-3">
-                  
+
                   <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
                     (click)="addConferencia()" *ngIf="this.isNew == 1">Guardar</button>
                     <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
@@ -190,20 +189,35 @@
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Titulo</label>
                   <input type="text" class="input3 mb-3" placeholder="Título de la conferencia"
                     formControlName="titulo">
-                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
+                  <div class="alert alert-danger" *ngIf="inputTitle.errors?.['minlength']">
+                    La titulo debe tener mínimo 5 caracteres
+                  </div>
+                  <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Descripción</label>
                   <input type="text" class="input3 mb-3" placeholder="Descripción" formControlName="descripcion">
+                  <div class="alert alert-danger" *ngIf="inputDes.errors?.['minlength']">
+                    La descripción debe tener mínimo 10 caracteres
+                  </div>
+                  <div class="alert alert-danger" *ngIf="inputDes.errors?.['maxlength']">
+                    La descripción debe tener máximo  255 caracteres
+                  </div>
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Link de acceso</label>
+                  <div class="alert alert-danger" *ngIf="inputLink.errors?.['minlength']">
+                    El link debe tener mínimo 5 caracteres
+                  </div>
                   <input type="text" class="input3 mb-3" placeholder="Link para ingresar" formControlName="link">
                   <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Fecha</label>
                   <!--<label class="text13 txt-gris2 mb-2" for="inlineRadioSi">{{this.startDate}} </label>-->
                     <input type="text" class="input3 mb-3" placeholder="Fecha" formControlName="fecha">
+                  <div class="alert alert-danger" *ngIf="inputFecha.errors?.['minlength']">
+                    La fecha debe tener mínimo 5 caracteres
+                  </div>
                   <!--<div class="mb-3">
                     <div class="form-check form-check-inline ps-0">
                       <label for="exampleInputEmail1" class="text13 txt-blue float-start">Seleccionar nueva fecha:</label>
-                      <input class="input4" type="date" 
+                      <input class="input4" type="date"
                   formControlName="fecha_nacimiento" />
                         </div>
-                    
+
                   </div>-->
                   <hr class="hr-gris mt-4 mb-4">
                 </div>

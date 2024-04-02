@@ -13,7 +13,7 @@
                     <div class="row d-flex align-items-center" *ngIf="usersView == 0">
                         <div class="col-6 col-md-4 col-lg-3">
                             <label class="text3 txt-blue2">Usuarios</label>
-                        
+
                         </div>
                         <div class="col-8 col-md-4 col-lg-3 offset-lg-3">
                             <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeViewUsers('add', '')">
@@ -109,11 +109,23 @@
                                 <label for="formFile" class="text13 txt-blue mb-3">Nombre Completo</label>
                                 <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
                                     formControlName="name">
+                                <div class="alert alert-danger" *ngIf="inputName.errors?.['maxlength']">
+                                  La nombre debe tener máximo  255 caracteres
+                                </div>
+                                <div class="alert alert-danger" *ngIf="inputName.errors?.['minlength']">
+                                  El nombre debe tener mínimo 10 caracteres
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-3">Email</label>
                                 <input type="email" class="input3" id="exampleInputEmail2" aria-describedby="emailHelp"
                                     formControlName="email">
+                                <div class="alert alert-danger" *ngIf="inputEmail.errors?.['minlength']">
+                                  El email debe tener mínimo 10 caracteres
+                                </div>
+                                <div class="alert alert-danger" *ngIf="inputEmail.errors?.['pattern']">
+                                  El correo no es valido
+                                </div>
                             </div>
                             <label for="formFile" class="text13 txt-blue mb-2">Genero (opcional):</label>
                             <div class="dropdown mb-3">
@@ -257,12 +269,12 @@
                         <div class="mb-3">
                             <label class="text6 txt-gris mt-3 ms-2">2°- Edita el archivo de ejemplo con los datos de tus usuarios, no todos los datos son obligatorios, solo nombre, correo, area, puesto y contraseña.</label>
                             <!--<p type="text" class="text19 text-dark mb-3">descripcipn</p>-->
-                            
+
                         </div>
                         <div class="mb-3">
                             <label class="text6 txt-gris mt-3 ms-2">3°- Sube el archivo.</label>
-                            
-                           
+
+
                             <div class="col-10 col-lg-3 d-flex align-items-end mt-3 order-4 order-md-3">
                                 <input class="input3" type="file" id="formFile"
                                 accept=".csv" >
@@ -270,7 +282,7 @@
                             <div class="col-6 col-md-3 col-lg-2">
                                 <button class="boton bg-blue w-auto p-2 ps-3 pe-3 ">Importar Contactos</button>
                             </div>
-            
+
                         </div>
                     </div>
                 </div>

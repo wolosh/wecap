@@ -92,10 +92,10 @@
                 <textarea class="input3" style="height: 100px" formControlName="description"
                 ></textarea>
                 <div class="alert alert-danger" *ngIf="description.errors?.['maxlength']">
-                  La descripcion debe tener máximo  350 caracteres
+                  La descripción debe tener máximo  350 caracteres
                 </div>
                 <div class="alert alert-danger" *ngIf="description.errors?.['minlength']">
-                  El titulo debe tener mínimo 10 caracteres
+                  La descripción debe tener mínimo 10 caracteres
                 </div>
               </div>
               <div class="mb-3">
@@ -210,7 +210,7 @@
                   La descripcion debe tener máximo  350 caracteres
                 </div>
                 <div class="alert alert-danger" *ngIf="description2.errors?.['minlength']">
-                  El titulo debe tener mínimo 10 caracteres
+                  La descripcion debe tener mínimo 10 caracteres
                 </div>
               </div>
               <div class="mb-3">
@@ -495,7 +495,7 @@
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción (Máximo 350 caracteres)</label>
                   <textarea class="input3" id="floatingTextarea2" style="height: 100px"
                     formControlName="descripcion"></textarea>
-                    <div class="alert alert-danger" *ngIf="description3.errors?.['maxlength']">
+                    <div class="alert alert-danger" *ngIf="this.isNewModule == 1 && description3.errors?.['maxlength']">
                       La descripcion debe tener máximo  350 caracteres
                     </div>
                 </div>
@@ -970,6 +970,18 @@
                     <option value="0" hidden>12/12</option>
                     <option *ngFor="let col of sizecolumna" [value]="col.id">{{col.descripcion}}</option>
                   </select>
+                </div>
+                <div [class]="preCol">
+                  <label class="text10 txt-gris2 mb-2">Previsualización de columna</label>
+                  <div [class]="cambioCol">
+                    <label for="exampleInputEmail1" class="text10 txt-blue mb-2">Titulo de columna</label>
+                    <hr class="lines">
+                    <hr class="lines">
+                    <hr class="lines">
+                    <hr class="lines">
+                    <hr class="lines">
+                    <hr class="lines">
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Texto</label>

@@ -47,7 +47,7 @@ export class ConferenciasComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
-    
+
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
       //console.log(this.searchArray)
@@ -125,12 +125,25 @@ export class ConferenciasComponent implements OnInit {
 
   startForm() {
     this.formConf = this.formBuilder.group({
-      titulo: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      link: ['', Validators.required],
-      fecha: ['', Validators.required],
+      titulo: ['', [Validators.required,Validators.minLength(5)]],
+      descripcion: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(255)]],
+      link: ['', [Validators.required,Validators.minLength(5)]],
+      fecha: ['', [Validators.required,Validators.minLength(5)]],
     });
     Swal.close();
+  }
+
+  get inputTitle() {
+    return this.formConf.get('titulo');
+  }
+  get inputDes() {
+    return this.formConf.get('descripcion');
+  }
+  get inputLink() {
+    return this.formConf.get('link');
+  }
+  get inputFecha() {
+    return this.formConf.get('fecha');
   }
 
   addConferencia() {
@@ -270,7 +283,7 @@ export class ConferenciasComponent implements OnInit {
     }
       }
       });
-    
+
   }
   /*public clone(): void {
     console.log(this.title)

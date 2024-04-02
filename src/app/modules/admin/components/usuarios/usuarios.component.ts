@@ -35,7 +35,7 @@ export class UsuariosComponent implements OnInit {
     if (localStorage.getItem('type') == '1') {
       //console.log(this.searchArray)
       //console.log(localStorage.getItem('token'));
-     
+
         Swal.fire({
           title: 'Cargando...',
           html: 'Espera un momento por favor',
@@ -96,8 +96,8 @@ export class UsuariosComponent implements OnInit {
   startForm(): void {
     //Metodo para inicializar el formulario
     this.formUser = this.formBuilder.group({
-      email: ['', [Validators.required]],
-      name: ['', [Validators.required]],
+      email: ['', [Validators.required,Validators.minLength(10),Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      name: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(255)]],
       genero: [''],
       fecha_nacimiento: ['', [Validators.required]],
       puesto: ['', [Validators.required]],
@@ -109,6 +109,13 @@ export class UsuariosComponent implements OnInit {
       is_admin: ['', [Validators.required]],
       grupo: [''],
     });
+  }
+
+  get inputName() {
+    return this.formUser.get('name');
+  }
+  get inputEmail() {
+    return this.formUser.get('email');
   }
 
   changeOption(kind: any) {
@@ -177,7 +184,7 @@ export class UsuariosComponent implements OnInit {
         break;
         case 'import':
           this.usersView = 2;
-          
+
           break;
     }
   }
@@ -210,11 +217,11 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  
+
 
   registerUser(){
     //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
-    
+
     let form = new FormData();
     if(this.formUser.value.name.length < 10){
       Swal.close();
@@ -245,8 +252,8 @@ export class UsuariosComponent implements OnInit {
         (data: any) => {
           Swal.close();
           //console.log(data);
-          
-          
+
+
           Swal.fire({
             title: '¡Agregado con exito!',
             text: 'El usuario ha sido agregado.',
@@ -258,7 +265,7 @@ export class UsuariosComponent implements OnInit {
             }
           });
         }
-        
+
       )/*,
       (error: any) => {
         Swal.close();
@@ -279,7 +286,7 @@ export class UsuariosComponent implements OnInit {
 
   editUser() {
     //console.log(this.formUser.value, this.typeSelected, this.genderSelected);
-    
+
     let form = new URLSearchParams();
 
     if(this.formUser.value.name.length < 10){

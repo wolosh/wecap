@@ -140,7 +140,6 @@ export class CursosComponent implements OnInit {
   sub: number;
   fileSend: any;
   public pass = '0';
-
   //variables para actualizar imagen
   //guarda la imagen en el evento
   imageChangedEvent: any = '';
@@ -153,7 +152,9 @@ export class CursosComponent implements OnInit {
   logoName = 'Ningun archivo seleccionado';
   firmaName = 'Ningun archivo seleccionado';
   isLogo = 0;
-
+  cambioCol: string;
+  valorCol: any;
+  preCol="d-none";
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
@@ -585,7 +586,7 @@ export class CursosComponent implements OnInit {
     } else if (id == 5) {
       this.formModulo = this.formBuilder.group({
         cursoId: [''],
-        title: [''],
+        title: ['',Validators.required],
         descripcion: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
         duracion: [''],
         score: [''],
@@ -596,7 +597,7 @@ export class CursosComponent implements OnInit {
     }
     else if (id == 6) {
       this.formTemas = this.formBuilder.group({
-        title: [''],
+        title: ['',Validators.required],
         description: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
         url_video: [''],
         file: [''],
@@ -672,7 +673,6 @@ export class CursosComponent implements OnInit {
       }
     );
   }
-
   //juntamos changeGroup y changeTeacher
   changeOption(type: any, search?: any) {
     //console.log(type, this.teacherSelected, this.groupSelected);
@@ -693,7 +693,10 @@ export class CursosComponent implements OnInit {
         break;
       case 'col':
         this.formTemasCol.controls['col'].setValue(this.colSelected);
-        //console.log(this.formTemasCol.value.col)
+        //console.log(this.formTemasCol.value.col);
+        this.valorCol = this.formTemasCol.value.col;
+        this.cambioCol = "p-3 columnas col-"+this.valorCol;
+        this.preCol = "preCol mb-3";
         break;
     }
 
@@ -1204,7 +1207,7 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         this.alltemas = data;
         this.temasCount = data.length;
-        //console.log(this.alltemas)
+        console.log(this.alltemas)
       },
       (error: any) => {
         this.helpers.logout();
