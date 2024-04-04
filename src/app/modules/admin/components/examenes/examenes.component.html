@@ -880,7 +880,7 @@
                             Ya puedes agregar preguntas en los botones de la parte superior, pueden ser "Abiertas" o de
                             "Opción Multiple".
                         </div>
-                        <div class="editor" *ngIf="this.none == 2">
+                        <!--<div class="editor" *ngIf="this.none == 2">
                             <div class="table-responsive">
                                 <table id="conferencia" class="table data striped dt-responsive nowrap"
                                     style="width:100%">
@@ -889,7 +889,7 @@
                                             <th>Pregunta</th>
                                             <!--<th>Respuesta</th>
                                             <th>Abierta</th>-->
-                                            <th>Tipo</th>
+                                            <!--<th>Tipo</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -897,11 +897,11 @@
                                         <tr
                                             *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
                                             <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
-                                            <th scope="row"><button type="button" class="boton4"
+                                            <!--<th scope="row"><button type="button" class="boton4"
                                                     (click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.question}}</button>
                                             </th>
                                             <!--<td >{{pregunta.respuestas.option}}</td>-->
-                                            <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
+                                            <!--<td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
                                             <td *ngIf="pregunta.respuestas == 0">Abierta</td>
                                             <td><button class="boton2 removeArchivos"
                                                     (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
@@ -986,7 +986,87 @@
                                     </div>
                                 </div>
                             </div-->
-                            <!--Duplicar-->
+                            <!--Duplicar
+                        </div>-->
+
+                        <!---Codigo nuevo examenes-->
+                        <div class="editor row" *ngIf="this.none == 2">
+                            <div class="col-8">
+                                <!--label class="text6 txt-gris mt-3 ms-2">Preguntas</label-->
+                                <div class="table-responsive">
+                                    <table id="conferencia" class="table data striped dt-responsive nowrap"
+                                        style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Pregunta</th>
+                                                <!--<th>Respuesta</th>
+                                                <th>Abierta</th>-->
+                                                <th>Tipo</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
+                                                <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
+                                                <!--th scope="row"><button type="button" class="boton4"(click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.idEval_question}}</button></th-->
+                                                <th scope="row">
+                                                    <input type="text" class="input3" value="{{pregunta.question}}">
+                                                    <!--button type="button" class="boton4"(click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.question}}</button-->
+                                                </th>
+                                                <!--<td >{{pregunta.respuestas.option}}</td>-->
+                                                <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
+                                                <td *ngIf="pregunta.respuestas == 0">Abierta</td>
+                                                <td><button class="boton2 removeArchivos"
+                                                    (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
+                                                        src="assets/img/close.svg" alt="close"></button></td>
+                                                <td><button class="boton2 removeArchivos"
+                                                        (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
+                                                            src="assets/img/close.svg" alt="close"></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row" *ngIf="this.modLength > 6">
+                                    <div class="col-12">
+                                        <pagination-controls id="thirdExam" class="w-100 d-flex justify-content-center"
+                                            (pageChange)="pe = $event" previousLabel="Anterior"
+                                            nextLabel="Siguiente"></pagination-controls>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <!--label class="text6 txt-gris mt-3 ms-2">Opciones</label-->
+                                <div class="table-responsive">
+                                    <table id="conferencia" class="table data striped dt-responsive nowrap"
+                                        style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Opcion</th>
+                                                <!--<th>Respuesta</th>
+                                                <th>Abierta</th>
+                                                <th>Tipo</th>-->
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
+                                                <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
+                                                <th scope="row"><button type="button" class="boton4"
+                                                        (click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.question}}</button>
+                                                </th>
+                                                <!--<td >{{pregunta.respuestas.option}}</td>
+                                                <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
+                                                <td *ngIf="pregunta.respuestas == 0">Abierta</td>-->
+                                                <td><button class="boton2 removeArchivos"
+                                                        (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
+                                                            src="assets/img/close.svg" alt="close"></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="this.exam == 3">
