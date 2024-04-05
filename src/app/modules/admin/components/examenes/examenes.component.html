@@ -846,7 +846,6 @@
                                     <img src="assets/img/agregar.svg" alt="agregar">
                                     Agregar pregunta opcion multiple
                                 </button>
-
                             </div>
                             <!--<div class="col-8 col-md-4 col-lg-3" *ngIf="this.none == 1 || this.none == 2">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
@@ -880,7 +879,7 @@
                             Ya puedes agregar preguntas en los botones de la parte superior, pueden ser "Abiertas" o de
                             "Opción Multiple".
                         </div>
-                        <!--<div class="editor" *ngIf="this.none == 2">
+                        <div class="editor" *ngIf="this.none == 2">
                             <div class="table-responsive">
                                 <table id="conferencia" class="table data striped dt-responsive nowrap"
                                     style="width:100%">
@@ -889,7 +888,7 @@
                                             <th>Pregunta</th>
                                             <!--<th>Respuesta</th>
                                             <th>Abierta</th>-->
-                                            <!--<th>Tipo</th>
+                                            <th>Tipo</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -897,11 +896,11 @@
                                         <tr
                                             *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
                                             <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
-                                            <!--<th scope="row"><button type="button" class="boton4"
+                                            <th scope="row"><button type="button" class="boton4"
                                                     (click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.question}}</button>
                                             </th>
                                             <!--<td >{{pregunta.respuestas.option}}</td>-->
-                                            <!--<td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
+                                            <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
                                             <td *ngIf="pregunta.respuestas == 0">Abierta</td>
                                             <td><button class="boton2 removeArchivos"
                                                     (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
@@ -990,39 +989,36 @@
                         </div>-->
 
                         <!---Codigo nuevo examenes-->
-                        <div class="editor row" *ngIf="this.none == 2">
+                        <!--div class="editor row" *ngIf="this.none == 2">
                             <div class="col-8">
-                                <!--label class="text6 txt-gris mt-3 ms-2">Preguntas</label-->
                                 <div class="table-responsive">
                                     <table id="conferencia" class="table data striped dt-responsive nowrap"
                                         style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Pregunta</th>
-                                                <!--<th>Respuesta</th>
-                                                <th>Abierta</th>-->
                                                 <th>Tipo</th>
                                                 <th></th>
+                                                <th><button class="boton2 removeArchivos ps-0"
+                                                  ><i class="fas fa-plus-circle fa-2x"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr
                                                 *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
-                                                <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
-                                                <!--th scope="row"><button type="button" class="boton4"(click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.idEval_question}}</button></th-->
+
                                                 <th scope="row">
                                                     <input type="text" class="input3" value="{{pregunta.question}}">
-                                                    <!--button type="button" class="boton4"(click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.question}}</button-->
+
                                                 </th>
-                                                <!--<td >{{pregunta.respuestas.option}}</td>-->
-                                                <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
+
+                                                <td *ngIf="pregunta.respuestas != 0"><button class="boton2 removeArchivos"
+                                                  (click)="removeQuestion(pregunta.idEval_question, 'exam')">Opciónes</button></td>
                                                 <td *ngIf="pregunta.respuestas == 0">Abierta</td>
                                                 <td><button class="boton2 removeArchivos"
-                                                    (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
-                                                        src="assets/img/close.svg" alt="close"></button></td>
+                                                    (click)="removeQuestion(pregunta.idEval_question, 'exam')"><i class="fas fa-edit"></i></button></td>
                                                 <td><button class="boton2 removeArchivos"
-                                                        (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
-                                                            src="assets/img/close.svg" alt="close"></button></td>
+                                                        (click)="removeQuestion(pregunta.idEval_question, 'exam')"><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1036,37 +1032,38 @@
                                 </div>
                             </div>
                             <div class="col-4">
-                                <!--label class="text6 txt-gris mt-3 ms-2">Opciones</label-->
                                 <div class="table-responsive">
                                     <table id="conferencia" class="table data striped dt-responsive nowrap"
                                         style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Opcion</th>
-                                                <!--<th>Respuesta</th>
-                                                <th>Abierta</th>
-                                                <th>Tipo</th>-->
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr
-                                                *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
-                                                <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
-                                                <th scope="row"><button type="button" class="boton4"
-                                                        (click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.question}}</button>
-                                                </th>
-                                                <!--<td >{{pregunta.respuestas.option}}</td>
-                                                <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
-                                                <td *ngIf="pregunta.respuestas == 0">Abierta</td>-->
+
+                                            <tr>
+
+                                                <th scope="row">Opcion 1</th>
+
                                                 <td><button class="boton2 removeArchivos"
-                                                        (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
-                                                            src="assets/img/close.svg" alt="close"></button></td>
+                                                        ><i class="fas fa-trash-alt"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">Opcion 2</th>
+                                              <td><button class="boton2 removeArchivos"
+                                                      ><i class="fas fa-trash-alt"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">Opcion 3</th>
+                                              <td><button class="boton2 removeArchivos"
+                                                      ><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div-->
                         </div>
                     </div>
                     <div *ngIf="this.exam == 3">
