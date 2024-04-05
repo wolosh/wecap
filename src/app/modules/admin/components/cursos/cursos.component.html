@@ -862,7 +862,7 @@
                     <label *ngIf="this.show == 1" for="exampleInputEmail1" class="text10 txt-gris2 mb-2 d-block">
                       Presentación o PDF</label>
                     <input *ngIf="this.show == 0" type="text" class="input3 mb-2" formControlName="url_video">
-                    <input *ngIf="this.show == 1" type="file" class="input3 mb-2" formControlName="file"
+                    <input *ngIf="this.show == 1" type="file" class="input3 mb-2" 
                       (change)="fileTema($event, 'file')">
 
                   </div>
