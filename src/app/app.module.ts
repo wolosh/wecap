@@ -17,6 +17,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { InstructorModule } from './modules/instructor/instructor.module';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -35,7 +36,7 @@ import { InstructorModule } from './modules/instructor/instructor.module';
     MatTableModule,
     MatInputModule,
     ImageCropperModule,
-    InstructorModule
+    InstructorModule,
 
   ],
   exports: [RouterModule],

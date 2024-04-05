@@ -7,6 +7,8 @@ import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
 
 
+
+
 @Component({
   selector: 'app-examenes',
   templateUrl: './examenes.component.html',
@@ -463,7 +465,7 @@ export class ExamenesComponent implements OnInit {
                 this.backOpenQuestions = data;
                 this.seeQuestions = data.respuestas;
                 this.seeQuestions.forEach(element => {
-                  element.correcto=0;                
+                  element.correcto=0;
                 });
                 //console.log(this.seeQuestions, this.backOpenQuestions)
               }
@@ -1967,7 +1969,7 @@ console.log(json)
       }
     }
   }*/
-  
+
   changeOption(event) {
     //console.log(type, this.teacherSelected, this.groupSelected);
     //console.log(this.isCorrect);

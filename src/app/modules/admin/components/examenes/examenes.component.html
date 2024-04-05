@@ -835,7 +835,7 @@
                                     Crear
                                 </button>
                             </div>
-                            <div class="col-8 col-md-4 col-lg-3" *ngIf="this.none == 1 || this.none == 2">
+                            <!--div class="col-8 col-md-4 col-lg-3" *ngIf="this.none == 1 || this.none == 2">
                               <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
                                 <img src="assets/img/agregar.svg" alt="">
                                 Agregar pregunta abierta
@@ -846,7 +846,7 @@
                                     <img src="assets/img/agregar.svg" alt="agregar">
                                     Agregar pregunta opcion multiple
                                 </button>
-                            </div>
+                            </div-->
                             <!--<div class="col-8 col-md-4 col-lg-3" *ngIf="this.none == 1 || this.none == 2">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
                                     <img src="assets/img/agregar.svg" alt="">
@@ -859,7 +859,7 @@
                                     Agregar pregunta opciones multiples
                                 </button>
                             </div>-->
-                            <div class="col-6 col-lg-1">
+                            <div class="col-6 col-lg-1 offset-lg-7">
                                 <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50"
                                     (click)="changeExam(1, this.respaldo1)">
                                     <i class="fas fa-reply"></i>
@@ -879,7 +879,7 @@
                             Ya puedes agregar preguntas en los botones de la parte superior, pueden ser "Abiertas" o de
                             "Opción Multiple".
                         </div>
-                        <div class="editor" *ngIf="this.none == 2">
+                        <!--div class="editor" *ngIf="this.none == 2">
                             <div class="table-responsive">
                                 <table id="conferencia" class="table data striped dt-responsive nowrap"
                                     style="width:100%">
@@ -888,7 +888,7 @@
                                             <th>Pregunta</th>
                                             <!--<th>Respuesta</th>
                                             <th>Abierta</th>-->
-                                            <th>Tipo</th>
+                                            <!--th>Tipo</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -896,11 +896,11 @@
                                         <tr
                                             *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
                                             <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
-                                            <th scope="row"><button type="button" class="boton4"
+                                            <!--th scope="row"><button type="button" class="boton4"
                                                     (click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.question}}</button>
                                             </th>
                                             <!--<td >{{pregunta.respuestas.option}}</td>-->
-                                            <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
+                                            <!--td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
                                             <td *ngIf="pregunta.respuestas == 0">Abierta</td>
                                             <td><button class="boton2 removeArchivos"
                                                     (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
@@ -989,7 +989,7 @@
                         </div>-->
 
                         <!---Codigo nuevo examenes-->
-                        <!--div class="editor row" *ngIf="this.none == 2">
+                        <div class="editor row" *ngIf="this.none == 2">
                             <div class="col-8">
                                 <div class="table-responsive">
                                     <table id="conferencia" class="table data striped dt-responsive nowrap"
@@ -998,6 +998,7 @@
                                             <tr>
                                                 <th>Pregunta</th>
                                                 <th>Tipo</th>
+                                                <th>Imagen</th>
                                                 <th></th>
                                                 <th><button class="boton2 removeArchivos ps-0"
                                                   ><i class="fas fa-plus-circle fa-2x"></i></button></th>
@@ -1006,15 +1007,23 @@
                                         <tbody>
                                             <tr
                                                 *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
-
                                                 <th scope="row">
                                                     <input type="text" class="input3" value="{{pregunta.question}}">
-
                                                 </th>
-
-                                                <td *ngIf="pregunta.respuestas != 0"><button class="boton2 removeArchivos"
+                                                <td><button class="botondrop dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Seleccionar
+                                                  </button>
+                                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><a class="dropdown-item" href="#">Abierta</a></li>
+                                                    <li><a class="dropdown-item" href="#">Opciónes</a></li>
+                                                  </ul>
+                                                </td>
+                                                <!--td *ngIf="pregunta.respuestas != 0"><button class="boton2 removeArchivos"
                                                   (click)="removeQuestion(pregunta.idEval_question, 'exam')">Opciónes</button></td>
-                                                <td *ngIf="pregunta.respuestas == 0">Abierta</td>
+                                                <td *ngIf="pregunta.respuestas == 0">Abierta</td-->
+
+                                                <td><button class="boton2 removeArchivos"><i class="fas fa-image"></i></button></td>
                                                 <td><button class="boton2 removeArchivos"
                                                     (click)="removeQuestion(pregunta.idEval_question, 'exam')"><i class="fas fa-edit"></i></button></td>
                                                 <td><button class="boton2 removeArchivos"
@@ -1038,32 +1047,35 @@
                                         <thead>
                                             <tr>
                                                 <th>Opcion</th>
+                                                <th>Imagen</th>
+                                                <th>Correcta</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             <tr>
-
                                                 <th scope="row">Opcion 1</th>
-
-                                                <td><button class="boton2 removeArchivos"
-                                                        ><i class="fas fa-trash-alt"></i></button></td>
+                                                <td><button class="boton2 removeArchivos"><i class="fas fa-image"></i></button></td>
+                                                <td><input class="form-check-input ms-3" [value]="1" type="checkbox"></td>
+                                                <td><button class="boton2 removeArchivos"><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                             <tr>
-                                              <th scope="row">Opcion 2</th>
-                                              <td><button class="boton2 removeArchivos"
-                                                      ><i class="fas fa-trash-alt"></i></button></td>
+                                                <th scope="row">Opcion 2</th>
+                                                <td><button class="boton2 removeArchivos"><i class="fas fa-image"></i></button></td>
+                                                <td><input class="form-check-input ms-3" [value]="1" type="checkbox"></td>
+                                                <td><button class="boton2 removeArchivos"><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                             <tr>
-                                              <th scope="row">Opcion 3</th>
-                                              <td><button class="boton2 removeArchivos"
-                                                      ><i class="fas fa-trash-alt"></i></button></td>
+                                                <th scope="row">Opcion 3</th>
+                                                <td><button class="boton2 removeArchivos"><i class="fas fa-image"></i></button></td>
+                                                <td><input class="form-check-input ms-3" [value]="1" type="checkbox"></td>
+                                                <td><button class="boton2 removeArchivos"><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                            </div-->
+                            </div>
+                            
                         </div>
                     </div>
                     <div *ngIf="this.exam == 3">

@@ -38,7 +38,9 @@
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.6.13",
     "tslib": "^2.3.0",
-    "zone.js": "~0.12.0"
+    "zone.js": "~0.12.0",
+    "@syncfusion/ej2-angular-grids": "*",
+    "@syncfusion/ej2-angular-charts": "*"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.1.5",
