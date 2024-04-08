@@ -5,6 +5,8 @@ import { GetService } from 'src/app/data/services/get.service';
 import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import Swal from 'sweetalert2';
+import { EditService, ToolbarService, PageService } from '@syncfusion/ej2-angular-grids';
+
 
 
 
@@ -12,7 +14,8 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-examenes',
   templateUrl: './examenes.component.html',
-  styleUrls: ['./examenes.component.css']
+  styleUrls: ['./examenes.component.css'],
+  providers: [ToolbarService, EditService, PageService]
 })
 export class ExamenesComponent implements OnInit {
   //n:number=0;
@@ -23,6 +26,14 @@ export class ExamenesComponent implements OnInit {
     fechaInicio: [''],
     fechaFinal: [''],
   });*/
+  public data: Object[];
+  public editSettings: Object;
+  public toolbar: string[];
+  public orderidrules: Object;
+  public customeridrules: Object;
+  public freightrules: Object;
+  public pageSettings: Object;
+  public editparams: Object;
 
   jsonPrueba = {
     idForm: '',
@@ -146,6 +157,17 @@ export class ExamenesComponent implements OnInit {
 
   ngOnInit(): void {
     //console.log(this.helpers.domainPrueba);
+
+        this.data = this.examModule;
+    //this.data = orderDetails;
+        this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Normal'};
+        this.toolbar = ['Add', 'Edit', 'Delete'];
+        //this.orderidrules = { required: true, number: true };
+        this.customeridrules = { required: true };
+        this.freightrules =  { required: true };
+        this.editparams = { params: { popupHeight: '150px' }};
+
+
     console.log(localStorage.getItem('type'))
 
     this.helpers.goTop();

@@ -21,6 +21,15 @@ import { MatInputModule } from '@angular/material/input';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
+import { GridModule, EditService, ToolbarService, SortService, PageService } from '@syncfusion/ej2-angular-grids';
+//import { DatePickerAllModule } from '@syncfusion/ej2-calendars/datepicker/all-modules';
+/*import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { DropDownListModel } from '@syncfusion/ej2-dropdowns/drop-down-list';
+import { CheckBoxModule } from '@syncfusion/ej2-angular-buttons';
+import { TextBoxModule } from '@syncfusion/ej2-angular-inputs';
+import { MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
+import { AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';*/
+
 
 
 
@@ -64,6 +73,7 @@ const routes: Routes = [
     MatInputModule,
     DragDropModule,
     ImageCropperModule,
+    GridModule
   ],
   exports: [RouterModule, ArchivosComponent, ExamenesComponent, EstadisticasComponent, ConferenciasComponent, MailComponent, UsuariosComponent, ConfiguracionComponent]
 })

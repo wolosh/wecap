@@ -989,6 +989,20 @@
                         </div>-->
 
                         <!---Codigo nuevo examenes-->
+                        <div class="control-section">
+                            <ejs-grid [dataSource]='this.examModule' [editSettings]='editSettings' [toolbar]='toolbar'>
+                                <e-columns>
+                                    <e-column field='Pregunta' headerText='Pregunta' width='120' isPrimaryKey='true'></e-column>
+                                    <e-column field='Tipo' headerText='Tipo' width='120' editType='dropdownedit' [edit]='editparams'></e-column>
+                                    <e-column field='Imagen' headerText='Imagen' width='120' format='C2' editType='numericedit' [validationRules]='freightrules'></e-column>
+                                    <e-column field='' headerText='' width='130' editType='datepickeredit' format='yMd' textAlign='Right'></e-column>
+                                    <e-column field='' headerText='' width='150' editType='dropdownedit' [edit]='editparams'></e-column>
+                                     <!--e-column field='ShipAddress' headerText='Ship Address' width='200'></e-column-->
+                                </e-columns>
+                            </ejs-grid>
+                        </div>
+
+
                         <div class="editor row" *ngIf="this.none == 2">
                             <div class="col-8">
                                 <div class="table-responsive">
