@@ -1981,6 +1981,7 @@ export class CursosComponent implements OnInit {
     console.log(this.imgIcono, this.imgHeader, this.imgTermina, this.imgScore, this.imgTiempo, this.pass);
     console.log(this.imgIconoDos, this.imgHeaderDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos, this.pass);
     console.log(this.imgTerminaDos)
+    console.log(this.idModulo)
     //this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
     //this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
     //this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
@@ -2085,7 +2086,7 @@ export class CursosComponent implements OnInit {
         console.log(modulo.getAll('imgHeader'))
   
       } else {
-        modulo.append('imgHeaderf', this.imgHeader, this.imgHeader.name);
+        modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
         console.log(modulo.getAll('imgHeader'))
       }
       /*if (this.imgHeader != '' || this.imgHeader != undefined) {
