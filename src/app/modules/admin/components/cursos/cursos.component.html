@@ -494,7 +494,7 @@
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Descripción (Máximo 350 caracteres)</label>
                   <textarea class="input3" id="floatingTextarea2" style="height: 100px"
-                    formControlName="descripcion"></textarea>
+                    formControlName="description"></textarea>
                     <div class="alert alert-danger" *ngIf="this.isNewModule == 1 && description3.errors?.['maxlength']">
                       La descripcion debe tener máximo  350 caracteres
                     </div>
@@ -825,7 +825,7 @@
                 </div>
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4 mb-3">
-                    <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Que te gustaría subir
+                    <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Te gustaría subir
                       Subtítulos?</label>
                     <div class="form-check form-check-inline mb-3">
                       <input class="form-check-input" type="radio" name="subtitulo" id="subtitulo1" value="1"
@@ -846,13 +846,14 @@
                   </div>
                   <div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text13 txt-gris2 mb-2 d-block">¿Que te gustaría
-                      subir?</label>
+                      subir? (Solo puedes seleccionar una opción.)</label>
                     <div class="form-check form-check-inline mb-3">
                       <input class="form-check-input" type="radio" name="archivo" id="archivo1" value="0"
                         (change)="changeShow($event, 'archivo')">
                       <label class="form-check-label text10 txt-gris2" for="archivo1">Video</label>
                     </div>
                     <div class="form-check form-check-inline mb-3">
+                      
                       <input class="form-check-input" type="radio" name="archivo" id="archivo2" value="1"
                         (change)="changeShow($event, 'archivo')">
                       <label class="form-check-label text10 txt-gris2" for="archivo2">Presentación o PDF</label>
