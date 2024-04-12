@@ -1505,31 +1505,33 @@
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta </label>
                                         <!--<input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" value="" formControlName="question">-->
-                                            <label class="textAnswer">{{question.pregunta}}</label>
+                                        <label class="textAnswer">{{question.pregunta}}</label>
                                         <label for="exampleInputEmail1"
                                             class="text13 txt-blue mt-2 mb-2">Respuesta</label>
                                         <!--<input type="text" class="input3" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" value="" formControlName="respuesta">-->
-                                            <label class="textAnswer">{{question.respuesta}}</label>
+                                        <label class="textAnswer">{{question.respuesta}}</label>
                                     </div>
                                     <div class="col-12 col-md-4 mt-4">
-                                        <!--div class="form-check form-check-inline ps-0">
+                                        <div class="form-check form-check-inline ps-0">
                                             <label class="text13 txt-blue float-start" for="enum_answer_{{ i }}">Si</label>
-                                            <input class="form-check-input ms-3" [checked]="question.respuesta === 1"
-                                                (change)="changeOption(question.idQuestion, 1)" [value]="1"
-                                                type="checkbox" id="enum_answer_{{ i }}">
+                                            <input class="form-check-input ms-3"
+                                              (change)="changeOptionexam(question.idQuestion, 1)"
+                                              type="radio" id="enum_answer_{{ i }}" name="enum_answer_{{ i }}">
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <label class="text13 txt-blue float-start" for="enum_answer_{{ i }}">No</label>
-                                            <input class="form-check-input ms-3" [checked]="question.respuesta === 0"
-                                                   (change)="changeOption(question.idQuestion, 0)" [value]="0"
-                                                   type="checkbox" id="enum_answer_{{ i }}">
-                                        </div-->
+                                            <input class="form-check-input ms-3"
+                                              (change)="changeOptionexam(question.idQuestion, 0)"
+                                              type="radio" id="enum_answer_{{ i }}" name="enum_answer_{{ i }}">
+                                        </div>
+                                        <!--Checkbox
                                         <div class="form-check">
                                             <input class="form-check-input" [(ngModel)]="isCorrect"
                                             (change)="changeOptionexam(question.idQuestion, $event)"
                                             [value]="1" type="checkbox" id="pregunta{{i}}" name="pregunta{{i}}">
                                         </div>
+                                        --->
                                         <!--div class="form-check form-check-inline ps-0">
                                             <label class="text13 txt-blue float-start" for="enum_answer_{{i}}">Si</label>
                                             <input class="form-check-input ms-3" [(ngModel)]="isCorrect"

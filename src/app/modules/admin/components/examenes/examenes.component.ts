@@ -1995,22 +1995,23 @@ console.log(json)
   changeOption(event) {
     //console.log(type, this.teacherSelected, this.groupSelected);
     //console.log(this.isCorrect);
+    console.log(event)
     this.seeQuestions.forEach(element => {
       if(element.idQuestion == event){
         console.log(event)
         element.correcto = this.isCorrect;
         console.log(element)
       }
-      //console.log(this.seeQuestions)
+      console.log(this.seeQuestions)
     });
   }
   changeOptionexam(event, pregunta:any) {
     //console.log(type, this.teacherSelected, this.groupSelected);
-    //console.log(this.isCorrect, event);
+    console.log(event, pregunta);
     this.seeQuestions.forEach(element => {
       if(element.idQuestion == event){
-        console.log(pregunta.target.checked)
-        if(pregunta.target.checked == true){
+        //console.log(pregunta.target.checked)
+        if(pregunta == 1){
           element.correcto = 1;
           this.isCorrect = 1;
         }
