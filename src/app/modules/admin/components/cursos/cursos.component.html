@@ -549,7 +549,7 @@
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Imagen para cabecera de
                       módulo</label>
                     <img *ngIf="this.imgHeaderDos == ''" class="imgPreviewCab" src="assets/img/imgpreview.png"
-                      alt="imgHeader" />
+                      alt="imgHeader"/>
                     <div *ngIf="this.isNewModule == 1">
                       <img *ngIf="this.imgHeaderDos != ''" class="imgPreviewCab" src="{{this.imgHeaderDos}}"
                         alt="imgHeader" />
@@ -1277,8 +1277,12 @@
                 </div>
               </div>
             </div>
-            <image-cropper [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"
+            <!--<image-cropper [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"
               [maintainAspectRatio]="true" [aspectRatio]="400 / 200" format="png" [transform]="transform"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+              (loadImageFailed)="loadImageFailed()"></image-cropper>-->
+              <image-cropper [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"
+              [maintainAspectRatio]="true" [aspectRatio]="this.relation" format="png" [transform]="transform"
               (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
               (loadImageFailed)="loadImageFailed()"></image-cropper>
             <!--<image-cropper *ngIf="isLogo == 2" [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"

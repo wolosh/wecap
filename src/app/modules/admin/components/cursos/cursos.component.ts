@@ -155,6 +155,9 @@ export class CursosComponent implements OnInit {
   cambioCol: string;
   valorCol: any;
   preCol="d-none";
+  relation: number;
+  fileBack: any;
+  videoBack: any;
 
   constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
@@ -467,6 +470,7 @@ export class CursosComponent implements OnInit {
   isLogoChange(type: any) {
     switch (type) {
       case 'logo':
+        this.relation = 400 / 200;
         this.isLogo = 1;
         break;
       case 'firma':
@@ -1258,12 +1262,15 @@ export class CursosComponent implements OnInit {
             this.formTemas.controls['description'].setValue(item.description);
             this.formTemas.controls['url_subtitulos'].setValue(item.url_subtitulos);
             this.formTemas.controls['file'].setValue(item.doc);
+            this.formTemas.controls['url_video'].setValue(item.url_video);
             ////console.log(this.formTemas.value)
             this.imgTema = item.icon;
             this.imgTemaDos = item.icon;
             this.imgTemaVDos = item.icon_gold;
             this.active = item.is_active;
-            this.fileSend = 'null';
+            //this.fileSend = item.doc;
+            this.videoBack = item.url_video;
+            this.fileBack = item.doc;
             //this.fileSend = item.doc;
             //console.log(this.active, this.imgTemaDos, this.imgTemaVDos)
           }
@@ -2235,6 +2242,15 @@ export class CursosComponent implements OnInit {
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
     //console.log(this.formTemas.value, this.fileSend, this.imgTema, this.imgTemaDos, this.imgTemaV, this.imgTemaVDos)
     this.helpers.loader();
+    console.log(this.fileSend, this.fileBack, this.videoBack, this.formTemas.value.url_video)
+    if(this.fileSend != null){
+      this.fileBack = null;
+      this.videoBack = null;
+      this.formTemas.value.url_video = null;
+    } else if(this.formTemas.value.url_video != null){
+      this.fileSend = null;
+      this.fileBack = null;
+    }
     let tema = new FormData();
     tema.append('idModule', this.idModulo);
    // console.log(tema.getAll('idModule'));
@@ -2254,11 +2270,12 @@ export class CursosComponent implements OnInit {
       //console.log(tema.getAll('icon'));
     }
     
-    if(this.formTemas.value.url_video != ''){ 
+    /*if(this.formTemas.value.url_video != null){ 
     tema.append('url_video', this.formTemas.value.url_video);
     } else {
-      tema.append('url_video', 'null');
-    }
+      tema.append('url_video', this.videoBack);
+    }*/
+    tema.append('url_video', this.formTemas.value.url_video);
     //console.log(tema.getAll('url_video'));
     tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
     //.log(tema.getAll('url_subtitulos'));
@@ -2271,10 +2288,10 @@ export class CursosComponent implements OnInit {
       //console.log(tema.getAll('doc'));
     }*/
     console.log(this.fileSend)
-    if(this.fileSend != 'null'){
+    if(this.fileSend != null){
       tema.append('doc', this.fileSend, this.fileSend.name);
     } else {
-      tema.append('doc', this.fileSend);
+      tema.append('doc', this.fileBack);
     }
 
     console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'),tema.getAll('doc'))
