@@ -650,7 +650,7 @@ export class CursosComponent implements OnInit {
     if (this.hasDiploma == true) {
       this.startForm(3);
       Swal.fire({
-        title: '¡Añade la inormación de tu Diploma!',
+        title: '¡Añade la información de tu Diploma!',
         text: 'Por favor asegurate de que toda la información del diploma se encuentre en orden antes de guardar.',
         icon: 'info',
         confirmButtonColor: '#015287',

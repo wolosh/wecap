@@ -398,7 +398,7 @@ export class ExamenesComponent implements OnInit {
             this.onClickTab('test');
             break;
           case 1:
-            //console.log(id, certificacion);
+            console.log(id, certificacion, this.respaldo1);
             this.get.getModules(this.respaldo1, localStorage.getItem('token')).subscribe(
               (data: any) => {
                 console.log(data);
@@ -479,7 +479,7 @@ export class ExamenesComponent implements OnInit {
             this.nameUser = name;
             this.exam = 6;
             this.startForm(2);
-            console.log(this.idModulo);
+            console.log(this.idModulo, certificacion);
             //console.log(id, certificacion, question, name, this.respaldo, this.idModulo, this.seeQuestions)
             this.get.getPreguntasPendientes(this.idModulo, certificacion, localStorage.getItem('token')).subscribe(
               (data: any) => {

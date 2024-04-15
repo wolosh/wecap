@@ -604,7 +604,7 @@ export class TestComponent implements OnInit {
           console.log(error);
         }
       );
-      this.timeLeft = undefined;
+      this.helpers.pauseTimer(this.interval);
       ////console.log(send);
     }
 
