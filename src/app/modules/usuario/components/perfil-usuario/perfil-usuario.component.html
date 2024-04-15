@@ -22,11 +22,11 @@
         </div>
     </div>
     <div class="row" *ngIf="this.modulos == 1">
-        <div class="col-6 col-md-4 offset-6 offset-md-8 offset-lg-9 offset-xl-10 col-lg-3 col-xl-2">
-            <a *ngIf="this.urlDiploma != '1' && this.urlDiploma != '2'" href="{{this.urlDiploma}}" target="_blank" class="nostyle boton bg-blue mx-auto d-block w-100"> Descargar diploma</a>
+        <div class="col-12 d-flex justify-content-end">
+            <a *ngIf="this.urlDiploma != '1' && this.urlDiploma != '2'" href="{{this.urlDiploma}}" target="_blank" class="nostyle boton bg-blue w-auto"> Descargar diploma</a>
             <!--<button *ngIf="this.urlDiploma != '1' && this.urlDiploma != '2'" type="button" class="boton bg-blue mx-auto d-block w-100" (click)="diploma(this.allPerfil.idUser, this.cursoSelected)">Descargar diploma</button>-->
-            <button *ngIf="this.urlDiploma == '2'" type="button" class="boton bg-grey2 mx-auto d-block w-100" disabled>El curso no cuenta con diploma</button>
-            <button *ngIf="this.urlDiploma == '1'" type="button" class="boton bg-grey2 mx-auto d-block w-100" disabled>Necesitas terminar el curso para dercargar el diploma</button>
+            <button *ngIf="this.urlDiploma == '2'" type="button" class="boton bg-grey2 w-auto" disabled>El curso no cuenta con diploma</button>
+            <button *ngIf="this.urlDiploma == '1'" type="button" class="boton bg-grey2 w-auto" disabled>Necesitas terminar el curso para dercargar el diploma</button>
         </div>
         <div class="col-12">
             <div class="table-responsive">

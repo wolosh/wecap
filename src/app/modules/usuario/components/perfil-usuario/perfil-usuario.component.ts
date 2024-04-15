@@ -212,7 +212,7 @@ export class PerfilUsuarioComponent implements OnInit {
     this.get.getUserDiploma(user, course, localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data);
       if(data.code == 400){
-        if(data.message == 'El usuario no ha finalizado el curso')
+        if(data.message == 'No se ha finalizado el modulo')
         {
           this.urlDiploma = '1';
           /*Swal.fire({
