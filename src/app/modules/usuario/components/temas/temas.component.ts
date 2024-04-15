@@ -370,12 +370,17 @@ export class TemasComponent implements OnInit {
                         localStorage.setItem('idModule', this.helpers.idModuleBackUp);
                         localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
                       });
+                    } else if(result.dismiss === Swal.DismissReason.cancel) {
+                      console.log('No examen')
+                      this.route.navigate(['/seccion', this.idModule]);
                     }
+                    
                   });
                 }
               }
             });
           }else {
+            console.log('No es el ultimo tema')
             this.route.navigate(['/seccion', this.idModule]);
           }
           //console.log(result)
