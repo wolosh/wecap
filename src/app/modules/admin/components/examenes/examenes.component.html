@@ -989,20 +989,6 @@
                         </div>-->
 
                         <!---Codigo nuevo examenes-->
-                        <!--div class="control-section">
-                            <ejs-grid [dataSource]='this.examModule' [editSettings]='editSettings' [toolbar]='toolbar'>
-                                <e-columns>
-                                    <e-column field='Pregunta' headerText='Pregunta' width='120' isPrimaryKey='true'></e-column>
-                                    <e-column field='Tipo' headerText='Tipo' width='120' editType='dropdownedit' [edit]='editparams'></e-column>
-                                    <e-column field='Imagen' headerText='Imagen' width='120' format='C2' editType='numericedit' [validationRules]='freightrules'></e-column>
-                                    <e-column field='' headerText='' width='130' editType='datepickeredit' format='yMd' textAlign='Right'></e-column>
-                                    <e-column field='' headerText='' width='150' editType='dropdownedit' [edit]='editparams'></e-column>
-                                     <!--e-column field='ShipAddress' headerText='Ship Address' width='200'></e-column-->
-                                <!--/e-columns>
-                            </ejs-grid>
-                        </div-->
-
-
                         <!--div class="editor row" *ngIf="this.none == 2">
                             <div class="col-8">
                                 <div class="table-responsive">
@@ -1500,6 +1486,14 @@
                         <hr class="w-100">
                         <form [formGroup]="formAbiertas">
                             <div class="mt-3">
+                                <div class="row mt-2 d-flex align-items-center">
+                                  <div class="col-12 col-md-2 offset-md-8 d-flex justify-content-center">
+                                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Correcta</label>
+                                  </div>
+                                  <div class="col-12 col-md-2 d-flex justify-content-center">
+                                    <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Incorrecta</label>
+                                  </div>
+                                </div>
                                 <div class="row mb-3 d-flex align-items-center" *ngFor="let question of this.seeQuestions; let i = index;">
                                     <div class="col-12 col-md-8">
                                         <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Pregunta </label>
@@ -1512,19 +1506,24 @@
                                             aria-describedby="emailHelp" value="" formControlName="respuesta">-->
                                         <label class="textAnswer">{{question.respuesta}}</label>
                                     </div>
-                                    <div class="col-12 col-md-4 mt-4">
-                                        <div class="form-check form-check-inline ps-0">
-                                            <label class="text13 txt-blue float-start" for="enum_answer_{{ i }}">Si</label>
-                                            <input class="form-check-input ms-3"
-                                              (change)="changeOptionexam(question.idQuestion, 1)"
-                                              type="radio" id="enum_answer_{{ i }}" name="enum_answer_{{ i }}">
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label class="text13 txt-blue float-start" for="enum_answer_{{ i }}">No</label>
-                                            <input class="form-check-input ms-3"
-                                              (change)="changeOptionexam(question.idQuestion, 0)"
-                                              type="radio" id="enum_answer_{{ i }}" name="enum_answer_{{ i }}">
-                                        </div>
+                                    <div class="col-12 col-md-2 mt-4 d-flex justify-content-center">
+                                      <div class="form-check form-check-inline">
+                                        <!--label class="text13 txt-blue float-start" for="enum_answer_{{ i }}">Si</label-->
+                                        <input class="form-check-input ms-0"
+                                          (change)="changeOptionexam(question.idQuestion, 1)"
+                                          type="radio" id="enum_answer_{{ i }}" name="enum_answer_{{ i }}">
+                                      </div>
+                                    </div>
+                                    <div class="col-12 col-md-2 mt-4 d-flex justify-content-center">
+                                      <div class="form-check form-check-inline">
+                                        <!--label class="text13 txt-blue float-start" for="enum_answer_{{ i }}">No</label-->
+                                        <input class="form-check-input ms-0"
+                                          (change)="changeOptionexam(question.idQuestion, 0)"
+                                          type="radio" id="enum_answer_{{ i }}" name="enum_answer_{{ i }}">
+                                      </div>
+                                    </div>
+
+
                                         <!--Checkbox
                                         <div class="form-check">
                                             <input class="form-check-input" [(ngModel)]="isCorrect"
@@ -1544,7 +1543,6 @@
                                                 (change)="changeOption(question.idQuestion)" [ngModelOptions]="{standalone: true}"
                                                 [value]="0" type="radio" name="inlineRadioOptions" id="enum_answer_{{i}}">
                                         </div-->
-                                    </div>
                                 </div>
                             </div>
                         </form>

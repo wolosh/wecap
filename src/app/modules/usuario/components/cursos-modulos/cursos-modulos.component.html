@@ -14,7 +14,7 @@
     <!--Parte cursos-->
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mt-5 mb-5 home" *ngIf="this.cursos == 1">
         <div class="col" *ngFor="let certificacion of this.certificaciones">
-            <div class="card h-100">
+            <div class="card slidemodulo">
                 <!--<img src="assets/img/alsain.svg" class="card-img mx-auto d-block" alt="...">-->
                 <img *ngIf="certificacion.img == ''" src="assets/img/alsain.svg" class="card-img mx-auto d-block"
                     alt="...">
