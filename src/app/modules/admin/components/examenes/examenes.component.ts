@@ -2068,4 +2068,43 @@ console.log(json)
       });
     }
   }
+
+
+  //Nuevo de examenes
+  filaSeleccionada: number | null = null;
+  agregarNuevaFila: boolean = false;
+  nuevaPregunta: any = {};
+
+  agregarFila() {
+    this.agregarNuevaFila = true;
+    this.nuevaPregunta = {}; // Reinicia los datos del formulario
+  }
+
+  cancelarAgregarFila() {
+    this.agregarNuevaFila = false;
+  }
+
+  guardarNuevaFila() {
+    this.examModule.push(this.nuevaPregunta);
+    this.cancelarAgregarFila();
+  }
+
+  editarFila(pregunta: any) {
+    pregunta.editando = true;
+  }
+
+  guardarCambios(pregunta: any) {
+    pregunta.editando = false;
+  }
+
+  cancelarEdicion(pregunta: any) {
+    pregunta.editando = false;
+  }
+
+  /*removeQuestion(idEval_question: number, tipo: string) {
+    this.sesion.delete(`http://tu-backend.com/api/eliminarPregunta/${idEval_question}?tipo=${tipo}`)
+      .subscribe(() => {
+        this.cargarDatosIniciales();
+      });
+  }*/
 }
