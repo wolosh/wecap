@@ -148,6 +148,8 @@ export class ExamenesComponent implements OnInit {
   formulario: FormGroup;
   idOption: any;
   backOpenQuestions = [] as any;
+  imgPre: any;
+  imgOpcion: any;
 
 
 
@@ -441,8 +443,12 @@ export class ExamenesComponent implements OnInit {
                     this.examModule = data.preguntas;
                     this.modLength = data.preguntas.length;
                     console.log(this.examModule, this.modLength);
+                    this.examModule.forEach(element => {
+                      this.tipo = element.respuestas;
+                    });
+                    //this.tipo = data.preguntas.respuestas;
                     //console.log(data, data.preguntas);
-                    //console.log(question)
+                    //console.log(this.tipo)
                   }
                 }
                 //console.log(this.none);
@@ -2073,11 +2079,42 @@ console.log(json)
   //Nuevo de examenes
   filaSeleccionada: number | null = null;
   agregarNuevaFila: boolean = false;
+  mostrarOpciones: boolean = false;
   nuevaPregunta: any = {};
+  tipo: any = {};
+  nuevaFilaOpcion: boolean = false;
+  nuevaOpcion: any = {};
+
+  imagenPregunta(event) {
+    this.imgPre = event.target.files[0]
+    if (event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgPre = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
+  }
+  imagenOpcion(event) {
+    this.imgOpcion = event.target.files[0]
+    if (event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgOpcion = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0])
+    }
+  }
 
   agregarFila() {
     this.agregarNuevaFila = true;
+    this.imgPre = '';
     this.nuevaPregunta = {}; // Reinicia los datos del formulario
+  }
+  agregarFilaOpcion() {
+    this.nuevaFilaOpcion = true;
+    this.imgOpcion = '';
+    this.nuevaOpcion = {}; // Reinicia los datos del formulario
   }
 
   cancelarAgregarFila() {
@@ -2089,8 +2126,16 @@ console.log(json)
     this.cancelarAgregarFila();
   }
 
-  editarFila(pregunta: any) {
+  editarFila(pregunta: any, id: any) {
     pregunta.editando = true;
+    this.tipo = pregunta.respuestas
+    if(this.tipo != 0){
+      this.tipo.forEach(element => {
+        if(element.idEval_question == id){
+          this.mostrarOpciones = true;
+        }
+      })
+    }
   }
 
   guardarCambios(pregunta: any) {
@@ -2099,6 +2144,7 @@ console.log(json)
 
   cancelarEdicion(pregunta: any) {
     pregunta.editando = false;
+    this.mostrarOpciones = false;
   }
 
   /*removeQuestion(idEval_question: number, tipo: string) {
