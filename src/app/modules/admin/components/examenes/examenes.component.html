@@ -990,9 +990,9 @@
 
                         <!---Codigo nuevo examenes-->
                         <div class="editor row" *ngIf="this.none == 2">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="table-responsive">
-                                    <table id="conferencia" class="table data striped dt-responsive nowrap" style="width:100%">
+                                    <table id="conferencia" class="table data striped" style="width:100%">
                                         <thead>
                                           <tr>
                                             <th>Pregunta</th>
@@ -1007,59 +1007,58 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr *ngFor="let pregunta of examModule; let i = index"
-                                            [class.seleccionada]="i === filaSeleccionada">
-                                            <td scope="row" *ngIf="!pregunta.editando">
-                                              {{ pregunta.question }}
-                                            </td>
-                                            <td *ngIf="!pregunta.editando">
-                                              <label *ngIf="pregunta.respuestas != 0">Opción multiple</label>
-                                              <label *ngIf="pregunta.respuestas == 0">Abierta</label>
-                                            </td>
-                                            <td *ngIf="!pregunta.editando">
-                                              <!--img *ngIf="this.imgIconoDos != ''" class="imgPreview" src="{{this.imgIconoDos}}" alt="imgIcono" /-->
-                                            </td>
-                                            <td *ngIf="!pregunta.editando">
-                                              <button class="boton2 removeArchivos" (click)="editarFila(pregunta,pregunta.idEval_question)">
-                                                <i class="fas fa-edit"></i>
-                                              </button>
-                                            </td>
-                                            <td *ngIf="!pregunta.editando">
-                                              <button class="boton2 removeArchivos" (click)="removeQuestion(pregunta.idEval_question, 'exam')">
-                                                <i class="fas fa-trash-alt"></i>
-                                              </button>
-                                            </td>
-                                            <!-- Fila de edición inline -->
-                                            <td *ngIf="pregunta.editando">
-                                              <input type="text" class="input3" [(ngModel)]="pregunta.question">
-                                            </td>
-                                            <td *ngIf="pregunta.editando">
-                                              <div class="dropdown">
-                                                <select class="botondrop p-2 dropdown-toggle" [(ngModel)]="tipo"
-                                                  [ngModelOptions]="{standalone: true}">
-                                                  <option value="0" hidden>Tipo</option>
-                                                  <option [value]="0">Abierta</option>
-                                                  <option [value]="1">Opcion multiple</option>
-                                                </select>
-                                              </div>
-                                              <!--input type="text" class="input3" [(ngModel)]="pregunta.tipo"-->
-                                            </td>
-                                            <td *ngIf="pregunta.editando">
-                                              <img *ngIf="this.imgPre == ''" class="imgPreview mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                              <img *ngIf="this.imgPre != ''" class="imgPreview mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
-                                              <input type="file" class="input6 mt-2" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
-                                            </td>
-                                            <td *ngIf="pregunta.editando">
-                                              <button class="boton2 removeArchivos" (click)="guardarCambios(pregunta)">
-                                                <i class="fas fa-save"></i>
-                                              </button>
-                                            </td>
-                                            <td *ngIf="pregunta.editando">
-                                              <button class="boton2 removeArchivos" (click)="cancelarEdicion(pregunta)">
-                                                <i class="fas fa-times"></i>
-                                              </button>
-                                            </td>
-                                            <td colspan="5" *ngIf="pregunta.editando">
+                                            <ng-container *ngFor="let pregunta of examModule; let i = index">
+                                                <tr [class.seleccionada]="i === filaSeleccionada">
+                                                    <td scope="row" *ngIf="!pregunta.editando">
+                                                        {{ pregunta.question }}
+                                                    </td>
+                                                    <td *ngIf="!pregunta.editando">
+                                                        <label *ngIf="pregunta.respuestas != 0">Opción multiple</label>
+                                                        <label *ngIf="pregunta.respuestas == 0">Abierta</label>
+                                                    </td>
+                                                    <td *ngIf="!pregunta.editando">
+                                                        <!--img *ngIf="this.imgIconoDos != ''" class="imgPreview" src="{{this.imgIconoDos}}" alt="imgIcono" /-->
+                                                    </td>
+                                                    <td *ngIf="!pregunta.editando">
+                                                        <button class="boton2 removeArchivos" (click)="editarFila(pregunta,pregunta.idEval_question)">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td *ngIf="!pregunta.editando">
+                                                        <button class="boton2 removeArchivos" (click)="removeQuestion(pregunta.idEval_question, 'exam')">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                    <!-- Fila de edición inline -->
+                                                    <td *ngIf="pregunta.editando">
+                                                    <textarea type="text" class="input3 w-100 h-100" [(ngModel)]="tempPregunta.question"></textarea>
+                                                    </td>
+                                                    <td *ngIf="pregunta.editando">
+                                                        <div class="dropdown">
+                                                            <select class="botondrop preg dropdown-toggle" 
+                                                            [(ngModel)]="tipo" [ngModelOptions]="{standalone: true}" (change)="cambiarTipo()">
+                                                            <option value="0" hidden>Tipo</option>
+                                                            <option [value]="0">Abierta</option>
+                                                            <option [value]="1">Opcion multiple</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td *ngIf="pregunta.editando">
+                                                        <img *ngIf="this.imgPre == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
+                                                        <img *ngIf="this.imgPre != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
+                                                        <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
+                                                    </td>
+                                                    <td *ngIf="pregunta.editando">
+                                                        <button class="boton2 removeArchivos" (click)="guardarCambios(pregunta, tempPregunta)">
+                                                            <i class="fas fa-save"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td *ngIf="pregunta.editando">
+                                                        <button class="boton2 removeArchivos" (click)="cancelarEdicion(pregunta)">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </td>
+                                                    <!--td colspan="5" *ngIf="pregunta.editando">
                                               <div *ngIf="mostrarOpciones" class="table-responsive">
                                                 <table id="conferencia" class="table data striped dt-responsive nowrap"
                                                     style="width:100%">
@@ -1097,7 +1096,7 @@
                                                               <i class="fas fa-trash-alt"></i>
                                                             </button>
                                                           </td>
-                                                          <!-- Fila de edición inline -->
+                                                          <!-- Fila de edición inline >
                                                           <td *ngIf="opcion.editando">
                                                             <input type="text" class="input3" [(ngModel)]="opcion.option">
                                                           </td>
@@ -1127,7 +1126,7 @@
                                                             </button>
                                                           </td>
                                                         </tr>
-                                                        <!-- Fila para agregar nueva opcion -->
+                                                        <!-- Fila para agregar nueva opcion >
                                                         <tr *ngIf="nuevaFilaOpcion">
                                                           <td><input type="text" class="input3" [(ngModel)]="nuevaOpcion.option"></td>
                                                           <td>
@@ -1155,17 +1154,16 @@
                                                     </tbody>
                                                 </table>
                                               </div>
-                                            </td>
+                                            </td-->
 
-                                          </tr>
-
-
+                                                </tr>
+                                            </ng-container>
                                           <!-- Fila para agregar nueva pregunta -->
                                           <tr *ngIf="agregarNuevaFila">
                                             <td><input type="text" class="input3" [(ngModel)]="nuevaPregunta.question"></td>
                                             <td>
                                               <div class="dropdown w-auto">
-                                                <select class="botondrop p-2 dropdown-toggle" [(ngModel)]="tipo"
+                                                <select class="botondrop preg dropdown-toggle" [(ngModel)]="tipo"
                                                   [ngModelOptions]="{standalone: true}">
                                                   <option value="0" hidden>Selecciona</option>
                                                   <option [value]="1">Abierta</option>
@@ -1174,9 +1172,9 @@
                                               </div>
                                             </td>
                                             <td>
-                                              <img *ngIf="this.imgPre == ''" class="imgPreview mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                              <img *ngIf="this.imgPre != ''" class="imgPreview mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
-                                              <input type="file" class="input6 mt-2" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
+                                              <img *ngIf="this.imgPre == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
+                                              <img *ngIf="this.imgPre != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
+                                              <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
                                             </td>
                                             <td>
                                               <button class="boton2 removeArchivos" (click)="guardarNuevaFila()"><i class="fas fa-save"></i></button>
@@ -1228,7 +1226,6 @@
                                                   class="fas fa-trash-alt"></i></button>
                                             </td>
                                           </tr>
-
                                         <!--/tbody>
                                       </table-->
                                 </div>
@@ -1240,10 +1237,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--div class="col-4" *ngIf="mostrarOpciones">
+                            <div class="col-6" *ngIf="mostrarOpciones">
                                 <div class="table-responsive">
-                                    <table id="conferencia" class="table data striped dt-responsive nowrap"
-                                        style="width:100%">
+                                    <table id="conferencia" class="table data striped" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Opcion</th>
@@ -1266,10 +1262,11 @@
                                                 Imagen
                                               </td>
                                               <td *ngIf="!opcion.editando">
-                                                {{ opcion.is_correct }}
+                                                <label *ngIf="opcion.is_correct != 0">Correcta</label>
+                                              <label *ngIf="opcion.is_correct == 0">Incorrecta</label>
                                               </td>
                                               <td *ngIf="!opcion.editando">
-                                                <button class="boton2 removeArchivos" (click)="editarFila(opcion, '')">
+                                                <button class="boton2 removeArchivos" (click)="editarFilaOpcion(opcion)">
                                                   <i class="fas fa-edit"></i>
                                                 </button>
                                               </td>
@@ -1279,17 +1276,17 @@
                                                 </button>
                                               </td>
                                               <!-- Fila de edición inline -->
-                                              <!--td *ngIf="opcion.editando">
+                                              <td *ngIf="opcion.editando">
                                                 <input type="text" class="input3" [(ngModel)]="opcion.option">
                                               </td>
                                               <td *ngIf="opcion.editando">
-                                                <img *ngIf="this.imgPre == ''" class="imgPreview mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                                <img *ngIf="this.imgPre != ''" class="imgPreview mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
-                                                <input type="file" class="input6 mt-2" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
+                                                <img *ngIf="this.imgPre == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
+                                                <img *ngIf="this.imgPre != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
+                                                <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
                                               </td>
                                               <td *ngIf="opcion.editando">
                                                 <div class="dropdown">
-                                                  <select class="botondrop p-2 dropdown-toggle" [(ngModel)]="tipo"
+                                                  <select class="botondrop preg dropdown-toggle" [(ngModel)]="tipo"
                                                     [ngModelOptions]="{standalone: true}">
                                                     <option value="0" hidden>Respuesta</option>
                                                     <option [value]="0">Correcta</option>
@@ -1298,7 +1295,7 @@
                                                 </div>
                                               </td>
                                               <td *ngIf="opcion.editando">
-                                                <button class="boton2 removeArchivos" (click)="guardarCambios(opcion)">
+                                                <button class="boton2 removeArchivos" (click)="guardarCambiosOpciones(opcion)">
                                                   <i class="fas fa-save"></i>
                                                 </button>
                                               </td>
@@ -1309,16 +1306,16 @@
                                               </td>
                                             </tr>
                                             <!-- Fila para agregar nueva opcion -->
-                                            <!--tr *ngIf="nuevaFilaOpcion">
-                                              <td><input type="text" class="input3" [(ngModel)]="nuevaOpcion.option"></td>
+                                            <tr *ngIf="nuevaFilaOpcion">
+                                              <td><input type="text" class="input3 w-auto" [(ngModel)]="nuevaOpcion.option"></td>
                                               <td>
-                                                <img *ngIf="this.imgOpcion == ''" class="imgPreview mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                                <img *ngIf="this.imgOpcion != ''" class="imgPreview mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
-                                                <input type="file" class="input6 mt-2" id="icono" (change)="imagenOpcion($event)" accept="image/png,image/jpeg,image/jpg">
+                                                <img *ngIf="this.imgOpcion == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
+                                                <img *ngIf="this.imgOpcion != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
+                                                <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenOpcion($event)" accept="image/png,image/jpeg,image/jpg">
                                               </td>
                                               <td>
                                                 <div class="dropdown w-auto">
-                                                  <select class="botondrop p-2 dropdown-toggle" [(ngModel)]="tipo"
+                                                  <select class="botondrop preg dropdown-toggle" [(ngModel)]="tipo"
                                                     [ngModelOptions]="{standalone: true}">
                                                     <option value="0" hidden>Selecciona</option>
                                                     <option [value]="1">Correcta</option>
@@ -1336,8 +1333,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div-->
-
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="this.exam == 3">

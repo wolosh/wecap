@@ -443,9 +443,9 @@ export class ExamenesComponent implements OnInit {
                     this.examModule = data.preguntas;
                     this.modLength = data.preguntas.length;
                     console.log(this.examModule, this.modLength);
-                    this.examModule.forEach(element => {
+                    /*this.examModule.forEach(element => {
                       this.tipo = element.respuestas;
-                    });
+                    });*/
                     //this.tipo = data.preguntas.respuestas;
                     //console.log(data, data.preguntas);
                     //console.log(this.tipo)
@@ -2084,6 +2084,7 @@ console.log(json)
   tipo: any = {};
   nuevaFilaOpcion: boolean = false;
   nuevaOpcion: any = {};
+  tempPregunta: any = {}; // Variable temporal para editar
 
   imagenPregunta(event) {
     this.imgPre = event.target.files[0]
@@ -2127,6 +2128,7 @@ console.log(json)
   }
 
   editarFila(pregunta: any, id: any) {
+    this.tempPregunta = { ...pregunta };
     pregunta.editando = true;
     this.tipo = pregunta.respuestas
     if(this.tipo != 0){
@@ -2137,9 +2139,61 @@ console.log(json)
       })
     }
   }
+  editarFilaOpcion(opcion: any) {
+    opcion.editando = true;
+  }
 
-  guardarCambios(pregunta: any) {
+  cambiarTipo() {
+    // Mostrar la tabla de opciones si el tipo es "Opcion multiple" (valor 1)
+    this.mostrarOpciones = this.tipo === 1;
+  } 
+
+  guardarCambios(pregunta: any, tempPregunta: any) {
+    let json = {
+      idModulo: this.certificacionID,
+      preguntas: []
+    }
+    pregunta.idEval_question = tempPregunta.idEval_question;
+    pregunta.question = tempPregunta.question;
+    pregunta.is_active = tempPregunta.is_active;
+    pregunta.respuestas = tempPregunta.respuestas;
+    pregunta.imagen = tempPregunta.imagen;
     pregunta.editando = false;
+    json.preguntas.push({
+      //idEval_question: this.backId + 1,
+      idEval_question: pregunta.idEval_question,
+      pregunta: pregunta.question,
+      is_active: pregunta.is_active,
+      img: pregunta.imagen,
+      respuestas: pregunta.respuestas,
+    });
+    /*const datosEnviar = {
+      idEval_question: pregunta.idEval_question,
+      question: pregunta.question,
+      is_active: pregunta.is_active,
+      respuestas: pregunta.respuestas,
+      //imagen: pregunta.imagen.
+    };*/
+    let change = JSON.stringify(json);
+    console.log(change);
+      this.session.updatePreguntasExamen(json, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          console.log(data);
+          /*Swal.fire({
+            title: '¡Modificado con exito!',
+            text: 'La pregunta se agrego con exito.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.changeExam(2, this.certificacionID);
+            }
+          });*/
+        }
+      );
+  }
+  guardarCambiosOpciones(opcion: any) {
+    opcion.editando = false;
   }
 
   cancelarEdicion(pregunta: any) {
