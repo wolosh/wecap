@@ -444,7 +444,7 @@ export class ExamenesComponent implements OnInit {
                     this.modLength = data.preguntas.length;
                     console.log(this.examModule, this.modLength);
                     /*this.examModule.forEach(element => {
-                      this.tipo = element.respuestas;
+                      this.imgPre = element.respuestas;
                     });*/
                     //this.tipo = data.preguntas.respuestas;
                     //console.log(data, data.preguntas);
@@ -2080,6 +2080,7 @@ console.log(json)
   filaSeleccionada: number | null = null;
   agregarNuevaFila: boolean = false;
   mostrarOpciones: boolean = false;
+  mostrarOpcionesNueva: boolean = false;
   nuevaPregunta: any = {};
   tipo: any = {};
   nuevaFilaOpcion: boolean = false;
@@ -2117,16 +2118,13 @@ console.log(json)
     this.imgOpcion = '';
     this.nuevaOpcion = {}; // Reinicia los datos del formulario
   }
-
   cancelarAgregarFila() {
     this.agregarNuevaFila = false;
   }
-
   guardarNuevaFila() {
     this.examModule.push(this.nuevaPregunta);
     this.cancelarAgregarFila();
   }
-
   editarFila(pregunta: any, id: any) {
     this.tempPregunta = { ...pregunta };
     pregunta.editando = true;
@@ -2137,17 +2135,24 @@ console.log(json)
           this.mostrarOpciones = true;
         }
       })
+    }else{
+      this.nuevaFilaOpcion = true;
     }
   }
   editarFilaOpcion(opcion: any) {
     opcion.editando = true;
   }
-
   cambiarTipo() {
+    console.log(this.tipo);
     // Mostrar la tabla de opciones si el tipo es "Opcion multiple" (valor 1)
-    this.mostrarOpciones = this.tipo === 1;
-  } 
+    if (this.tipo == 1){
+      this.mostrarOpcionesNueva = true;
+    }else{
+      this.mostrarOpcionesNueva = false;
+    }
 
+  }
+  //Guardar preguntas
   guardarCambios(pregunta: any, tempPregunta: any) {
     let json = {
       idModulo: this.certificacionID,
@@ -2157,14 +2162,14 @@ console.log(json)
     pregunta.question = tempPregunta.question;
     pregunta.is_active = tempPregunta.is_active;
     pregunta.respuestas = tempPregunta.respuestas;
-    pregunta.imagen = tempPregunta.imagen;
+    //pregunta.imagen = tempPregunta.imagen;
     pregunta.editando = false;
     json.preguntas.push({
       //idEval_question: this.backId + 1,
       idEval_question: pregunta.idEval_question,
       pregunta: pregunta.question,
       is_active: pregunta.is_active,
-      img: pregunta.imagen,
+      img: this.imgPre,
       respuestas: pregunta.respuestas,
     });
     /*const datosEnviar = {
