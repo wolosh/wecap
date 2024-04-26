@@ -1017,11 +1017,10 @@
                                         <label *ngIf="pregunta.respuestas == 0">Abierta</label>
                                       </td>
                                       <td *ngIf="!pregunta.editando">
-                                        <img *ngIf="this.imgPre == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                        <img *ngIf="this.imgPre != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
+                                        <img [src]="pregunta.imagen" alt="Imagen">
                                       </td>
                                       <td *ngIf="!pregunta.editando">
-                                        <button class="boton2 removeArchivos" (click)="editarFila(pregunta,pregunta.idEval_question)">
+                                        <button class="boton2 removeArchivos" (click)="editarFila(pregunta,pregunta.idEval_question,i)">
                                           <i class="fas fa-edit"></i>
                                         </button>
                                       </td>
@@ -1044,9 +1043,8 @@
                                           </select>
                                         </div>
                                       </td>
-                                      <td *ngIf="pregunta.editando">
-                                        <img *ngIf="this.imgPre == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                        <img *ngIf="this.imgPre != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
+                                      <td *ngIf="pregunta.editando && filaSeleccionada === i">
+                                        <img class="imgPreview preg mx-auto" [src]="imgPre ? imgPre : 'assets/img/imgpreview.png'" alt="imgIcono" />
                                         <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
                                       </td>
                                       <td *ngIf="pregunta.editando">
@@ -1075,9 +1073,8 @@
                                       </div>
                                     </td>
                                     <td>
-                                      <img *ngIf="this.imgPre == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                      <img *ngIf="this.imgPre != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
-                                       <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
+                                        <img class="imgPreview preg mx-auto" [src]="imgPre ? imgPre : 'assets/img/imgpreview.png'" alt="imgIcono" />
+                                        <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
                                     </td>
                                     <td>
                                        <button class="boton2 removeArchivos" (click)="guardarNuevaFila()"><i class="fas fa-save"></i></button>
@@ -1117,14 +1114,14 @@
                                       {{ opcion.option }}
                                     </td>
                                     <td *ngIf="!opcion.editando">
-                                      Imagen
-                                    </td>
+                                        <img [src]="opcion.imagen" alt="Imagen">
+                                      </td>
                                     <td *ngIf="!opcion.editando">
                                       <label *ngIf="opcion.is_correct != 0">Correcta</label>
                                       <label *ngIf="opcion.is_correct == 0">Incorrecta</label>
                                     </td>
                                     <td *ngIf="!opcion.editando">
-                                      <button class="boton2 removeArchivos" (click)="editarFilaOpcion(opcion)">
+                                      <button class="boton2 removeArchivos" (click)="editarFilaOpcion(opcion,i)">
                                         <i class="fas fa-edit"></i>
                                       </button>
                                     </td>
@@ -1137,10 +1134,9 @@
                                     <td *ngIf="opcion.editando">
                                       <input type="text" class="input3" [(ngModel)]="opcion.option">
                                     </td>
-                                    <td *ngIf="opcion.editando">
-                                      <img *ngIf="this.imgPre == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                      <img *ngIf="this.imgPre != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
-                                      <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenPregunta($event)" accept="image/png,image/jpeg,image/jpg">
+                                    <td *ngIf="opcion.editando && filaSeleccionada === i">
+                                        <img class="imgPreview preg mx-auto" [src]="imgOpcion ? imgOpcion : 'assets/img/imgpreview.png'" alt="imgIcono" />
+                                        <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenOpcion($event)" accept="image/png,image/jpeg,image/jpg">
                                     </td>
                                     <td *ngIf="opcion.editando">
                                       <div class="dropdown">
@@ -1167,9 +1163,8 @@
                                   <tr *ngIf="nuevaFilaOpcion">
                                     <td><input type="text" class="input3 w-auto" [(ngModel)]="nuevaOpcion.option"></td>
                                     <td>
-                                      <img *ngIf="this.imgOpcion == ''" class="imgPreview preg mx-auto" src="assets/img/imgpreview.png" alt="imgIcono" />
-                                      <img *ngIf="this.imgOpcion != ''" class="imgPreview preg mx-auto" src="{{this.imgPre}}" alt="imgIcono" />
-                                      <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenOpcion($event)" accept="image/png,image/jpeg,image/jpg">
+                                        <img class="imgPreview preg mx-auto" [src]="imgOpcion ? imgOpcion : 'assets/img/imgpreview.png'" alt="imgIcono" />
+                                        <input type="file" class="input6 mt-2 filepre" id="icono" (change)="imagenOpcion($event)" accept="image/png,image/jpeg,image/jpg">
                                     </td>
                                     <td>
                                       <div class="dropdown w-auto">

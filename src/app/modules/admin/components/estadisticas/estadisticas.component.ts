@@ -254,6 +254,7 @@ export class EstadisticasComponent implements OnInit {
     this.incremento = element.diagnostico.porcentajeMejorado;
     //this.avanceCurso = element.promedioAvance;
     this.medallaTerminar = element.promedioMedalla1;
+    //console.log(this.medallaTerminar);
     this.medallaScore = element.promedioMedalla2;
     this.medallaTiempo = element.promedioMedalla3;
     //console.log(element.promedioAvanceArea)
@@ -409,6 +410,7 @@ export class EstadisticasComponent implements OnInit {
       this.tiempo =  data.promedioTiempo;
       this.intentos =  data.promedioIntentos;
 
+      console.log(this.usuarios.hombres)
       //Datos de grafica cantidad de usuarios
       this.chartUsuarios = {
         series: [this.usuarios.hombres, this.usuarios.mujeres, this.usuarios.otro],

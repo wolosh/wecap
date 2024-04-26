@@ -148,8 +148,8 @@ export class ExamenesComponent implements OnInit {
   formulario: FormGroup;
   idOption: any;
   backOpenQuestions = [] as any;
-  imgPre: any;
-  imgOpcion: any;
+  //imgPre: any;
+  //imgOpcion: any;
 
 
 
@@ -2086,8 +2086,20 @@ console.log(json)
   nuevaFilaOpcion: boolean = false;
   nuevaOpcion: any = {};
   tempPregunta: any = {}; // Variable temporal para editar
+  imgPre: string = '';
+  imgOpcion: string = '';
 
-  imagenPregunta(event) {
+  imagenPregunta(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imgPre = reader.result as string; // Almacena la imagen seleccionada
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+  /*imagenPregunta(event) {
     this.imgPre = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
@@ -2096,8 +2108,8 @@ console.log(json)
       };
       reader.readAsDataURL(event.target.files[0])
     }
-  }
-  imagenOpcion(event) {
+  }*/
+  /*imagenOpcion(event) {
     this.imgOpcion = event.target.files[0]
     if (event.target.files.length > 0) {
       const reader = new FileReader();
@@ -2106,16 +2118,26 @@ console.log(json)
       };
       reader.readAsDataURL(event.target.files[0])
     }
+  }*/
+  imagenOpcion(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imgOpcion = reader.result as string; // Almacena la imagen seleccionada
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   }
 
   agregarFila() {
     this.agregarNuevaFila = true;
-    this.imgPre = '';
+    //this.imgPre = '';
     this.nuevaPregunta = {}; // Reinicia los datos del formulario
   }
   agregarFilaOpcion() {
     this.nuevaFilaOpcion = true;
-    this.imgOpcion = '';
+    //this.imgOpcion = '';
     this.nuevaOpcion = {}; // Reinicia los datos del formulario
   }
   cancelarAgregarFila() {
@@ -2125,7 +2147,8 @@ console.log(json)
     this.examModule.push(this.nuevaPregunta);
     this.cancelarAgregarFila();
   }
-  editarFila(pregunta: any, id: any) {
+  editarFila(pregunta: any, id: any, i: number) {
+    this.filaSeleccionada = i;
     this.tempPregunta = { ...pregunta };
     pregunta.editando = true;
     this.tipo = pregunta.respuestas
@@ -2137,9 +2160,10 @@ console.log(json)
       })
     }else{
       this.nuevaFilaOpcion = true;
+      this.filaSeleccionada = i;
     }
   }
-  editarFilaOpcion(opcion: any) {
+  editarFilaOpcion(opcion: any, i: number) {
     opcion.editando = true;
   }
   cambiarTipo() {
@@ -2156,7 +2180,7 @@ console.log(json)
   guardarCambios(pregunta: any, tempPregunta: any) {
     let json = {
       idModulo: this.certificacionID,
-      preguntas: []
+      preguntas: [],
     }
     pregunta.idEval_question = tempPregunta.idEval_question;
     pregunta.question = tempPregunta.question;
@@ -2172,13 +2196,6 @@ console.log(json)
       img: this.imgPre,
       respuestas: pregunta.respuestas,
     });
-    /*const datosEnviar = {
-      idEval_question: pregunta.idEval_question,
-      question: pregunta.question,
-      is_active: pregunta.is_active,
-      respuestas: pregunta.respuestas,
-      //imagen: pregunta.imagen.
-    };*/
     let change = JSON.stringify(json);
     console.log(change);
       this.session.updatePreguntasExamen(json, localStorage.getItem('token')).subscribe(
@@ -2199,6 +2216,7 @@ console.log(json)
   }
   guardarCambiosOpciones(opcion: any) {
     opcion.editando = false;
+    console.log(opcion)
   }
 
   cancelarEdicion(pregunta: any) {
