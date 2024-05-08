@@ -847,12 +847,12 @@
                                     Agregar pregunta opcion multiple
                                 </button>
                             </div>
-                            <!--<div class="col-8 col-md-4 col-lg-3" *ngIf="this.none == 1 || this.none == 2">
+                            <!--div class="col-8 col-md-4 col-lg-3" *ngIf="this.none == 1 || this.none == 2">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(4)">
                                     <img src="assets/img/agregar.svg" alt="">
                                     Agregar pregunta abierta
                                 </button>
-                            </div>-->
+                            </div>
                             <!--<div class="col-8 col-md-4 col-lg-4">
                                 <button class="boton bg-blue w-100 p-1 p-md-2" (click)="changeExam(5)">
                                     <img src="assets/img/agregar.svg" alt="">
@@ -879,7 +879,7 @@
                             Ya puedes agregar preguntas en los botones de la parte superior, pueden ser "Abiertas" o de
                             "Opción Multiple".
                         </div>
-                        <!--div class="editor" *ngIf="this.none == 2">
+                        <div class="editor" *ngIf="this.none == 2">
                             <div class="table-responsive">
                                 <table id="conferencia" class="table data striped dt-responsive nowrap"
                                     style="width:100%">
@@ -888,7 +888,7 @@
                                             <th>Pregunta</th>
                                             <!--th>Respuesta</th>
                                             <th>Abierta</th-->
-                                            <!--th>Tipo</th>
+                                            <th>Tipo</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -896,11 +896,11 @@
                                         <tr
                                             *ngFor="let pregunta of this.examModule | paginate: { id:'thirdExam', itemsPerPage: 6, currentPage: pe}">
                                             <!--Evento para la vista de revision examenes (click)="changeExam(6,pregunta.idModule,'', pregunta.idEval_question)"--->
-                                            <!--th scope="row"><button type="button" class="boton4"
+                                            <th scope="row"><button type="button" class="boton4"
                                                     (click)="changeExam(7,pregunta.idModule,'', pregunta.idEval_question)">{{pregunta.question}}</button>
                                             </th>
                                             <!--td >{{pregunta.respuestas.option}}</td-->
-                                            <!--td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
+                                            <td *ngIf="pregunta.respuestas != 0">Opción multiple</td>
                                             <td *ngIf="pregunta.respuestas == 0">Abierta</td>
                                             <td><button class="boton2 removeArchivos"
                                                     (click)="removeQuestion(pregunta.idEval_question, 'exam')"><img
@@ -985,11 +985,11 @@
                                     </div>
                                 </div>
                             </div-->
-                            <!--Duplicar
-                        </div>-->
+                            <!--Duplicar-->
+                        </div>
 
                         <!---Codigo nuevo examenes-->
-                        <div class="editor row" *ngIf="this.none == 2">
+                        <!--div class="editor row" *ngIf="this.none == 2">
                           <div class="col-6">
                             <div class="table-responsive">
                               <table id="conferencia" class="table data striped" style="width:100%">
@@ -1029,7 +1029,7 @@
                                           <i class="fas fa-trash-alt"></i>
                                         </button>
                                       </td>
-                                      <!-- Fila de edición inline -->
+                                      <!-- Fila de edición inline >
                                       <td *ngIf="pregunta.editando">
                                         <textarea type="text" class="input3 w-100 h-100" [(ngModel)]="tempPregunta.question"></textarea>
                                       </td>
@@ -1059,7 +1059,7 @@
                                       </td>
                                     </tr>
                                   </ng-container>
-                                  <!-- Fila para agregar nueva pregunta -->
+                                  <!-- Fila para agregar nueva pregunta >
                                   <tr *ngIf="agregarNuevaFila">
                                     <td><input type="text" class="input3" [(ngModel)]="nuevaPregunta.question"></td>
                                     <td>
@@ -1130,7 +1130,7 @@
                                         <i class="fas fa-trash-alt"></i>
                                       </button>
                                     </td>
-                                    <!-- Fila de edición inline -->
+                                    <!-- Fila de edición inline >
                                     <td *ngIf="opcion.editando">
                                       <input type="text" class="input3" [(ngModel)]="opcion.option">
                                     </td>
@@ -1159,7 +1159,7 @@
                                       </button>
                                     </td>
                                   </tr>
-                                  <!-- Fila para agregar nueva opcion -->
+                                  <!-- Fila para agregar nueva opcion >
                                   <tr *ngIf="nuevaFilaOpcion">
                                     <td><input type="text" class="input3 w-auto" [(ngModel)]="nuevaOpcion.option"></td>
                                     <td>
@@ -1203,7 +1203,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <!-- Fila para agregar nueva opcion -->
+                                  <!-- Fila para agregar nueva opcion >
                                   <tr *ngIf="nuevaFilaOpcion">
                                     <td><input type="text" class="input3 w-auto" [(ngModel)]="nuevaOpcion.option"></td>
                                     <td>
@@ -1232,7 +1232,8 @@
                               </table>
                             </div>
                           </div>
-                        </div>
+                        </div-->
+
                     </div>
                     <div *ngIf="this.exam == 3">
                         <div class="row d-flex align-items-center">
