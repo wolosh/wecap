@@ -38,16 +38,16 @@ export class HelpersService {
 
   constructor(private route: Router, public session:SessionService) {
     if (this.domainPrueba.includes('americargo')) {
-      this.domain = 'https://ci.americargo.wecap.mx/'
+      this.domain = 'https://ci.americargo.wecap.mx/api/'
       console.log(this.domain)
       } else if (this.domainPrueba.includes('alsainacademy')) {
-        this.domain = 'https://ci.alsainacademy.wecap.mx/'
+        this.domain = 'https://ci.alsainacademy.wecap.mx/api/'
         console.log(this.domain)
       } else if(this.domainPrueba.includes('unitrade')) {
         this.domain = 'https://ci.unitrade.wecap.mx/api/'
         console.log(this.domain)
       } else {
-        this.domain = 'https://ci.wecap.mx/'
+        this.domain = 'https://ci.wecap.mx/api/'
         console.log(this.domain)
       }
    }
