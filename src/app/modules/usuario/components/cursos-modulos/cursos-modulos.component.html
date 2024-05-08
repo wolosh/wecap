@@ -73,13 +73,15 @@
         <carousel *ngIf="this.helpers.view == 1" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
             [showIndicators]="showIndicator" [interval]="0" [noWrap]="noWrap">
             <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
-                <img  src="https://ci.americargo.wecap.mx/media/Boton_del_modulo.jpg"
-                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100 opacity">
+                <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}"
+                    alt="image slide" style="display: block; width: 100%;" class="h-100 opacity">
+                <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}"
+                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100">
                 <!--img  src="https://ci.americargo.wecap.mx/media/Boton_del_modulo.jpg"
                     alt="image slide opacity" style="display: block; width: 100%;" class="h-100"-->
 
                 <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
-          <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
+                    <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->
                 <div class="carousel-caption">
                     <button type="button" class="card-title w-100 border-0"
                         (click)="verTemas(slide.idModule, slide.title)">{{slide.title}}</button>
@@ -88,7 +90,7 @@
                     <div class="card-title w-50 mx-auto d-block ps-3 pe-3 mt-3">
                         <div class="row">
 
-                        <div class="col"><img src="{{this.helpers.domain+'/media/' + slide.medal_finish}}"
+                            <div class="col"><img src="{{this.helpers.domain+'/media/' + slide.medal_finish}}"
                                     class="mx-auto d-block w-50" alt="..."></div>
                             <div class="col"><img src="{{this.helpers.domain+'/media/' + slide.medal_perfect}}"
                                     class="mx-auto d-block opacity-50 w-50" alt="..."></div>
@@ -105,7 +107,7 @@
                 <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}"
                     alt="image slide opacity" style="display: block; width: 100%;" class="h-100 opacity">
                 <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}"
-                    alt="image slide opacity" style="display: block; width: 100%;" class="h-100">
+                    alt="image slide " style="display: block; width: 100%;" class="h-100">
 
                 <!--<slide *ngFor="let slide of slides; let i=index" class="p-3">
           <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">-->

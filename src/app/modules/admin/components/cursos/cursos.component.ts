@@ -11,6 +11,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UploadAdapter } from '../mail/my-upload-adapter';
 import { ImageCroppedEvent, ImageTransform, LoadedImage } from 'ngx-image-cropper';
+import { filterMenuClose } from '@syncfusion/ej2-angular-grids';
 
 
 @Component({
@@ -119,6 +120,7 @@ export class CursosComponent implements OnInit {
   terminar: number = 0;
   score: number = 0;
   tiempo: number = 0;
+  tema: number = 0;
   allModulesLength: any;
   imgHeaderDos: any;
   imgHeader: any;
@@ -154,8 +156,10 @@ export class CursosComponent implements OnInit {
   isLogo = 0;
   cambioCol: string;
   valorCol: any;
-  preCol="d-none";
+  preCol = "d-none";
   relation: number;
+  resizeWidth: number;
+  resizeHeight: number;
   fileBack: any;
   videoBack: any;
 
@@ -213,7 +217,7 @@ export class CursosComponent implements OnInit {
   }
 
   //funcion para subir la imagen al servidor
-  cargarImagen(type: any) {
+  cargarImagen(type: any, show?: any) {
     //console.log(this.croppedImage);
     //declara imageBlob que llama a la función dataUrlBlob y le pasa la imagen con base64
     //let imageBlob = this.helpers.dataUrlToBlob(this.croppedImage);
@@ -233,7 +237,11 @@ export class CursosComponent implements OnInit {
       },
     });*/
     //llamamos la función uploadFile que se encuentra en el servicio y le pasamos el arreglo de archivos
-    this.uploadFile(fileArray as unknown as FileList, type);
+    if (show) {
+      this.uploadFile(fileArray as unknown as FileList, type, show);
+    } else {
+      this.uploadFile(fileArray as unknown as FileList, type);
+    }
     //limpiamos el crop
     this.cleanCropped();
     //cerramos el crop
@@ -310,7 +318,7 @@ export class CursosComponent implements OnInit {
   }
 
   //Función que llama profilePic de la api
-  public uploadFile(files: FileList, type?: any) {
+  public uploadFile(files: FileList, type?: any, show?: any) {
     //si la longuitud de el arreglo de archivos es mayor a 0
     if (files.length === 0) {
       //se regresa
@@ -333,9 +341,130 @@ export class CursosComponent implements OnInit {
       if (type == 'logo') {
         this.logo = fileToUpload;
         this.logoName = 'Imagen cargada correctamente';
-      } else {
+      } else if (type == 'firma') {
         this.firma = fileToUpload;
         this.firmaName = 'Imagen cargada correctamente';
+      } else if (type == 'boton') {
+        switch (this.isLogo) {
+          case 3:
+            this.imgIcono = fileToUpload;
+            this.imgIconoDos = fileToUpload;
+            console.log(this.imgIcono)
+            if (show) {
+              this.icon = 2;
+              this.imgIconoDos = this.imgIconoDos;
+              if (files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                  this.imgIconoDos = event.target.result;
+                  console.log(this.imgIconoDos)
+                };
+                reader.readAsDataURL(files[0])
+              }
+              
+            }
+            break;
+          case 4:
+            if (show) {
+              this.tiempo = 2;
+              this.imgTiempoDos = this.imgTiempoDos;
+            }
+            this.imgTiempo = fileToUpload;
+            if (files.length > 0) {
+              const reader = new FileReader();
+              reader.onload = (event: any) => {
+                this.imgTiempoDos = event.target.result;
+                //this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo, this.imgTiempo.name);
+              };
+              reader.readAsDataURL(files[0]);
+            }
+            this.filenameD = this.imgTiempo.name;
+            this.filetypeD = this.imgTiempo.type;
+            break;
+          case 5:
+            if (show) {
+
+              this.terminar = 2;
+              this.imgTerminaDos = this.imgIconoDos;
+        
+            }
+            //console.log(event.target.files)
+            this.imgTermina = fileToUpload;
+            if (files.length > 0) {
+              const reader = new FileReader();
+              reader.onload = (event: any) => {
+                this.imgTerminaDos = event.target.result;
+                //console.log(this.imgTerminaDos)
+              };
+              reader.readAsDataURL(files[0])
+            }
+            this.filenameT = this.imgTermina.name;
+            this.filetypeT = this.imgTermina.type;
+            break;
+            case 6:
+              if (show) {
+                this.score = 2;
+                this.imgScoreDos = this.imgIconoDos;
+              }
+              //console.log(event.target.files)
+              this.imgScore = fileToUpload;
+              if (files.length> 0) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                  this.imgScoreDos = event.target.result;
+                };
+                reader.readAsDataURL(files[0]);
+              }
+              this.filenameS = this.imgScore.name;
+              this.filetypeS = this.imgScore.type;
+            break;
+            case 7:
+              this.imgHeader = fileToUpload;
+              console.log(this.imgHeader)
+                if (show) {
+                  this.header = 2;
+                  this.imgHeaderDos = this.imgHeaderDos;
+                  console.log(this.imgHeaderDos)
+                }
+                if (files.length > 0) {
+                  const reader = new FileReader();
+                  reader.onload = (event: any) => {
+                    this.imgHeaderDos = event.target.result;
+                    console.log(this.imgHeaderDos)
+                  };
+                  reader.readAsDataURL(files[0])
+                }
+              break;
+              case 8:
+                /*if (show) {
+                  //console.log(event.target.files[0])
+                  this.fileSend = fileToUpload;
+                  //console.log(this.fileSend)
+                } else {
+                  if (this.imgTemaDos != '') {
+                    this.change = 1;
+                  }*/
+                  this.imgTema = fileToUpload
+                  console.log(this.imgTema)
+                if (show) {
+                  this.tema = 2;
+                  this.imgTemaDos = this.imgTemaDos;
+                  console.log(this.imgTemaDos)
+                }
+                  
+                  if (files.length > 0) {
+                    const reader = new FileReader();
+                    reader.onload = (event: any) => {
+                      this.imgTemaDos = event.target.result;
+                      console.log(this.imgTemaDos)
+                      //this.imgTema = this.helpers.dataUrlToFile(this.imgTema, this.imgTema.name);
+                    };
+                    reader.readAsDataURL(files[0])
+                  }
+                
+                break;
+        }
+
       }
       //console.log(this.logo, this.logoName)
 
@@ -467,15 +596,35 @@ export class CursosComponent implements OnInit {
     this.isOrderChange = false;
   }
 
-  isLogoChange(type: any) {
+  isLogoChange(type: any, id?: any) {
     switch (type) {
       case 'logo':
+        this.resizeHeight = 200;
+        this.resizeWidth = 400;
         this.relation = 400 / 200;
         this.isLogo = 1;
         break;
       case 'firma':
         this.isLogo = 2;
         break;
+      case 'boton':
+        this.resizeHeight = 600;
+        this.resizeWidth = 600;
+        this.relation = 1 / 1;
+        if (id) {
+          this.isLogo = id;
+        } else {
+          this.isLogo = 3
+        }
+        console.log(this.isLogo);
+      break;
+      case 'header':
+        this.resizeHeight = 600;
+        this.resizeWidth = 1200;
+        this.relation = 16 / 2;
+        this.isLogo = 7;
+        break;
+      break;
     }
   }
 
@@ -556,8 +705,8 @@ export class CursosComponent implements OnInit {
     //Metodo para inicializar el formulario
     if (id == 1) {
       this.formNewCurso = this.formBuilder.group({
-        title: ['', [Validators.required,Validators.minLength(5)]],
-        description: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
+        title: ['', [Validators.required, Validators.minLength(5)]],
+        description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(350)]],
         //img: [''],
         default_active_days_start: [''],
         default_active_days_end: [''],
@@ -567,8 +716,8 @@ export class CursosComponent implements OnInit {
     } else if (id == 2) {
       console.log('entro')
       this.formEdit = this.formBuilder.group({
-        title: ['', [Validators.required,Validators.minLength(5)]],
-        description: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
+        title: ['', [Validators.required, Validators.minLength(5)]],
+        description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(350)]],
         img: [''],
         //default_active_days: [''],
         default_active_days_start: [''],
@@ -590,8 +739,8 @@ export class CursosComponent implements OnInit {
     } else if (id == 5) {
       this.formModulo = this.formBuilder.group({
         cursoId: [''],
-        title: ['',Validators.required],
-        description: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
+        title: ['', Validators.required],
+        description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(350)]],
         duracion: [''],
         score: [''],
         color: [''],
@@ -601,8 +750,8 @@ export class CursosComponent implements OnInit {
     }
     else if (id == 6) {
       this.formTemas = this.formBuilder.group({
-        title: ['',Validators.required],
-        description: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(350)]],
+        title: ['', Validators.required],
+        description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(350)]],
         url_video: [''],
         file: [''],
         url_subtitulos: [''],
@@ -699,7 +848,7 @@ export class CursosComponent implements OnInit {
         this.formTemasCol.controls['col'].setValue(this.colSelected);
         //console.log(this.formTemasCol.value.col);
         this.valorCol = this.formTemasCol.value.col;
-        this.cambioCol = "p-3 columnas col-"+this.valorCol;
+        this.cambioCol = "p-3 columnas col-" + this.valorCol;
         this.preCol = "preCol mb-3";
         break;
     }
@@ -1249,6 +1398,8 @@ export class CursosComponent implements OnInit {
         this.viewTemasCol = 0;
         this.cview1 = 2;
         this.viewE = 1;
+        this.tema = 1;
+        this.change = 2;
         this.startForm(6);
         for (let item of this.alltemas) {
           //console.log(this.alltemas)
@@ -1266,6 +1417,7 @@ export class CursosComponent implements OnInit {
             ////console.log(this.formTemas.value)
             this.imgTema = item.icon;
             this.imgTemaDos = item.icon;
+            console.log(this.imgTema, this.imgTemaDos)
             this.imgTemaVDos = item.icon_gold;
             this.active = item.is_active;
             //this.fileSend = item.doc;
@@ -1433,43 +1585,43 @@ export class CursosComponent implements OnInit {
         console.log('entro')
         console.log(data);
         if (data != null) {
-          if(data.activado == 1) {
-          this.hasDiploma = true;
-          this.formDiploma.controls['cursoID'].setValue(data.idCertification);
-          this.formDiploma.controls['encargado'].setValue(data.encargado);
-          this.formDiploma.controls['puesto'].setValue(data.puesto);
-          this.formDiploma.controls['activado'].setValue(data.activado);
-          this.formDiploma.controls['firma'].setValue(data.firma);
-          this.formDiploma.controls['logo'].setValue(data.logo);
-          this.firma = data.firma;
-          this.logo = data.logo;
-          this.logoBack = data.logo;
-          this.logoName = data.logo;
-          this.firmaBack = data.firma;
-          this.firmaName = data.firma;
-          console.log(this.firmaBack, this.logoBack)
-          /*if (data != null) {
+          if (data.activado == 1) {
+            this.hasDiploma = true;
             this.formDiploma.controls['cursoID'].setValue(data.idCertification);
             this.formDiploma.controls['encargado'].setValue(data.encargado);
             this.formDiploma.controls['puesto'].setValue(data.puesto);
             this.formDiploma.controls['activado'].setValue(data.activado);
             this.formDiploma.controls['firma'].setValue(data.firma);
-          this.formDiploma.controls['logo'].setValue(data.logo);
-            if (data.activado == 1)
-              this.hasDiploma = true;*/
+            this.formDiploma.controls['logo'].setValue(data.logo);
+            this.firma = data.firma;
+            this.logo = data.logo;
+            this.logoBack = data.logo;
+            this.logoName = data.logo;
+            this.firmaBack = data.firma;
+            this.firmaName = data.firma;
+            console.log(this.firmaBack, this.logoBack)
+            /*if (data != null) {
+              this.formDiploma.controls['cursoID'].setValue(data.idCertification);
+              this.formDiploma.controls['encargado'].setValue(data.encargado);
+              this.formDiploma.controls['puesto'].setValue(data.puesto);
+              this.formDiploma.controls['activado'].setValue(data.activado);
+              this.formDiploma.controls['firma'].setValue(data.firma);
+            this.formDiploma.controls['logo'].setValue(data.logo);
+              if (data.activado == 1)
+                this.hasDiploma = true;*/
+          } else {
+            this.hasDiploma = false;
+          }
         } else {
           this.hasDiploma = false;
-        }
-      } else {
-        this.hasDiploma = false;
-        this.firma = '0';
+          this.firma = '0';
           this.logo = '0';
           this.logoBack = '0';
           this.logoName = '0';
           this.firmaBack = '0';
           this.firmaName = '0';
-      }
-    
+        }
+
         console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
       },
       (error: any) => {
@@ -1534,8 +1686,8 @@ export class CursosComponent implements OnInit {
     console.log(this.idCertification);
     console.log(this.firma, this.idCertification, this.firmaBack, this.logoBack);
     console.log(this.firma, this.firmaBack, this.logo, this.logoBack)
-    if(this.firma === undefined || this.firma === null || this.firma === '' || this.logoBack === undefined || this.logoBack === null || this.logoBack === ''
-    || this.firmaBack === undefined || this.firmaBack === null || this.firmaBack === '' || this.logo === undefined || this.logo === null || this.logo === ''){
+    if (this.firma === undefined || this.firma === null || this.firma === '' || this.logoBack === undefined || this.logoBack === null || this.logoBack === ''
+      || this.firmaBack === undefined || this.firmaBack === null || this.firmaBack === '' || this.logo === undefined || this.logo === null || this.logo === '') {
       Swal.fire({
         title: '¡Error!',
         text: 'Tiener que seleccionar imagen de logo y firma para el diploma.',
@@ -1544,55 +1696,55 @@ export class CursosComponent implements OnInit {
       });
     } else {
 
-    let diploma = new FormData();
+      let diploma = new FormData();
 
-    diploma.append('cursoID', this.idCertification);
-    diploma.append('encargado', this.formDiploma.value.encargado);
-    diploma.append('puesto', this.formDiploma.value.puesto);
+      diploma.append('cursoID', this.idCertification);
+      diploma.append('encargado', this.formDiploma.value.encargado);
+      diploma.append('puesto', this.formDiploma.value.puesto);
 
-    if (this.firmaBack === this.firma) {
-      diploma.append('firma', this.firmaBack);
-      console.log(diploma.getAll('firma'), 'la firma')
+      if (this.firmaBack === this.firma) {
+        diploma.append('firma', this.firmaBack);
+        console.log(diploma.getAll('firma'), 'la firma')
 
-    } else {
-      diploma.append('firma', this.firma, 'firmaDiploma.png');
-      console.log(diploma.getAll('firma'), 'la firma')
-    }
-
-    if (this.hasDiploma == true) {
-      diploma.append('activado', '1');
-    } else {
-      diploma.append('activado', '0');
-    }
-
-    if (this.logoBack === this.logo) {
-      diploma.append('logo', this.logoBack);
-      console.log(diploma.getAll('logo'), 'el logo')
-    } else {
-      diploma.append('logo', this.logo, 'logoDiploma.png');
-      console.log(diploma.getAll('logo'), 'el logo')
-    }
-
-    console.log(diploma.getAll('cursoID'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('firma'), diploma.getAll('activado'), diploma.getAll('logo'));
-    //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
-    this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        Swal.close();
-        console.log(data);
-        Swal.fire({
-          title: '¡Actualizado con exito!',
-          text: 'El diploma ha sido actualizado.',
-          icon: 'success',
-          confirmButtonColor: '#015287',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            console.log(this.formEdit.value)
-            this.diploma(this.idCertification);
-          }
-        });
-
+      } else {
+        diploma.append('firma', this.firma, 'firmaDiploma.png');
+        console.log(diploma.getAll('firma'), 'la firma')
       }
-    );
+
+      if (this.hasDiploma == true) {
+        diploma.append('activado', '1');
+      } else {
+        diploma.append('activado', '0');
+      }
+
+      if (this.logoBack === this.logo) {
+        diploma.append('logo', this.logoBack);
+        console.log(diploma.getAll('logo'), 'el logo')
+      } else {
+        diploma.append('logo', this.logo, 'logoDiploma.png');
+        console.log(diploma.getAll('logo'), 'el logo')
+      }
+
+      console.log(diploma.getAll('cursoID'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('firma'), diploma.getAll('activado'), diploma.getAll('logo'));
+      //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
+      this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          Swal.close();
+          console.log(data);
+          Swal.fire({
+            title: '¡Actualizado con exito!',
+            text: 'El diploma ha sido actualizado.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              console.log(this.formEdit.value)
+              this.diploma(this.idCertification);
+            }
+          });
+
+        }
+      );
     }
   }
 
@@ -1779,6 +1931,7 @@ export class CursosComponent implements OnInit {
   //Guardar imagen
 
   fileIcono(event, show?: any) {
+    console.log(event.target.files)
     this.imgIcono = event.target.files[0]
     if (show) {
       this.icon = 2;
@@ -1854,7 +2007,6 @@ export class CursosComponent implements OnInit {
     if (act) {
       this.tiempo = 2;
       this.imgScoreDos = this.imgIconoDos;
-
     }
     this.imgTiempo = event.target.files[0]
     if (event.target.files.length > 0) {
@@ -2018,13 +2170,20 @@ export class CursosComponent implements OnInit {
       } else {
         modulo.append('icon', this.imgIcono, this.imgIcono.name);
       }*/
+
+      let nameIcon = 'iconoModulo' + this.idModulo + '.png';
+      let terminaIcon = 'iconoTermina' + this.idModulo + '.png';
+      let scorePerfecto = 'scoreMedalla' + this.idModulo + '.png';
+      let medallaTiempo = 'medallaTiempo' + this.idModulo + '.png';
+      let imagenHeader = 'imagenHeader' + this.idModulo + '.png';
+      
       if (this.imgIconoDos === this.imgIcono) {
         modulo.append('icon', this.imgIconoDos);
         console.log(modulo.getAll('icon'))
-  
+
       } else {
-        modulo.append('icon', this.imgIcono, this.imgIcono.name);
-        console.log(this.imgIcono, this.imgIcono.name)
+        modulo.append('icon', this.imgIcono, nameIcon);
+        console.log(this.imgIcono, 'iconoModulo.png')
         console.log(modulo.getAll('icon'))
       }
       /*if (this.imgIcono !== '' || this.imgIcono !== undefined) {
@@ -2039,9 +2198,9 @@ export class CursosComponent implements OnInit {
       if (this.imgTerminaDos === this.imgTermina) {
         modulo.append('medal_finish', this.imgTerminaDos);
         console.log(modulo.getAll('medal_finish'))
-  
+
       } else {
-        modulo.append('medal_finish', this.imgTermina, this.imgTermina.name);
+        modulo.append('medal_finish', this.imgTermina, terminaIcon);
         console.log(modulo.getAll('medal_finish'))
       }
       /*if (this.imgTermina != '' || this.imgTermina != undefined) {
@@ -2062,12 +2221,13 @@ export class CursosComponent implements OnInit {
       } else {
         modulo.append('medal_perfect', this.imgScoreDos);
       }*/
+      console.log(this.imgScoreDos, this.imgScore)
       if (this.imgScoreDos === this.imgScore) {
         modulo.append('medal_perfect', this.imgScoreDos);
         console.log(modulo.getAll('medal_perfect'))
-  
+
       } else {
-        modulo.append('medal_perfect', this.imgScore, this.imgScore.name);
+        modulo.append('medal_perfect', this.imgScore, scorePerfecto);
         console.log(modulo.getAll('medal_perfect'))
       }
       /*if(this.imgScoreDos != undefined){
@@ -2076,12 +2236,13 @@ export class CursosComponent implements OnInit {
         modulo.append('icon', this.imgScore, this.imgScore.name);
       }
       */
+     console.log(this.imgTiempoDos, this.imgTiempo)
       if (this.imgTiempoDos === this.imgTiempo) {
         modulo.append('medal_time', this.imgTiempoDos);
         console.log(modulo.getAll('medal_time'))
-  
+
       } else {
-        modulo.append('medal_time', this.imgTiempo, this.imgTiempo.name);
+        modulo.append('medal_time', this.imgTiempo, medallaTiempo);
         console.log(modulo.getAll('medal_time'))
       }
       /*if (this.imgTiempo != '' || this.imgTiempo != undefined) {
@@ -2098,12 +2259,13 @@ export class CursosComponent implements OnInit {
       modulo.append('max_time', this.formModulo.value.duracion);
       modulo.append('min_score', this.pass);
       modulo.append('hasExam', this.exam);
+      console.log(this.imgHeaderDos, this.imgHeader)
       if (this.imgHeaderDos === this.imgHeader) {
         modulo.append('imgHeader', this.imgHeaderDos);
         console.log(modulo.getAll('imgHeader'))
-  
+
       } else {
-        modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
+        modulo.append('imgHeader', this.imgHeader, imagenHeader);
         console.log(modulo.getAll('imgHeader'))
       }
       /*if (this.imgHeader != '' || this.imgHeader != undefined) {
@@ -2173,11 +2335,11 @@ export class CursosComponent implements OnInit {
       }
 
       console.log(this.formTemas.value.url_video != '')
-      if(this.formTemas.value.url_video != ''){ 
+      if (this.formTemas.value.url_video != '') {
         tema.append('url_video', this.formTemas.value.url_video);
-        } else {
-          tema.append('url_video', 'null');
-        }
+      } else {
+        tema.append('url_video', 'null');
+      }
 
       if (this.formTemas.value.url_subtitulos != '') tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
       if (this.imgTemaV != '') {
@@ -2186,7 +2348,7 @@ export class CursosComponent implements OnInit {
         tema.append('icon_gold', this.imgTemaVDos);
       }
       console.log(this.fileSend)
-      if(this.fileSend == 'null' || this.fileSend == undefined){
+      if (this.fileSend == 'null' || this.fileSend == undefined) {
         console.log('no tiene archivo')
         tema.append('doc', 'null');
       } else {
@@ -2243,17 +2405,21 @@ export class CursosComponent implements OnInit {
     //console.log(this.formTemas.value, this.fileSend, this.imgTema, this.imgTemaDos, this.imgTemaV, this.imgTemaVDos)
     this.helpers.loader();
     console.log(this.fileSend, this.fileBack, this.videoBack, this.formTemas.value.url_video)
-    if(this.fileSend != null){
+    if (this.fileSend != null) {
       this.fileBack = null;
       this.videoBack = null;
       this.formTemas.value.url_video = null;
-    } else if(this.formTemas.value.url_video != null){
+    } else if (this.formTemas.value.url_video != null) {
       this.fileSend = null;
       this.fileBack = null;
     }
+
+    let nameIcon = 'iconTema' + this.idTema + '.png'; //nombre que s eenviara en la imagen del tema
+    console.log(nameIcon)
+    
     let tema = new FormData();
     tema.append('idModule', this.idModulo);
-   // console.log(tema.getAll('idModule'));
+    // console.log(tema.getAll('idModule'));
     tema.append('title', this.formTemas.value.title);
     //console.log(tema.getAll('title'));
     tema.append('description', this.formTemas.value.description);
@@ -2262,14 +2428,15 @@ export class CursosComponent implements OnInit {
     //console.log(tema.getAll('order_number'));
     tema.append('is_active', '1');
     //.log(tema.getAll('is_active'));
-    if(this.imgTemaDos === this.imgTema){
+    console.log(this.imgTemaDos, this.imgTema)
+    if (this.imgTemaDos === this.imgTema) {
       tema.append('icon', this.imgTemaDos);
       //console.log(tema.getAll('icon'));
     } else {
-      tema.append('icon', this.imgTema, this.imgTema.name);
+      tema.append('icon', this.imgTema, nameIcon);
       //console.log(tema.getAll('icon'));
     }
-    
+
     /*if(this.formTemas.value.url_video != null){ 
     tema.append('url_video', this.formTemas.value.url_video);
     } else {
@@ -2279,7 +2446,7 @@ export class CursosComponent implements OnInit {
     //console.log(tema.getAll('url_video'));
     tema.append('url_subtitulos', this.formTemas.value.url_subtitulos);
     //.log(tema.getAll('url_subtitulos'));
-    
+
     /*if (this.formTemas.value.file === this.fileSend) {
       tema.append('doc', this.formTemas.value.file);
       //console.log(tema.getAll('doc'));
@@ -2288,13 +2455,13 @@ export class CursosComponent implements OnInit {
       //console.log(tema.getAll('doc'));
     }*/
     console.log(this.fileSend)
-    if(this.fileSend != null){
+    if (this.fileSend != null) {
       tema.append('doc', this.fileSend, this.fileSend.name);
     } else {
       tema.append('doc', this.fileBack);
     }
 
-    console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'),tema.getAll('doc'))
+    console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'), tema.getAll('doc'))
     //console.log(tema.getAll('description'),tema.getAll('url_video'),tema.getAll('url_subtitulos'),tema.getAll('doc'));
     //.log(this.idModulo)
     /*console.log(modulo.getAll('idCertification'), modulo.getAll('title'),

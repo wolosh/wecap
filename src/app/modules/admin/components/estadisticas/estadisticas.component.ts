@@ -400,6 +400,12 @@ export class EstadisticasComponent implements OnInit {
     });
   }
 
+  dosDecimales(n) {
+    let t=n.toString();
+    let regex=/(\d*.\d{0,2})/;
+    return t.match(regex)[0];
+  }
+
   estadGlobales(){
     this.get.getEstadGlobales(localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
@@ -407,8 +413,9 @@ export class EstadisticasComponent implements OnInit {
       this.avance =  data.avance;
       this.cursos =  data.totalCursos;
       this.calificacion =  data.promedioCalificacion;
-      this.tiempo =  data.promedioTiempo;
+      this.tiempo =  this.dosDecimales(data.promedioTiempo);
       this.intentos =  data.promedioIntentos;
+      console.log(this.tiempo)
 
       console.log(this.usuarios.hombres)
       //Datos de grafica cantidad de usuarios

@@ -43,6 +43,9 @@ export class HelpersService {
       } else if (this.domainPrueba.includes('alsainacademy')) {
         this.domain = 'https://ci.alsainacademy.wecap.mx/'
         console.log(this.domain)
+      } else if(this.domainPrueba.includes('unitrade')) {
+        this.domain = 'https://ci.unitrade.wecap.mx/api/'
+        console.log(this.domain)
       } else {
         this.domain = 'https://ci.wecap.mx/'
         console.log(this.domain)

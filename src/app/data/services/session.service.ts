@@ -30,21 +30,24 @@ export class SessionService {
     if (this.domainPrueba.includes('americargo')) {
       this.API = 'https://ci.americargo.wecap.mx/api/'
       console.log(this.API)
-      } else if (this.domainPrueba.includes('alsainacademy')) {
-        this.API = 'https://ci.alsainacademy.wecap.mx/api/'
-        console.log(this.API)
-      } else {
-        this.API = 'https://ci.wecap.mx/api/'
-        console.log(this.API)
-        this.configuracion();
-      }
+    } else if (this.domainPrueba.includes('alsainacademy')) {
+      this.API = 'https://ci.alsainacademy.wecap.mx/api/'
+      console.log(this.API)
+    } else if(this.domainPrueba.includes('unitrade')) {
+      this.API = 'https://ci.unitrade.wecap.mx/api/'
+      console.log(this.API)
+    } else {
+      this.API = 'https://ci.wecap.mx/api/'
+      console.log(this.API)
+      this.configuracion();
+    }
   }
 
-  public redirect(){
+  public redirect() {
     this.route.navigate(['']);
   }
 
-  configuracion(){
+  configuracion() {
     this.getConfiguration().subscribe(
       (data: any) => {
         localStorage.setItem('logo', data['logo']);
@@ -113,8 +116,8 @@ export class SessionService {
     }).pipe(
       catchError((err) => {
         console.log(err);
-        if(err.status == 401) {
-        this.redirect();
+        if (err.status == 401) {
+          this.redirect();
         }
         return err;
       })
@@ -386,7 +389,7 @@ export class SessionService {
     );
   }
 
-  updatePreguntasExamen(data: any, token: any){
+  updatePreguntasExamen(data: any, token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -400,7 +403,7 @@ export class SessionService {
     );
   }
 
-  updatePreguntasDiagnostico(data: any, token: any){
+  updatePreguntasDiagnostico(data: any, token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -561,12 +564,12 @@ export class SessionService {
     );
   }
 
-  deleteMedia(data: any, token: any){
+  deleteMedia(data: any, token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-   return this.http.post(`${this.API}deleteMedia`, data, {
-    headers,
+    return this.http.post(`${this.API}deleteMedia`, data, {
+      headers,
     }).pipe(
       catchError((err) => {
         //console.log(err);
@@ -589,7 +592,7 @@ export class SessionService {
     );
   }
 
-  public iniciaExamen( form, token) {
+  public iniciaExamen(form, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -603,7 +606,7 @@ export class SessionService {
     );
   }
 
-  public calificaExamen( form, token) {
+  public calificaExamen(form, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -663,7 +666,7 @@ export class SessionService {
     );
   }
 
-  public updateFilesDescription( form, token) {
+  public updateFilesDescription(form, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -677,7 +680,7 @@ export class SessionService {
     );
   }
 
-  public saveTheme( form, token) {
+  public saveTheme(form, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -691,7 +694,7 @@ export class SessionService {
     );
   }
 
-  public uploadFile( form, token) {
+  public uploadFile(form, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -705,7 +708,7 @@ export class SessionService {
     );
   }
 
-  public deleteFile( form, token) {
+  public deleteFile(form, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
@@ -762,7 +765,7 @@ export class SessionService {
       })
     );
   }
-  public deleteCol( id, token) {
+  public deleteCol(id, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });

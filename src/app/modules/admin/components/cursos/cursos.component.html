@@ -540,10 +540,13 @@
                         src="{{this.imgIconoDos}}" alt="imgIcono" />
                     </div>
                     <!--img class="imgPreview" [src]="this.imgicon || 'assets/img/imgpreview.png'" alt="imgIcono"-->
-                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="icono"
+                   <button *ngIf="this.isNewModule == 1 || this.isNewModule == 2" class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('boton')" data-bs-toggle="modal"
+                    data-bs-target="#modalfoto">Seleccionar
+                    imagen</button> 
+                    <!--<input *ngIf="this.isNewModule == 1" type="file" class="input3" id="icono"
                       (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="icono"
-                      (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">
+                      (change)="fileIcono($event, 'change')" accept="image/png,image/jpeg,image/jpg">--->
                   </div>
                   <div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Imagen para cabecera de
@@ -560,10 +563,13 @@
                       <img *ngIf="this.imgHeaderDos != '' && this.header == 2" class="imgPreviewCab"
                         src="{{this.imgHeaderDos}}" alt="imgHeader" />
                     </div>
-                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="header"
+                    <button *ngIf="this.isNewModule == 1 || this.isNewModule == 2" class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('header')" data-bs-toggle="modal"
+                    data-bs-target="#modalfoto">Seleccionar
+                    imagen</button> 
+                    <!--<input *ngIf="this.isNewModule == 1" type="file" class="input3" id="header"
                       (change)="fileHeader($event, 'change')" accept="image/png,image/jpeg,image/jpg">
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="header"
-                      (change)="fileHeader($event, 'change')" accept="image/png,image/jpeg,image/jpg">
+                      (change)="fileHeader($event, 'change')" accept="image/png,image/jpeg,image/jpg">-->
                   </div>
                 </div>
                 <div class="row mt-3 mb-3">
@@ -583,10 +589,13 @@
                         src="{{this.imgTiempoDos}}" alt="imgIcono" />
                     </div>
                     <!--img class="imgPreview" [src]="imgTiempo || 'assets/img/imgpreview.png'" alt="imgTiempo"-->
-                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallapt"
+                    <button *ngIf="this.isNewModule == 1 || this.isNewModule == 2" class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('boton', 4)" data-bs-toggle="modal"
+                    data-bs-target="#modalfoto">Seleccionar
+                    imagen</button> 
+                    <!--<input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallapt"
                       (change)="fileTiempo($event)" accept="image/png,image/jpeg,image/jpg">
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallapt"
-                      (change)="fileTiempo($event, 'update')" accept="image/png,image/jpeg,image/jpg">
+                      (change)="fileTiempo($event, 'update')" accept="image/png,image/jpeg,image/jpg">-->
                   </div>
                   <div class="col-12 col-lg-5">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2"> Ingresa la duración en minutos que no
@@ -612,10 +621,13 @@
                     </div>
                     <!--<img *ngIf="this.imgTerminaDos != ''" class="imgPreview" src="{{ this.imgTerminaDos }}" alt="imgTermina" />
                   <img class="imgPreview" [src]="imgTermina || 'assets/img/imgpreview.png'" alt="imgTermina"-->
-                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallat"
+                  <button *ngIf="this.isNewModule == 1 || this.isNewModule == 2" class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('boton', 5)" data-bs-toggle="modal"
+                  data-bs-target="#modalfoto">Seleccionar
+                  imagen</button> 
+                  <!--<input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallat"
                       (change)="fileTermina($event)" accept="image/png,image/jpeg,image/jpg">
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
-                      (change)="fileTermina($event, 'update')" accept="image/png,image/jpeg,image/jpg">
+                      (change)="fileTermina($event, 'update')" accept="image/png,image/jpeg,image/jpg">-->
                   </div>
                   <div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Reconocimiento por score perfecto
@@ -632,11 +644,14 @@
                       <img *ngIf="this.imgScoreDos != '' && this.score == 2" class="imgPreview"
                         src="{{this.imgScoreDos}}" alt="imgIcono" />
                     </div>
+                    <button *ngIf="this.isNewModule == 1 || this.isNewModule == 2" class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('boton', 6)" data-bs-toggle="modal"
+                  data-bs-target="#modalfoto">Seleccionar
+                  imagen</button> 
                     <!--img class="imgPreview" [src]="imgScore || 'assets/img/imgpreview.png'" alt="imgScore"-->
-                    <input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallap"
+                    <!--<input *ngIf="this.isNewModule == 1" type="file" class="input3" id="medallap"
                       (change)="fileScore($event)" accept="image/png,image/jpeg,image/jpg">
                     <input *ngIf="this.isNewModule == 2" type="file" class="input3" id="medallat"
-                      (change)="fileScore($event, 'update')" accept="image/png,image/jpeg,image/jpg">
+                      (change)="fileScore($event, 'update')" accept="image/png,image/jpeg,image/jpg">-->
                   </div>
                   <!--div class="col-6 col-lg-2">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Color del módulo</label>
@@ -784,22 +799,27 @@
                 <div class="row mt-3 mb-3">
                   <div class="col-12 col-lg-4 mb-3">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Imagen para tema</label>
+                    
+                    <!--ACTUAL-->
                     <img *ngIf="this.imgTemaDos == ''" class="imgPreview" src="assets/img/imgpreview.png"
                       alt="imgIcono" />
                     <div *ngIf="this.isNewTheme == 1">
                       <img *ngIf="this.imgTemaDos != ''" class="imgPreview" src="{{this.imgTemaDos}}" alt="imgIcono" />
                     </div>
                     <div *ngIf="this.isNewTheme == 2">
-                      <img *ngIf="this.imgTemaDos != '' && this.change == 2" class="imgPreview" src="{{this.helpers.domain+'/media/temas/' +
+                      <img *ngIf="this.imgTemaDos != '' && this.tema == 1" class="imgPreview" src="{{this.helpers.domain+'media/temas/' +
                     this.imgTemaDos}}" alt="imgIcono" />
-                      <img *ngIf="this.imgTemaDos != '' && this.change == 1" class="imgPreview"
+                      <img *ngIf="this.imgTemaDos != '' && this.tema == 2" class="imgPreview"
                         src="{{this.imgTemaDos}}" alt="imgIcono" />
                     </div>
                     <!--<img *ngIf="this.imgTemaDos == ''" class="imgPreview" src="assets/img/imgpreview.png" alt="imgTema" />
                     <img *ngIf="this.imgTemaDos != ''" class="imgPreview" src="{{ this.imgTemaDos }}" alt="imgTema" />-->
                     <!--img class="imgPreview" [src]="imgTema || 'assets/img/imgpreview.png'" alt="imgPreview"-->
-                    <input type="file" accept="image/jpg, image/png" class="input3" id="medallapt"
-                      (change)="fileTema($event)">
+                    <button *ngIf="this.isNewModule == 1 || this.isNewModule == 2" class="boton bg-blue p-2 ps-4 pe-4" (click)="isLogoChange('boton', 8)" data-bs-toggle="modal"
+                    data-bs-target="#modalfoto">Seleccionar
+                    imagen</button> 
+<!--<input type="file" accept="image/jpg, image/png" class="input3" id="medallapt"
+                      (change)="fileTema($event)">-->
                   </div>
                   <!--<div class="col-12 col-lg-4">
                     <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Icono para tema visualizado</label>
@@ -1251,7 +1271,7 @@
     </div>
   </div>
 
-  <!--------Agregar logo diploma------------------------------------>
+  <!--------Agregar logo y firma diploma------------------------------------>
   <div class="modal fade modalmensaje" id="modalfoto" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -1267,6 +1287,12 @@
           <h5 *ngIf="this.isLogo == 2" class="modal-title text-blue mt-3 mb-2 text-center lh-1">
             Agrega la firma de la persona a cargo
           </h5>
+          <h5 *ngIf="this.isLogo == 3" class="modal-title text-blue mt-3 mb-2 text-center lh-1">
+            Agrega la imagen para el botón del módulo
+          </h5>
+          <h5 *ngIf="this.isLogo == 4 || this.isLogo > 4" class="modal-title text-blue mt-3 mb-2 text-center lh-1">
+            Agrega la imagen para el reconocimiento
+          </h5>
           <p class="text6 txt-gris2 text-center">Límite de 50KB</p>
           <div class="row mt-2 mb-2">
             <div class="col-12">
@@ -1281,7 +1307,7 @@
               [maintainAspectRatio]="true" [aspectRatio]="400 / 200" format="png" [transform]="transform"
               (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
               (loadImageFailed)="loadImageFailed()"></image-cropper>-->
-              <image-cropper [resizeToWidth]="400" [resizeToHeight]="200" [imageChangedEvent]="imageChangedEvent"
+              <image-cropper [resizeToWidth]="this.resizeWidth" [resizeToHeight]="this.resizeHeight" [imageChangedEvent]="imageChangedEvent"
               [maintainAspectRatio]="true" [aspectRatio]="this.relation" format="png" [transform]="transform"
               (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
               (loadImageFailed)="loadImageFailed()"></image-cropper>
@@ -1323,6 +1349,10 @@
             data-bs-dismiss="modal" (click)="cargarImagen('firma')">
             Aceptar
           </button>
+          <button *ngIf="isLogo >= 3" type="button" class="boton bg-blue mx-auto d-block w-50 p-1 p-md-2"
+            data-bs-dismiss="modal" (click)="cargarImagen('boton', 'change')">
+            Aceptar
+          </button>
           <button type="button" class="boton bg-grey2 mx-auto d-block w-50 p-1 p-md-2 mt-3" data-bs-dismiss="modal"
             (click)="cancelUpload()">
             Cancelar
@@ -1331,4 +1361,6 @@
       </div>
     </div>
   </div>
+<!--IMAGENES MODULOS, MDALLAS, TEMAS-->
+  
 </div>
