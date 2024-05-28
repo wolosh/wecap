@@ -17,6 +17,7 @@ import {
   ApexPlotOptions,
   ApexTitleSubtitle
 } from "ng-apexcharts";
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export type ChartUsuarios = {
   series: ApexAxisChartSeries;
@@ -144,7 +145,7 @@ export class EstadisticasComponent implements OnInit {
   tiempoModulos: any;
   tiempoTemas: any;
   cursoName: any;
-  usuariosmod:any;
+  usuariosmod: any;
   calificacionInicial: any;
   calificacionFinal: any;
   areas: any = [];
@@ -162,7 +163,7 @@ export class EstadisticasComponent implements OnInit {
   modCount: number = 0;
 
 
-  constructor(private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) {}
+  constructor(private sanitizer: DomSanitizer, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService, private route: Router) { }
 
   ngOnInit(): void {
     this.helpers.goTop();
@@ -195,7 +196,7 @@ export class EstadisticasComponent implements OnInit {
     }
   }
 
-  changeViewEstadisticas(view:any, id?:any, name?:any){
+  changeViewEstadisticas(view: any, id?: any, name?: any) {
     //console.log(view, id, name)
     this.helpers.loader();
     switch (view) {
@@ -212,7 +213,7 @@ export class EstadisticasComponent implements OnInit {
         this.cursoName = name;
         //console.log(id)
         this.certificaciones.forEach((element: any) => {
-          if(element.idCurso == id){
+          if (element.idCurso == id) {
             //console.log(element);
             this.estaCurso(element);
           }
@@ -226,7 +227,7 @@ export class EstadisticasComponent implements OnInit {
         //console.log(this.modulos)
         this.moduleName = name;
         this.modulos.forEach((element: any) => {
-          if(element.idModule == id){
+          if (element.idModule == id) {
             this.caliMod = element.promedioCalificacion;
             this.avanceMod = element.promedioAvance;
             this.tiempoMod = element.promedioTiempo;
@@ -246,7 +247,7 @@ export class EstadisticasComponent implements OnInit {
 
   }
 
-  estaCurso(element:any){
+  estaCurso(element: any) {
     //console.log(element);
     this.modules = element.modulos;
     this.usuariosmod = element.usuarios;
@@ -263,7 +264,7 @@ export class EstadisticasComponent implements OnInit {
     Object.keys(element.promedioAvanceArea).forEach((key) => {
       //console.log(key, element.promedioAvanceArea[key]);
       //console.log(key.replace(/_+/g,' '));
-      this.areas.push(key.replace(/_+/g,' '));
+      this.areas.push(key.replace(/_+/g, ' '));
       this.value.push(element.promedioAvanceArea[key]);
       //console.log(this.areas, this.value);
     });
@@ -284,20 +285,20 @@ export class EstadisticasComponent implements OnInit {
         text: "Promedio de obtención de medallas",
         align: 'center',
         style: {
-          fontSize:  '18px',
-          fontFamily:  'Helvetica-Bold',
-          color:  '#015287'
+          fontSize: '18px',
+          fontFamily: 'Helvetica-Bold',
+          color: '#015287'
         },
       },
       dataLabels: {
         //offseY: 30,
         style: {
-          fontSize:  '16px',
-          fontFamily:  'Helvetica-Bold',
+          fontSize: '16px',
+          fontFamily: 'Helvetica-Bold',
           colors: ['#FFF']
         },
         dropShadow: {
-            enabled: false
+          enabled: false
         }
       },
       plotOptions: {
@@ -305,7 +306,7 @@ export class EstadisticasComponent implements OnInit {
           customScale: 0.8,
         }
       },
-      labels: ["Terminar", "Score Perfecto",  "Terminar a Tiempo"],
+      labels: ["Terminar", "Score Perfecto", "Terminar a Tiempo"],
       legend: {
         position: 'bottom',
         fontSize: '16px',
@@ -342,7 +343,7 @@ export class EstadisticasComponent implements OnInit {
       chart: {
         height: 350,
         type: "bar"
-      },colors: [
+      }, colors: [
         '#015287',
         '#A6DAFC',
         '#707070',
@@ -351,19 +352,19 @@ export class EstadisticasComponent implements OnInit {
         text: "Progreso por Áreas",
         align: 'center',
         style: {
-          fontSize:  '18px',
-          fontFamily:  'Helvetica-Bold',
-          color:  '#015287'
+          fontSize: '18px',
+          fontFamily: 'Helvetica-Bold',
+          color: '#015287'
         },
-      },dataLabels: {
+      }, dataLabels: {
         //offseY: 30,
         style: {
-          fontSize:  '10px',
-          fontFamily:  'Helvetica-Bold',
+          fontSize: '10px',
+          fontFamily: 'Helvetica-Bold',
           colors: ['#FFF']
         },
         dropShadow: {
-            enabled: false
+          enabled: false
         }
       }, legend: {
         position: 'bottom',
@@ -393,7 +394,7 @@ export class EstadisticasComponent implements OnInit {
     };
   }
 
-  users(){
+  users() {
     this.get.getUsers(localStorage.getItem('token')).subscribe((data: any) => {
       //console.log(data)
       this.usersArr = data.users;
@@ -404,20 +405,20 @@ export class EstadisticasComponent implements OnInit {
 
 
   dosDecimales(n) {
-    let t=n.toString();
-    let regex=/(\d*.\d{0,2})/;
+    let t = n.toString();
+    let regex = /(\d*.\d{0,2})/;
     return t.match(regex)[0];
   }
 
-  estadGlobales(){
+  estadGlobales() {
     this.get.getEstadGlobales(localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
-      this.usuarios =  data.usuarios;
-      this.avance =  data.avance;
-      this.cursos =  data.totalCursos;
-      this.calificacion =  data.promedioCalificacion;
-      this.tiempo =  this.dosDecimales(data.promedioTiempo);
-      this.intentos =  data.promedioIntentos;
+      this.usuarios = data.usuarios;
+      this.avance = data.avance;
+      this.cursos = data.totalCursos;
+      this.calificacion = data.promedioCalificacion;
+      this.tiempo = this.dosDecimales(data.promedioTiempo);
+      this.intentos = data.promedioIntentos;
       console.log(this.tiempo)
 
       console.log(this.usuarios.hombres)
@@ -436,20 +437,20 @@ export class EstadisticasComponent implements OnInit {
           text: "Numero de usuarios",
           align: 'center',
           style: {
-            fontSize:  '18px',
-            fontFamily:  'Helvetica-Bold',
-            color:  '#015287'
+            fontSize: '18px',
+            fontFamily: 'Helvetica-Bold',
+            color: '#015287'
           },
         },
         dataLabels: {
           //offseY: 30,
           style: {
-            fontSize:  '16px',
-            fontFamily:  'Helvetica-Bold',
+            fontSize: '16px',
+            fontFamily: 'Helvetica-Bold',
             colors: ['#FFF']
           },
           dropShadow: {
-              enabled: false
+            enabled: false
           }
         },
         plotOptions: {
@@ -457,7 +458,7 @@ export class EstadisticasComponent implements OnInit {
             customScale: 0.8,
           }
         },
-        labels: ["Hombres", "Mujeres",  "Otros"],
+        labels: ["Hombres", "Mujeres", "Otros"],
         legend: {
           position: 'bottom',
           fontSize: '16px',
@@ -482,72 +483,72 @@ export class EstadisticasComponent implements OnInit {
           }
         ]
       };
-      if(this.avance.hombres == 0 && this.avance.mujeres == 0 && this.avance.otro == 0){
+      if (this.avance.hombres == 0 && this.avance.mujeres == 0 && this.avance.otro == 0) {
         this.cantAvance = 0;
-      } else{
+      } else {
         this.cantAvance = 1;
-            //Datos de grafica cantidad de avance por usuarios
-      this.chartAvances = {
-        series: [this.avance.hombres, this.avance.mujeres, this.avance.otro],
-        chart: {
-          type: "donut"
-        },
-        colors: [
-          '#015287',
-          '#A6DAFC',
-          '#707070',
-        ],
-        title: {
-          text: "Promedio de avance global",
-          align: 'center',
-          style: {
-            fontSize:  '18px',
-            fontFamily:  'Helvetica-Bold',
-            color:  '#015287'
+        //Datos de grafica cantidad de avance por usuarios
+        this.chartAvances = {
+          series: [this.avance.hombres, this.avance.mujeres, this.avance.otro],
+          chart: {
+            type: "donut"
           },
-        },
-        dataLabels: {
-          //offseY: 30,
-          style: {
-            fontSize:  '16px',
-            fontFamily:  'Helvetica-Bold',
-            colors: ['#FFF']
+          colors: [
+            '#015287',
+            '#A6DAFC',
+            '#707070',
+          ],
+          title: {
+            text: "Promedio de avance global",
+            align: 'center',
+            style: {
+              fontSize: '18px',
+              fontFamily: 'Helvetica-Bold',
+              color: '#015287'
+            },
           },
-          dropShadow: {
+          dataLabels: {
+            //offseY: 30,
+            style: {
+              fontSize: '16px',
+              fontFamily: 'Helvetica-Bold',
+              colors: ['#FFF']
+            },
+            dropShadow: {
               enabled: false
-          }
-        },
-        plotOptions: {
-          pie: {
-            customScale: 0.8,
-          }
-        },
-        labels: ["Hombres", "Mujeres",  "Otros"],
-        legend: {
-          position: 'bottom',
-          fontSize: '16px',
-          fontFamily: 'Helvetica-Bold',
-          labels: {
-            colors: ['#015287']
-          },
-          markers: {
-            width: 25,
-            height: 25,
-            radius: 5,
-          },
-        },
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
             }
-          }
-        ]
-      };
-    }
+          },
+          plotOptions: {
+            pie: {
+              customScale: 0.8,
+            }
+          },
+          labels: ["Hombres", "Mujeres", "Otros"],
+          legend: {
+            position: 'bottom',
+            fontSize: '16px',
+            fontFamily: 'Helvetica-Bold',
+            labels: {
+              colors: ['#015287']
+            },
+            markers: {
+              width: 25,
+              height: 25,
+              radius: 5,
+            },
+          },
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+              }
+            }
+          ]
+        };
+      }
       Swal.close();
       this.helpers.goTop();
     });
@@ -562,7 +563,7 @@ export class EstadisticasComponent implements OnInit {
   }*/
 
 
-  estadisticas(){
+  estadisticas() {
     this.get.getEstadGenerales(localStorage.getItem('token')).subscribe(
       (data: any) => {
         console.log(data);
@@ -575,12 +576,12 @@ export class EstadisticasComponent implements OnInit {
     );
   }
 
-  estadisticasCurso(id:any){
+  estadisticasCurso(id: any) {
     this.get.getEstadCurso(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log(data);
-            //this.allModules = data;
-            ////console.log(this.allModules)
+        //this.allModules = data;
+        ////console.log(this.allModules)
       }
     )
   }
@@ -663,22 +664,62 @@ export class EstadisticasComponent implements OnInit {
         };*/
       }
     );
-    }
+  }
 
-    informe(){
-      this.get.getEstadisticasExcel(localStorage.getItem('token')).subscribe((data: any) => {
-        console.log(data)
-        const worksheet = XLSX.utils.json_to_sheet(data);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+  parseTableElement(tableElement: HTMLElement): any[][] {
+    const rows = tableElement.querySelectorAll('tr');
+    const data = [];
 
-        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
-        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = 'estadisticas.xlsx';
-        link.click();
+    rows.forEach(row => {
+      const rowData = [];
+      row.querySelectorAll('td, th').forEach(cell => {
+        rowData.push(cell.textContent);
       });
-    }
+      data.push(rowData);
+    });
+
+    return data;
+  }
+
+  informe() {
+    this.get.getEstadisticasExcel(localStorage.getItem('token')).subscribe((data: any) => {
+      ///console.log(data)
+      const tempElement = document.createElement('div');
+      tempElement.innerHTML = data;
+      
+
+      // Find the table element in the tempElement
+      const tableElement = tempElement.querySelectorAll('table');
+      
+      // Initialize variables to store the merged data
+    let mergedData = [];
+    
+    // Iterate through all found table elements and merge their data
+    tableElement.forEach((tableElement) => {
+      // Convert each table element to an array of arrays
+      const tableData = this.parseTableElement(tableElement);
+
+      // Merge the table data into the mergedData array
+      mergedData = mergedData.concat(tableData);
+    });
+
+    // Convert the merged data to a worksheet
+    const worksheet = XLSX.utils.aoa_to_sheet(mergedData);
+
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+      
+
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+      const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      let date = new Date();
+      //console.log(date)
+      let fileName = 'Informe_' + date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + '.xlsx';
+      link.download = fileName;
+      link.click();
+    });
+  }
 
 }
