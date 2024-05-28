@@ -22,7 +22,10 @@
     "@ckeditor/ckeditor5-angular": "^5.2.0",
     "@ckeditor/ckeditor5-build-classic": "^36.0.1",
     "@kolkov/angular-editor": "^3.0.0-beta.0",
+    "@syncfusion/ej2-angular-charts": "*",
+    "@syncfusion/ej2-angular-grids": "*",
     "@types/ckeditor": "^4.9.10",
+    "@types/xlsx": "^0.0.36",
     "angular-datatables": "^15.0.0",
     "apexcharts": "^3.37.1",
     "assert": "^2.0.0",
@@ -38,9 +41,8 @@
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.6.13",
     "tslib": "^2.3.0",
-    "zone.js": "~0.12.0",
-    "@syncfusion/ej2-angular-grids": "*",
-    "@syncfusion/ej2-angular-charts": "*"
+    "xlsx": "^0.18.5",
+    "zone.js": "~0.12.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.1.5",

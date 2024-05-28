@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as XLSX from 'xlsx';
 import { Data, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import { GetService } from 'src/app/data/services/get.service';
@@ -400,6 +401,8 @@ export class EstadisticasComponent implements OnInit {
     });
   }
 
+
+
   dosDecimales(n) {
     let t=n.toString();
     let regex=/(\d*.\d{0,2})/;
@@ -660,6 +663,22 @@ export class EstadisticasComponent implements OnInit {
         };*/
       }
     );
+    }
+
+    informe(){
+      this.get.getEstadisticasExcel(localStorage.getItem('token')).subscribe((data: any) => {
+        console.log(data)
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'estadisticas.xlsx';
+        link.click();
+      });
     }
 
 }

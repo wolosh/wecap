@@ -756,6 +756,7 @@ td{
     width: 20%;
     font-size: 1.4rem;
     padding: 0;
+    text-transform: capitalize;
 }
 /*.nav-tabs .nav-link{
     position: relative;
@@ -996,7 +997,7 @@ td{
     outline: 0;
 }
 .filepre:active::before {
-    background: transparent; 
+    background: transparent;
 }
 .botondrop.preg{
     font-size: .7rem !important;

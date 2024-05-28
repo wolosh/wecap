@@ -140,7 +140,7 @@ export class GetService {
       headers
     });
   }
- 
+
 
   //trae el diploma de la base de datos
   getDiploma(id: any, token) {
@@ -286,7 +286,7 @@ export class GetService {
     return this.http.get(`${this.session.API}estadisticasGlobales`, {
       headers,
     })
-  }       
+  }
   //Estadisticas Curso
   getEstadCurso(id: any,token: any) {
     const headers = new HttpHeaders({
@@ -472,6 +472,17 @@ export class GetService {
 
     return this.http.get(`${this.session.API}getPreguntasPendientesCalificacion/${id}/${idUser}`, {
       headers
+    });
+  }
+
+  getEstadisticasExcel(token) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.get(this.session.API + 'getEstadisticasExcel',{
+      headers,
+      responseType: 'text'
     });
   }
 
