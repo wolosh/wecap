@@ -36,6 +36,9 @@ export class SessionService {
     } else if(this.domainPrueba.includes('unitrade')) {
       this.API = 'https://ci.unitrade.wecap.mx/api/'
       console.log(this.API)
+    } else if(this.domainPrueba.includes('joga')) {
+      this.API = 'https://ci.joga.wecap.mx/api/'
+      console.log(this.API)
     } else {
       this.API = 'https://ci.wecap.mx/api/'
       console.log(this.API)
