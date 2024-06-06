@@ -17,14 +17,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    console.log(localStorage.getItem('token'));
+    //console.log(localStorage.getItem('token'));
     if(!localStorage.getItem('token')){
       this.helpers.logout();
     }else{
-      console.log("Hola mundo")
+      //console.log("Hola mundo")
       this.get.getCertifications(localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
         }
       );
     }

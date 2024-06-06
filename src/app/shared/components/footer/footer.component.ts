@@ -29,23 +29,23 @@ export class FooterComponent implements OnInit {
   configuration() {
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data)
+        //console.log(data)
         this.socialMedia = data;
-        console.log(this.socialMedia.red_facebook)
+        //console.log(this.socialMedia.red_facebook)
         if(data.red_facebook == '')this.logof = 1 
         if(data.red_instagram == '')this.logoi = 1
         if( data.red_twitter ==='')this.logotw = 1
         if(data.red_tiktok ==='') this.logot = 1
         if(data.red_youtube ==='') this.logoy = 1
-        console.log(this.logof,this.logoi,this.logotw,this.logot,this.logoy)
+        //console.log(this.logof,this.logoi,this.logotw,this.logot,this.logoy)
         /*this.facebook=data.red_facebook;
         this.instagram=data.red_instagram;
         this.twitter=data.red_twitter;
         this.tiktok=data.red_tiktok;
         this.youtube=data.red_youtube;*/
         //this.logo=
-        console.log(this.youtube)
-        console.log(this.tiktok,this.facebook,this.instagram,this.twitter,this.youtube)
+        //console.log(this.youtube)
+        //console.log(this.tiktok,this.facebook,this.instagram,this.twitter,this.youtube)
        
         /*if(this.facebook == '')this.logof = 1
         if(this.instagram == '')this.logoi = 1
@@ -53,7 +53,7 @@ export class FooterComponent implements OnInit {
         if(this.tiktok ==='') this.logot = 1
        if(this.youtube ==='') this.logoy = 1*/
        
-        console.log(this.logof,this.logoi,this.logotw,this.logot,this.logoy)
+        //console.log(this.logof,this.logoi,this.logotw,this.logot,this.logoy)
       }
     );
   }

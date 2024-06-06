@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
   //inicio de sesión básico
   normalLogin() {
-    console.log(this.formLogin.value)
+    //console.log(this.formLogin.value)
     Swal.fire({
       title: 'Iniciando Sesión...',
       html: 'Espera un momento por favor',
@@ -65,10 +65,10 @@ export class LoginComponent implements OnInit {
         Swal.showLoading()
         this.session.login(this.formLogin.value.email, this.formLogin.value.password).subscribe(
           (data: Data) => {
-            console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
+            //console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
             localStorage.setItem('token', data['token']);
             localStorage.setItem('userName', data['full_name']);
-            console.log(localStorage.getItem('userName'))
+            //console.log(localStorage.getItem('userName'))
             if(data['is_admin'] == 0){
               localStorage.setItem('type', '4');
             } else {
@@ -77,8 +77,8 @@ export class LoginComponent implements OnInit {
             this.helpers.type = localStorage.getItem('type');
             //this.helpers.name = localStorage.getItem('userName');
             localStorage.setItem('id', data['id']);
-            console.log(localStorage.getItem('type'))
-            console.log(localStorage.getItem('type'), this.helpers.type)
+            //console.log(localStorage.getItem('type'))
+            //console.log(localStorage.getItem('type'), this.helpers.type)
             //console.log(localStorage.getItem('token'), localStorage.getItem('userName'), localStorage.getItem('idUser') );
             if (data['is_admin'] == 0) {
               this.router.navigate(['/cmtemplate']);
@@ -86,11 +86,11 @@ export class LoginComponent implements OnInit {
 
             } else if (data['is_admin'] == 1) {
               this.router.navigate(['/cursos']);
-              console.log(this.helpers.cursos)
+              //console.log(this.helpers.cursos)
               //console.log(localStorage.getItem('userName'))
             }
           }, (e: any) => {
-            console.log(e.error);
+            //console.log(e.error);
             Swal.fire({
               icon: 'error',
               title: 'Ups',
