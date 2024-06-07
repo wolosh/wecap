@@ -17,6 +17,7 @@
               <label for="formFile" class="text10 txt-gris2 mb-3">Logo Empresarial (esta imagen aparecera en el login y
                 el menu de tu pagina). (380*65)</label>
               <!--<input class="input3" type="file" id="formFile" accept="image/png,image/jpeg,image/jpg" (change)="personalizarFile($event, 'logo')">-->
+              <br> 
               <label for="exampleInputEmail1" class="text10 txt-gris2 mb-2">Logo actual</label>
               <div>
                 <img *ngIf="this.logoBack == ''" class="" src="assets/img/imgpreview.png" alt="imgTermina" />
@@ -161,19 +162,19 @@
           <h5 class="modal-title text-blue mt-3 mb-2 text-center lh-1">
             Agrega el logo de tu marca
           </h5>
-          <p class="text6 txt-gris2 text-center">Límite de 50KB</p>
+          <!--<p class="text6 txt-gris2 text-center">Límite de 50KB</p>-->
           <div class="row mt-2 mb-2">
             <div class="col-12">
               <div class="form-group">
                 <div class="profile-container mx-auto d-block" *ngIf="this.imageChangedEvent == ''">
                   <img id="profileImage" class="profileImage mx-auto" src="assets/img/arrastraperfil.png" />
-                  <input class="imageUpload" type="file" accept="image/jpg, image/png"
+                  <input class="imageUpload" type="file" accept="image/*"
                     (change)="fileChangeEvent($event)" />
                 </div>
               </div>
             </div>
             <image-cropper [resizeToWidth]="200" [resizeToHeight]="100" [imageChangedEvent]="imageChangedEvent"
-              [maintainAspectRatio]="true" [aspectRatio]="200 / 100" format="png" [transform]="transform"
+              [maintainAspectRatio]="true" [aspectRatio]="200 / 100" format="jpeg" [transform]="transform"
               (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
               (loadImageFailed)="loadImageFailed()"></image-cropper>
           </div>

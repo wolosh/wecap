@@ -183,10 +183,10 @@ export class ConfiguracionComponent implements OnInit {
     const fileToUpload = files[0];
     //console.log(fileToUpload, fileToUpload.size);
 
-    if(fileToUpload.size > 52428){
+    if(fileToUpload.size > 524288){
       Swal.fire({
         title: '¡Error!',
-        text: 'La imagen no debe pesar más de 500 kb.',
+        text: 'La imagen nes muy pesada, intenta con otra.',
         icon: 'error',
         confirmButtonColor: '#015287',
       });

@@ -188,7 +188,7 @@ export class CursosComponent implements OnInit {
       //console.log(this.view)
     } else {
 
-      console.log(localStorage.getItem('type'))
+      //console.log(localStorage.getItem('type'))
       Swal.fire({
         title: '¡Error!',
         text: 'No tienes permiso para acceder a esta página.',
@@ -326,12 +326,13 @@ export class CursosComponent implements OnInit {
     }
     //si no es vacio se declara el archivo
     const fileToUpload = files[0];
-    console.log(fileToUpload, fileToUpload.size);
+    //console.log(fileToUpload, fileToUpload.size);
 
-    if (fileToUpload.size > 524288) {
+    //if (fileToUpload.size > 1000000) {
+      if (fileToUpload.size > 524288) {
       Swal.fire({
         title: '¡Error!',
-        text: 'La imagen no debe pesar más de 500 kb.',
+        text: 'La imagen es muy pesada, intenta con otra.',
         icon: 'error',
         confirmButtonColor: '#015287',
       });
@@ -349,7 +350,7 @@ export class CursosComponent implements OnInit {
           case 3:
             this.imgIcono = fileToUpload;
             this.imgIconoDos = fileToUpload;
-            console.log(this.imgIcono)
+            //console.log(this.imgIcono)
             if (show) {
               this.icon = 2;
               this.imgIconoDos = this.imgIconoDos;
@@ -357,7 +358,7 @@ export class CursosComponent implements OnInit {
                 const reader = new FileReader();
                 reader.onload = (event: any) => {
                   this.imgIconoDos = event.target.result;
-                  console.log(this.imgIconoDos)
+                  //console.log(this.imgIconoDos)
                 };
                 reader.readAsDataURL(files[0])
               }
@@ -420,17 +421,17 @@ export class CursosComponent implements OnInit {
             break;
             case 7:
               this.imgHeader = fileToUpload;
-              console.log(this.imgHeader)
+              //console.log(this.imgHeader)
                 if (show) {
                   this.header = 2;
                   this.imgHeaderDos = this.imgHeaderDos;
-                  console.log(this.imgHeaderDos)
+                  //console.log(this.imgHeaderDos)
                 }
                 if (files.length > 0) {
                   const reader = new FileReader();
                   reader.onload = (event: any) => {
                     this.imgHeaderDos = event.target.result;
-                    console.log(this.imgHeaderDos)
+                    //console.log(this.imgHeaderDos)
                   };
                   reader.readAsDataURL(files[0])
                 }
@@ -445,18 +446,18 @@ export class CursosComponent implements OnInit {
                     this.change = 1;
                   }*/
                   this.imgTema = fileToUpload
-                  console.log(this.imgTema)
+                  //console.log(this.imgTema)
                 if (show) {
                   this.tema = 2;
                   this.imgTemaDos = this.imgTemaDos;
-                  console.log(this.imgTemaDos)
+                  //console.log(this.imgTemaDos)
                 }
                   
                   if (files.length > 0) {
                     const reader = new FileReader();
                     reader.onload = (event: any) => {
                       this.imgTemaDos = event.target.result;
-                      console.log(this.imgTemaDos)
+                      //console.log(this.imgTemaDos)
                       //this.imgTema = this.helpers.dataUrlToFile(this.imgTema, this.imgTema.name);
                     };
                     reader.readAsDataURL(files[0])
@@ -714,7 +715,7 @@ export class CursosComponent implements OnInit {
         //hasExam: [''],
       });
     } else if (id == 2) {
-      console.log('entro')
+      //console.log('entro')
       this.formEdit = this.formBuilder.group({
         title: ['', [Validators.required, Validators.minLength(5)]],
         description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(350)]],
@@ -1051,7 +1052,7 @@ export class CursosComponent implements OnInit {
   groups() {
     this.get.getGroups(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.group = data.grupos;
         //console.log(this.group);
         Swal.close();
@@ -1066,7 +1067,7 @@ export class CursosComponent implements OnInit {
   users(type: any) {
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         if (type == 'modify') {
           this.user = data.users;
           this.userCount = data.users.length;
