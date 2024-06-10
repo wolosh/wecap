@@ -186,7 +186,7 @@ export class ConfiguracionComponent implements OnInit {
     if(fileToUpload.size > 524288){
       Swal.fire({
         title: '¡Error!',
-        text: 'La imagen nes muy pesada, intenta con otra.',
+        text: 'La imagen es muy pesada, intenta con otra.',
         icon: 'error',
         confirmButtonColor: '#015287',
       });
