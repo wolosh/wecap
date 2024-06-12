@@ -177,8 +177,9 @@ export class EstadisticasComponent implements OnInit {
       this.estadisticas();
       //this.estadCurso(1);
       //this.estadModulo(1);
-    } else {
-      if (localStorage.getItem('type') == '4') {
+    } else if (localStorage.getItem('type') == '4') {
+      this.route.navigate(['/cmtemplate']);
+      /*if (localStorage.getItem('type') == '4') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -192,7 +193,9 @@ export class EstadisticasComponent implements OnInit {
         });
       } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
-      }
+      }*/
+    } else {
+      this.route.navigate(['/']);
     }
   }
 

@@ -96,8 +96,9 @@ export class TestComponent implements OnInit {
           this.startTimer();
         }
       });
-    } else {
-      if (localStorage.getItem('type') == '1') {
+    } else if (localStorage.getItem('type') == '1') {
+      this.route.navigate(['/cursos']);
+      /*if (localStorage.getItem('type') == '1') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -111,7 +112,9 @@ export class TestComponent implements OnInit {
         });
       } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
-      }
+      }*/
+    } else {
+      this.route.navigate(['/']);
     }
   }
 

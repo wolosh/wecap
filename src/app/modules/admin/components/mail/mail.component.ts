@@ -49,8 +49,9 @@ export class MailComponent implements OnInit {
       this.helpers.type = localStorage.getItem('type');
       this.mails();
       this.helpers.cursos = 1;
-    } else {
-      if (localStorage.getItem('type') == '4') {
+    } else if (localStorage.getItem('type') == '4')  {
+      this.route.navigate(['/cmtemplate']);
+      /*if (localStorage.getItem('type') == '4') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -64,7 +65,9 @@ export class MailComponent implements OnInit {
         });
       } else if(localStorage.getItem('token') == null){
         this.route.navigate(['/']);
-      }
+      }*/
+    } else {
+      this.route.navigate(['/']);
     }
 
 

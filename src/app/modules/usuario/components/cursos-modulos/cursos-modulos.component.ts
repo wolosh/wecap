@@ -83,8 +83,9 @@ export class CursosModulosComponent implements OnInit {
           this.helpers.pauseTimer(this.helpers.interval);
         }
       });
-    } else {
-      if (localStorage.getItem('type') != '4') {
+    } else if (localStorage.getItem('type') != '4') {
+      this.route.navigate(['/cursos']);
+      /*if (localStorage.getItem('type') != '4') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -98,7 +99,9 @@ export class CursosModulosComponent implements OnInit {
         });
       } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
-      }
+      }*/
+    } else {
+      this.route.navigate(['/']);
     }
   }
 

@@ -159,8 +159,14 @@ export class ExamenesComponent implements OnInit {
 
   ngOnInit(): void {
     //console.log(this.helpers.domainPrueba);
+    console.log(localStorage.getItem('type'))
 
-        this.data = this.examModule;
+    this.helpers.goTop();
+    //si el usuario es administrador
+    if (localStorage.getItem('type') == '1') {
+      this.helpers.loader();
+      this.helpers.type = localStorage.getItem('type');
+      this.data = this.examModule;
     //this.data = orderDetails;
         this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Normal'};
         this.toolbar = ['Add', 'Edit', 'Delete'];
@@ -168,20 +174,13 @@ export class ExamenesComponent implements OnInit {
         this.customeridrules = { required: true };
         this.freightrules =  { required: true };
         this.editparams = { params: { popupHeight: '150px' }};
-
-
-    console.log(localStorage.getItem('type'))
-
-    this.helpers.goTop();
-    if (localStorage.getItem('type') == '1') {
-      this.helpers.loader();
-      this.helpers.type = localStorage.getItem('type');
       this.users('asignature');
       this.startForm(1);
       this.certifications();
       this.crearFormulario();
-    } else {
-      if (localStorage.getItem('type') == '4') {
+    } else if (localStorage.getItem('type') == '4') { //si el usuario es un usuario normal
+      this.route.navigate(['/cmtemplate']);
+      /*if (localStorage.getItem('type') == '4') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -195,7 +194,9 @@ export class ExamenesComponent implements OnInit {
         });
       } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
-      }
+      }*/
+    } else { //si no hay token
+      this.route.navigate(['/']);
     }
     this.helpers.cursos = 1;
   }

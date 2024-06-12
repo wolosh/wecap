@@ -48,8 +48,10 @@ export class ArchivosComponent implements OnInit {
       //this.allMedia();
       this.helpers.cursos = 1;
       //this.startForm(1);
-    } else {
-      if (localStorage.getItem('type') == '4') {
+    } else if(localStorage.getItem('type') == '4'){
+      this.route.navigate(['/cmtemplate']);
+    
+      /*if (localStorage.getItem('type') == '4') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -63,7 +65,9 @@ export class ArchivosComponent implements OnInit {
         });
       } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
-      }
+      }*/
+    } else {
+      this.route.navigate(['/']);
     }
   }
 
@@ -438,6 +442,7 @@ export class ArchivosComponent implements OnInit {
     } else {
       if (this.file != undefined) {
       console.log(this.file, this.file.name, this.formArchivos.controls['name'].value, this.formArchivos.controls['name'].value + '.' + this.file.name.split('?')[0].split('.').pop())
+      
         files.append('file', this.file, this.formArchivos.controls['name'].value + '.' + this.file.name.split('?')[0].split('.').pop());
       
         this.helpers.loader();

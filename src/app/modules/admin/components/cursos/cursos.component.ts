@@ -171,11 +171,12 @@ export class CursosComponent implements OnInit {
     //console.log(localStorage.getItem('type'))
     //console.log(this.helpers.view);
     Swal.close();
-    this.sizeColumna()
     //this.getColumnas(1)
+    //si el tipo de usuario es 1
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
       this.helpers.goTop();
+      this.sizeColumna();
       //console.log(localStorage.getItem('type'))
       //console.log(this.searchArray)
       //console.log(localStorage.getItem('name'));
@@ -186,10 +187,10 @@ export class CursosComponent implements OnInit {
       //this.helpers.cursos = 1;
       this.startForm(1);
       //console.log(this.view)
-    } else {
-
+    } else if (localStorage.getItem('type') == '4') { //si el tipo de usuario es 4
+      this.route.navigate(['/cmtemplate']);
       //console.log(localStorage.getItem('type'))
-      Swal.fire({
+      /*Swal.fire({
         title: '¡Error!',
         text: 'No tienes permiso para acceder a esta página.',
         icon: 'error',
@@ -204,7 +205,9 @@ export class CursosComponent implements OnInit {
 
           }
         }
-      });
+      });*/
+    } else { //si no es ninguno de los dos
+      this.route.navigate(['/']);
     }
   }
 
@@ -289,7 +292,7 @@ export class CursosComponent implements OnInit {
     //console.log(event, event.base64);
     //Cuanda la imagen se recorta se le da formato base64
     this.croppedImage = event.blob;
-    //console.log(this.croppedImage);
+    console.log(this.croppedImage);
   }
 
   //función que carga la imagen

@@ -64,8 +64,9 @@ export class ConferenciasComponent implements OnInit {
         link: this.link,
         promos: this._fb.array([])
       });
-    } else {
-      if (localStorage.getItem('type') == '4') {
+    } else if (localStorage.getItem('type') == '4'){
+      this.route.navigate(['/cmtemplate']);
+      /*if (localStorage.getItem('type') == '4') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -79,7 +80,9 @@ export class ConferenciasComponent implements OnInit {
         });
       } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
-      }
+      }*/
+    } else {
+      this.route.navigate(['/']);
     }
   }
 

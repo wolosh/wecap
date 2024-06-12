@@ -48,8 +48,9 @@ export class ConfiguracionComponent implements OnInit {
       this.helpers.type = localStorage.getItem('type');
       this.getConfiguration();
       this.startForm();
-    } else {
-      if (localStorage.getItem('type') == '4') {
+    } else if (localStorage.getItem('type') == '4'){
+      this.route.navigate(['/cmtemplate']);
+      /*if (localStorage.getItem('type') == '4') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -63,7 +64,9 @@ export class ConfiguracionComponent implements OnInit {
         });
       } else if(localStorage.getItem('token') == null){
         this.route.navigate(['/']);
-      }
+      }*/
+    } else {
+      this.route.navigate(['/']);
     }
   }
 

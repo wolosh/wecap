@@ -89,8 +89,9 @@ export class SeccionComponent implements OnInit {
           this.getMedallas(this.idModule);
         }
       });
-    } else {
-      if (localStorage.getItem('type') == '1') {
+    } else if (localStorage.getItem('type') == '1') {
+      this.route.navigate(['/cursos']);
+      /*if (localStorage.getItem('type') == '1') {
         Swal.fire({
           title: '¡Error!',
           text: 'No tienes permiso para acceder a esta página.',
@@ -104,7 +105,9 @@ export class SeccionComponent implements OnInit {
         });
       } else if (localStorage.getItem('token') == null) {
         this.route.navigate(['/']);
-      }
+      }*/
+    } else {
+      this.route.navigate(['/']);
     }
   }
 
@@ -178,23 +181,26 @@ export class SeccionComponent implements OnInit {
 
   temas() {
     let seeExamButton = 0;
+    //traemos los temas del modulo
     this.get.getTemas(this.idModule, localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
-      this.temasArr = data;
+      this.temasArr = data; //asignamos los temas a un arreglo
       //console.log(this.temasArr)
-      this.ultimoTema = this.temasArr[this.temasArr.length - 1];
-      this.idUltimoTema = this.ultimoTema.idTopic;
+      this.ultimoTema = this.temasArr[this.temasArr.length - 1]; //obtenemos el ultimo tema
+      this.idUltimoTema = this.ultimoTema.idTopic; 
       localStorage.setItem('idUltimoTema', this.idUltimoTema);
-      this.temasArr.forEach((element, index) => {
-        if (element.finalizado == '1') {
-          seeExamButton += 1;
+      this.temasArr.forEach((element, index) => { //recorremos los temas
+        console.log(element.finalizado, index)
+        if (parseInt(element.finalizado) == 1) { //si el tema esta finalizado
+          seeExamButton += 1; //sumamos 1 a la variable
         }
         console.log(seeExamButton, this.temasArr.length);
       });
-      if(seeExamButton = this.temasArr.length){
-        this.seeExamButton = true;
-      } else {
-        this.seeExamButton = false;
+      console.log(parseInt(this.temasArr.length));
+      if(seeExamButton == parseInt(this.temasArr.length)){ //si la variable es igual a la longitud de los temas
+        this.seeExamButton = true; //mostramos el boton de examen
+      } else { //si no
+        this.seeExamButton = false; //no mostramos el boton de examen
       }
       console.log(this.seeExamButton)
 
