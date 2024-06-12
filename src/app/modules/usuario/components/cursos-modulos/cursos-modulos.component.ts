@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef  } from '@angular/core';
 import { throws } from 'assert';
 import { Data, Router } from '@angular/router';
 import { GetService } from 'src/app/data/services/get.service';
@@ -20,8 +20,9 @@ export class CursosModulosComponent implements OnInit {
     { image: 'assets/img/carousel3.svg', text: 'Documental' },
     { image: 'assets/img/carousel4.svg', text: 'Animación' }
   ];
+  width: number; 
   showIndicator = false;
-  itemsPerSlide = 3;
+  itemsPerSlide: number;
   singleSlideOffset = true;
   noWrap = true;
   email: any;
@@ -43,9 +44,12 @@ export class CursosModulosComponent implements OnInit {
   description = '';
   allConferencias: any;
   image: any;
-  constructor(private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
+  constructor(private cdr: ChangeDetectorRef, private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
+    this.onResize({ target: { innerWidth: window.innerWidth } });
+    //this.adjustItemsPerSlide(window.innerWidth);
+    //this.changeItemsPerSlide();
     //console.log(this.helpers.view);
     /*if(localStorage.getItem('token') == null){
       window.location.href = '/login';
@@ -115,6 +119,53 @@ export class CursosModulosComponent implements OnInit {
       }
     );
   }
+
+ 
+  /*@HostListener('window:resize', ['$event'])
+	onResize(event) {
+		this.width = event.target.innerWidth;
+    if (this.width < 600) { // Móvil
+      this.itemsPerSlide = 1;
+      console.log("Movil",this.width, this.itemsPerSlide)
+    } else if (this.width < 1200) { // Tablet
+      this.itemsPerSlide = 2;
+      console.log("Tablet",this.width, this.itemsPerSlide)
+    } else { // Web
+      this.itemsPerSlide = 3;
+      console.log("Web",this.width, this.itemsPerSlide)
+    }
+	}*/
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    this.width = event.target.innerWidth;
+    if (this.width < 600) { // Móvil
+      this.itemsPerSlide = 1;
+      console.log("Movil",this.width, this.itemsPerSlide)
+    } else if (this.width < 1200) { // Tablet
+      this.itemsPerSlide = 2;
+      console.log("Tablet",this.width, this.itemsPerSlide)
+    } else { // Web
+      this.itemsPerSlide = 3;
+      console.log("Web",this.width, this.itemsPerSlide)
+    }
+    this.cdr.detectChanges();
+  }
+
+  /*@HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    this.adjustItemsPerSlide(event.target.innerWidth);
+  }
+
+  adjustItemsPerSlide(width: number): void {
+    if (width < 600) { // Móvil
+      this.itemsPerSlide = 1;
+    } else if (width < 1200) { // Tablet
+      this.itemsPerSlide = 2;
+    } else { // Web
+      this.itemsPerSlide = 3;
+    }
+  }*/
 
   changeViewCourses(view: any, id?: any) {
     //console.log(view, id);

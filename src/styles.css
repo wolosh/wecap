@@ -246,6 +246,7 @@ hr{
     border-radius: 32px !important;
     height: 100%;
     transition:all 0.25s ease-in-out;
+    object-fit: cover;
 }
 .home .card-img-overlay{
   padding: 0 !important;
@@ -260,6 +261,7 @@ hr{
 }
 .slidemodulo .item img{
   border-radius: 32px;
+  object-fit: cover;
 }
 .card-img-overlay .blue{
     position: relative;

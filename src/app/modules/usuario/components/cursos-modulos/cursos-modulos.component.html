@@ -1,10 +1,10 @@
 <div class="container-lg page-content top pb-5">
     <div class="row d-flex align-items-center">
-        <div class="col-12 col-lg-11">
+        <div class="col-10 col-lg-11">
             <h1 class="text txt-blue" *ngIf="this.cursos == 1">Cursos</h1>
             <h1 class="text txt-blue" *ngIf="this.cursos == 2">Módulos</h1>
         </div>
-        <div class="col-6 col-lg-1" *ngIf="this.cursos == 2">
+        <div class="col-2 col-lg-1" *ngIf="this.cursos == 2">
             <button class="boton rounded-pill bg-blue aspect1-1 float-end w-50" (click)="changeViewCourses(1)">
                 <i class="fas fa-reply"></i>
             </button>
@@ -68,11 +68,10 @@
         </div>-->
     </div>
     <!--Parte modulos-->
-    <div *ngIf="this.cursos == 2">
-
+    <div *ngIf="this.cursos == 2" >
         <carousel *ngIf="this.helpers.view == 1" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
             [showIndicators]="showIndicator" [interval]="0" [noWrap]="noWrap">
-            <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
+            <slide *ngFor="let slide of this.modulesCertifications; let i=index" class="pt-3 pe-3 slidemodulo">
                 <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}"
                     alt="image slide" style="display: block; width: 100%;" class="h-100 opacity">
                 <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}"
@@ -103,7 +102,7 @@
         </carousel>
         <carousel *ngIf="this.helpers.view == 0" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
             [showIndicators]="showIndicator" [interval]="0" [noWrap]="noWrap">
-            <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="p-3 slidemodulo">
+            <slide *ngFor="let slide of this.modulesCertifications ; let i=index" class="pt-3 pe-3 slidemodulo">
                 <img *ngIf="slide.finalizado == 1" src="{{this.helpers.domain+'/media/' + slide.icon}}"
                     alt="image slide opacity" style="display: block; width: 100%;" class="h-100 opacity">
                 <img *ngIf="slide.finalizado == 0" src="{{this.helpers.domain+'/media/' + slide.icon}}"
@@ -131,10 +130,6 @@
     </div>
 
 </div>
-
-
-
-
 
 <!-- Modal Archivos-->
 <div class="modal fade" id="archivos" tabindex="-1" aria-labelledby="archivos" aria-hidden="true">
