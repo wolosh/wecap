@@ -231,7 +231,7 @@ export class ExamenesComponent implements OnInit {
   }
 
   editCourse(curso: any, action: any) {
-    //console.log(this.userId, curso, action, this.dateSelected);
+    console.log(this.userId, curso, action, this.dateSelected);
     let data = new FormData();
     if (action == 'editar') {
       Swal.fire({
@@ -291,7 +291,7 @@ export class ExamenesComponent implements OnInit {
 
           this.session.quitarCurso(data, localStorage.getItem('token')).subscribe(
             (data: any) => {
-              //console.log(data);
+              console.log(data);
               Swal.fire({
                 title: '¡Modificado con exito!',
                 text: 'El usuario ha sido eliminado del curso.',

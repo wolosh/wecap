@@ -29,14 +29,20 @@ export class FooterComponent implements OnInit {
   configuration() {
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data)
+        console.log(data)
         this.socialMedia = data;
         //console.log(this.socialMedia.red_facebook)
-        if(data.red_facebook == '')this.logof = 1 
+        data.red_facebook != '' ? this.logof = 0 : this.logof = 1
+        data.red_instagram != '' ? this.logoi = 0 : this.logoi = 1
+        data.red_twitter != '' ? this.logotw = 0 : this.logotw = 1
+        data.red_tiktok != '' ? this.logot = 0 : this.logot = 1
+        data.red_youtube != '' ? this.logoy = 0 : this.logoy = 1
+        
+        /*if(data.red_facebook == '')this.logof = 1 
         if(data.red_instagram == '')this.logoi = 1
         if( data.red_twitter ==='')this.logotw = 1
         if(data.red_tiktok ==='') this.logot = 1
-        if(data.red_youtube ==='') this.logoy = 1
+        if(data.red_youtube ==='') this.logoy = 1*/
         //console.log(this.logof,this.logoi,this.logotw,this.logot,this.logoy)
         /*this.facebook=data.red_facebook;
         this.instagram=data.red_instagram;

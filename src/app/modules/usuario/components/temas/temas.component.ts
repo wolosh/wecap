@@ -375,7 +375,9 @@ export class TemasComponent implements OnInit {
                       });
                     } else if(result.dismiss === Swal.DismissReason.cancel) {
                       console.log('No examen')
+                      //this.getInfoExam(localStorage.getItem('idModule'));
                       this.route.navigate(['/seccion', this.idModule]);
+                      
                     }
                     
                   });
@@ -393,32 +395,38 @@ export class TemasComponent implements OnInit {
         });
       }
     );
-    /*if (localStorage.getItem('finalizados')) {
-      let arr = JSON.parse(localStorage.getItem('finalizados'));
-      ////console.log(idTopic, arr)
-      arr.push(idTopic);
-      ////console.log(arr)
-      localStorage.setItem('finalizados', JSON.stringify(arr));
-    } else {
-      let arr = [];
-      ////console.log(idTopic, arr)
-      arr.push(idTopic);
-      ////console.log(arr)
-      localStorage.setItem('finalizados', JSON.stringify(arr));
-    }
-    ////console.log(this.helpers.finalizados, localStorage.getItem('finalizados'))
-    Swal.fire({
-      title: '¡Tema finalizado!',
-      text: '¡Has finalizado este tema!',
-      icon: 'success',
-      confirmButtonColor: '#015287',
-    }).then((result) => {
-      //console.log(result)
-      if (result.isConfirmed) {
-        this.temasSeccion(localStorage.getItem('idModule'), localStorage.getItem('nameModule'));
-      }
-    });*/
   }
+
+  /*getInfoExam(id: any) {
+    console.log(localStorage.getItem('idModule'));
+    this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
+      (data: any) => {
+        console.log(data);
+        let start = new FormData();
+        start.append('idExamen', this.idExamBackUp);
+              console.log(start.get('idExamen'));
+              this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
+                (data: any) => {
+                  console.log(data)
+                  this.idExamBackUp = data.id;
+                  this.saveTest();
+                  //this.idExamBackUp = data.id;
+                  //console.log(this.idExamBackUp);
+                  ////console.log(data);
+                }
+              );
+        
+      }
+    );
+  }*/
+
+  /*saveTest(){
+    let send = {
+      id: this.idExamBackUp,
+      respuestas: []
+    }
+
+  }*/
 
   public temasSeccion(id: any, name: any) {
     //console.log(this.idModule, id, name)

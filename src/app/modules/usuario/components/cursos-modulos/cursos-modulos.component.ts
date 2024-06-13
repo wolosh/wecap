@@ -30,7 +30,7 @@ export class CursosModulosComponent implements OnInit {
   modulesCertifications = [] as any;
   cursos = 1;
   certificationBackup: any;
-  arrFiles: any;
+  arrFiles = [] as any;
   facebook: any;
   instagram: any;
   twitter: any;
@@ -321,13 +321,17 @@ export class CursosModulosComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data.message);
+        console.log(data.message, data);
         if(data.message == 'No encontrado'){
           console.log(data.message)
 
         } else {
         this.description = data.files.description
-        this.arrFiles = data.files.files;
+       Object.keys(data.files.files).forEach((key) => {
+        console.log(data.files.files[key], key);
+        this.arrFiles.push(data.files.files[key])
+       });
+        console.log(this.arrFiles)
         }
         //////console.log(this.arrFiles);
         Swal.close();

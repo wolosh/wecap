@@ -1690,13 +1690,13 @@ export class CursosComponent implements OnInit {
     console.log(this.idCertification);
     console.log(this.firma, this.idCertification, this.firmaBack, this.logoBack);
     console.log(this.firma, this.firmaBack, this.logo, this.logoBack)
-    if (this.firma === undefined || this.firma === null || this.firma === '' || this.logoBack === undefined || this.logoBack === null || this.logoBack === ''
-      || this.firmaBack === undefined || this.firmaBack === null || this.firmaBack === '' || this.logo === undefined || this.logo === null || this.logo === '') {
+    if (this.firma === undefined || this.firma === null || this.firma === '' || this.logo === undefined || this.logo === null || this.logo === '') {
       Swal.fire({
         title: '¡Error!',
         text: 'Tiener que seleccionar imagen de logo y firma para el diploma.',
         icon: 'error',
         confirmButtonColor: '#015287',
+        showConfirmButton: true,
       });
     } else {
 
@@ -1711,9 +1711,10 @@ export class CursosComponent implements OnInit {
         console.log(diploma.getAll('firma'), 'la firma')
 
       } else {
-        diploma.append('firma', this.firma, 'firmaDiploma.png');
+        diploma.append('firma', this.firma, 'firmaDiploma' + this.idCertification + '.png');
         console.log(diploma.getAll('firma'), 'la firma')
-      }
+    }
+      
 
       if (this.hasDiploma == true) {
         diploma.append('activado', '1');
@@ -1725,9 +1726,10 @@ export class CursosComponent implements OnInit {
         diploma.append('logo', this.logoBack);
         console.log(diploma.getAll('logo'), 'el logo')
       } else {
-        diploma.append('logo', this.logo, 'logoDiploma.png');
+        diploma.append('logo', this.logo, 'logoDiploma' + this.idCertification + '.png');
         console.log(diploma.getAll('logo'), 'el logo')
-      }
+        }
+      
 
       console.log(diploma.getAll('cursoID'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('firma'), diploma.getAll('activado'), diploma.getAll('logo'));
       //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);

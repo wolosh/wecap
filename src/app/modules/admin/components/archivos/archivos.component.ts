@@ -113,13 +113,13 @@ export class ArchivosComponent implements OnInit {
 
   selectFiles(event: any, type: any, name?: any, url?: any) {
     //console.log(event.target.files, type, name, url, this.cloneIn, this.file);
-    //console.log(event.target.files[0])
-    if (type == 'archivo') {
+    console.log(event.target.files);
+    /*if (type == 'archivo') {
       this.file = event.target.files[0];
       //console.log(this.file, this.file.name.split('?')[0].split('.').pop());
     } else if (type == 'media') {
       this.file = event.target.files[0];
-    }
+    }*/
     //console.log(this.file);
   }
 
@@ -444,7 +444,7 @@ export class ArchivosComponent implements OnInit {
       console.log(this.file, this.file.name, this.formArchivos.controls['name'].value, this.formArchivos.controls['name'].value + '.' + this.file.name.split('?')[0].split('.').pop())
       
         files.append('file', this.file, this.formArchivos.controls['name'].value + '.' + this.file.name.split('?')[0].split('.').pop());
-      
+        
         this.helpers.loader();
         this.session.uploadFile( files, localStorage.getItem('token')).subscribe(
           (data: any) => {

@@ -155,8 +155,20 @@ export class PerfilUsuarioComponent implements OnInit {
         this.get.getModules(this.cursoSelected, localStorage.getItem('token')).subscribe(
           (data: any) => {
             //console.log(data);
+            let note = 0;
             this.modulesCertifications = data;
-            this.diploma(this.userId, this.cursoSelected);
+            for(let module of this.modulesCertifications){
+              console.log(module.calificacion)
+              if(module.calificacion != '' && module.calificacion != 'N/A'){
+                note++;
+              }
+              if(note == parseInt(this.modulesCertifications.length)){
+                this.diploma(this.userId, this.cursoSelected);
+              } else {
+                this.urlDiploma = '1'
+              }
+            }
+            //this.diploma(this.userId, this.cursoSelected);
             console.log(this.modulesCertifications);
             //this.files(id);
           }
