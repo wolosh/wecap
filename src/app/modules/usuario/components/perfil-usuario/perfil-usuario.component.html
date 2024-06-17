@@ -52,13 +52,13 @@
                                 </div>
                             </td>
                             <td class="" *ngIf="modulo.calificacion != 'N/A' && modulo.intentos != ''">{{modulo.calificacion}}, {{modulo.intentos}}</td>
-                            <td class="" *ngIf="modulo.calificacion == 'N/A' && modulo.intentos == ''">{{modulo.calificacion}}, 0</td>
-                            <td class="" *ngIf="modulo.calificacion == 'N/A' && modulo.intentos != ''">{{modulo.calificacion}}, {{modulo.intentos}}</td>
+                            <td class="" *ngIf="modulo.calificacion == 'N/A' && modulo.intentos == ''">Sin calificación, 0</td>
+                            <td class="" *ngIf="modulo.calificacion == 'N/A' && modulo.intentos != ''">Sin calificacion, {{modulo.intentos}}</td>
                             <td class="">{{modulo.fechaAsignacion}}</td>
                             <td class="" *ngIf="modulo.fechaTermino != ''">{{modulo.fechaTermino}}</td>
                             <td class="" *ngIf="modulo.fechaTermino == ''">Sin terminar</td>
-                            <td class="" *ngIf="modulo.duracion != ''">{{modulo.duracion}}</td>
-                            <td class="" *ngIf="modulo.duracion == '' ">N/A</td>
+                            <td class="" *ngIf="modulo.duracion != '' && modulo.duracion != 'N/A'">{{modulo.duracion}}</td>
+                            <td class="" *ngIf="modulo.duracion == '' || modulo.duracion == 'N/A'">No tienes tiempo dentro del curso</td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,11 +95,18 @@
                                 <i *ngIf="this.tema.finalizado == 1" class="fas fa-check ps-4" style="color: #015287;"></i>
                                 <i *ngIf="this.tema.finalizado == 0" class="fas fa-times ps-4" style="color: #015287;"></i>
                             </td>
-                            <td class="">{{this.times[i]?.tiempo}}</td>
+                            <td class="" *ngIf="this.times[i]?.tiempo != '' && this.times[i]?.tiempo != 'N/A'">{{this.times[i]?.tiempo}}</td>
+                            <td class="" *ngIf="this.times[i]?.tiempo == ''">Sin tiempo en el tema</td>
+                            <td class="" *ngIf="this.times[i]?.tiempo == 'N/A'">Sin tiempo en el tema</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <div class="row mt-4" *ngIf="this.temas == 0">
+        <div class="col-12">
+            <label class="text5 txt-blue mt-0">Este módulo aun no cuenta con temas.</label>
         </div>
     </div>
 </div>

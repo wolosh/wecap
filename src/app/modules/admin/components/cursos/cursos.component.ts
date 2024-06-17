@@ -2170,7 +2170,7 @@ export class CursosComponent implements OnInit {
       let modulo = new FormData();
       modulo.append('idCertification', this.idCertification);
       modulo.append('title', this.formModulo.value.title);
-      modulo.append('description', this.formModulo.value.descripcion);
+      modulo.append('description', this.formModulo.value.description);
       /*if(this.imgIconoDos != undefined){
         modulo.append('icon', this.imgIconoDos);
       } else {

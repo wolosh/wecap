@@ -48,7 +48,7 @@ export class SeccionComponent implements OnInit {
 
     //console.log(localStorage.getItem('idCertification'));
     if (localStorage.getItem('type') == '4') {
-      this.helpers.view = parseInt(localStorage.getItem('view'));
+    this.helpers.view = parseInt(localStorage.getItem('view'));
       //console.log(this.helpers.view, localStorage.getItem('idModule'))
       this.helpers.goTop();
       Swal.fire({
@@ -67,6 +67,7 @@ export class SeccionComponent implements OnInit {
           }
 
           this.helpers.type = localStorage.getItem('type');
+          console.log(this.helpers.view)
           //this.session.curso = true;
           //this.helpers.conferencias = true;
           //console.log(this.helpers.type, this.session.curso)
@@ -185,7 +186,7 @@ export class SeccionComponent implements OnInit {
     this.get.getTemas(this.idModule, localStorage.getItem('token')).subscribe((data: any) => {
       console.log(data)
       this.temasArr = data; //asignamos los temas a un arreglo
-      //console.log(this.temasArr)
+      console.log(this.temasArr, this.helpers.view)
       this.ultimoTema = this.temasArr[this.temasArr.length - 1]; //obtenemos el ultimo tema
       this.idUltimoTema = this.ultimoTema.idTopic; 
       localStorage.setItem('idUltimoTema', this.idUltimoTema);

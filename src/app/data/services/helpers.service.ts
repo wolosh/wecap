@@ -168,14 +168,15 @@ export class HelpersService {
     let tema = new FormData();
     let date = new Date();
 
-    //console.log(date)
+    console.log(date);
+    console.log(startDate);
 
     tema.append('idTema', idTheme);
     tema.append('inicio', startDate);
     tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
     tema.append('finalizado', '0');
 
-    //console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
+    console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
 
     this.session.saveTheme(tema, localStorage.getItem('token')).subscribe(
       (data: any) => {

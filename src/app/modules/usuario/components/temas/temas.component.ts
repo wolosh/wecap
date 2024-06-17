@@ -12,6 +12,8 @@ import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { interval } from 'rxjs';
+import { Time } from '@angular/common';
 
 
 @Component({
@@ -53,6 +55,11 @@ export class TemasComponent implements OnInit {
   isLoaded: boolean = false;
   hasFile: number = 0;
   videoShow: number = 0;
+  timeLeft: number = 60; //variabe timer
+  interval: any;
+  //variable para guardar el valor de el setInterval
+  n: any;
+  count = 0;
 
   unloadEvent = function (e) {
     var confirmationMessage = "Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?";
@@ -87,7 +94,12 @@ export class TemasComponent implements OnInit {
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
+          //this.startTimer();
            //window.onbeforeunload = this.helpers.confirmExit;
+           //this.contador(1);
+           /*this.n = setInterval(() => {
+            this.contador(1);
+           }, 1000);*/
     this.helpers.name = localStorage.getItem('userName');
     //console.log(this.helpers.name)
     this.comentario = localStorage.getItem('isComentario');
@@ -136,6 +148,54 @@ export class TemasComponent implements OnInit {
     }
   };
 
+  contador(type: number){
+    //si type es igual a 1 se inicia el contador y comienza a incrementarse
+    //si type es igual a 2 se detiene el contador y se muestra el tiempo transcurrido
+    if(type == 1){
+      this.count++;
+      console.log(this.count);
+    } else {
+      console.log(this.count);
+      clearInterval(this.n);
+    }
+    console.log(this.count);
+  }
+
+  stopContador(){
+    console.log(this.n);
+  }
+
+  /*startTimer() {
+    setTimeout(() => {
+      Swal.close();
+    }, 800);
+    this.interval = setInterval(() => {
+      this.helpers.interval = this.interval;
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        console.log(this.timeLeft, this.interval);
+        //this.transform(this.timeLeft);
+        //this.secondsToTime(this.timeLeft);
+      } else if (this.timeLeft === 0) {
+        this.helpers.pauseTimer(this.interval);
+        this.timeLeft = undefined;
+        Swal.fire({
+          title: '¿Aún sigues ahí?',
+          text: 'Redirigiendo a la página de inicio en 10 segundos',
+          icon: 'info',
+          allowOutsideClick: false,
+          confirmButtonColor: '#015287',
+        }).then((result) => {
+          console.log(result)*/
+          /*if (result.isConfirmed) {
+            this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
+            //this.valido = false;
+            //localStorage.setItem('test', this.valido.toString());
+          }*/
+       /* });
+      }
+    }, 1000);
+  }*/
   /*checkFinalizado(arr: any) {
       //console.log(arr);
     if (arr != null) {
@@ -432,11 +492,12 @@ export class TemasComponent implements OnInit {
     //console.log(this.idModule, id, name)
     //his.helpers.idModuleBackUp = this.idModule;
     //this.helpers.nameModuleBackUp = name;
-    this.helpers.idTopicBackUp = this.idTopic;
-    this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
+    //this.helpers.idTopicBackUp = this.idTopic;
     //this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
+    this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
     this.route.navigate(['/seccion', this.idModule]);
-    //this.session.curso = true;
+    this.session.curso = true;
+    //this.stopContador();
   }
 
   temasLike(id: any, like: any) {

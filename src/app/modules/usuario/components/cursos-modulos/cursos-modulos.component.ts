@@ -220,15 +220,16 @@ export class CursosModulosComponent implements OnInit {
             //console.log(element.idCertification, recharge);
             //console.log(element.idCertification);
             if(element.idCertification == recharge){
-              //console.log(element.secuencial);
+              console.log(element.secuencial);
               if(element.secuencial == 2){
                 this.helpers.view = 0;
+                localStorage.setItem('view', '0');
               } else {
               this.helpers.view = element.secuencial;
               localStorage.setItem('view', element.secuencial);
               }
             }
-            //console.log(this.helpers.view, localStorage.getItem('view'))
+            console.log(this.helpers.view, localStorage.getItem('view'))
           });
           this.modules(recharge);
           localStorage.setItem('idCertification', recharge);

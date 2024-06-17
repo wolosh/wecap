@@ -149,6 +149,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   changeOption(type: any) {
     console.log(type, this.cursoSelected, this.userId);
+    this.helpers.loader();
     switch (type) {
       case 'curso':
         this.helpers.goTop();
@@ -174,12 +175,16 @@ export class PerfilUsuarioComponent implements OnInit {
           }
         );
         this.modulos = 1;
+        Swal.close();
         break;
       case 'modulo':
         console.log(this.userId);
         this.times = [];
         this.get.getTemas(this.moduloSelected, localStorage.getItem('token')).subscribe((data: any) => {
           console.log(data)
+          if(data.length == 0){
+            this.temas = 0;
+          } else {
           for(let tema of data){
             console.log(tema.idTopic)
             this.get.getUserTime(tema.idTopic, this.userId, localStorage.getItem('token')).subscribe((data: any) => {
@@ -212,9 +217,12 @@ export class PerfilUsuarioComponent implements OnInit {
               });
             }
           }*/
+            this.temas = 1;
+        }
           Swal.close();
         });
-        this.temas = 1;
+        //this.temas = 1;
+      
         break;
 
     }
