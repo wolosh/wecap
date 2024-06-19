@@ -354,11 +354,11 @@ export class TestComponent implements OnInit {
 
     //this.opCount++;
     if(this.objResp.hasOwnProperty(question)){
-      console.log('existe', question)
+      //console.log('existe', question)
       if(this.objResp[question].includes(event.target.value)){
-        console.log('existe', question, event.target.value)
+        //console.log('existe', question, event.target.value)
         if(this.objResp[question].length == 1){
-          console.log('no hay nada', this.objResp[question])
+          //console.log('no hay nada', this.objResp[question])
           delete this.objResp[question];
         } else {
         this.objResp[question] = this.objResp[question].filter((item) => item !== event.target.value);
@@ -371,7 +371,7 @@ export class TestComponent implements OnInit {
     }
 
 
-    console.log(this.objResp)
+    //console.log(this.objResp)
   }
 
   /*changeOption() {
@@ -516,16 +516,16 @@ export class TestComponent implements OnInit {
   }*/
 
   onKey(event, id){
-    console.log(event.target.value, id);
+    //console.log(event.target.value, id);
     if(event.target.value == '') {
       delete this.objResp[id];
     } else {
     this.objResp[id] = [event.target.value];
     }
-    console.log(this.objResp);
+    //console.log(this.objResp);
   }
   saveTest() {
-    console.log(this.idExamBackUp, this.objResp, Object.keys(this.objResp).length, this.questionsExam.length);
+    //console.log(this.idExamBackUp, this.objResp, Object.keys(this.objResp).length, this.questionsExam.length);
     if (Object.keys(this.objResp).length < this.questionsExam.length) {
       Swal.fire({
         title: '¡Error!',
@@ -543,10 +543,10 @@ export class TestComponent implements OnInit {
         ////console.log(key, index, this.objResp[key]);
         send.respuestas.push({ idEval_question: key, respuesta: this.objResp[key] });
       });
-      console.log(send)
+      //console.log(send)
       this.session.calificaExamen(send, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
           //this.calFinal = data.calificacion;
           this.valido =  true;
 
@@ -604,7 +604,7 @@ export class TestComponent implements OnInit {
             }
           });*/
         } ,(error: any) => {
-          console.log(error);
+          //console.log(error);
         }
       );
       this.helpers.pauseTimer(this.interval);

@@ -67,7 +67,7 @@ export class SeccionComponent implements OnInit {
           }
 
           this.helpers.type = localStorage.getItem('type');
-          console.log(this.helpers.view)
+          //console.log(this.helpers.view)
           //this.session.curso = true;
           //this.helpers.conferencias = true;
           //console.log(this.helpers.type, this.session.curso)
@@ -141,7 +141,7 @@ export class SeccionComponent implements OnInit {
   getMedallas(id: any) {
     this.get.medallas(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         if (data.length > 0) {
           this.showMedallas = true;
         } else {
@@ -184,26 +184,26 @@ export class SeccionComponent implements OnInit {
     let seeExamButton = 0;
     //traemos los temas del modulo
     this.get.getTemas(this.idModule, localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.temasArr = data; //asignamos los temas a un arreglo
-      console.log(this.temasArr, this.helpers.view)
+      //console.log(this.temasArr, this.helpers.view)
       this.ultimoTema = this.temasArr[this.temasArr.length - 1]; //obtenemos el ultimo tema
       this.idUltimoTema = this.ultimoTema.idTopic; 
       localStorage.setItem('idUltimoTema', this.idUltimoTema);
       this.temasArr.forEach((element, index) => { //recorremos los temas
-        console.log(element.finalizado, index)
+        //console.log(element.finalizado, index)
         if (parseInt(element.finalizado) == 1) { //si el tema esta finalizado
           seeExamButton += 1; //sumamos 1 a la variable
         }
-        console.log(seeExamButton, this.temasArr.length);
+        //console.log(seeExamButton, this.temasArr.length);
       });
-      console.log(parseInt(this.temasArr.length));
+      //console.log(parseInt(this.temasArr.length));
       if(seeExamButton == parseInt(this.temasArr.length)){ //si la variable es igual a la longitud de los temas
         this.seeExamButton = true; //mostramos el boton de examen
       } else { //si no
         this.seeExamButton = false; //no mostramos el boton de examen
       }
-      console.log(this.seeExamButton)
+      //console.log(this.seeExamButton)
 
       Swal.close();
     });
@@ -212,9 +212,9 @@ export class SeccionComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data.message);
+        //console.log(data.message);
         if(data.message == 'No encontrado'){
-          console.log(data.message)
+          //console.log(data.message)
 
         } else {
         this.description = data.files.description
@@ -305,8 +305,8 @@ export class SeccionComponent implements OnInit {
     } else {
       this.get.getCalificacion(this.idExamBackUp, localStorage.getItem('token')).subscribe(
         (data: any) => {
-          console.log(this.score);
-          console.log(data.calificacion);
+          //console.log(this.score);
+          //console.log(data.calificacion);
         if (parseInt(data.calificacion) >= this.score) {
           Swal.fire({
             title: '¡Felicidades!',
@@ -315,7 +315,7 @@ export class SeccionComponent implements OnInit {
             confirmButtonColor: '#015287',
           });
         } else if(data.calificacion == 'Pendiente de calificacion'){
-          console.log('pendiente');
+          //console.log('pendiente');
           Swal.fire({
             title: '¡Calificación pendiente!',
             text: 'Pronto uno de los administradores calificara tus respuestas.',
@@ -331,7 +331,7 @@ export class SeccionComponent implements OnInit {
           });
         }
       },(error) => {
-        console.log(error);
+        //console.log(error);
       });
     }
   }
@@ -348,10 +348,10 @@ export class SeccionComponent implements OnInit {
 
   getInfoExam(id: any) {
     this.test = false;
-    console.log(id);
+    //console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.score = data.min_score;
         if (data.message == 'No se encontro examen para el modulo indicado') {
           this.test = false;
@@ -362,7 +362,7 @@ export class SeccionComponent implements OnInit {
           //console.log(this.idExamBackUp)
           this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
             (data: any) => {
-              console.log(data);
+              //console.log(data);
               if (parseInt(data.calificacion) > 0) {
                 this.test = true;
               } else {

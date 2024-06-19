@@ -35,6 +35,9 @@ export class HelpersService {
   view: any;
   startDate = '';
   message = "You have not filled out the form.";
+  count: number = 0;
+  finalizado: number = 2;
+  n: any;
 
   constructor(private route: Router, public session:SessionService) {
     if (this.domainPrueba.includes('americargo')) {
@@ -164,24 +167,26 @@ export class HelpersService {
     });
   }
 
-  public endTheme(idTheme:any, startDate:any, token:any){
+  public endTheme(idTheme:any, segundos:any, token:any, end?:any){
     let tema = new FormData();
     let date = new Date();
 
-    console.log(date);
-    console.log(startDate);
+    //console.log(date);
+    //console.log(segundos, end);
 
     tema.append('idTema', idTheme);
-    tema.append('inicio', startDate);
-    tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
-    tema.append('finalizado', '0');
+    tema.append('segundos', segundos);
+    //tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+    tema.append('finalizado', end);
 
-    console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
+    //console.log(tema.get('idTema'), tema.get('segundos'), tema.get('finalizado'))
 
     this.session.saveTheme(tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.startDate = '';
+        this.finalizado = 2;
+        this.count = 0;
       }
     );
   }

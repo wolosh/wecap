@@ -97,9 +97,11 @@ export class TemasComponent implements OnInit {
           //this.startTimer();
            //window.onbeforeunload = this.helpers.confirmExit;
            //this.contador(1);
-           /*this.n = setInterval(() => {
+           //this.getActive();
+           this.n = setInterval(() => {
+            this.helpers.n = this.n;
             this.contador(1);
-           }, 1000);*/
+           }, 1000);
     this.helpers.name = localStorage.getItem('userName');
     //console.log(this.helpers.name)
     this.comentario = localStorage.getItem('isComentario');
@@ -148,21 +150,76 @@ export class TemasComponent implements OnInit {
     }
   };
 
-  contador(type: number){
+  contador(type: number, turn?:any){
     //si type es igual a 1 se inicia el contador y comienza a incrementarse
     //si type es igual a 2 se detiene el contador y se muestra el tiempo transcurrido
     if(type == 1){
-      this.count++;
-      console.log(this.count);
+      this.helpers.count++;
+      //this.helpers.count = this.count;
+      this.helpers.finalizado = this.finalizado;
+      //console.log(this.helpers.count);
     } else {
-      console.log(this.count);
+      //console.log(this.helpers.count);
+      if(turn == true){
+        //this.helpers.count = this.count;
+        //this.helpers.finalizado = this.finalizado;
+        this.temasSeccion(this.idModule, this.helpers.nameModuleBackUp);
+       } else {
+        //this.helpers.count = this.count;
+        //this.helpers.finalizado = this.finalizado;
+      this.temaFinalizado(this.idTopic);
+      }
       clearInterval(this.n);
     }
-    console.log(this.count);
+    //console.log(this.helpers.count);
   }
 
-  stopContador(){
-    console.log(this.n);
+  getActive(){
+    //console.log(document.onclick, document.onscroll, document.onmousemove)
+    restartTime();
+    var t, c;
+    document.ontouchmove = restartTime;
+    document.ontouchstart = restartTime;
+    document.onclick = restartTime;
+    document.onscroll = restartTime;
+    document.onload = restartTime;
+    document.onmousemove = restartTime;
+    document.onmousedown = restartTime;
+
+    function timeOut(){
+      //console.log(t)
+
+
+      Swal.fire({
+        title: '¿Sigues ahí?',
+        text: 'Si se detecta inactividad te redirigiremos a la sección de temas en 60 segundos',
+        icon: 'info',
+        confirmButtonColor: '#015287',
+        cancelButtonColor: '#d33',
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: 'Seguir aquí',
+        cancelButtonText: 'Salir'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //this.route.navigate(['/']);
+          Swal.close();
+          //console.log(t)
+          restartTime();
+          //console.log('seguir')
+        } else {
+          //console.log('salir')
+          clearTimeout(t);
+          this.contador(0);
+          this.temasSeccion(this.idModule)
+        }
+      });
+    }
+
+    function restartTime(){
+      clearTimeout(t);
+      t = setTimeout(timeOut, 10000);
+    }
   }
 
   /*startTimer() {
@@ -212,7 +269,7 @@ export class TemasComponent implements OnInit {
 
   checkFocus(){
     ChangeDetectorRef.prototype.detectChanges = function () {
-      console.log('detectado');
+      //console.log('detectado');
 
     };
     /*if(document.hasFocus() == false){
@@ -250,7 +307,7 @@ export class TemasComponent implements OnInit {
 
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       if (data.like != null) {
         this.userLike = true;
         //console.log(data.like.tipo);
@@ -272,7 +329,7 @@ export class TemasComponent implements OnInit {
       let date = new Date();
       this.startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
       this.helpers.startDate = this.startDate;
-      console.log(this.startDate, this.helpers.startDate)
+      //console.log(this.startDate, this.helpers.startDate)
       if (data.url_video == '' || data.url_video == 'null') {
         this.videoShow = 0;
         //console.log(this.video)
@@ -391,11 +448,12 @@ export class TemasComponent implements OnInit {
     let date = new Date();
     //console.log(date)
     tema.append('idTema', this.idTopic);
-    tema.append('inicio', this.startDate);
-    tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+    tema.append('segundos', this.count.toString());
+    //tema.append('inicio', this.startDate);
+    //tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
     tema.append('finalizado', '1');
 
-    //console.log(tema.get('idTema'), tema.get('inicio'), tema.get('fin'))
+    //console.log(tema.get('idTema'), tema.get('segundos'), tema.get('finalizado'))
 
     this.session.saveTheme(tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
@@ -434,7 +492,7 @@ export class TemasComponent implements OnInit {
                         localStorage.setItem('nameModule', this.helpers.nameModuleBackUp);
                       });
                     } else if(result.dismiss === Swal.DismissReason.cancel) {
-                      console.log('No examen')
+                     // console.log('No examen')
                       //this.getInfoExam(localStorage.getItem('idModule'));
                       this.route.navigate(['/seccion', this.idModule]);
                       
@@ -445,7 +503,7 @@ export class TemasComponent implements OnInit {
               }
             });
           }else {
-            console.log('No es el ultimo tema')
+            //console.log('No es el ultimo tema')
             this.route.navigate(['/seccion', this.idModule]);
           }
           //console.log(result)
@@ -488,13 +546,13 @@ export class TemasComponent implements OnInit {
 
   }*/
 
-  public temasSeccion(id: any, name: any) {
+  public temasSeccion(id: any, name?: any) {
     //console.log(this.idModule, id, name)
     //his.helpers.idModuleBackUp = this.idModule;
     //this.helpers.nameModuleBackUp = name;
     //this.helpers.idTopicBackUp = this.idTopic;
     //this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
-    this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
+    this.helpers.endTheme( this.idTopic, this.count, localStorage.getItem('token'), this.finalizado);
     this.route.navigate(['/seccion', this.idModule]);
     this.session.curso = true;
     //this.stopContador();
@@ -535,9 +593,9 @@ export class TemasComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data.message);
+        //console.log(data.message);
         if(data.message == 'No encontrado'){
-          console.log(data.message)
+          //console.log(data.message)
 
         } else {
         this.description = data.files.description
@@ -564,7 +622,7 @@ export class TemasComponent implements OnInit {
     //console.log(id)
     this.get.checkTheme(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data)
+        //console.log(data)
         if (data.finalizado == true) {
           this.finalizado = 1;
           this.helpers.nameTopicBackUp = this.nameTopic + ' - Finalizado'

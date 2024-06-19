@@ -45,10 +45,16 @@ export class PerfilUsuarioComponent implements OnInit {
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
-          if(this.helpers.startDate != ''){
+          //console.log(this.helpers.count, this.helpers.finalizado)
+          if(this.helpers.count != 0 && this.helpers.finalizado != 2){
+            //console.log('si es diferente');
+            this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.count, localStorage.getItem('token'), this.helpers.finalizado);
+            this.helpers.pauseTimer(this.helpers.n);
+          }
+          /*if(this.helpers.count != 0){
             console.log(this.helpers.idTopicBackUp,this.helpers.startDate)
             this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.startDate, localStorage.getItem('token'));
-          }
+          }*/
           ////console.log(localStorage.getItem('type'));
           this.helpers.pauseTimer(this.helpers.interval);
           this.helpers.type = localStorage.getItem('type');
@@ -88,9 +94,9 @@ export class PerfilUsuarioComponent implements OnInit {
   certifications() {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
-        console.log(this.certificaciones);
+        //console.log(this.certificaciones);
         Swal.close();
       }
     );
@@ -110,7 +116,7 @@ export class PerfilUsuarioComponent implements OnInit {
     //console.log(id)
     this.get.getPerfil(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data, data.idUser);
+        //console.log(data, data.idUser);
         this.userId = data.idUser;
         this.allPerfil = data;
         //console.log()
@@ -124,7 +130,7 @@ export class PerfilUsuarioComponent implements OnInit {
         //console.log(data);
         this.helpers.conferencias = true;
         this.allConferencias = data;
-        console.log(this.allConferencias);
+        //console.log(this.allConferencias);
       }
     );
   }
@@ -132,9 +138,9 @@ export class PerfilUsuarioComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data.message);
+        //console.log(data.message);
         if (data.message == 'No encontrado') {
-          console.log(data.message)
+          //console.log(data.message)
 
         } else {
           this.session.archivos = true;
@@ -148,7 +154,7 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   changeOption(type: any) {
-    console.log(type, this.cursoSelected, this.userId);
+    //console.log(type, this.cursoSelected, this.userId);
     this.helpers.loader();
     switch (type) {
       case 'curso':
@@ -159,18 +165,22 @@ export class PerfilUsuarioComponent implements OnInit {
             let note = 0;
             this.modulesCertifications = data;
             for(let module of this.modulesCertifications){
-              console.log(module.calificacion)
+              //console.log(module.calificacion)
               if(module.calificacion != '' && module.calificacion != 'N/A'){
                 note++;
-              }
-              if(note == parseInt(this.modulesCertifications.length)){
-                this.diploma(this.userId, this.cursoSelected);
-              } else {
-                this.urlDiploma = '1'
+                //console.log(note)
               }
             }
+            //console.log(note)
+            if(note == parseInt(this.modulesCertifications.length)){
+              //console.log(note, this.modulesCertifications.length)
+              this.diploma(this.userId, this.cursoSelected);
+            } else {
+              //console.log(note, this.modulesCertifications.length)
+              this.urlDiploma = '1'
+            }
             //this.diploma(this.userId, this.cursoSelected);
-            console.log(this.modulesCertifications);
+            //console.log(this.modulesCertifications);
             //this.files(id);
           }
         );
@@ -178,30 +188,30 @@ export class PerfilUsuarioComponent implements OnInit {
         Swal.close();
         break;
       case 'modulo':
-        console.log(this.userId);
+        //console.log(this.userId);
         this.times = [];
         this.get.getTemas(this.moduloSelected, localStorage.getItem('token')).subscribe((data: any) => {
-          console.log(data)
+          //console.log(data)
           if(data.length == 0){
             this.temas = 0;
           } else {
           for(let tema of data){
-            console.log(tema.idTopic)
+            //console.log(tema.idTopic)
             this.get.getUserTime(tema.idTopic, this.userId, localStorage.getItem('token')).subscribe((data: any) => {
-              console.log(data);
+              //console.log(data);
               this.times.push(data);
-              console.log(this.times);
+              //console.log(this.times);
             });
           }
-          console.log(this.times);
+          //console.log(this.times);
           this.temasArr = data;
           //console.log(this.temasArr)
           for(let tema of this.temasArr){
             if(tema.idTopic){
               this.get.getTemaVisto(tema.idTopic, localStorage.getItem('token')).subscribe((data: any) => {
-                console.log(data)
+                //console.log(data)
                 this.visto = data.finalizado;
-                console.log(this.visto)
+                //console.log(this.visto)
                 Swal.close();
               });
             }
@@ -231,9 +241,9 @@ export class PerfilUsuarioComponent implements OnInit {
 
   //trae el diploma del usuario
   diploma(user:any, course:any){
-    console.log(user, course);
+    //console.log(user, course);
     this.get.getUserDiploma(user, course, localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data);
+      //console.log(data);
       if(data.code == 400){
         if(data.message == 'No se ha finalizado el modulo')
         {
@@ -259,7 +269,7 @@ export class PerfilUsuarioComponent implements OnInit {
         //window.open(this.urlDiploma, '_blank');
       }
       Swal.close();
-      console.log(this.urlDiploma);
+      //console.log(this.urlDiploma);
     });
   }
 }

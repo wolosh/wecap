@@ -21,6 +21,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
+    if(this.helpers.count != 0 && this.helpers.finalizado != 2){
+      //console.log('si es diferente');
+      this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.count, localStorage.getItem('token'), this.helpers.finalizado);
+      this.helpers.pauseTimer(this.helpers.n);
+    }
     if(!localStorage.getItem('token')){
     this.startForm();
     } else{
@@ -65,7 +70,7 @@ export class LoginComponent implements OnInit {
         Swal.showLoading()
         this.session.login(this.formLogin.value.email, this.formLogin.value.password).subscribe(
           (data: Data) => {
-            console.log(data)
+            //console.log(data)
             //console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
             localStorage.setItem('token', data['token']);
             localStorage.setItem('userName', data['full_name']);

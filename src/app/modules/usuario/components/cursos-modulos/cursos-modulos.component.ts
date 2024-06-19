@@ -66,10 +66,16 @@ export class CursosModulosComponent implements OnInit {
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
-          if(this.helpers.startDate != ''){
+          //console.log(this.helpers.count, this.helpers.finalizado)
+          if(this.helpers.count != 0 && this.helpers.finalizado != 2){
+            //console.log('si es diferente');
+            this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.count, localStorage.getItem('token'), this.helpers.finalizado);
+            this.helpers.pauseTimer(this.helpers.n);
+          }
+          /*if(this.helpers.startDate != ''){
             console.log(this.helpers.idTopicBackUp,this.helpers.startDate)
             this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.startDate, localStorage.getItem('token'));
-          }
+          }*/
           ////console.log(localStorage.getItem('type'));
           this.helpers.type = localStorage.getItem('type');
           this.profile();
@@ -141,13 +147,13 @@ export class CursosModulosComponent implements OnInit {
     this.width = event.target.innerWidth;
     if (this.width < 600) { // Móvil
       this.itemsPerSlide = 1;
-      console.log("Movil",this.width, this.itemsPerSlide)
+      //console.log("Movil",this.width, this.itemsPerSlide)
     } else if (this.width < 1200) { // Tablet
       this.itemsPerSlide = 2;
-      console.log("Tablet",this.width, this.itemsPerSlide)
+      //console.log("Tablet",this.width, this.itemsPerSlide)
     } else { // Web
       this.itemsPerSlide = 3;
-      console.log("Web",this.width, this.itemsPerSlide)
+      //console.log("Web",this.width, this.itemsPerSlide)
     }
     this.cdr.detectChanges();
   }
@@ -212,7 +218,7 @@ export class CursosModulosComponent implements OnInit {
   certifications(recharge?:any) {
     this.get.getCertifications(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.certificaciones = data;
         //console.log(this.certificaciones);
         if(recharge){
@@ -220,7 +226,7 @@ export class CursosModulosComponent implements OnInit {
             //console.log(element.idCertification, recharge);
             //console.log(element.idCertification);
             if(element.idCertification == recharge){
-              console.log(element.secuencial);
+              //console.log(element.secuencial);
               if(element.secuencial == 2){
                 this.helpers.view = 0;
                 localStorage.setItem('view', '0');
@@ -229,7 +235,7 @@ export class CursosModulosComponent implements OnInit {
               localStorage.setItem('view', element.secuencial);
               }
             }
-            console.log(this.helpers.view, localStorage.getItem('view'))
+            //console.log(this.helpers.view, localStorage.getItem('view'))
           });
           this.modules(recharge);
           localStorage.setItem('idCertification', recharge);
@@ -255,17 +261,17 @@ export class CursosModulosComponent implements OnInit {
     this.get.getModules(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         this.modulesCertifications = []
-        console.log(this.helpers.view, this.cursos, data, data.icon, data.finalizado);
+        //console.log(this.helpers.view, this.cursos, data, data.icon, data.finalizado);
 
 
         //this.modulesCertifications = data;
         //console.log(this.modulesCertifications.finalizado);
         for (let item of data) {
-          console.log(item)
+          //console.log(item)
           this.modulesCertifications.push(item);
-          console.log(this.modulesCertifications)
+          //console.log(this.modulesCertifications)
           this.finalizado = item.finalizado
-          console.log()
+          //console.log()
           this.idModulo = item.idModule;
           this.get.medallas(this.idModulo, localStorage.getItem('token')).subscribe(
             (data: any) => {
@@ -322,17 +328,17 @@ export class CursosModulosComponent implements OnInit {
   files(id: any) {
     this.get.getFiles(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data.message, data);
+        //console.log(data.message, data);
         if(data.message == 'No encontrado'){
-          console.log(data.message)
+          //console.log(data.message)
 
         } else {
         this.description = data.files.description
        Object.keys(data.files.files).forEach((key) => {
-        console.log(data.files.files[key], key);
+        //console.log(data.files.files[key], key);
         this.arrFiles.push(data.files.files[key])
        });
-        console.log(this.arrFiles)
+        //console.log(this.arrFiles)
         }
         //////console.log(this.arrFiles);
         Swal.close();
