@@ -38,23 +38,30 @@ export class HelpersService {
   count: number = 0;
   finalizado: number = 2;
   n: any;
+  company = '';
 
   constructor(private route: Router, public session:SessionService) {
     if (this.domainPrueba.includes('americargo')) {
       this.domain = 'https://ci.americargo.wecap.mx/'
+      this.company = 'Americargo'
       console.log(this.domain)
       } else if (this.domainPrueba.includes('alsainacademy')) {
         this.domain = 'https://ci.alsainacademy.wecap.mx/'
+        this.company = 'Alsain Academy'
         console.log(this.domain)
       } else if(this.domainPrueba.includes('unitrade')) {
         this.domain = 'https://ci.unitrade.wecap.mx/'
+        this.company = 'Unitrade'
         console.log(this.domain)
       } else if(this.domainPrueba.includes('joga')) {
         this.domain = 'https://ci.joga.wecap.mx/'
+        this.company = 'Joga'
         console.log(this.domain)
       } else {
         this.domain = 'https://ci.wecap.mx/'
+        this.company = 'Wecap'
         console.log(this.domain)
+
       }
    }
 

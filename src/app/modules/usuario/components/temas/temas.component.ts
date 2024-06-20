@@ -12,8 +12,6 @@ import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { interval } from 'rxjs';
-import { Time } from '@angular/common';
 
 
 @Component({
@@ -60,6 +58,7 @@ export class TemasComponent implements OnInit {
   //variable para guardar el valor de el setInterval
   n: any;
   count = 0;
+  mouse = null;
 
   unloadEvent = function (e) {
     var confirmationMessage = "Warning: Leaving this page will result in any unsaved data being lost. Are you sure you wish to continue?";
@@ -94,10 +93,10 @@ export class TemasComponent implements OnInit {
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
-          //this.startTimer();
            //window.onbeforeunload = this.helpers.confirmExit;
            //this.contador(1);
            //this.getActive();
+           this.timeOnScreen();
            this.n = setInterval(() => {
             this.helpers.n = this.n;
             this.contador(1);
@@ -150,6 +149,110 @@ export class TemasComponent implements OnInit {
     }
   };
 
+  timeOnScreen(){
+    let mouse, t;
+  document.onmousemove = restartTime;
+  document.onclick = restartTime;
+    document.onscroll = restartTime;
+  /*= function () {
+    restartTime();
+    console.log('mouse activo')
+  };*/
+
+
+  function timeOut(){
+    document.onmousemove = null;
+    document.onclick = null;
+    document.onscroll = null;
+
+   mouse = setInterval(() => {
+      if(document.onmousemove == null && document.onclick == null && document.onscroll == null){
+        //console.log('no hay movimiento')
+        Swal.close();
+        clearInterval(mouse);
+        leave();
+      } else {
+        clearInterval(mouse);
+      }
+    }, 60000);
+    Swal.fire({
+      title: '¿Sigues ahí?',
+      text: '¿Deseas continuar en la pagina o salir?',
+      icon: 'info',
+      confirmButtonColor: '#015287',
+      confirmButtonText: 'Continuar',
+      cancelButtonText: 'Salir',
+      allowOutsideClick: false,
+      showConfirmButton: true,
+      showCancelButton: true,
+    }).then((result) => {
+      //console.log(result)
+      if(result.isConfirmed == true){
+        //console.log('seguir')
+        //console.log('seguir')
+          Swal.close();
+          stay();
+      } else {
+        //console.log('salir')
+         leave();
+        //console.log('salir')
+          /*this.temasSeccion(this.idModule, this.helpers.nameModuleBackUp);
+          clearInterval(this.n);
+          this.contador(0, true)*/
+      }
+    });
+  }
+
+
+  function restartTime(){
+    //console.log('se mueve el mouse');
+    clearTimeout(t);
+      t = setTimeout(timeOut, 600000);
+  }
+
+  let stay = () => {
+    //console.log('numberTwo')
+    document.onmousemove = restartTime;
+    document.onclick = restartTime;
+    document.onscroll = restartTime;
+    restartTime();
+    this.helpers.endTheme( this.idTopic, this.count, localStorage.getItem('token'), this.finalizado);
+    clearInterval(this.n);
+    this.n = setInterval(() => {
+    this.helpers.n = this.n;
+    this.contador(1);
+    }, 1000);
+  };
+
+  let leave = () => {
+    //console.log('se va')
+    Swal.close();
+    this.temasSeccion(this.idModule, this.helpers.nameModuleBackUp);
+    clearInterval(this.n);
+    this.contador(0, true)
+  };
+ 
+
+  /*function stay(){
+    clearTimeout(mouse);
+    this.helpers.endTheme( this.idTopic, this.count, localStorage.getItem('token'), this.finalizado);
+    clearInterval(this.n);
+    this.n = setInterval(() => {
+    this.helpers.n = this.n;
+    this.contador(1);
+    }, 1000);
+    mouse = restartTime();
+  }*/
+
+  /*function leave(){
+    Swal.close();
+    this.temasSeccion(this.idModule, this.helpers.nameModuleBackUp);
+    clearInterval(this.n);
+    this.contador(0, true)
+  }*/
+
+}
+
   contador(type: number, turn?:any){
     //si type es igual a 1 se inicia el contador y comienza a incrementarse
     //si type es igual a 2 se detiene el contador y se muestra el tiempo transcurrido
@@ -174,85 +277,6 @@ export class TemasComponent implements OnInit {
     //console.log(this.helpers.count);
   }
 
-  getActive(){
-    //console.log(document.onclick, document.onscroll, document.onmousemove)
-    restartTime();
-    var t, c;
-    document.ontouchmove = restartTime;
-    document.ontouchstart = restartTime;
-    document.onclick = restartTime;
-    document.onscroll = restartTime;
-    document.onload = restartTime;
-    document.onmousemove = restartTime;
-    document.onmousedown = restartTime;
-
-    function timeOut(){
-      //console.log(t)
-
-
-      Swal.fire({
-        title: '¿Sigues ahí?',
-        text: 'Si se detecta inactividad te redirigiremos a la sección de temas en 60 segundos',
-        icon: 'info',
-        confirmButtonColor: '#015287',
-        cancelButtonColor: '#d33',
-        showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonText: 'Seguir aquí',
-        cancelButtonText: 'Salir'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          //this.route.navigate(['/']);
-          Swal.close();
-          //console.log(t)
-          restartTime();
-          //console.log('seguir')
-        } else {
-          //console.log('salir')
-          clearTimeout(t);
-          this.contador(0);
-          this.temasSeccion(this.idModule)
-        }
-      });
-    }
-
-    function restartTime(){
-      clearTimeout(t);
-      t = setTimeout(timeOut, 10000);
-    }
-  }
-
-  /*startTimer() {
-    setTimeout(() => {
-      Swal.close();
-    }, 800);
-    this.interval = setInterval(() => {
-      this.helpers.interval = this.interval;
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-        console.log(this.timeLeft, this.interval);
-        //this.transform(this.timeLeft);
-        //this.secondsToTime(this.timeLeft);
-      } else if (this.timeLeft === 0) {
-        this.helpers.pauseTimer(this.interval);
-        this.timeLeft = undefined;
-        Swal.fire({
-          title: '¿Aún sigues ahí?',
-          text: 'Redirigiendo a la página de inicio en 10 segundos',
-          icon: 'info',
-          allowOutsideClick: false,
-          confirmButtonColor: '#015287',
-        }).then((result) => {
-          console.log(result)*/
-          /*if (result.isConfirmed) {
-            this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
-            //this.valido = false;
-            //localStorage.setItem('test', this.valido.toString());
-          }*/
-       /* });
-      }
-    }, 1000);
-  }*/
   /*checkFinalizado(arr: any) {
       //console.log(arr);
     if (arr != null) {
@@ -307,7 +331,7 @@ export class TemasComponent implements OnInit {
 
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
     this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
-      //console.log(data)
+      console.log(data)
       if (data.like != null) {
         this.userLike = true;
         //console.log(data.like.tipo);
@@ -318,6 +342,7 @@ export class TemasComponent implements OnInit {
       }
       this.helpers.nameTopicBackUp = data.title;
       this.nameTopic = data.title;
+      console.log(data.doc)
       //console.log(this.nameTopic)
       this.temasArr = data;
       //console.log(this.temasArr)
@@ -330,7 +355,7 @@ export class TemasComponent implements OnInit {
       this.startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
       this.helpers.startDate = this.startDate;
       //console.log(this.startDate, this.helpers.startDate)
-      if (data.url_video == '' || data.url_video == 'null') {
+      if (data.url_video == '' || data.url_video == null) {
         this.videoShow = 0;
         //console.log(this.video)
       } else {
@@ -354,18 +379,18 @@ export class TemasComponent implements OnInit {
           //console.log(this.video)
           this.chanceTow = this.dom.bypassSecurityTrustResourceUrl(this.video);
           this.swalClosed();
-        }
+        } 
         //console.log(this.video)
       }
-      if (data.doc == '' || data.doc == 'null') {
-        //console.log(data.doc)
+      if (data.doc == '' || data.doc == null) {
+        console.log(data.doc)
         this.hasFile = 0;
         //console.log(this.hasFile)
       } else {
         //this.hasFile = 1;
 
         if (data.doc.includes('.pdf')) {
-          //console.log(data.doc)
+          console.log(data.doc)
           //this.pdfSrc = 'google';
           this.hasFile = 1;
           //this.pdfSrc = this.helpers.domain + 'media/temas/docs/' + data.doc;

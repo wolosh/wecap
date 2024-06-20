@@ -20,6 +20,7 @@ export class CursosModulosComponent implements OnInit {
     { image: 'assets/img/carousel3.svg', text: 'Documental' },
     { image: 'assets/img/carousel4.svg', text: 'Animación' }
   ];
+  formHelp: FormGroup;
   width: number; 
   showIndicator = false;
   itemsPerSlide: number;
@@ -44,6 +45,7 @@ export class CursosModulosComponent implements OnInit {
   description = '';
   allConferencias: any;
   image: any;
+
   constructor(private cdr: ChangeDetectorRef, private session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
@@ -81,6 +83,7 @@ export class CursosModulosComponent implements OnInit {
           this.profile();
           this.certifications();
           this.getFiles();
+
           this.helpers.cursos = 1;
           this.session.curso = false;
           //console.log(this.session.cursos)
@@ -124,6 +127,10 @@ export class CursosModulosComponent implements OnInit {
         this.certifications();
       }
     );
+  }
+
+  support(go:any){
+    this.route.navigate(['/soporte', go]);
   }
 
  

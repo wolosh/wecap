@@ -8,9 +8,10 @@ import { TemasComponent } from './components/temas/temas.component';
 import { TestComponent } from './components/test/test.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { SeccionComponent } from './components/seccion/seccion.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SupportComponent } from './components/support/support.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: "perfil", component: PerfilUsuarioComponent},
   {path: "temas/:idTopic", component: TemasComponent},
   {path: "test/:idTest", component: TestComponent},
-  {path: "seccion/:idModule", component: SeccionComponent}
+  {path: "seccion/:idModule", component: SeccionComponent},
+  {path: "soporte/:type", component: SupportComponent}
 ];
 
 @NgModule({
@@ -28,13 +30,14 @@ const routes: Routes = [
     TemasComponent,
     TestComponent,
     SeccionComponent,
+    SupportComponent,
   ],
   imports: [
     CarouselModule,
     BrowserModule,
     NgxDocViewerModule,
     PdfViewerModule,
-    CommonModule, RouterModule.forChild(routes), FormsModule
+    CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule
   ], exports: [RouterModule, CursosModulosComponent, PerfilUsuarioComponent, TemasComponent, TestComponent]
 })
 export class UsuarioModule { }
