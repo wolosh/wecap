@@ -57,6 +57,10 @@ export class HelpersService {
         this.domain = 'https://ci.joga.wecap.mx/'
         this.company = 'Joga'
         console.log(this.domain)
+      } else if(this.domainPrueba.includes('cybershield')) {
+        this.domain = 'https://ci.cybershield.wecap.mx/'
+        this.company = 'Cybershield'
+        console.log(this.domain)
       } else {
         this.domain = 'https://ci.wecap.mx/'
         this.company = 'Wecap'

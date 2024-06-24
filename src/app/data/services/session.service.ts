@@ -39,6 +39,9 @@ export class SessionService {
     } else if(this.domainPrueba.includes('joga')) {
       this.API = 'https://ci.joga.wecap.mx/api/'
       console.log(this.API)
+    } else if(this.domainPrueba.includes('cybershield')) {
+      this.API = 'https://ci.cybershield.wecap.mx/api/'
+      console.log(this.API)
     } else {
       this.API = 'https://ci.wecap.mx/api/'
       console.log(this.API)
