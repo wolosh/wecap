@@ -272,7 +272,7 @@ export class ConfiguracionComponent implements OnInit {
     
     this.get.getConfiguration(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data)
+        console.log(data)
         this.formConfiguracion.patchValue({
           colorText: data.colorText,
           txt_sesionUsuario: data.txt_sesionUsuario,
@@ -417,9 +417,10 @@ export class ConfiguracionComponent implements OnInit {
 
   saveConfiguration(){
     let configuracion = new FormData();
-    //console.log(this.formConfiguracion.value, this.logo, this.fondo, this.certificado);
+    console.log(this.formConfiguracion.value, this.logo, this.fondo, this.certificado, this.helpers.company);
     if(this.logo != undefined){
       configuracion.append('logo', this.logo, 'logo.png');
+      //configuracion.append('logo', this.logo, 'logo' + this.helpers.company + '.png');
     }
     if(this.fondo != undefined){
       configuracion.append('fondo', this.fondo, this.fondo.name);
@@ -447,7 +448,7 @@ export class ConfiguracionComponent implements OnInit {
     //console.log(configuracion.getAll('isLike'),configuracion.getAll('isComentario'))
     this.session.updateConfiguration(configuracion, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
+        console.log(data);
         Swal.fire({
           title: '¡Éxito!',
           text: 'Se ha actualizado la configuración.',
