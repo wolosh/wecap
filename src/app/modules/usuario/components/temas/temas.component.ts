@@ -355,7 +355,7 @@ export class TemasComponent implements OnInit {
       this.startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
       this.helpers.startDate = this.startDate;
       //console.log(this.startDate, this.helpers.startDate)
-      if (data.url_video == '' || data.url_video == null) {
+      if (data.url_video == '' || data.url_video == null || data.url_video == 'null') {
         this.videoShow = 0;
         //console.log(this.video)
       } else {
@@ -382,7 +382,7 @@ export class TemasComponent implements OnInit {
         } 
         //console.log(this.video)
       }
-      if (data.doc == '' || data.doc == null) {
+      if (data.doc == '' || data.doc == null || data.doc == 'null') {
         console.log(data.doc)
         this.hasFile = 0;
         //console.log(this.hasFile)

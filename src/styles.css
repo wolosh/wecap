@@ -28,6 +28,8 @@
     .nav-link label{border-bottom: 1px solid #D2ECFD !important;}
     .nav-tabs .nav-link{font-size: 1.1em !important;}
 }
+
+ 
 @media (max-width: 767.98px) {
     hr{width: 90% !important;}
     .top{padding-top: 20% !important;}
