@@ -1321,7 +1321,7 @@ export class CursosComponent implements OnInit {
                 this.imgTerminaDos = data.medal_finish;
                 this.imgScoreDos = data.medal_perfect;
                 this.imgTiempoDos = data.medal_time;
-                //console.log(this.imgIconoDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos)
+                console.log(this.imgIconoDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos)
                 this.formModulo.controls['color'].setValue(data.color_style);
                 this.formModulo.controls['url_video'].setValue(data.url_video);
 
@@ -2083,6 +2083,12 @@ export class CursosComponent implements OnInit {
       this.imgScore = this.helpers.dataUrlToFile(this.imgScore);
       this.imgTiempo = this.helpers.dataUrlToFile(this.imgTiempo);*/
 
+      let nameIcon = 'iconoModulo' + this.idModulo + '.jpeg';
+      let terminaIcon = 'iconoTermina' + this.idModulo + '.png';
+      let scorePerfecto = 'scoreMedalla' + this.idModulo + '.png';
+      let medallaTiempo = 'medallaTiempo' + this.idModulo + '.png';
+      let imagenHeader = 'imagenHeader' + this.idModulo + '.png';
+
       let modulo = new FormData();
       modulo.append('idCertification', this.idCertification);
       modulo.append('title', this.formModulo.value.title);
@@ -2090,8 +2096,8 @@ export class CursosComponent implements OnInit {
       modulo.append('order_number', '1');
       modulo.append('is_active', '1');
 
-      modulo.append('icon', this.imgIcono, this.imgIcono.name);
-      modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
+      modulo.append('icon', this.imgIcono, nameIcon);
+      modulo.append('imgHeader', this.imgHeader, imagenHeader);
 
       modulo.append('color_style', this.formModulo.value.color);
       if (this.formModulo.value.url_video != '') {
@@ -2100,17 +2106,17 @@ export class CursosComponent implements OnInit {
         modulo.append('url_video', '');
       }
       if (this.imgTermina != '') {
-        modulo.append('medal_finish', this.imgTermina, this.imgTermina.name);
+        modulo.append('medal_finish', this.imgTermina, terminaIcon);
       } else {
         modulo.append('medal_finish', '');
       }
       if (this.imgScore != '') {
-        modulo.append('medal_perfect', this.imgScore, this.imgScore.name);
+        modulo.append('medal_perfect', this.imgScore, scorePerfecto);
       } else {
         modulo.append('medal_perfect', '');
       }
       if (this.imgTiempo != '') {
-        modulo.append('medal_time', this.imgTiempo, this.imgTiempo.name);
+        modulo.append('medal_time', this.imgTiempo, medallaTiempo);
       } else {
         modulo.append('medal_time', '');
       }
@@ -2296,7 +2302,7 @@ export class CursosComponent implements OnInit {
       console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
       //console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
 
-      this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
+      /*this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
         (data: any) => {
           //console.log(data);
           Swal.fire({
@@ -2312,7 +2318,7 @@ export class CursosComponent implements OnInit {
           //this.modules(this.idCertification);
           //this.changeViewModulo('back', this.idCertification)
         }
-      );
+      );*/
     } else {
       Swal.fire({
         title: '¡Error!',
@@ -2330,13 +2336,15 @@ export class CursosComponent implements OnInit {
     let tema = new FormData();
     if (this.formTemas.value.title != '' && this.formTemas.value.description != '' && this.imgTema != undefined && this.imgTemaV != undefined) {
       this.helpers.loader();
+      let nameIcon = 'iconTema' + this.idTema + '.jpeg';
+
       tema.append('idModule', this.idModulo);
       tema.append('title', this.formTemas.value.title);
       tema.append('description', this.formTemas.value.description);
       tema.append('order_number', '1');
       tema.append('is_active', '1');
       if (this.imgTema != '') {
-        tema.append('icon', this.imgTema, this.imgTema.name);
+        tema.append('icon', this.imgTema, nameIcon);
       } else {
         tema.append('icon', this.imgTemaDos);
       }

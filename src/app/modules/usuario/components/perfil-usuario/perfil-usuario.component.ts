@@ -161,11 +161,11 @@ export class PerfilUsuarioComponent implements OnInit {
         this.helpers.goTop();
         this.get.getModules(this.cursoSelected, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            //console.log(data);
+            console.log(data);
             let note = 0;
             this.modulesCertifications = data;
             for(let module of this.modulesCertifications){
-              //console.log(module.calificacion)
+              console.log(module.calificacion)
               if(module.calificacion != '' && module.calificacion != 'N/A'){
                 note++;
                 //console.log(note)

@@ -219,6 +219,7 @@ export class HelpersService {
             this.endTheme(this.idTopicBackUp, this.startDate, localStorage.getItem('token'));
           }
           this.pauseTimer(this.interval);
+          this.pauseTimer(this.n);
           this.type = 0;
           localStorage.removeItem('userName');
           localStorage.clear();

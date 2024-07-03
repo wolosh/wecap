@@ -577,6 +577,8 @@ export class TemasComponent implements OnInit {
     //this.helpers.nameModuleBackUp = name;
     //this.helpers.idTopicBackUp = this.idTopic;
     //this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
+    this.helpers.pauseTimer(this.interval);
+    this.helpers.pauseTimer(this.n);
     this.helpers.endTheme( this.idTopic, this.count, localStorage.getItem('token'), this.finalizado);
     this.route.navigate(['/seccion', this.idModule]);
     this.session.curso = true;
