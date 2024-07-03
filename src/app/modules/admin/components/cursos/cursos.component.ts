@@ -2178,7 +2178,7 @@ export class CursosComponent implements OnInit {
         modulo.append('icon', this.imgIcono, this.imgIcono.name);
       }*/
 
-      let nameIcon = 'iconoModulo' + this.idModulo + '.png';
+      let nameIcon = 'iconoModulo' + this.idModulo + '.jpeg';
       let terminaIcon = 'iconoTermina' + this.idModulo + '.png';
       let scorePerfecto = 'scoreMedalla' + this.idModulo + '.png';
       let medallaTiempo = 'medallaTiempo' + this.idModulo + '.png';
@@ -2421,7 +2421,7 @@ export class CursosComponent implements OnInit {
       this.fileBack = null;
     }
 
-    let nameIcon = 'iconTema' + this.idTema + '.png'; //nombre que s eenviara en la imagen del tema
+    let nameIcon = 'iconTema' + this.idTema + '.jpeg'; //nombre que s eenviara en la imagen del tema
     //console.log(nameIcon)
     
     let tema = new FormData();
