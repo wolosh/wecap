@@ -292,7 +292,7 @@ export class CursosComponent implements OnInit {
     //console.log(event, event.base64);
     //Cuanda la imagen se recorta se le da formato base64
     this.croppedImage = event.blob;
-    console.log(this.croppedImage);
+    //console.log(this.croppedImage);
   }
 
   //función que carga la imagen
@@ -612,6 +612,7 @@ export class CursosComponent implements OnInit {
         this.isLogo = 2;
         break;
       case 'boton':
+      //hacemos modal con cropper para subir imagen
         this.resizeHeight = 600;
         this.resizeWidth = 600;
         this.relation = 1 / 1;
@@ -620,7 +621,7 @@ export class CursosComponent implements OnInit {
         } else {
           this.isLogo = 3
         }
-        console.log(this.isLogo);
+        //console.log(this.isLogo);
       break;
       case 'header':
         this.resizeHeight = 600;
@@ -1118,7 +1119,7 @@ export class CursosComponent implements OnInit {
         this.exam = '';
         break;
       case 'editc':
-        console.log('entro')
+        //console.log('entro')
         this.pt = 1;
         this.p = 1;
         this.cview1 = 1;
@@ -1127,10 +1128,10 @@ export class CursosComponent implements OnInit {
         this.exam = '';
         for (let item of this.certificaciones) {
           if (item.title == name) {
-            console.log(item, 'entro')
-            //console.log(item)
+            //console.log(item, 'entro')
+            ////console.log(item)
             this.idCertification = item.idCertification;
-            console.log(this.idCertification)
+            //console.log(this.idCertification)
             this.modules(item.idCertification);
             this.diploma(item.idCertification);
             this.course = item.title;
@@ -1152,7 +1153,7 @@ export class CursosComponent implements OnInit {
               this.date = 0;
             }
             //console.log(this.date)
-            console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
+            //console.log(item, this.formEdit.value, this.exam, this.bf, this.active);
           }
         }
 
@@ -1237,7 +1238,7 @@ export class CursosComponent implements OnInit {
         Swal.close();
       },
       (error: any) => {
-        console.log(error)
+        //console.log(error)
       }
     );
   }
@@ -1271,7 +1272,7 @@ export class CursosComponent implements OnInit {
             this.modules(this.idCertification);
             break;
           case 'editm':
-            console.log(id)
+            //console.log(id)
             this.icon = 1;
             this.header = 1;
             this.terminar = 1;
@@ -1297,7 +1298,7 @@ export class CursosComponent implements OnInit {
             this.startForm(5);
             this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                console.log(data)
+                //console.log(data)
                 this.idModulo = data.idModule;
                 this.temas(this.idModulo);
                 this.formModulo.controls['title'].setValue(data.title);
@@ -1305,11 +1306,11 @@ export class CursosComponent implements OnInit {
                 this.formModulo.controls['duracion'].setValue(data.max_time);
                 //this.formModulo.controls['score'].setValue(data.min_score);
                 let change = Math.trunc(data.min_score);
-                console.log(change)
+                //console.log(change)
                 this.pass = change.toString();
-                console.log(this.pass)
+                //console.log(this.pass)
                 this.exam = parseInt(data.hasExam);
-                //console.log(this.exam, data.hasExam)
+                ////console.log(this.exam, data.hasExam)
                 this.imgIcono = data.icon;
                 this.imgHeader = data.imgHeader;
                 this.imgTermina = data.medal_finish;
@@ -1369,7 +1370,7 @@ export class CursosComponent implements OnInit {
         //console.log(data);
         this.alltemas = data;
         this.temasCount = data.length;
-        console.log(this.alltemas)
+        //console.log(this.alltemas)
       },
       (error: any) => {
         this.helpers.logout();
@@ -1421,7 +1422,7 @@ export class CursosComponent implements OnInit {
             ////console.log(this.formTemas.value)
             this.imgTema = item.icon;
             this.imgTemaDos = item.icon;
-            console.log(this.imgTema, this.imgTemaDos)
+            //console.log(this.imgTema, this.imgTemaDos)
             this.imgTemaVDos = item.icon_gold;
             this.active = item.is_active;
             //this.fileSend = item.doc;
@@ -1586,8 +1587,8 @@ export class CursosComponent implements OnInit {
     this.startForm(8);
     this.get.getDiploma(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log('entro')
-        console.log(data);
+        //console.log('entro')
+        //console.log(data);
         if (data != null) {
           if (data.activado == 1) {
             this.hasDiploma = true;
@@ -1603,7 +1604,7 @@ export class CursosComponent implements OnInit {
             this.logoName = data.logo;
             this.firmaBack = data.firma;
             this.firmaName = data.firma;
-            console.log(this.firmaBack, this.logoBack)
+            //console.log(this.firmaBack, this.logoBack)
             /*if (data != null) {
               this.formDiploma.controls['cursoID'].setValue(data.idCertification);
               this.formDiploma.controls['encargado'].setValue(data.encargado);
@@ -1626,7 +1627,7 @@ export class CursosComponent implements OnInit {
           this.firmaName = '0';
         }
 
-        console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
+        //console.log(this.formDiploma.value, this.hasDiploma, this.firma, this.logo)
       },
       (error: any) => {
         this.helpers.logout();
@@ -1686,10 +1687,10 @@ export class CursosComponent implements OnInit {
   //salva la configuración de los diplomas
   saveDiploma() {
     this.helpers.loader();
-    console.log(this.formDiploma.value, this.hasDiploma);
-    console.log(this.idCertification);
-    console.log(this.firma, this.idCertification, this.firmaBack, this.logoBack);
-    console.log(this.firma, this.firmaBack, this.logo, this.logoBack)
+    //console.log(this.formDiploma.value, this.hasDiploma);
+    //console.log(this.idCertification);
+    //console.log(this.firma, this.idCertification, this.firmaBack, this.logoBack);
+    //console.log(this.firma, this.firmaBack, this.logo, this.logoBack)
     if (this.firma === undefined || this.firma === null || this.firma === '' || this.logo === undefined || this.logo === null || this.logo === '') {
       Swal.fire({
         title: '¡Error!',
@@ -1708,11 +1709,11 @@ export class CursosComponent implements OnInit {
 
       if (this.firmaBack === this.firma) {
         diploma.append('firma', this.firmaBack);
-        console.log(diploma.getAll('firma'), 'la firma')
+        //console.log(diploma.getAll('firma'), 'la firma')
 
       } else {
         diploma.append('firma', this.firma, 'firmaDiploma' + this.idCertification + '.png');
-        console.log(diploma.getAll('firma'), 'la firma')
+        //console.log(diploma.getAll('firma'), 'la firma')
     }
       
 
@@ -1724,19 +1725,19 @@ export class CursosComponent implements OnInit {
 
       if (this.logoBack === this.logo) {
         diploma.append('logo', this.logoBack);
-        console.log(diploma.getAll('logo'), 'el logo')
+        //console.log(diploma.getAll('logo'), 'el logo')
       } else {
         diploma.append('logo', this.logo, 'logoDiploma' + this.idCertification + '.png');
-        console.log(diploma.getAll('logo'), 'el logo')
+        //console.log(diploma.getAll('logo'), 'el logo')
         }
       
 
-      console.log(diploma.getAll('cursoID'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('firma'), diploma.getAll('activado'), diploma.getAll('logo'));
-      //console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
+      //console.log(diploma.getAll('cursoID'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('firma'), diploma.getAll('activado'), diploma.getAll('logo'));
+      ////console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
       this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
         (data: any) => {
           Swal.close();
-          console.log(data);
+          //console.log(data);
           Swal.fire({
             title: '¡Actualizado con exito!',
             text: 'El diploma ha sido actualizado.',
@@ -1744,7 +1745,7 @@ export class CursosComponent implements OnInit {
             confirmButtonColor: '#015287',
           }).then((result) => {
             if (result.isConfirmed) {
-              console.log(this.formEdit.value)
+              //console.log(this.formEdit.value)
               this.diploma(this.idCertification);
             }
           });
@@ -1937,7 +1938,7 @@ export class CursosComponent implements OnInit {
   //Guardar imagen
 
   fileIcono(event, show?: any) {
-    console.log(event.target.files)
+    //console.log(event.target.files)
     this.imgIcono = event.target.files[0]
     if (show) {
       this.icon = 2;
@@ -2153,10 +2154,10 @@ export class CursosComponent implements OnInit {
   }
 
   saveModulo() {
-    console.log(this.imgIcono, this.imgHeader, this.imgTermina, this.imgScore, this.imgTiempo, this.pass);
-    console.log(this.imgIconoDos, this.imgHeaderDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos, this.pass);
-    console.log(this.imgTerminaDos)
-    console.log(this.idModulo)
+    //console.log(this.imgIcono, this.imgHeader, this.imgTermina, this.imgScore, this.imgTiempo, this.pass);
+    //console.log(this.imgIconoDos, this.imgHeaderDos, this.imgTerminaDos, this.imgScoreDos, this.imgTiempoDos, this.pass);
+    //console.log(this.imgTerminaDos)
+    //console.log(this.idModulo)
     //this.imgIcono = new File([this.imgIcono], this.filenameI, { type: this.filetypeI });
     //this.imgTermina = new File([this.imgTermina], this.filenameT, { type: this.filetypeT });
     //this.imgScore = new File([this.imgScore], this.filenameS, { type: this.filetypeS });
@@ -2185,12 +2186,12 @@ export class CursosComponent implements OnInit {
       
       if (this.imgIconoDos === this.imgIcono) {
         modulo.append('icon', this.imgIconoDos);
-        console.log(modulo.getAll('icon'))
+        //console.log(modulo.getAll('icon'))
 
       } else {
         modulo.append('icon', this.imgIcono, nameIcon);
-        console.log(this.imgIcono, 'iconoModulo.png')
-        console.log(modulo.getAll('icon'))
+        //console.log(this.imgIcono, 'iconoModulo.png')
+        //console.log(modulo.getAll('icon'))
       }
       /*if (this.imgIcono !== '' || this.imgIcono !== undefined) {
         console.log(this.imgIcono)
@@ -2203,11 +2204,11 @@ export class CursosComponent implements OnInit {
       if (this.formModulo.value.url_video != '') modulo.append('url_video', this.formModulo.value.url_video);
       if (this.imgTerminaDos === this.imgTermina) {
         modulo.append('medal_finish', this.imgTerminaDos);
-        console.log(modulo.getAll('medal_finish'))
+        //console.log(modulo.getAll('medal_finish'))
 
       } else {
         modulo.append('medal_finish', this.imgTermina, terminaIcon);
-        console.log(modulo.getAll('medal_finish'))
+        //console.log(modulo.getAll('medal_finish'))
       }
       /*if (this.imgTermina != '' || this.imgTermina != undefined) {
 
@@ -2227,14 +2228,14 @@ export class CursosComponent implements OnInit {
       } else {
         modulo.append('medal_perfect', this.imgScoreDos);
       }*/
-      console.log(this.imgScoreDos, this.imgScore)
+      //console.log(this.imgScoreDos, this.imgScore)
       if (this.imgScoreDos === this.imgScore) {
         modulo.append('medal_perfect', this.imgScoreDos);
-        console.log(modulo.getAll('medal_perfect'))
+        //console.log(modulo.getAll('medal_perfect'))
 
       } else {
         modulo.append('medal_perfect', this.imgScore, scorePerfecto);
-        console.log(modulo.getAll('medal_perfect'))
+        //console.log(modulo.getAll('medal_perfect'))
       }
       /*if(this.imgScoreDos != undefined){
         modulo.append('icon', this.imgScoreDos);
@@ -2242,14 +2243,14 @@ export class CursosComponent implements OnInit {
         modulo.append('icon', this.imgScore, this.imgScore.name);
       }
       */
-     console.log(this.imgTiempoDos, this.imgTiempo)
+     //console.log(this.imgTiempoDos, this.imgTiempo)
       if (this.imgTiempoDos === this.imgTiempo) {
         modulo.append('medal_time', this.imgTiempoDos);
-        console.log(modulo.getAll('medal_time'))
+        //console.log(modulo.getAll('medal_time'))
 
       } else {
         modulo.append('medal_time', this.imgTiempo, medallaTiempo);
-        console.log(modulo.getAll('medal_time'))
+        //console.log(modulo.getAll('medal_time'))
       }
       /*if (this.imgTiempo != '' || this.imgTiempo != undefined) {
         modulo.append('medal_time', this.imgTiempo, this.imgTiempo.name);
@@ -2265,14 +2266,14 @@ export class CursosComponent implements OnInit {
       modulo.append('max_time', this.formModulo.value.duracion);
       modulo.append('min_score', this.pass);
       modulo.append('hasExam', this.exam);
-      console.log(this.imgHeaderDos, this.imgHeader)
+      //console.log(this.imgHeaderDos, this.imgHeader)
       if (this.imgHeaderDos === this.imgHeader) {
         modulo.append('imgHeader', this.imgHeaderDos);
-        console.log(modulo.getAll('imgHeader'))
+        //console.log(modulo.getAll('imgHeader'))
 
       } else {
         modulo.append('imgHeader', this.imgHeader, imagenHeader);
-        console.log(modulo.getAll('imgHeader'))
+        //console.log(modulo.getAll('imgHeader'))
       }
       /*if (this.imgHeader != '' || this.imgHeader != undefined) {
         modulo.append('imgHeader', this.imgHeader, this.imgHeader.name);
@@ -2293,7 +2294,7 @@ export class CursosComponent implements OnInit {
       modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
       modulo.getAll('score'), modulo.getAll('hasExam'));
       console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
-      console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
+      //console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
 
       this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
         (data: any) => {
@@ -2340,7 +2341,7 @@ export class CursosComponent implements OnInit {
         tema.append('icon', this.imgTemaDos);
       }
 
-      console.log(this.formTemas.value.url_video != '')
+      //console.log(this.formTemas.value.url_video != '')
       if (this.formTemas.value.url_video != '') {
         tema.append('url_video', this.formTemas.value.url_video);
       } else {
@@ -2353,12 +2354,12 @@ export class CursosComponent implements OnInit {
       } else {
         tema.append('icon_gold', this.imgTemaVDos);
       }
-      console.log(this.fileSend)
+      //console.log(this.fileSend)
       if (this.fileSend == 'null' || this.fileSend == undefined) {
-        console.log('no tiene archivo')
+        //console.log('no tiene archivo')
         tema.append('doc', 'null');
       } else {
-        console.log('tiene archivo')
+        //console.log('tiene archivo')
         tema.append('doc', this.fileSend, this.fileSend.name);
       }
       /*if(this.fileSend != 'null' || this.fileSend != undefined){
@@ -2410,7 +2411,7 @@ export class CursosComponent implements OnInit {
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
     //console.log(this.formTemas.value, this.fileSend, this.imgTema, this.imgTemaDos, this.imgTemaV, this.imgTemaVDos)
     this.helpers.loader();
-    console.log(this.fileSend, this.fileBack, this.videoBack, this.formTemas.value.url_video)
+    //console.log(this.fileSend, this.fileBack, this.videoBack, this.formTemas.value.url_video)
     if (this.fileSend != null) {
       this.fileBack = null;
       this.videoBack = null;
@@ -2421,7 +2422,7 @@ export class CursosComponent implements OnInit {
     }
 
     let nameIcon = 'iconTema' + this.idTema + '.png'; //nombre que s eenviara en la imagen del tema
-    console.log(nameIcon)
+    //console.log(nameIcon)
     
     let tema = new FormData();
     tema.append('idModule', this.idModulo);
@@ -2434,7 +2435,7 @@ export class CursosComponent implements OnInit {
     //console.log(tema.getAll('order_number'));
     tema.append('is_active', '1');
     //.log(tema.getAll('is_active'));
-    console.log(this.imgTemaDos, this.imgTema)
+    //console.log(this.imgTemaDos, this.imgTema)
     if (this.imgTemaDos === this.imgTema) {
       tema.append('icon', this.imgTemaDos);
       //console.log(tema.getAll('icon'));
@@ -2460,14 +2461,14 @@ export class CursosComponent implements OnInit {
       tema.append('doc', this.fileSend, this.fileSend.name);
       //console.log(tema.getAll('doc'));
     }*/
-    console.log(this.fileSend)
+    //console.log(this.fileSend)
     if (this.fileSend != null) {
       tema.append('doc', this.fileSend, this.fileSend.name);
     } else {
       tema.append('doc', this.fileBack);
     }
 
-    console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'), tema.getAll('doc'))
+    //console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'), tema.getAll('doc'))
     //console.log(tema.getAll('description'),tema.getAll('url_video'),tema.getAll('url_subtitulos'),tema.getAll('doc'));
     //.log(this.idModulo)
     /*console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
@@ -2479,7 +2480,7 @@ export class CursosComponent implements OnInit {
     this.session.updateTemas(this.idTema, tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
-        console.log(data);
+        //console.log(data);
         Swal.fire({
           title: '¡Actualizado con exito!',
           text: 'El tema ha sido actualizado.',
@@ -2493,7 +2494,7 @@ export class CursosComponent implements OnInit {
         });
         //this.modules(this.idCertification);
       }, error => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }
