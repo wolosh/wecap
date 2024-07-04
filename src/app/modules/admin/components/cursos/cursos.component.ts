@@ -1298,7 +1298,7 @@ export class CursosComponent implements OnInit {
             this.startForm(5);
             this.get.getinfoModulo(id, localStorage.getItem('token')).subscribe(
               (data: any) => {
-                //console.log(data)
+                console.log(data)
                 this.idModulo = data.idModule;
                 this.temas(this.idModulo);
                 this.formModulo.controls['title'].setValue(data.title);
@@ -1408,7 +1408,7 @@ export class CursosComponent implements OnInit {
         this.startForm(6);
         for (let item of this.alltemas) {
           //console.log(this.alltemas)
-          //console.log(tema)
+          console.log(tema)
           if (item.title == tema || item.idTopic == tema) {
             //console.log(item, 'entro')
             this.idTema = item.idTopic;
@@ -1419,7 +1419,7 @@ export class CursosComponent implements OnInit {
             this.formTemas.controls['url_subtitulos'].setValue(item.url_subtitulos);
             this.formTemas.controls['file'].setValue(item.doc);
             this.formTemas.controls['url_video'].setValue(item.url_video);
-            ////console.log(this.formTemas.value)
+            console.log(this.formTemas.value)
             this.imgTema = item.icon;
             this.imgTemaDos = item.icon;
             //console.log(this.imgTema, this.imgTemaDos)
@@ -2092,7 +2092,7 @@ export class CursosComponent implements OnInit {
       let modulo = new FormData();
       modulo.append('idCertification', this.idCertification);
       modulo.append('title', this.formModulo.value.title);
-      modulo.append('description', this.formModulo.value.descripcion);
+      modulo.append('description', this.formModulo.value.description);
       modulo.append('order_number', '1');
       modulo.append('is_active', '1');
 
@@ -2417,17 +2417,21 @@ export class CursosComponent implements OnInit {
     /*this.imgTema = this.helpers.dataUrlToFile(this.imgTema /*, this.imgTema.name);
     this.imgTemaV = this.helpers.dataUrlToFile(this.imgTemaV /*, this.imgTemaV.name);*/
     //console.log(this.imgIcono, this.imgTermina, this.imgScore, this.imgTiempo, this.idCertification)
-    //console.log(this.formTemas.value, this.fileSend, this.imgTema, this.imgTemaDos, this.imgTemaV, this.imgTemaVDos)
+    console.log(this.formTemas.value, this.fileSend, this.imgTema, this.imgTemaDos, this.imgTemaV, this.imgTemaVDos)
     this.helpers.loader();
     //console.log(this.fileSend, this.fileBack, this.videoBack, this.formTemas.value.url_video)
     if (this.fileSend != null) {
       this.fileBack = null;
       this.videoBack = null;
       this.formTemas.value.url_video = null;
-    } else if (this.formTemas.value.url_video != null) {
+      console.log('entro 1')
+    } else if (this.formTemas.value.url_video != 'null') {
+      console.log(this.formTemas.value.url_video)
       this.fileSend = null;
       this.fileBack = null;
+      console.log('entro 2')
     }
+    console.log(this.fileSend, this.fileBack, this.videoBack, this.formTemas.value.url_video)
 
     let nameIcon = 'iconTema' + this.idTema + '.jpeg'; //nombre que s eenviara en la imagen del tema
     //console.log(nameIcon)
@@ -2476,7 +2480,7 @@ export class CursosComponent implements OnInit {
       tema.append('doc', this.fileBack);
     }
 
-    //console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'), tema.getAll('doc'))
+    console.log(tema.getAll('icon'), tema.getAll('icon_gold'), tema.getAll('url_video'), tema.getAll('doc'))
     //console.log(tema.getAll('description'),tema.getAll('url_video'),tema.getAll('url_subtitulos'),tema.getAll('doc'));
     //.log(this.idModulo)
     /*console.log(modulo.getAll('idCertification'), modulo.getAll('title'),
@@ -2485,6 +2489,7 @@ export class CursosComponent implements OnInit {
     modulo.getAll('imgTiempo'),modulo.getAll('duracion'),
     modulo.getAll('score'), modulo.getAll('hasExam'));*/
     //console.log(tema.getAll('doc'));
+    console.log();
     this.session.updateTemas(this.idTema, tema, localStorage.getItem('token')).subscribe(
       (data: any) => {
         Swal.close();
@@ -2506,6 +2511,7 @@ export class CursosComponent implements OnInit {
       }
     );
   }
+
   deleteTema() {
     Swal.fire({
       title: '¿Estás seguro?',
