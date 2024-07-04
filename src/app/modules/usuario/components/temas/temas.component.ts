@@ -260,9 +260,9 @@ export class TemasComponent implements OnInit {
       this.helpers.count++;
       //this.helpers.count = this.count;
       this.helpers.finalizado = this.finalizado;
-      //console.log(this.helpers.count);
+      //console.log(this.helpers.count, this.count);
     } else {
-      //console.log(this.helpers.count);
+      //console.log(this.helpers.count, this.count);
       if(turn == true){
         //this.helpers.count = this.count;
         //this.helpers.finalizado = this.finalizado;
@@ -274,7 +274,7 @@ export class TemasComponent implements OnInit {
       }
       clearInterval(this.n);
     }
-    //console.log(this.helpers.count);
+    //console.log(this.helpers.count, this.count);
   }
 
   /*checkFinalizado(arr: any) {
@@ -579,7 +579,8 @@ export class TemasComponent implements OnInit {
     //this.helpers.endTheme( this.idTopic, this.startDate, localStorage.getItem('token'));
     this.helpers.pauseTimer(this.interval);
     this.helpers.pauseTimer(this.n);
-    this.helpers.endTheme( this.idTopic, this.count, localStorage.getItem('token'), this.finalizado);
+    //console.log(this.count, this.helpers.count);
+    this.helpers.endTheme( this.idTopic, this.helpers.count, localStorage.getItem('token'), this.finalizado);
     this.route.navigate(['/seccion', this.idModule]);
     this.session.curso = true;
     //this.stopContador();

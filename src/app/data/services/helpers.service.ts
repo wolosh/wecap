@@ -186,8 +186,9 @@ export class HelpersService {
     //console.log(segundos, end);
 
     tema.append('idTema', idTheme);
-    tema.append('segundos', segundos);
+    //tema.append('inicio', '2021-01-01 13:10:00');
     //tema.append('fin', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+    tema.append('segundos', segundos);
     tema.append('finalizado', end);
 
     //console.log(tema.get('idTema'), tema.get('segundos'), tema.get('finalizado'))
