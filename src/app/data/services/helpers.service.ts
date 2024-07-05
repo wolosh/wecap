@@ -179,6 +179,8 @@ export class HelpersService {
   }
 
   public endTheme(idTheme:any, segundos:any, token:any, end?:any){
+    this.pauseTimer(this.interval);
+    this.pauseTimer(this.n);
     let tema = new FormData();
     let date = new Date();
 

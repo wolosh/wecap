@@ -94,6 +94,7 @@ export class CursosModulosComponent implements OnInit {
           }
           this.helpers.conferencias = false;
           this.helpers.pauseTimer(this.helpers.interval);
+          this.helpers.pauseTimer(this.helpers.n);
         }
       });
     } else if (localStorage.getItem('type') != '4') {
