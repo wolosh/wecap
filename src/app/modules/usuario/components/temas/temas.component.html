@@ -14,8 +14,10 @@
                             </div>
                             <ngx-doc-viewer *ngIf="this.hasFile == 2 " [url]="doc" viewer="office"
                                 style="aspect-ratio: 16/9;"></ngx-doc-viewer>
-                            <ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" viewer="google"
+                            <ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" disableContent='popout-hide' viewer="google"
                                 style="aspect-ratio: 16/9;"></ngx-doc-viewer>
+<!--<ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" disableContent='popout' viewer="google"
+                                style="aspect-ratio: 16/9;"></ngx-doc-viewer>-->
                             <!--<pdf-viewer *ngIf="this.hasFile == 1" [src]="pdfSrc"
                                         [show-all]="false"
                                         [page]="page"

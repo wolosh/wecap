@@ -114,12 +114,12 @@ export class ArchivosComponent implements OnInit {
   selectFiles(event: any, type: any, name?: any, url?: any) {
     //console.log(event.target.files, type, name, url, this.cloneIn, this.file);
     console.log(event.target.files);
-    /*if (type == 'archivo') {
+    if (type == 'archivo') {
       this.file = event.target.files[0];
       //console.log(this.file, this.file.name.split('?')[0].split('.').pop());
     } else if (type == 'media') {
       this.file = event.target.files[0];
-    }*/
+    }
     //console.log(this.file);
   }
 

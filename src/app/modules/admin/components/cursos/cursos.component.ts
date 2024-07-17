@@ -2302,7 +2302,7 @@ export class CursosComponent implements OnInit {
       console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);*/
       //console.log(modulo.getAll('icon'), modulo.getAll('medal_finish'), modulo.getAll('medal_perfect'), modulo.getAll('medal_time'))
 
-      /*this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
+      this.session.updateModulo(this.idModulo, modulo, localStorage.getItem('token')).subscribe(
         (data: any) => {
           //console.log(data);
           Swal.fire({
@@ -2318,7 +2318,7 @@ export class CursosComponent implements OnInit {
           //this.modules(this.idCertification);
           //this.changeViewModulo('back', this.idCertification)
         }
-      );*/
+      );
     } else {
       Swal.fire({
         title: '¡Error!',
