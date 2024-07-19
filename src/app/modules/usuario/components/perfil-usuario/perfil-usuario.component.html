@@ -51,7 +51,7 @@
                                     <div class="progress-bar bg-blue text11" role="progressbar" [style.width]="modulo.progreso+'%'" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{modulo.progreso}}%</div>
                                 </div>
                             </td>
-                            <td class="" *ngIf="modulo.calificacion != 'N/A' && modulo.intentos != ''">{{modulo.calificacion}}, {{modulo.intentos}}</td>
+                            <td class="" *ngIf="modulo.calificacion != 'N/A' && modulo.intentos != ''">{{formateaValor(modulo.calificacion)}}, {{modulo.intentos}}</td>
                             <td class="" *ngIf="modulo.calificacion == 'N/A' && modulo.intentos == ''">Sin calificación, 0</td>
                             <td class="" *ngIf="modulo.calificacion == 'N/A' && modulo.intentos != ''">Sin calificacion, {{modulo.intentos}}</td>
                             <td class="">{{modulo.fechaAsignacion}}</td>

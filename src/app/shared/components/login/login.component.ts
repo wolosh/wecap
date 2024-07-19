@@ -60,6 +60,8 @@ export class LoginComponent implements OnInit {
 
   //inicio de sesión básico
   normalLogin() {
+    this.helpers.pauseTimer(this.helpers.interval);
+    this.helpers.pauseTimer(this.helpers.n);
     //console.log(this.formLogin.value)
     Swal.fire({
       title: 'Iniciando Sesión...',

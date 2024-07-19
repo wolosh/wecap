@@ -189,14 +189,14 @@ export class TestComponent implements OnInit {
   getInfoExam(id: any) {
     let segundos = 0;
     this.valido = false;
-    console.log(id);
+    //console.log(id);
     this.get.getInfoExamen(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         let score = data.min_score;
-        console.log(score);
+        //console.log(score);
         this.idExamBackUp = data.idExamen;
-        console.log(this.idExamBackUp);
+        //console.log(this.idExamBackUp);
         //this.tiempo = data.duracion * 60;
          segundos = (data.duracion * 60) * data.preguntas.length;
         //console.log(data.preguntas.length)
@@ -208,11 +208,11 @@ export class TestComponent implements OnInit {
         //console.log(this.nameExam, this.questionsExam, this.timeLeft, segundos)
         this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            console.log(data);
-            console.log(score);
+            //console.log(data);
+            //console.log(score);
             //console.log(parseInt(data.calificacion));
             if (parseInt(data.calificacion) >= score) {
-              console.log(score)
+              //console.log(score)
               //Swal.close();
               //console.log(data)
               this.valido = true;
@@ -228,7 +228,7 @@ export class TestComponent implements OnInit {
                 }
               });
             } else if(data.calificacion == 'Pendiente de calificacion'){
-              console.log('pendiente');
+              //console.log('pendiente');
               Swal.fire({
                 title: '¡Calificación pendiente!',
                 text: 'Pronto uno de los administradores calificara tus respuestas.',
@@ -243,12 +243,12 @@ export class TestComponent implements OnInit {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);
-              console.log(start.get('idExamen'));
+              //console.log(start.get('idExamen'));
               this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
                 (data: any) => {
-                  console.log(data)
+                  //console.log(data)
                   this.idExamBackUp = data.id;
-                  console.log(this.idExamBackUp);
+                  //console.log(this.idExamBackUp);
                   ////console.log(data);
                   this.startTimer();
                 }
