@@ -14,7 +14,7 @@
                             </div>
                             <ngx-doc-viewer *ngIf="this.hasFile == 2 " [url]="doc" viewer="office"
                                 style="aspect-ratio: 16/9;"></ngx-doc-viewer>
-                            <ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" disableContent='popout-hide' viewer="google"
+                            <ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" disableContent='popout' viewer="google"
                                 style="aspect-ratio: 16/9;"></ngx-doc-viewer>
 <!--<ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" disableContent='popout' viewer="google"
                                 style="aspect-ratio: 16/9;"></ngx-doc-viewer>-->
@@ -30,9 +30,14 @@
                               <p class="text4 txt-blue ps-4 pe-4 mb-0">{{ page }} / {{ totalPages }}</p>
                               <button class="boton3 w-auto text10 ps-3 pe-3" (click)="nextPage()" [disabled]="totalPages === 1 || page === totalPages"><i class="fas fa-chevron-right"></i></button>
                             </div>-->
-
+                            <button type="button" class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4"
+                            (click)="this.viewer(this.docBack, this.hasFile)">Ampliar documento</button>
 
                         </div>
+                        <!--<div class="col-12 mt-5">
+                                <button type="button" class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4"
+                            (click)="this.viewer(this.docBack, this.hasFile)">Ampliar documento</button>
+                        </div>-->
                         <div *ngIf="this.like == '1'">
                             <div class="row" *ngIf="this.userLike == false">
                                 <div class="col-2 col-lg-1 offset-8 offset-lg-10">

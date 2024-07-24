@@ -1588,7 +1588,7 @@ export class CursosComponent implements OnInit {
     this.get.getDiploma(id, localStorage.getItem('token')).subscribe(
       (data: any) => {
         //console.log('entro')
-        //console.log(data);
+        console.log(data);
         if (data != null) {
           if (data.activado == 1) {
             this.hasDiploma = true;
@@ -1728,11 +1728,11 @@ export class CursosComponent implements OnInit {
         //console.log(diploma.getAll('logo'), 'el logo')
       } else {
         diploma.append('logo', this.logo, 'logoDiploma' + this.idCertification + '.png');
-        //console.log(diploma.getAll('logo'), 'el logo')
+        console.log(diploma.getAll('logo'), 'el logo')
         }
       
 
-      //console.log(diploma.getAll('cursoID'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('firma'), diploma.getAll('activado'), diploma.getAll('logo'));
+      console.log(diploma.getAll('cursoID'), diploma.getAll('encargado'), diploma.getAll('puesto'), diploma.getAll('firma'), diploma.getAll('activado'), diploma.getAll('logo'));
       ////console.log(this.formData.getAll('hasExam'), this.formData.getAll('default_active_days'), this.formData.get);
       this.session.updateDiploma(diploma, localStorage.getItem('token')).subscribe(
         (data: any) => {

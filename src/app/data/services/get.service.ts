@@ -11,6 +11,7 @@ export class GetService {
 
   constructor(private session: SessionService, private http: HttpClient, private helpers:HelpersService) { }
 
+  //api profile user
   getProfile(id: any, token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -21,6 +22,7 @@ export class GetService {
     });
   }
 
+  //api certificaciones
   getCertifications(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -40,7 +42,7 @@ export class GetService {
     );
   }
 
-
+  //api para obtener los usuarios
   getUsers(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -56,6 +58,7 @@ export class GetService {
     );
   }
 
+  //api para traer materias
   getMaterias(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -66,6 +69,7 @@ export class GetService {
     });
   }
 
+  //api para traer los grupos
   getGroups(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -76,6 +80,7 @@ export class GetService {
     });
   }
 
+  //api para traer materias
   getMedia(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -86,6 +91,7 @@ export class GetService {
     })
   }
 
+  //api para traer los mails de un admin
   getMails(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -96,6 +102,7 @@ export class GetService {
     })
   }
 
+  //api para traer las conferencias de un curso
   getConferencias(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -104,7 +111,8 @@ export class GetService {
       headers
     });
   }
-  //llamada para traer modulos de un curso
+
+  //api para traer modulos de un curso
   getModules(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -113,7 +121,8 @@ export class GetService {
       headers
     });
   }
-  //llamada para traer la información de un modulo en especifico
+
+  //apipara traer la información de un modulo en especifico
   getinfoModulo(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -122,7 +131,8 @@ export class GetService {
       headers
     });
   }
-  //llamada para traer modulos de un curso
+
+  //api para traer modulos de un curso
   getTemas(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -132,6 +142,7 @@ export class GetService {
     });
   }
 
+  //api para traer las conferencias de un curso
  getConferenciasCurso(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -142,7 +153,7 @@ export class GetService {
   }
 
 
-  //trae el diploma de la base de datos
+  //api trae el diploma de la base de datos
   getDiploma(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -152,6 +163,7 @@ export class GetService {
     });
   }
 
+  //api para buscar usuarios en especifico
   searchUsers(filter, cad, token,) {
     console.log(filter, cad, token)
     const headers = new HttpHeaders({
@@ -167,6 +179,7 @@ export class GetService {
     );
   }
 
+  //api para traer ls maestros
   getTeachers(token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -177,6 +190,8 @@ export class GetService {
     });
   }
 
+
+  //api para traer los cursos de un usuario especifico
   getUserCourses(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -187,6 +202,7 @@ export class GetService {
     })
   }
 
+  //api para traer el examen diagnostico
   getDiagnostico(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -196,6 +212,7 @@ export class GetService {
     })
   }
 
+  //api para traer el examen de un modulo en especifico 
   getExamModule(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -206,6 +223,7 @@ export class GetService {
     })
   }
 
+  //api para traer los usuarios que cursan un modulo
   getCursantesModulo(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -216,6 +234,7 @@ export class GetService {
     })
   }
 
+  //api para estadisticas
   getEstadisticas(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -226,7 +245,7 @@ export class GetService {
     })
   }
 
-
+  //api para los los archivos 
   getFiles(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -237,6 +256,8 @@ export class GetService {
     })
   }
 
+
+  //api para la configuración de un curso
   getConfiguration(token?: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -246,6 +267,7 @@ export class GetService {
     })
   }
 
+  //api para temas en especifico
   getOnlyTema(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -260,6 +282,7 @@ export class GetService {
     );
   }
 
+  //api para información de examen en especifico 
   getInfoExamen(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -269,6 +292,7 @@ export class GetService {
     });
   }
 
+  //api para calificacion de un examen de usuario especifico 
   getCalificacion(id: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -327,7 +351,7 @@ export class GetService {
     })
   }
 
-
+  //api para checar si un tema esta finalizado 
   public checkTheme(id, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -342,6 +366,7 @@ export class GetService {
     );
   }
 
+  //api para checar si un módulo esta finalizado
   public checkModule(id, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -356,6 +381,7 @@ export class GetService {
     );
   }
 
+  //api trae medallas de modulo
   public medallas(id, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -370,6 +396,7 @@ export class GetService {
     );
   }
 
+  //api para validar si un email es correcto
   validEmail(email: any, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -383,6 +410,7 @@ export class GetService {
       })
     );
   }
+
 
   public questionInfo(id, token) {
     const headers = new HttpHeaders({
@@ -428,6 +456,7 @@ export class GetService {
     });
   }
 
+  //api que trae los comentarios de un tema especifico
   getComentarios(id,token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -447,6 +476,7 @@ export class GetService {
     })
   }
 
+  //api para el tiempo de un usuario en determinado tema
   getUserTime(id, user, token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -456,6 +486,7 @@ export class GetService {
     })
   }
 
+  //api para traer el diploma de un usuario 
   getUserDiploma(idUser, idCurso, token){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -465,6 +496,7 @@ export class GetService {
     })
   }
 
+  //api para preguntas pendientes de calificacion
   getPreguntasPendientes(id, idUser, token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -475,6 +507,7 @@ export class GetService {
     });
   }
 
+  //api para excel de estadisticas
   getEstadisticasExcel(token) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,

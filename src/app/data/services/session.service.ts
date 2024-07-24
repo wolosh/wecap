@@ -27,32 +27,34 @@ export class SessionService {
   logo: string;
 
   constructor(private http: HttpClient, public route: Router) {
-    if (this.domainPrueba.includes('americargo')) {
+    if (this.domainPrueba.includes('americargo')) { //si la url contiene americargo
       this.API = 'https://ci.americargo.wecap.mx/api/'
       console.log(this.API)
-    } else if (this.domainPrueba.includes('alsainacademy')) {
+    } else if (this.domainPrueba.includes('alsainacademy')) { //si la url contiene alsainacademy
       this.API = 'https://ci.alsainacademy.wecap.mx/api/'
       console.log(this.API)
-    } else if(this.domainPrueba.includes('unitrade')) {
+    } else if(this.domainPrueba.includes('unitrade')) { //si la url contiene unitrade
       this.API = 'https://ci.unitrade.wecap.mx/api/'
       console.log(this.API)
-    } else if(this.domainPrueba.includes('joga')) {
+    } else if(this.domainPrueba.includes('joga')) { //si la url contiene joga 
       this.API = 'https://ci.joga.wecap.mx/api/'
       console.log(this.API)
-    } else if(this.domainPrueba.includes('cybershield')) {
+    } else if(this.domainPrueba.includes('cybershield')) { //si la url contiene cybershield
       this.API = 'https://ci.cybershield.wecap.mx/api/'
       console.log(this.API)
-    } else {
+    } else { //si no contiene ninguna de las anteriores
       this.API = 'https://ci.wecap.mx/api/'
       console.log(this.API)
       this.configuracion();
     }
   }
 
+  // redireccionar al login
   public redirect() {
     this.route.navigate(['']);
   }
 
+  // trae la configuración de ese usuario 
   configuracion() {
     this.getConfiguration().subscribe(
       (data: any) => {
@@ -62,6 +64,8 @@ export class SessionService {
       }
     );
   }
+
+  // api la configuración de ese usuario
   getConfiguration(token?: any) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -129,6 +133,8 @@ export class SessionService {
       })
     );
   }
+
+  //carga de archivos
   public uploadMedia(form, token) {
     //console.log(form)
     const headers = new HttpHeaders({

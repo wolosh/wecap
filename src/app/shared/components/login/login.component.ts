@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
         Swal.showLoading()
         this.session.login(this.formLogin.value.email, this.formLogin.value.password).subscribe(
           (data: Data) => {
-            //console.log(data)
+            console.log(data)
             //console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
             localStorage.setItem('token', data['token']);
             localStorage.setItem('userName', data['full_name']);

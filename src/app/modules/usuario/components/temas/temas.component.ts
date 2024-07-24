@@ -46,6 +46,7 @@ export class TemasComponent implements OnInit {
   comentArr: any;
   description = '';
   doc = '';
+  docBack = '';
   pdfSrc: string = '';
   //page = 0;
   totalPages: number;
@@ -403,6 +404,8 @@ export class TemasComponent implements OnInit {
           //console.log(this.doc)
 
         }
+        this.docBack = data.doc;
+        console.log(this.docBack)
         this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
         this.swalClosed();
 
@@ -570,6 +573,20 @@ export class TemasComponent implements OnInit {
     }
 
   }*/
+
+    public viewer(doc:string, type:any){
+      console.log(doc, type);
+      localStorage.setItem('doc', doc);
+      localStorage.setItem('hasFile', type);
+      if(this.finalizado == 0 ){
+      localStorage.setItem('nameTopic', this.nameTopic);
+    } else if(this.finalizado == 1){
+      localStorage.setItem('nameTopic', this.nameTopic + ' - Finalizado');
+    }
+      let url = this.route.serializeUrl(this.route.createUrlTree(['/viewer']));
+      window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+      //this.route.navigate(['/viewer', doc, type]);
+    }
 
   public temasSeccion(id: any, name?: any) {
     //console.log(this.idModule, id, name)
