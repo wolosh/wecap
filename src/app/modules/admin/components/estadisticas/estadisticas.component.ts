@@ -420,7 +420,12 @@ export class EstadisticasComponent implements OnInit {
       this.avance = data.avance;
       this.cursos = data.totalCursos;
       this.calificacion = data.promedioCalificacion;
-      this.tiempo = this.dosDecimales(data.promedioTiempo);
+      if(data.promedioTiempo == 'N/A'){
+        this.tiempo = 0;
+      } else {
+        this.tiempo = this.dosDecimales(data.promedioTiempo);
+      }
+      //this.tiempo = this.dosDecimales(data.promedioTiempo);
       this.intentos = data.promedioIntentos;
       console.log(this.tiempo)
 
@@ -685,8 +690,11 @@ export class EstadisticasComponent implements OnInit {
   }
 
   informe() {
-    this.get.getEstadisticasExcel(localStorage.getItem('token')).subscribe((data: any) => {
-      ///console.log(data)
+    let url = this.session.API + 'getEstadisticasExcel';
+    //console.log(url)
+    window.open(url, '_blank');
+    /*this.get.getEstadisticasExcel(localStorage.getItem('token')).subscribe((data: any) => {
+      console.log(data)
       const tempElement = document.createElement('div');
       tempElement.innerHTML = data;
       
@@ -716,13 +724,14 @@ export class EstadisticasComponent implements OnInit {
       const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
       const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
+      console.log(blob)
       link.href = window.URL.createObjectURL(blob);
       let date = new Date();
-      //console.log(date)
+      console.log(date)
       let fileName = 'Informe_' + date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + '.xlsx';
       link.download = fileName;
       link.click();
-    });
+    });*/
   }
 
 }
