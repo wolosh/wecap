@@ -12,11 +12,15 @@
                                 <iframe id="urlIframe" nombre="urlIframe" border="none" frameborder="1"
                                     [src]="this.chanceTow" allowfullscreen></iframe>
                             </div>
-                            <ngx-doc-viewer *ngIf="this.hasFile == 2" [url]="doc" viewer="office"
+
+                            <object *ngIf="this.hasFile == 1" #pdfview [data]='' type="application/pdf" width="100%" height="500px">
+                            </object>
+                            <!--<object width="610" height="400" data="https://ci.wecap.mx/media/temas/docs/DIPLOMAS EJEMPLOS.pdf#toolbar=0"></object>-->
+                            <!--<ngx-doc-viewer *ngIf="this.hasFile == 2" [url]="doc" viewer="office"
                                 style="aspect-ratio: 16/9;"></ngx-doc-viewer>
                             <ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" disableContent='popout' viewer="google"
-                                style="aspect-ratio: 16/9;"></ngx-doc-viewer>
-<!--<ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" disableContent='popout' viewer="google"
+                                style="aspect-ratio: 16/9;"></ngx-doc-viewer>-->
+                            <!--<ngx-doc-viewer *ngIf="this.hasFile == 1" [url]="doc" disableContent='popout' viewer="google"
                                 style="aspect-ratio: 16/9;"></ngx-doc-viewer>-->
                             <!--<pdf-viewer *ngIf="this.hasFile == 1" [src]="pdfSrc"
                                         [show-all]="false"
@@ -30,8 +34,9 @@
                               <p class="text4 txt-blue ps-4 pe-4 mb-0">{{ page }} / {{ totalPages }}</p>
                               <button class="boton3 w-auto text10 ps-3 pe-3" (click)="nextPage()" [disabled]="totalPages === 1 || page === totalPages"><i class="fas fa-chevron-right"></i></button>
                             </div>-->
-                            <button type="button" *ngIf="this.hasFile != 0" class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4"
-                            (click)="this.viewer(this.docBack, this.hasFile)">Ampliar documento</button>
+                            <button type="button" *ngIf="this.hasFile != 0"
+                                class="boton3 text5 mx-auto d-block mt-5 p-0 ps-4 pe-4"
+                                (click)="this.viewer(this.docBack, this.hasFile)">Ampliar documento</button>
 
                         </div>
                         <!--<div class="col-12 mt-5">

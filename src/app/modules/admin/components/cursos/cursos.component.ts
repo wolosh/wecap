@@ -2027,10 +2027,14 @@ export class CursosComponent implements OnInit {
     this.filenameD = this.imgTiempo.name;
     this.filetypeD = this.imgTiempo.type;
   }
+
+  
   fileTema(event, file?: any) {
     if (file) {
       //console.log(event.target.files[0])
+      
       this.fileSend = event.target.files[0];
+    
       //console.log(this.fileSend)
     } else {
       if (this.imgTemaDos != '') {
@@ -2041,12 +2045,15 @@ export class CursosComponent implements OnInit {
         const reader = new FileReader();
         reader.onload = (event: any) => {
           this.imgTemaDos = event.target.result;
-          //console.log(this.imgTemaDos)
+          console.log(this.imgTemaDos)
           //this.imgTema = this.helpers.dataUrlToFile(this.imgTema, this.imgTema.name);
         };
         reader.readAsDataURL(event.target.files[0])
       }
     }
+  }
+  b64Blob(arg0: string[], type: any) {
+    throw new Error('Method not implemented.');
   }
   fileTemaV(event) {
     if (this.imgTemaVDos != '') {

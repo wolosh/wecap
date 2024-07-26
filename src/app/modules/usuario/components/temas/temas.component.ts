@@ -22,9 +22,10 @@ import { ActivatedRoute } from '@angular/router';
 export class TemasComponent implements OnInit {
 
   @ViewChild('playerContainer') playerContainer: ElementRef;
+  @ViewChild('pdfview') pdfview: ElementRef;
 
   //id del quid
-
+  pdfContent: any;
   temasArr: any;
   finalizado = 0;
   arrFiles: any;
@@ -93,6 +94,7 @@ export class TemasComponent implements OnInit {
         allowOutsideClick: false,
         showConfirmButton: false,
         didOpen: () => {
+          
           Swal.showLoading();
            //window.onbeforeunload = this.helpers.confirmExit;
            //this.contador(1);
@@ -331,8 +333,8 @@ export class TemasComponent implements OnInit {
     //console.log(this.idUltimoTema)
 
     //console.log(localStorage.getItem('idModule'), localStorage.getItem('token'));
-    this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe((data: any) => {
-      console.log(data)
+    this.get.getOnlyTema(id, localStorage.getItem('token')).subscribe(async (data: any) => {
+      //console.log(data)
       if (data.like != null) {
         this.userLike = true;
         //console.log(data.like.tipo);
@@ -343,7 +345,7 @@ export class TemasComponent implements OnInit {
       }
       this.helpers.nameTopicBackUp = data.title;
       this.nameTopic = data.title;
-      console.log(data.doc)
+      //console.log(data.doc)
       //console.log(this.nameTopic)
       this.temasArr = data;
       //console.log(this.temasArr)
@@ -404,9 +406,16 @@ export class TemasComponent implements OnInit {
           //console.log(this.doc)
 
         }
+        
         this.docBack = data.doc;
         console.log(this.docBack)
         this.doc = this.helpers.domain + 'media/temas/docs/' + data.doc;
+        this.pdfContent = this.doc +
+        '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+        this.pdfview.nativeElement.setAttribute('data', this.pdfContent);
+       // Or your url
+        
+        console.log(this.doc)
         this.swalClosed();
 
       }
@@ -420,6 +429,10 @@ export class TemasComponent implements OnInit {
       Swal.close();
     });*/
   }
+
+ 
+
+  g
 
   async getUrl(id:any){
     let url2 = await fetch(id, {

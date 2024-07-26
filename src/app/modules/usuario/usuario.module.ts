@@ -15,6 +15,7 @@ import { SupportComponent } from './components/support/support.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 
 
+
 const routes: Routes = [
   {path: "cmtemplate", component: CursosModulosComponent},
   {path: "perfil", component: PerfilUsuarioComponent},

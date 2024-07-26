@@ -37,7 +37,6 @@ import { InstructorModule } from './modules/instructor/instructor.module';
     MatInputModule,
     ImageCropperModule,
     InstructorModule,
-
   ],
   exports: [RouterModule],
   providers: [],
