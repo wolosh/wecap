@@ -10,6 +10,11 @@
     font-weight: normal;
     src: url('../src/assets/font/Helvetica-Bold.ttf') format('truetype');
 }
+@media (min-width: 2000px) {
+    .container-lg {
+      max-width: 1600px;
+    }
+}
 @media (max-width: 1199.98px) {
     .text{font-size: 2rem !important;}
     .rounded-circle.border-blue{max-width: 110px !important;max-height: 110px !important;}
