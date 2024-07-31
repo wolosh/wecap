@@ -73,6 +73,7 @@ export class CursosModulosComponent implements OnInit {
             //console.log('si es diferente');
             this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.count, localStorage.getItem('token'), this.helpers.finalizado);
             this.helpers.pauseTimer(this.helpers.n);
+            this.helpers.pauseTimer(this.helpers.interval);
           }
           /*if(this.helpers.startDate != ''){
             console.log(this.helpers.idTopicBackUp,this.helpers.startDate)

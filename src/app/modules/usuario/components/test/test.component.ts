@@ -53,6 +53,7 @@ export class TestComponent implements OnInit {
   tiempo: number;
   calFinal: any;
   minScore: any;
+  countdownTimer: any;
 
   constructor(private activeRoute: ActivatedRoute, public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) {
     this.activeRoute.params.subscribe((params) => {
@@ -93,7 +94,7 @@ export class TestComponent implements OnInit {
           //Swal.close();
           this.getInfoExam(localStorage.getItem('idModule'))
           this.conferencias(localStorage.getItem('idCertification'))
-          this.startTimer();
+          
         }
       });
     } else if (localStorage.getItem('type') == '1') {
@@ -270,11 +271,15 @@ export class TestComponent implements OnInit {
     this.interval = setInterval(() => {
       this.helpers.interval = this.interval;
       if (this.timeLeft > 0) {
-        this.timeLeft--;
+        
+        console.log(this.timeLeft);
         //this.transform(this.timeLeft);
-        this.secondsToTime(this.timeLeft);
+          this.timeLeft--;
+          this.secondsToTime(this.timeLeft);
+        
       } else if (this.timeLeft === 0) {
         this.helpers.pauseTimer(this.interval);
+        this.helpers.pauseTimer(this.helpers.interval);
         this.timeLeft = undefined;
         Swal.fire({
           title: '¡Tiempo!',
@@ -304,19 +309,21 @@ export class TestComponent implements OnInit {
     var divisor_for_seconds = divisor_for_minutes % 60;
     var seconds = Math.ceil(divisor_for_seconds);
 
-    //console.log(hours, minutes, seconds);
+    console.log(hours, minutes, seconds);
     this.hoursDisplay = hours;
     this.minutesDisplay = minutes;
     this.secondsDisplay = seconds;
 
 
-    var obj = {
+    /*var obj = {
         "h": hours,
         "m": minutes,
         "s": seconds
     };
-    return obj;
+    return obj;*/
 }
+
+
 
 
   /*transform(value: number, args?: any) {

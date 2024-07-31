@@ -28,18 +28,20 @@ export class ViewerComponent implements OnInit {
   ngOnInit(): void {
     //console.log('viewer');
     //console.log(localStorage.getItem('file'));
-    if(localStorage.getItem('type') == '4'){
+    if (localStorage.getItem('type') == '4') {
       this.helpers.loader();
+      this.helpers.pauseTimer(this.helpers.n);
+      this.helpers.pauseTimer(this.helpers.interval);
       //console.log(localStorage.getItem('hasFile'), localStorage.getItem('doc'));
       this.nameTopic = localStorage.getItem('nameTopic');
-    this.hasFile =  parseInt(localStorage.getItem('hasFile'));
-    //console.log(this.hasFile);
-    this.doc = this.helpers.domain + 'media/temas/docs/' + localStorage.getItem('doc');
-    //console.log(this.doc);
-    setTimeout(() => {
-      this.generate();
-    }, 2000)
-    
+      this.hasFile = parseInt(localStorage.getItem('hasFile'));
+      //console.log(this.hasFile);
+      this.doc = this.helpers.domain + 'media/temas/docs/' + localStorage.getItem('doc');
+      //console.log(this.doc);
+      setTimeout(() => {
+        this.generate();
+      }, 2000)
+
     } else if (localStorage.getItem('type') == '1') {
       this.route.navigate(['/cursos']);
       /*if (localStorage.getItem('type') == '1') {
@@ -62,10 +64,10 @@ export class ViewerComponent implements OnInit {
     }
   }
 
-  generate(){
+  generate() {
     console.log('entro')
     this.pdfContent = this.doc +
-    '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+      '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
     this.pdfview.nativeElement.setAttribute('data', this.pdfContent);
     setTimeout(() => {
       Swal.close();

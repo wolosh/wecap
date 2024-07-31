@@ -61,6 +61,8 @@ export class SeccionComponent implements OnInit {
           this.getConferencias(localStorage.getItem('idCertification'));
           Swal.showLoading();
           this.helpers.nameTopicBackUp = '';
+          this.helpers.pauseTimer(this.helpers.n);
+            this.helpers.pauseTimer(this.helpers.interval);
           if (this.helpers.nameModuleBackUp == undefined || this.helpers.idModuleBackUp == undefined || this.helpers.nameModuleBackUp == '') {
             //this.helpers.nameModuleBackUp = localStorage.getItem('nameModule');
             this.helpers.idModuleBackUp = this.idModule;

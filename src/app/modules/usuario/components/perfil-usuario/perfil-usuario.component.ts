@@ -50,6 +50,7 @@ export class PerfilUsuarioComponent implements OnInit {
             //console.log('si es diferente');
             this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.count, localStorage.getItem('token'), this.helpers.finalizado);
             this.helpers.pauseTimer(this.helpers.n);
+            this.helpers.pauseTimer(this.helpers.interval);
           }
           /*if(this.helpers.count != 0){
             console.log(this.helpers.idTopicBackUp,this.helpers.startDate)
