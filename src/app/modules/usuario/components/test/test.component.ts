@@ -94,7 +94,7 @@ export class TestComponent implements OnInit {
           //Swal.close();
           this.getInfoExam(localStorage.getItem('idModule'))
           this.conferencias(localStorage.getItem('idCertification'))
-          
+          //this.startTimer();
         }
       });
     } else if (localStorage.getItem('type') == '1') {
@@ -248,10 +248,11 @@ export class TestComponent implements OnInit {
               this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
                 (data: any) => {
                   //console.log(data)
+                  this.startTimer();
                   this.idExamBackUp = data.id;
                   //console.log(this.idExamBackUp);
                   ////console.log(data);
-                  this.startTimer();
+                  //this.startTimer();
                 }
               );
             }
