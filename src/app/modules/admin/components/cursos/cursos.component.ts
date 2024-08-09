@@ -171,6 +171,8 @@ export class CursosComponent implements OnInit {
     //console.log(localStorage.getItem('type'))
     //console.log(this.helpers.view);
     Swal.close();
+    this.helpers.pauseTimer(this.helpers.n);
+      this.helpers.pauseTimer(this.helpers.interval);
     //this.getColumnas(1)
     //si el tipo de usuario es 1
     if (localStorage.getItem('type') == '1') {

@@ -110,6 +110,7 @@ export class TemasComponent implements OnInit {
     this.like = localStorage.getItem('isLike');
     this.helpers.goTop();
     this.helpers.pauseTimer(this.interval);
+    
     //console.log(this.helpers.idModuleBackUp, localStorage.getItem('idModule'))
     this.idModule = localStorage.getItem('idModule');
           this.helpers.nameModuleBackUp = '';

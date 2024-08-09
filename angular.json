@@ -5,6 +5,7 @@
   "projects": {
     "wecap_3.0_angular": {
       "projectType": "application",
+      
       "schematics": {
         "@schematics/angular:application": {
           "strict": true

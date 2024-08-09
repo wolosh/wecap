@@ -41,7 +41,8 @@ export class ConfiguracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
-    
+    this.helpers.pauseTimer(this.helpers.n);
+      this.helpers.pauseTimer(this.helpers.interval);
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
       this.helpers.goTop();

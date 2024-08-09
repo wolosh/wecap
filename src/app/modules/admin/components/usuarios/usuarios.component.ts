@@ -31,6 +31,8 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
+    this.helpers.pauseTimer(this.helpers.n);
+      this.helpers.pauseTimer(this.helpers.interval);
     //console.log(localStorage.getItem('token'));
     if (localStorage.getItem('type') == '1') {
       //console.log(this.searchArray)

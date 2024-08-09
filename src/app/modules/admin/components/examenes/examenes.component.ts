@@ -160,7 +160,8 @@ export class ExamenesComponent implements OnInit {
   ngOnInit(): void {
     //console.log(this.helpers.domainPrueba);
     console.log(localStorage.getItem('type'))
-
+    this.helpers.pauseTimer(this.helpers.n);
+      this.helpers.pauseTimer(this.helpers.interval);
     this.helpers.goTop();
     //si el usuario es administrador
     if (localStorage.getItem('type') == '1') {

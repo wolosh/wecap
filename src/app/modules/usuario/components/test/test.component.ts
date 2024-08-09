@@ -81,6 +81,7 @@ export class TestComponent implements OnInit {
           }
           this.helpers.type = localStorage.getItem('type');
           this.session.curso = true;
+          this.helpers.pauseTimer(this.helpers.n);
 
           ////console.log(this.helpers.nameModuleBackUp);
           ////console.log(localStorage.getItem('test'));

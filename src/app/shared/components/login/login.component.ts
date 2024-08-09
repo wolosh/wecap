@@ -21,10 +21,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.helpers.goTop();
+    this.helpers.pauseTimer(this.helpers.n);
+      this.helpers.pauseTimer(this.helpers.interval);
     if(this.helpers.count != 0 && this.helpers.finalizado != 2){
       //console.log('si es diferente');
       this.helpers.endTheme(this.helpers.idTopicBackUp, this.helpers.count, localStorage.getItem('token'), this.helpers.finalizado);
       this.helpers.pauseTimer(this.helpers.n);
+      this.helpers.pauseTimer(this.helpers.interval);
     }
     if(!localStorage.getItem('token')){
     this.startForm();
