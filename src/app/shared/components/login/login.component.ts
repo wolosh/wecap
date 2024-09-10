@@ -5,6 +5,8 @@ import { SessionService } from 'src/app/data/services/session.service';
 import { HelpersService } from 'src/app/data/services/helpers.service';
 import { GetService } from 'src/app/data/services/get.service';
 import Swal from 'sweetalert2';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
@@ -13,13 +15,28 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
+  //private config: {version: string};;
   formLogin: FormGroup;
   togglePassword: boolean; //Fin CheckBox para mostrar contraseña
   logo: string;
 
-  constructor(private get: GetService,private formBuilder: FormBuilder, private session: SessionService, private router: Router, public helpers: HelpersService) { }
+  constructor(private httpClient: HttpClient, private get: GetService,private formBuilder: FormBuilder, private session: SessionService, private router: Router, public helpers: HelpersService) { }
 
   ngOnInit(): void {
+    /*this.config = require("src/assets/config.json");
+    console.log(this.config.version);
+
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache').set('Pragma', 'no-cache');
+    this.httpClient
+      .get<{ version: string }>("/assets/config.json", {headers})
+      .subscribe(config => {
+        console.log(config.version);
+       if (config.version !== this.config.version) {
+          location.reload(); 
+        }
+      });*/
+  
+
     this.helpers.goTop();
     this.helpers.pauseTimer(this.helpers.n);
       this.helpers.pauseTimer(this.helpers.interval);

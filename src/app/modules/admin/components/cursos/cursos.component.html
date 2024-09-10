@@ -1312,7 +1312,7 @@
               (loadImageFailed)="loadImageFailed()"></image-cropper>-->
               
               <image-cropper *ngIf="this.isLogo == 3 || this.isLogo == 8" [resizeToWidth]="this.resizeWidth" [resizeToHeight]="this.resizeHeight" [imageChangedEvent]="imageChangedEvent"
-              [maintainAspectRatio]="true" [aspectRatio]="this.relation" format="jpeg" [transform]="transform"
+              [maintainAspectRatio]="true" [aspectRatio]="this.relation" format="png" [transform]="transform"
               (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
               (loadImageFailed)="loadImageFailed()"></image-cropper>
               <image-cropper *ngIf="this.isLogo != 3 && this.isLogo != 8" [resizeToWidth]="this.resizeWidth" [resizeToHeight]="this.resizeHeight" [imageChangedEvent]="imageChangedEvent"

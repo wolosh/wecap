@@ -31,6 +31,7 @@ export class PerfilUsuarioComponent implements OnInit {
   timeInTheme: any;
   times = [];
   urlDiploma = '0';
+  url2Diploma = '';
 
   constructor(public session: SessionService, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private route: Router) { }
 
@@ -172,9 +173,11 @@ export class PerfilUsuarioComponent implements OnInit {
                 //console.log(note)
               }
             }
+            this.diploma(this.userId, this.cursoSelected);
             //console.log(note)
-            if(note == parseInt(this.modulesCertifications.length)){
+            if(note == this.modulesCertifications.length){
               //console.log(note, this.modulesCertifications.length)
+              console.log('si')
               this.diploma(this.userId, this.cursoSelected);
             } else {
               //console.log(note, this.modulesCertifications.length)
@@ -244,7 +247,7 @@ export class PerfilUsuarioComponent implements OnInit {
   diploma(user:any, course:any){
     //console.log(user, course);
     this.get.getUserDiploma(user, course, localStorage.getItem('token')).subscribe((data: any) => {
-      //console.log(data);
+      console.log(data);
       if(data.code == 400){
         if(data.message == 'No se ha finalizado el modulo')
         {
@@ -266,7 +269,8 @@ export class PerfilUsuarioComponent implements OnInit {
         });*/
       }
       } else {
-        this.urlDiploma = this.helpers.domain + data.url;
+        console.log(data.url);
+        this.url2Diploma = this.helpers.domain + data.url;
         //window.open(this.urlDiploma, '_blank');
       }
       Swal.close();

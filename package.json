@@ -51,7 +51,7 @@
     "@types/ckeditor__ckeditor5-build-classic": "^29.0.1",
     "@types/ckeditor__ckeditor5-watchdog": "^29.0.1",
     "@types/jasmine": "~4.3.0",
-    "@types/node": "^20.8.10",
+    "@types/node": "^20.16.5",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
