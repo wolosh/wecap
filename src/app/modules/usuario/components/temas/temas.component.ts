@@ -58,6 +58,7 @@ export class TemasComponent implements OnInit {
   timeLeft: number = 60; //variabe timer
   interval: any;
   //variable para guardar el valor de el setInterval
+  t: any;
   n: any;
   count = 0;
   mouse = null;
@@ -99,9 +100,13 @@ export class TemasComponent implements OnInit {
            //window.onbeforeunload = this.helpers.confirmExit;
            //this.contador(1);
            //this.getActive();
-           this.timeOnScreen();
+           /*this.timeOnScreen();
            this.n = setInterval(() => {
             this.helpers.n = this.n;
+            this.contador(1);
+           }, 1000);*/
+           this.helpers.n = setInterval(() => {
+            //this.helpers.n = this.n;
             this.contador(1);
            }, 1000);
     this.helpers.name = localStorage.getItem('userName');
@@ -155,7 +160,8 @@ export class TemasComponent implements OnInit {
   };
 
   timeOnScreen(){
-    let mouse, t;
+    let mouse;
+    //let t;
   document.onmousemove = restartTime;
   document.onclick = restartTime;
     document.onscroll = restartTime;
@@ -211,8 +217,10 @@ export class TemasComponent implements OnInit {
 
   function restartTime(){
     //console.log('se mueve el mouse');
-    clearTimeout(t);
-      t = setTimeout(timeOut, 600000);
+    clearTimeout(this.helpers.t);
+    //clearTimeout(this.helpers.t);
+    //this.t = setTimeout(timeOut, 600000);
+      this.helpers.t = setTimeout(timeOut, 600000);
   }
 
   let stay = () => {
@@ -222,9 +230,10 @@ export class TemasComponent implements OnInit {
     document.onscroll = restartTime;
     restartTime();
     this.helpers.endTheme( this.idTopic, this.count, localStorage.getItem('token'), this.finalizado);
-    clearInterval(this.n);
-    this.n = setInterval(() => {
-    this.helpers.n = this.n;
+    //clearInterval(this.n);
+    clearInterval(this.helpers.n);
+    this.helpers.n = setInterval(() => {
+    //this.helpers.n = this.n;
     this.contador(1);
     }, 1000);
   };
@@ -233,7 +242,8 @@ export class TemasComponent implements OnInit {
     //console.log('se va')
     Swal.close();
     this.temasSeccion(this.idModule, this.helpers.nameModuleBackUp);
-    clearInterval(this.n);
+    //clearInterval(this.n);
+    clearInterval(this.helpers.n);
     this.contador(0, true)
   };
  
@@ -277,7 +287,8 @@ export class TemasComponent implements OnInit {
         //this.helpers.finalizado = this.finalizado;
       this.temaFinalizado(this.idTopic);
       }
-      clearInterval(this.n);
+      //clearInterval(this.n);
+      clearInterval(this.helpers.n);
     }
     //console.log(this.helpers.count, this.count);
   }
@@ -737,5 +748,7 @@ export class TemasComponent implements OnInit {
       }
     );
   }
-
+  support(type: string) {
+    this.route.navigate(['/soporte', type]); // Esto pasa 'academico' o 'tecnico'
+  }
 }

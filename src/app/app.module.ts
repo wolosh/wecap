@@ -18,6 +18,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { InstructorModule } from './modules/instructor/instructor.module';
 
 
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

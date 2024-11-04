@@ -131,8 +131,8 @@ export class CursosModulosComponent implements OnInit {
     );
   }
 
-  support(go:any){
-    this.route.navigate(['/soporte', go]);
+  support(type: string) {
+    this.route.navigate(['/soporte', type]); // Esto pasa 'academico' o 'tecnico'
   }
 
  

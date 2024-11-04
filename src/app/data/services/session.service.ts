@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Observable, catchError } from 'rxjs';
 import Swal from 'sweetalert2';
+import { throwError } from 'rxjs';
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class SessionService {
   //API: string = 'https://ci.americargo.wecap.mx/api/'
   //API: string = 'https://ci.alsainacademy.wecap.mx/api/'
   API: string = '';
+  public BASE_URL: string;
   public domainPrueba = document.location.origin;
 
 
@@ -27,26 +29,27 @@ export class SessionService {
   logo: string;
 
   constructor(private http: HttpClient, public route: Router) {
-    if (this.domainPrueba.includes('americargo')) { //si la url contiene americargo
-      this.API = 'https://ci.americargo.wecap.mx/api/'
-      console.log(this.API)
-    } else if (this.domainPrueba.includes('alsainacademy')) { //si la url contiene alsainacademy
-      this.API = 'https://ci.alsainacademy.wecap.mx/api/'
-      console.log(this.API)
-    } else if(this.domainPrueba.includes('unitrade')) { //si la url contiene unitrade
-      this.API = 'https://ci.unitrade.wecap.mx/api/'
-      console.log(this.API)
-    } else if(this.domainPrueba.includes('joga')) { //si la url contiene joga 
-      this.API = 'https://ci.joga.wecap.mx/api/'
-      console.log(this.API)
-    } else if(this.domainPrueba.includes('cybershield')) { //si la url contiene cybershield
-      this.API = 'https://ci.cybershield.wecap.mx/api/'
-      console.log(this.API)
-    } else { //si no contiene ninguna de las anteriores
-      this.API = 'https://ci.wecap.mx/api/'
-      console.log(this.API)
+    if (this.domainPrueba.includes('americargo')) {
+      this.API = 'https://ci.americargo.wecap.mx/api/';
+      this.BASE_URL = 'https://ci.americargo.wecap.mx/';
+    } else if (this.domainPrueba.includes('alsainacademy')) {
+      this.API = 'https://ci.alsainacademy.wecap.mx/api/';
+      this.BASE_URL = 'https://ci.alsainacademy.wecap.mx/';
+    } else if (this.domainPrueba.includes('unitrade')) {
+      this.API = 'https://ci.unitrade.wecap.mx/api/';
+      this.BASE_URL = 'https://ci.unitrade.wecap.mx/';
+    } else if (this.domainPrueba.includes('joga')) {
+      this.API = 'https://ci.joga.wecap.mx/api/';
+      this.BASE_URL = 'https://ci.joga.wecap.mx/';
+    } else if (this.domainPrueba.includes('cybershield')) {
+      this.API = 'https://ci.cybershield.wecap.mx/api/';
+      this.BASE_URL = 'https://ci.cybershield.wecap.mx/';
+    } else {
+      this.API = 'https://ci.wecap.mx/api/';
+      this.BASE_URL = 'https://ci.wecap.mx/';
       this.configuracion();
     }
+    console.log(this.API);
   }
 
   // redireccionar al login
@@ -622,6 +625,7 @@ export class SessionService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
+
     return this.http.post(`${this.API}calificaExamen`, form, {
       headers,
     }).pipe(
@@ -893,6 +897,31 @@ export class SessionService {
     );*/
   }
 
+  public sendSupportRequest(mailData: any, token: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    });
+  
+    return this.http.post(`${this.BASE_URL}mail`, mailData, {
+      headers,
+    });
+  }
+
+public enviarCorreoMasivo(formData: FormData, token: string) {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+  });
+
+  return this.http.post(`${this.BASE_URL}mailPost`, formData, {
+    headers,
+  }).pipe(
+    catchError((err) => {
+      return throwError(err);
+    })
+  );
+}
+
   public saveScore(form, token) {
     //console.log(form)
     //console.log(idUser,  token)
@@ -910,5 +939,6 @@ export class SessionService {
     );
   }
 
-}
 
+
+}

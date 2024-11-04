@@ -282,4 +282,7 @@ export class PerfilUsuarioComponent implements OnInit {
     // si no es un número devuelve el valor, o lo convierte a número con 2 decimales
     return isNaN(valor) ? valor : parseFloat(valor).toFixed(2);
   }
+  support(type: string) {
+    this.route.navigate(['/soporte', type]); // Esto pasa 'academico' o 'tecnico'
+  }
 }

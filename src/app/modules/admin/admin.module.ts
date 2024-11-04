@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { SharedModule } from '../../shared/shared.module';
 
 import { GridModule, EditService, ToolbarService, SortService, PageService } from '@syncfusion/ej2-angular-grids';
 //import { DatePickerAllModule } from '@syncfusion/ej2-calendars/datepicker/all-modules';
@@ -69,11 +70,16 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgxPaginationModule,
     MatFormFieldModule,
-    MatTableModule,
-    MatInputModule,
     DragDropModule,
     ImageCropperModule,
+    SharedModule,
     GridModule
+  ],
+  providers: [
+    EditService,
+    ToolbarService,
+    SortService,
+    PageService
   ],
   exports: [RouterModule, ArchivosComponent, ExamenesComponent, EstadisticasComponent, ConferenciasComponent, MailComponent, UsuariosComponent, ConfiguracionComponent]
 })

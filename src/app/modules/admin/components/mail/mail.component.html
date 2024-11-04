@@ -28,17 +28,20 @@
                             <thead>
                                 <tr>
                                     <th>Asunto</th>
-                                    <th>Fechas</th>
+                                    <th>Extracto</th>
                                     <th>Correos</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr
-                                    *ngFor="let mails of this.mail | paginate: { id: 'mail', itemsPerPage: 6, currentPage: p}; let i=index">
-                                    <th scope="row"><button type="button" class="boton4"
-                                            (click)="changeViewMail(1, 'editar', mails.id)">{{mails.asunto}}</button></th>
-                                    <td>{{fecha[i]}}</td>
-                                    <td>{{correo[i]}}</td>
+                                <tr *ngFor="let mails of this.mail | paginate: { id: 'mail', itemsPerPage: 6, currentPage: p}; let i=index">
+                                  <th scope="row">
+                                    <button type="button" class="boton4" (click)="changeViewMail(1, 'editar', mails.id)">
+                                      {{mails.asunto}}
+                                    </button>
+                                  </th>
+                                  <td>{{ mails.cuerpo | sanitize: 100 }}</td>
+                                  <td [innerHTML]="formatCorreos(mails.correos)"></td>
+                                  <!-- Si tienes otras columnas o acciones, agrégalas aquí -->
                                 </tr>
                             </tbody>
                         </table>
@@ -67,25 +70,24 @@
                           <div class="mb-3">
                               <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
                               <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                  formControlName="titulo">
-                              <div class="alert alert-danger" *ngIf="titulo.errors?.['required' ]">El campo es obligatorio.</div>
+                                  formControlName="asunto">
+                              <div class="alert alert-danger" *ngIf="asunto.errors?.['required' ]">El campo es obligatorio.</div>
                           </div>
                           <div class="mb-3">
                               <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
-                              <ckeditor [editor]="Editor" data=""  (ready)="onReady($event)" formControlName="cuerpo"></ckeditor>
+<!-- Para el campo de cuerpo del correo -->
+                                <ckeditor
+                                [editor]="Editor"
+                                data=""
+                                (ready)="onReady($event)"
+                                formControlName="cuerpo">
+                                </ckeditor>
                               <!--ckeditor [(ngModel)]="content" [config]="ckeditorConfig"></ckeditor-->
                               <div class="alert alert-danger" *ngIf="cuerpo.errors?.['required' ]">El campo es obligatorio.</div>
                           </div>
                           <div class="mb-3">
                               <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
-                              <input class="input3" type="file" id="formFile" (change)="files($event)">
-                          </div>
-                          <div class="mb-3">
-                              <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona las
-                                  fechas</label>
-                              <input type="date" class="input3 w-auto" id="exampleInputEmail1" value="{fecha[i]}"
-                                  formControlName="fechas">
-                              <div class="alert alert-danger" *ngIf="fechas.errors?.['required' ]">El campo es obligatorio.</div>
+                              <input class="input3" type="file" id="formFile" (change)="files($event)" multiple>
                           </div>
                           <div class="row">
                               <div class="col-md-2 col-lg-2">
@@ -126,14 +128,17 @@
                           <div class="row mt-4 mb-4" *ngIf="this.length != 0">
                               <div class="col-12 col-lg-6">
                                   <ul class="list-group">
-                                      <li class="list-group-item"
-                                          *ngFor="let user of searchArray | paginate: { itemsPerPage: 6, currentPage: pedit }">
-                                          <input class="form-check-input me-1 float-end" type="checkbox"
-                                              value="{{user.idUser}}" id="firstCheckbox"
-                                              (change)="changeValue($event)">
-                                          <label class="text13 txt-blue" for="firstCheckbox">{{user.full_name}}
-                                          </label>
-                                      </li>
+                                    <li class="list-group-item"
+                                    *ngFor="let user of searchArray | paginate: { itemsPerPage: 6, currentPage: pedit }">
+                                  <input
+                                    class="form-check-input me-1 float-end"
+                                    type="checkbox"
+                                    [value]="user.email"
+                                    [(ngModel)]="user.checked"
+                                    (change)="changeValue($event)"
+                                  >
+                                  <label class="text13 txt-blue">{{user.full_name}}</label>
+                                </li>
                                   </ul>
                               </div>
                               <div class="col-12">
@@ -146,10 +151,14 @@
                               <label class="text7 txt-gris d-block" *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
                             </div>
                           <div class="row">
-                              <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                  <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
-                                      (click)="saveCorreo()">Enviar</button>
-                              </div>
+                            <div class="row justify-content-center mt-3">
+                                <div class="col-6 col-md-3 col-lg-2 mx-1">
+                                  <button class="boton bg-blue w-100 p-1 p-md-2" (click)="saveCorreo()">Guardar</button>
+                                </div>
+                                <div class="col-6 col-md-3 col-lg-2 mx-1">
+                                  <button class="boton bg-blue w-100 p-1 p-md-2" (click)="enviarCorreo()">Enviar</button>
+                                </div>
+                            </div>
                           </div>
                       </form>
                     </div>
@@ -177,21 +186,20 @@
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Título</label>
                                 <input type="text" class="input3" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                    formControlName="titulo">
+                                    formControlName="asunto">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Cuerpo</label>
-                                <ckeditor [editor]="Editor" data=""  (ready)="onReady($event)" formControlName="cuerpo"></ckeditor>
+                                <ckeditor
+                                [editor]="Editor"
+                                data=""
+                                (ready)="onReady($event)"
+                                formControlName="cuerpo">
+                                </ckeditor>
                             </div>
                             <div class="mb-3">
                                 <label for="formFile" class="text13 txt-blue mb-2">Adjuntar archivos</label>
-                                <input class="input3" type="file" id="formFile" (change)="files($event)">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="text13 txt-blue mb-2">Selecciona las
-                                    fechas</label>
-                                <input type="date" class="input3 w-auto" id="exampleInputEmail1" value="{fecha[i]}"
-                                    formControlName="fechas">
+                                <input class="input3" type="file" id="formFile" (change)="files($event)" multiple>
                             </div>
                             <div class="row">
                                 <div class="col-md-2 col-lg-2">
@@ -233,13 +241,16 @@
                                 <div class="col-12 col-lg-6">
                                     <ul class="list-group">
                                         <li class="list-group-item"
-                                            *ngFor="let user of searchArray | paginate: { itemsPerPage: 6, currentPage: pedit }">
-                                            <input class="form-check-input me-1 float-end" type="checkbox"
-                                                value="{{user.idUser}}" id="firstCheckbox"
-                                                (change)="changeValue($event)">
-                                            <label class="text13 txt-blue" for="firstCheckbox">{{user.full_name}}
-                                            </label>
-                                        </li>
+                                        *ngFor="let user of searchArray | paginate: { itemsPerPage: 6, currentPage: pedit }">
+                                      <input
+                                        class="form-check-input me-1 float-end"
+                                        type="checkbox"
+                                        [value]="user.email"
+                                        [(ngModel)]="user.checked"
+                                        (change)="changeValue($event)"
+                                      >
+                                      <label class="text13 txt-blue">{{user.full_name}}</label>
+                                    </li>
                                         <!--<li class="list-group-item">
                                       <input class="form-check-input me-1 float-end" type="checkbox" value="" id="secondCheckbox">
                                       <label class="text13 txt-blue" for="secondCheckbox">Alejandra</label>
@@ -260,9 +271,13 @@
                                 <label class="text7 txt-gris d-block" *ngFor="let alumno of showArr">{{alumno.full_name}}</label>
                               </div>
                             <div class="row">
-                                <div class="col-6 col-md-4 offset-3 offset-md-4 col-lg-2 offset-lg-5 mt-3">
-                                    <button class="boton bg-blue mx-auto d-block w-100 p-1 p-md-2"
-                                        (click)="editCorreo()">Enviar</button>
+                                <div class="row justify-content-center mt-3">
+                                    <div class="col-6 col-md-3 col-lg-2 mx-1">
+                                      <button class="boton bg-blue w-100 p-1 p-md-2" (click)="editCorreo()">Guardar cambios</button>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-2 mx-1">
+                                      <button class="boton bg-blue w-100 p-1 p-md-2" (click)="enviarCorreo()">Enviar</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>

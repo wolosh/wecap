@@ -11,7 +11,7 @@ export class UploadAdapter {
         // Asegúrate de manejar las respuestas del servidor adecuadamente
         // Ejemplo básico de carga
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://ci.capitaltalento.com/API/img', true);
+        xhr.open('POST', 'https://ci.wecap.mx/uploadImg', true);
         //xhr.setRequestHeader('X-CSRF-TOKEN', token);
         const formData = new FormData();
         formData.append('img', file);

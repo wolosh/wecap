@@ -4,6 +4,7 @@ import { SessionService } from './session.service';
 import { Observable, catchError } from 'rxjs';
 import { HelpersService } from './helpers.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -112,15 +113,16 @@ export class GetService {
     });
   }
 
-  //api para traer modulos de un curso
-  getModules(id: any, token) {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(this.session.API + 'modulos/' + id, {
-      headers
-    });
-  }
+ // En get.service.ts
+
+ getModules(id: any, token) {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  return this.http.get(this.session.API + 'modulos/' + id, {
+    headers
+  });
+}
 
   //apipara traer la información de un modulo en especifico
   getinfoModulo(id: any, token) {
@@ -331,15 +333,18 @@ export class GetService {
     })
   }
 
-  //Info perfil
-  getPerfil(id: any,token: any) {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(this.session.API + 'perfil/' + id, {
-      headers,
-    })
-  }
+ // Método modificado para agregar parámetro único
+ getPerfil(id: any, token: any) {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+  });
+  const timestamp = new Date().getTime();
+  const url = `${this.session.API}perfil/${id}?t=${timestamp}`;
+  return this.http.get(url, {
+    headers,
+  });
+}
+
 
   //Info perfil
   getTemaVisto(id: any,token: any) {
@@ -518,5 +523,5 @@ export class GetService {
       responseType: 'text'
     });
   }
-
 }
+

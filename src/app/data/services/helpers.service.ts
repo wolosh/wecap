@@ -39,6 +39,7 @@ export class HelpersService {
   finalizado: number = 2;
   n: any;
   company = '';
+  t: any;
 
   constructor(private route: Router, public session:SessionService) {
     if (this.domainPrueba.includes('americargo')) { //si la url contiene americargo
@@ -184,6 +185,7 @@ export class HelpersService {
   public endTheme(idTheme:any, segundos:any, token:any, end?:any){
     this.pauseTimer(this.interval);
     this.pauseTimer(this.n);
+    this.pauseTimer(this.t);
     let tema = new FormData();
     let date = new Date();
 
@@ -204,6 +206,7 @@ export class HelpersService {
         this.startDate = '';
         this.finalizado = 2;
         this.count = 0;
+        
       }
     );
   }
@@ -226,6 +229,7 @@ export class HelpersService {
           }
           this.pauseTimer(this.interval);
           this.pauseTimer(this.n);
+          this.pauseTimer(this.t);
           this.type = 0;
           localStorage.removeItem('userName');
           localStorage.clear();

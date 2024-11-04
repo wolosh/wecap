@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { Data, Router } from '@angular/router';
 import { UploadAdapter } from '../mail/my-upload-adapter';
 
+
+
 @Component({
   selector: 'app-mail',
   templateUrl: './mail.component.html',
@@ -18,8 +20,6 @@ export class MailComponent implements OnInit {
   formNewMail: FormGroup;
   formMail: FormGroup;
   mail: any;
-  fecha: any = [];
-  asunto: any;
   correo: any = [];
   viewMail = 0;
   mailito: any;
@@ -37,14 +37,28 @@ export class MailComponent implements OnInit {
   idMail: any;
   objEmails = [] as any;
   mailCount: number = 0;
+  filesArray: FileList;
+  isEditing: boolean = false;
   /*editorPlaceholder:any = document.querySelector( '#editor' ) as HTMLElement;*/
 
-  constructor(private route: Router, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService) { }
+  constructor(private route: Router, private get: GetService, public helpers: HelpersService, private formBuilder: FormBuilder, private session: SessionService) {
+    // Exponer el componente para la consola
+    (window as any).mailComponent = this;
+    this.startForm();
+    // Configuración personalizada del editor 
+  }
+  
+  formatCorreos(correos: string): string {
+    if (!correos) return '';
+    return correos.replace(/,/g, '<br>');
+  }
 
   ngOnInit(): void {
     this.helpers.goTop();
     this.helpers.pauseTimer(this.helpers.n);
     this.helpers.pauseTimer(this.helpers.interval);
+      // Inicializar los formularios aquí
+    this.startForm();
     if (localStorage.getItem('type') == '1') {
       this.helpers.loader();
       this.helpers.type = localStorage.getItem('type');
@@ -80,17 +94,19 @@ export class MailComponent implements OnInit {
   } );*/
 
   startForm() {
-    this.formNewMail = this.formBuilder.group({
-      titulo: ['', [Validators.required]],
-      fechas: ['', [Validators.required]],
-      cuerpo: ['', [Validators.required]],
-    });
-
-    this.formMail = this.formBuilder.group({
-      titulo: ['', [Validators.required]],
-      fechas: ['', [Validators.required]],
-      cuerpo: ['', [Validators.required]],
-    });
+    if (!this.formNewMail) {
+      this.formNewMail = this.formBuilder.group({
+        asunto: ['', [Validators.required]],
+        cuerpo: ['', [Validators.required]],
+      });
+    }
+  
+    if (!this.formMail) {
+      this.formMail = this.formBuilder.group({
+        asunto: ['', [Validators.required]],
+        cuerpo: ['', [Validators.required]],
+      });
+    }
 
     this.formSearch = this.formBuilder.group({
       filter: [''],
@@ -99,14 +115,11 @@ export class MailComponent implements OnInit {
       users: [''],
     });
   }
-  get titulo() {
-    return this.formNewMail.get('titulo');
+  get asunto() {
+    return this.formNewMail.get('asunto');
   }
   get cuerpo() {
     return this.formNewMail.get('cuerpo');
-  }
-  get fechas() {
-    return this.formNewMail.get('fechas');
   }
 
   onClickTab() {
@@ -129,13 +142,9 @@ export class MailComponent implements OnInit {
   mails() {
     this.get.getMails(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
         for (var i = 0; i < data.length; i++) {
-          //console.log(data[i])
-          this.fecha.push(JSON.parse(data[i].fechas));
           this.correo.push(JSON.parse(data[i].correos));
         }
-        //console.log(this.fecha);
         this.mail = data;
         this.mailCount = data.length;
         Swal.close();
@@ -143,11 +152,10 @@ export class MailComponent implements OnInit {
     );
   }
   files(event) {
-    this.img = event.target.files[0]
+    this.filesArray = event.target.files;
   }
 
-  changeViewMail(type: any, kind?: any, id?: any,) {
-    //console.log(type, id, kind);
+  changeViewMail(type: any, kind?: any, id?: any) {
     Swal.fire({
       title: 'Cargando...',
       html: 'Espera un momento por favor',
@@ -159,36 +167,48 @@ export class MailComponent implements OnInit {
           case 0:
             this.viewMail = type;
             this.mails();
+            this.isEditing = false;
             break;
-          case 1:
-            this.viewMail = type;
-            this.startForm();
-            if (kind == 'editar') {
-              this.mail.forEach((element: any) => {
-                if (element.id == id) {
-                  this.idMail=element.id
-                  this.formMail.controls['titulo'].setValue(element.asunto);
-                  this.formMail.controls['fechas'].setValue(JSON.parse(element.fechas));
-                  this.formMail.controls['cuerpo'].setValue(element.cuerpo);
-                }
-              });
-              this.users();
-              //console.log(this.mailito);
-            }
-            break;
+            case 1:
+              this.viewMail = type;
+              this.startForm();
+            
+              // Vaciar la lista de destinatarios
+              this.objUsers = [];
+              this.showArr = [];
+              
+              if (this.searchArray) {
+                this.searchArray.forEach(user => {
+                  user.checked = false;
+                });
+              }
+            
+              if (kind == 'editar') {
+                this.isEditing = true;
+                this.mail.forEach((element: any) => {
+                  if (element.id == id) {
+                    this.idMail = element.id;
+                    this.formMail.controls['asunto'].setValue(element.asunto);
+                    this.formMail.controls['cuerpo'].setValue(element.cuerpo);
+                    // No cargar los destinatarios antiguos
+                    // const correosLimpios = element.correos.replace(/['"\\]/g, '').trim();
+                    // this.objUsers = correosLimpios ? correosLimpios.split(',').map(email => email.trim()) : [];
+                  }
+                });
+                this.users();
+              }
+              break;
           case 2:
             if (kind == 'crear') {
               this.startForm();
               this.viewMail = type;
-
-                //console.log('nuevo');
+              this.isEditing = false;
               Swal.close();
             }
             break;
         }
-
       }
-    })
+    });
   }
 
   onReady(eventData) {
@@ -275,23 +295,18 @@ export class MailComponent implements OnInit {
   }
 
   changeValue(event: any) {
-    //console.log(event.target.value);
+    const userEmail = event.target.value;
     if (event.target.checked) {
-      //console.log(event.target.checked);
-      //this.objUsers.push(event.target.value);
-      this.searchArray.forEach(element => {
-        //console.log(this.searchArray)
-        if (element.idUser === event.target.value) {
-          this.objUsers.push(element.email);
-          //console.log(this.objUsers)
-        }
-      })
+      if (!this.objUsers.includes(userEmail)) {
+        this.objUsers.push(userEmail);
+      }
     } else {
-      ////console.log(event.target.checked);
-      this.objUsers.splice(this.objUsers.indexOf(event.target.value), 1);
-      //console.log(this.objUsers)
+      const index = this.objUsers.indexOf(userEmail);
+      if (index > -1) {
+        this.objUsers.splice(index, 1);
+      }
     }
-    this.showUsers(event.target.value);
+    console.log('Destinatarios seleccionados:', this.objUsers);
   }
 
   showUsers(array: any) {
@@ -324,13 +339,14 @@ export class MailComponent implements OnInit {
   users(type?: any) {
     this.get.getUsers(localStorage.getItem('token')).subscribe(
       (data: any) => {
-        //console.log(data);
         if (type == 'modify') {
           this.users = data.users;
         } else if (type == 'show') {
-          this.searchArray = data.users;
+          // Inicializar la propiedad 'checked' de cada usuario
+          this.searchArray = data.users.map(user => {
+            return { ...user, checked: false };
+          });
           this.length = data.users.length;
-          //console.log(this.searchArray, this.length)
         }
         Swal.close();
       }
@@ -354,7 +370,7 @@ export class MailComponent implements OnInit {
   /*saveCorreo() {
     let mail = new FormData();
     mail.append('id', this.idMail);
-    mail.append('asunto', this.formMail.value.titulo);
+    mail.append('asunto', this.formMail.value.asunto);
     mail.append('cuerpo', this.formMail.value.cuerpo);
     mail.append('fechas', this.formMail.value.fechas);
     mail.append('correos', this.objUsers);
@@ -384,66 +400,196 @@ export class MailComponent implements OnInit {
     );
   }*/
 
-  saveCorreo(){
-    let mailNew = new FormData();
-    mailNew.append('asunto', this.formNewMail.value.titulo);
-    mailNew.append('cuerpo', this.formNewMail.value.cuerpo);
-    mailNew.append('fechas', this.formNewMail.value.fechas);
-    mailNew.append('correos', this.objUsers);
-    if(this.img != undefined){
-      mailNew.append('files',this.img);
-    }else{
-      mailNew.append('files',this.img);
+    saveCorreo() {
+      console.log('Formulario antes de guardar:', this.formNewMail.value); // Este log ayuda a verificar los datos
+    
+      let mailData = new FormData();
+      mailData.append('asunto', this.formNewMail.get('asunto').value || '');
+      mailData.append('cuerpo', this.formNewMail.get('cuerpo').value || '');
+      mailData.append('correos', this.objUsers.length > 0 ? this.objUsers.join(',') : '');
+      mailData.append('fechas', '01/01/2022'); // Envía fechas como un campo vacío
+    
+      if (this.filesArray && this.filesArray.length > 0) {
+        for (let i = 0; i < this.filesArray.length; i++) {
+          mailData.append('files[]', this.filesArray[i]);
+        }
+      }
+    
+      // Imprimir el contenido de FormData para depuración
+      mailData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+    
+      this.session.newEmail(mailData, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          Swal.fire({
+            title: '¡Guardado con éxito!',
+            text: 'El correo ha sido guardado correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          });
+        },
+        (error: any) => {
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al guardar el correo.',
+            icon: 'error',
+            confirmButtonColor: '#015287',
+          });
+          console.error('Error al guardar el correo:', error);
+        }
+      );
     }
-    ////console.log(mail.getAll('fechas'))
-    //console.log(mailNew.getAll('asunto'), mailNew.getAll('cuerpo'), mailNew.getAll('fechas'), mailNew.getAll('correos'), mailNew.getAll('files'));
-    this.session.newEmail(mailNew, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        //console.log(data);
+    editCorreo() {
+      console.log('Formulario antes de editar:', this.formMail.value); // Log para verificar datos antes de enviar
+    
+      let mailData = new FormData();
+      mailData.append('asunto', this.formMail.get('asunto').value || '');
+      mailData.append('cuerpo', this.formMail.get('cuerpo').value || '');
+      mailData.append('correos', this.objUsers.length > 0 ? this.objUsers.join(',') : '');
+      mailData.append('fechas', '01/01/2022'); // Envía fechas como un campo vacío
+    
+      if (this.filesArray && this.filesArray.length > 0) {
+        for (let i = 0; i < this.filesArray.length; i++) {
+          mailData.append('files[]', this.filesArray[i]);
+        }
+      }
+    
+      // Imprimir el contenido de FormData para depuración
+      mailData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+    
+      this.session.editCorreo(this.idMail, mailData, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          Swal.fire({
+            title: '¡Actualizado con éxito!',
+            text: 'El correo ha sido actualizado correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#015287',
+          });
+        },
+        (error: any) => {
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al actualizar el correo.',
+            icon: 'error',
+            confirmButtonColor: '#015287',
+          });
+          console.error('Error al actualizar el correo:', error);
+        }
+      );
+    }
+
+    onChange({ editor }: any) {
+      const data = editor.getData();
+      this.formNewMail.controls['cuerpo'].setValue(data);
+    }
+    enviarCorreo() {
+      let asunto: string = '';
+      let cuerpo: string = '';
+    
+      // Verificar si estamos en modo de edición y si el formulario está inicializado
+      if (this.isEditing && this.formMail) {
+        asunto = this.formMail.get('asunto')?.value || '';
+        cuerpo = this.formMail.get('cuerpo')?.value || '';
+      } 
+      // Verificar si estamos creando un nuevo correo y si el formulario está inicializado
+      else if (!this.isEditing && this.formNewMail) {
+        asunto = this.formNewMail.get('asunto')?.value || '';
+        cuerpo = this.formNewMail.get('cuerpo')?.value || '';
+      } else {
+        console.error("El formulario no está inicializado correctamente.");
         Swal.fire({
-          title: '¡Actualizado con exito!',
-          text: 'El módulo ha sido actualizado.',
-          icon: 'success',
+          title: 'Error',
+          text: 'El formulario no está inicializado correctamente.',
+          icon: 'error',
           confirmButtonColor: '#015287',
         });
-        this.changeViewMail(0);
-        this.mails();
-        this.searchArray = [];
-        this.showLength = 0;
+        return;
       }
-    );
-  }
-  editCorreo() {
-    let mail = new FormData();
-    mail.append('id', this.idMail);
-    mail.append('asunto', this.formMail.value.titulo);
-    mail.append('cuerpo', this.formMail.value.cuerpo);
-    mail.append('fechas', this.formMail.value.fechas);
-    mail.append('correos', this.objUsers);
-    if(this.img != undefined){
-      mail.append('files',this.img);
-    }else{
-      mail.append('files',this.img);
-    }
-    ////console.log(mail.getAll('fechas'))
-    //console.log(mail.getAll('id'), mail.getAll('asunto'), mail.getAll('cuerpo'), mail.getAll('fechas'), mail.getAll('correos'), mail.getAll('files'));
-    this.session.editCorreo(this.idMail, mail, localStorage.getItem('token')).subscribe(
-      (data: any) => {
-        //console.log(data);
+    
+      // Validar que asunto y cuerpo no estén vacíos
+      if (!asunto || !cuerpo) {
         Swal.fire({
-          title: '¡Actualizado con exito!',
-          text: 'El módulo ha sido actualizado.',
-          icon: 'success',
+          title: 'Error',
+          text: 'El asunto y el cuerpo del correo son obligatorios.',
+          icon: 'error',
           confirmButtonColor: '#015287',
         });
-        //this.modules(this.idCertification);
-        /*this.temas(this.idModulo);*/
-        //this.searchUsers('editar');
-        this.changeViewMail(0);
-        this.mails();
-        this.searchArray = [];
-        this.showLength = 0;
+        return;
       }
-    );
+    
+      // Eliminar posibles duplicados y correos vacíos
+      const correosUnicos = Array.from(new Set(this.objUsers)).filter(email => email);
+      
+      // Verificar que hay al menos un correo válido
+      if (correosUnicos.length === 0) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Debes seleccionar al menos un destinatario válido.',
+          icon: 'error',
+          confirmButtonColor: '#015287',
+        });
+        return;
+      }
+    
+      // Convertir el arreglo a una cadena separada por comas sin comillas adicionales
+      const correosString = correosUnicos.join(',');
+    
+      console.log('Asunto:', asunto);
+      console.log('Cuerpo:', cuerpo);
+      console.log('Destinatarios:', correosUnicos);
+      console.log('Cadena de correos:', correosString);
+    
+      let mailData = new FormData();
+      mailData.append('asunto', asunto);
+      mailData.append('cuerpo', cuerpo);
+      mailData.append('correos', correosString);
+      mailData.append('fechas', '01/01/2022'); // Si el backend lo requiere
+    
+      if (this.filesArray && this.filesArray.length > 0) {
+        for (let i = 0; i < this.filesArray.length; i++) {
+          mailData.append('files[]', this.filesArray[i]);
+        }
+      }
+    
+      // Imprimir el contenido de FormData
+      mailData.forEach((value, key) => {
+        console.log(`${key}:`, value);
+      });
+    
+      this.session.enviarCorreoMasivo(mailData, localStorage.getItem('token')).subscribe(
+        (data: any) => {
+          if (data && data.code === 200 && data.message === 'Enviado') {
+            Swal.fire({
+              title: '¡Enviado con éxito!',
+              text: 'El correo ha sido enviado correctamente.',
+              icon: 'success',
+              confirmButtonColor: '#015287',
+            }).then(() => {
+              this.changeViewMail(0);
+              this.mails();
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: data.message || 'Hubo un problema al enviar el correo.',
+              icon: 'error',
+              confirmButtonColor: '#015287',
+            });
+          }
+        },
+        (error: any) => {
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al enviar el correo. Asegúrate de que todos los campos estén completos.',
+            icon: 'error',
+            confirmButtonColor: '#015287',
+          });
+          console.error('Error al enviar el correo:', error);
+        }
+      );
+    }
+    
   }
-}

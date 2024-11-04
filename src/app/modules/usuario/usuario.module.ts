@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { CursosModulosComponent } from './components/cursos-modulos/cursos-modulos.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
@@ -14,16 +13,14 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SupportComponent } from './components/support/support.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 
-
-
 const routes: Routes = [
-  {path: "cmtemplate", component: CursosModulosComponent},
-  {path: "perfil", component: PerfilUsuarioComponent},
-  {path: "temas/:idTopic", component: TemasComponent},
-  {path: "test/:idTest", component: TestComponent},
-  {path: "seccion/:idModule", component: SeccionComponent},
-  {path: "soporte/:type", component: SupportComponent},
-  {path: "viewer", component: ViewerComponent}
+  { path: "cmtemplate", component: CursosModulosComponent },
+  { path: "perfil", component: PerfilUsuarioComponent },
+  { path: "temas/:idTopic", component: TemasComponent },
+  { path: "test/:idTest", component: TestComponent },
+  { path: "seccion/:idModule", component: SeccionComponent },
+  { path: "soporte/:type", component: SupportComponent },
+  { path: "viewer", component: ViewerComponent },
 ];
 
 @NgModule({
@@ -38,11 +35,13 @@ const routes: Routes = [
   ],
   imports: [
     CarouselModule,
-    BrowserModule,
     NgxDocViewerModule,
     PdfViewerModule,
-    CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule
-  ], exports: [RouterModule, CursosModulosComponent, PerfilUsuarioComponent, TemasComponent, TestComponent, ViewerComponent]
+    CommonModule,  // Esto es lo que necesitas en lugar de BrowserModule
+    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports: [RouterModule, CursosModulosComponent, PerfilUsuarioComponent, TemasComponent, TestComponent, ViewerComponent, SupportComponent]
 })
 export class UsuarioModule { }
-

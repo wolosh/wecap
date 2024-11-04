@@ -96,6 +96,10 @@ export class LoginComponent implements OnInit {
             //console.log(data, data['token'], localStorage.getItem('token'), this.session.userName, this.session.idUser);
             localStorage.setItem('token', data['token']);
             localStorage.setItem('userName', data['full_name']);
+                      // Guardar idUser si está en la respuesta
+          if (data['id']) {
+            localStorage.setItem('idUser', data['id']); 
+          }
             //console.log(localStorage.getItem('userName'))
             if(data['is_admin'] == 0){
               localStorage.setItem('type', '4');

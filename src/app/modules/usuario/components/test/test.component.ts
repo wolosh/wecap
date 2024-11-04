@@ -245,15 +245,13 @@ export class TestComponent implements OnInit {
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);
-              //console.log(start.get('idExamen'));
+              // Agregamos el idUser al formulario
+              start.append('idUser', localStorage.getItem('idUser'));
+
               this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
                 (data: any) => {
-                  //console.log(data)
                   this.startTimer();
                   this.idExamBackUp = data.id;
-                  //console.log(this.idExamBackUp);
-                  ////console.log(data);
-                  //this.startTimer();
                 }
               );
             }
@@ -710,5 +708,8 @@ export class TestComponent implements OnInit {
         this.length = 0;
       }
     }*/
+  }
+  support(type: string) {
+    this.route.navigate(['/soporte', type]); // Esto pasa 'academico' o 'tecnico'
   }
 }
