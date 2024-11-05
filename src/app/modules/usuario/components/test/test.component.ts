@@ -210,18 +210,24 @@ export class TestComponent implements OnInit {
         //console.log(this.nameExam, this.questionsExam, this.timeLeft, segundos)
         this.get.getCalificacion(data.idExamen, localStorage.getItem('token')).subscribe(
           (data: any) => {
-            //console.log(data);
-            //console.log(score);
-            //console.log(parseInt(data.calificacion));
-            if (parseInt(data.calificacion) >= score) {
-              //console.log(score)
-              //Swal.close();
-              //console.log(data)
+            if (data.calificacion == null || data.calificacion == undefined) {
+              // Primera vez que el usuario realiza el examen
+              this.valido = false;
+              let start = new FormData();
+              start.append('idExamen', this.idExamBackUp);
+              this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
+                (data: any) => {
+                  this.startTimer();
+                  this.idExamBackUp = data.id;
+                }
+              );
+            } else if (parseInt(data.calificacion) >= score) {
+              // Usuario aprobó el examen
               this.valido = true;
               this.score = parseInt(data.calificacion);
               Swal.fire({
                 title: '¡Felicidades!',
-                text: 'Aprobaste el test, ya no tienes mas intentos',
+                text: 'Aprobaste el test, ya no tienes más intentos',
                 icon: 'success',
                 confirmButtonColor: '#015287',
               }).then((result) => {
@@ -229,12 +235,12 @@ export class TestComponent implements OnInit {
                   this.temasSeccion(this.helpers.idModuleBackUp, this.helpers.nameTopicBackUp);
                 }
               });
-            } else if(data.calificacion == 'Pendiente de calificacion'){
-              //console.log('pendiente');
+            } else if (data.calificacion == 'Pendiente de calificacion') {
+              // Examen pendiente de calificación
               Swal.fire({
                 title: '¡Calificación pendiente!',
-                text: 'Pronto uno de los administradores calificara tus respuestas.',
-                icon: 'success',
+                text: 'Pronto uno de los administradores calificará tus respuestas.',
+                icon: 'info',
                 confirmButtonColor: '#015287',
               }).then((result) => {
                 if (result.isConfirmed) {
@@ -242,12 +248,12 @@ export class TestComponent implements OnInit {
                 }
               });
             } else if (parseInt(data.calificacion) < score) {
+              // Usuario no aprobó el examen
               this.valido = false;
               let start = new FormData();
               start.append('idExamen', this.idExamBackUp);
-              // Agregamos el idUser al formulario
-              start.append('idUser', localStorage.getItem('idUser'));
-
+                            // Agregamos el idUser al formulario
+                            start.append('idUser', localStorage.getItem('idUser'));
               this.session.iniciaExamen(start, localStorage.getItem('token')).subscribe(
                 (data: any) => {
                   this.startTimer();
@@ -255,7 +261,6 @@ export class TestComponent implements OnInit {
                 }
               );
             }
-            ////console.log(this.valido)
           }
         );
       }
